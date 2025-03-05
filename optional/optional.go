@@ -26,6 +26,10 @@ func (o Elem[E]) IsEmpty() bool {
 	return !o.exist
 }
 
+func (o Elem[E]) IsPresent() bool {
+	return o.exist
+}
+
 func (o Elem[E]) IsNotEmpty() bool {
 	return o.exist
 }
