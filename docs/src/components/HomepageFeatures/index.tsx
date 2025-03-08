@@ -33,7 +33,7 @@ const FeatureList: FeatureItem[] = [
         Svg: require('@site/static/img/iterators.svg').default,
         description: (
             <>
-                Supercharges Go iterators (iter.Seq and iter.Seq2) for pleasant and seamless usability!"
+                Supercharges Go iterators (iter.Seq and iter.Seq2) for pleasant and seamless usability!
             </>
         ),
     },
