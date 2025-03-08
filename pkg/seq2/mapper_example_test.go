@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"strings"
 
+	"github.com/go-softwarelab/common/pkg/seq"
 	"github.com/go-softwarelab/common/pkg/seq2"
 )
 
@@ -95,18 +96,13 @@ func ExampleMapTo() {
 		return fmt.Sprintf("%s=%d", k, v)
 	})
 
-	// Collect into a slice for display
-	var result []string
-	for v := range mapped {
-		result = append(result, v)
-	}
-
-	// Sort for consistent output
-	seq2.Sort(seq2.FromSlice(result))
-
-	fmt.Println(result)
+	seq.ForEach(mapped, func(v string) {
+		fmt.Println(v)
+	})
 	// Output:
-	// [a=1 b=2 c=3]
+	// a=1
+	// b=2
+	// c=3
 }
 
 func ExampleNarrow() {
@@ -115,21 +111,16 @@ func ExampleNarrow() {
 
 	// Narrow is an alias for MapTo
 	mapped := seq2.Narrow(input, func(k string, v int) string {
-		return fmt.Sprintf("%s-%d", k, v)
+		return fmt.Sprintf("%s=%d", k, v)
 	})
 
-	// Collect into a slice for display
-	var result []string
-	for v := range mapped {
-		result = append(result, v)
-	}
-
-	// Sort for consistent output
-	seq2.Sort(seq2.FromSlice(result))
-
-	fmt.Println(result)
+	seq.ForEach(mapped, func(v string) {
+		fmt.Println(v)
+	})
 	// Output:
-	// [a-1 b-2 c-3]
+	// a=1
+	// b=2
+	// c=3
 }
 
 func ExampleCycle() {

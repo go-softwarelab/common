@@ -44,6 +44,7 @@ func Tick(d time.Duration) iter.Seq[time.Time] {
 	return func(yield func(time.Time) bool) {
 		ticker := time.NewTicker(d)
 		defer ticker.Stop()
+		//nolint:gosimple
 		for {
 			select {
 			case t := <-ticker.C:

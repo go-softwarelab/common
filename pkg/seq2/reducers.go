@@ -28,13 +28,14 @@ func FoldValues[K any, V any](seq2 iter.Seq2[K, V], accumulator func(agg V, key 
 	next, stop := iter.Pull2(seq2)
 	defer stop()
 
-	k, v, ok := next()
+	_, v, ok := next()
 	if !ok {
 		return optional.Empty[V]()
 	}
 
 	result := v
 	for {
+		var k K
 		k, v, ok = next()
 		if !ok {
 			break
@@ -57,13 +58,14 @@ func FoldKeys[K any, V any](seq2 iter.Seq2[K, V], accumulator func(agg K, key K,
 	next, stop := iter.Pull2(seq2)
 	defer stop()
 
-	k, v, ok := next()
+	k, _, ok := next()
 	if !ok {
 		return optional.Empty[K]()
 	}
 
 	result := k
 	for {
+		var v V
 		k, v, ok = next()
 		if !ok {
 			break
