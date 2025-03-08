@@ -1,0 +1,39 @@
+name: "Test and lint the branch"
+
+on:
+  push:
+    branches-ignore:
+      - main
+      - master
+
+permissions:
+  contents: write
+  pull-requests: read
+
+jobs:
+  on-push:
+    uses: bactions/workflows/.github/workflows/on-push-go.yml@go-generate
+    secrets:
+      DEPLOY_KEY: ${{ secrets.DEPLOYMENT_KEY }}
+  test-docs:
+    name: Test build of docs page
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          ref: ${{ github.ref }}
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: docs/package.json
+          cache: yarn
+          cache-dependency-path: docs/yarn.lock
+
+      - name: Install dependencies
+        run: yarn install --frozen-lockfile
+        working-directory: docs
+
+      - name: Build website
+        run: yarn build
+        working-directory: docs
