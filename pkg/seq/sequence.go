@@ -6,6 +6,7 @@ import (
 	"github.com/go-softwarelab/common/pkg/optional"
 )
 
+// Sequence is a monad representing a sequence of elements.
 type Sequence[E comparable] struct {
 	seq iter.Seq[E]
 }

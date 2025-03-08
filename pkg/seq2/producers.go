@@ -6,6 +6,7 @@ import (
 	"time"
 )
 
+// Empty returns an empty sequence.
 func Empty[K, V any]() iter.Seq2[K, V] {
 	return func(yield func(K, V) bool) {}
 }
@@ -77,6 +78,7 @@ func Tick(d time.Duration) iter.Seq2[int, time.Time] {
 		ticker := time.NewTicker(d)
 		defer ticker.Stop()
 
+		//nolint:gosimple
 		for {
 			select {
 			case t := <-ticker.C:

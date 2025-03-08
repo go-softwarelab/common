@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"strings"
 
+	"github.com/go-softwarelab/common/pkg/seq"
 	"github.com/go-softwarelab/common/pkg/seq2"
 )
 
@@ -205,28 +206,26 @@ func ExampleSequence_Keys() {
 	sequence := seq2.AsSequence(seq2.Of("a", "b", "c"))
 	keys := sequence.Keys()
 
-	var result []int
-	for k := range keys {
-		result = append(result, k)
-	}
-
-	fmt.Println(result)
+	seq.ForEach(keys, func(k int) {
+		fmt.Println(k)
+	})
 	// Output:
-	// [0 1 2]
+	// 0
+	// 1
+	// 2
 }
 
 func ExampleSequence_Values() {
 	sequence := seq2.AsSequence(seq2.Of("a", "b", "c"))
 	values := sequence.Values()
 
-	var result []string
-	for v := range values {
-		result = append(result, v)
-	}
-
-	fmt.Println(result)
+	seq.ForEach(values, func(v string) {
+		fmt.Println(v)
+	})
 	// Output:
-	// [a b c]
+	// a
+	// b
+	// c
 }
 
 func ExampleSequence_Find() {
