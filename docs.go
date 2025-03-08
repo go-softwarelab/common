@@ -1,3 +1,3 @@
-package go_softwarelab_common
+package docs
 
-//go:generate cd tools & go run gen_docs.go
+//go:generate go run -C ./tools gen_docs.go
