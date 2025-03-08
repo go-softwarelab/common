@@ -45,9 +45,3 @@ func main() {
 	})
 }
 ```
-
-## Documentation
-
-For more detailed documentation and examples, please visit [Go Common Utils](https://go-softwarelab.github.io/common) page.
-
-We hope you find the `common` library useful and that it helps you write Go code that's as clear as a summer sky!

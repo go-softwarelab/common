@@ -7,7 +7,7 @@ import "github.com/go-softwarelab/common/pkg/seq2"
 
 
 <a name="Append"></a>
-## [Append](<https://github.com/go-softwarelab/common/blob/main/pkg/seq2/joins.go#L50>)
+## Append
 
 ```go
 func Append[K any, V any](seq iter.Seq2[K, V], key K, value V) iter.Seq2[K, V]
@@ -52,7 +52,7 @@ map[a:1 b:2 c:3]
 </details>
 
 <a name="Collect"></a>
-## [Collect](<https://github.com/go-softwarelab/common/blob/main/pkg/seq2/consumer.go#L47>)
+## Collect
 
 ```go
 func Collect[K comparable, V any](seq iter.Seq2[K, V]) map[K]V
@@ -95,7 +95,7 @@ map[a:1 b:2 c:3]
 </details>
 
 <a name="Concat"></a>
-## [Concat](<https://github.com/go-softwarelab/common/blob/main/pkg/seq2/joins.go#L6>)
+## Concat
 
 ```go
 func Concat[K any, V any](sequences ...iter.Seq2[K, V]) iter.Seq2[K, V]
@@ -142,7 +142,7 @@ map[a:1 b:2 c:3 d:4]
 </details>
 
 <a name="Contains"></a>
-## [Contains](<https://github.com/go-softwarelab/common/blob/main/pkg/seq2/find.go#L64>)
+## Contains
 
 ```go
 func Contains[K comparable, V any](seq iter.Seq2[K, V], key K) bool
@@ -185,7 +185,7 @@ true
 </details>
 
 <a name="ContainsAll"></a>
-## [ContainsAll](<https://github.com/go-softwarelab/common/blob/main/pkg/seq2/find.go#L89>)
+## ContainsAll
 
 ```go
 func ContainsAll[K comparable, V any](seq iter.Seq2[K, V], keys ...K) bool
@@ -228,7 +228,7 @@ true
 </details>
 
 <a name="ContainsAllValues"></a>
-## [ContainsAllValues](<https://github.com/go-softwarelab/common/blob/main/pkg/seq2/find.go#L104>)
+## ContainsAllValues
 
 ```go
 func ContainsAllValues[K any, V comparable](seq iter.Seq2[K, V], values ...V) bool
@@ -271,7 +271,7 @@ true
 </details>
 
 <a name="ContainsPair"></a>
-## [ContainsPair](<https://github.com/go-softwarelab/common/blob/main/pkg/seq2/find.go#L114>)
+## ContainsPair
 
 ```go
 func ContainsPair[K comparable, V comparable](seq iter.Seq2[K, V], key K, value V) bool
@@ -314,7 +314,7 @@ true
 </details>
 
 <a name="ContainsValue"></a>
-## [ContainsValue](<https://github.com/go-softwarelab/common/blob/main/pkg/seq2/find.go#L79>)
+## ContainsValue
 
 ```go
 func ContainsValue[K any, V comparable](seq iter.Seq2[K, V], value V) bool
@@ -357,7 +357,7 @@ true
 </details>
 
 <a name="Count"></a>
-## [Count](<https://github.com/go-softwarelab/common/blob/main/pkg/seq2/consumer.go#L52>)
+## Count
 
 ```go
 func Count[K any, V any](seq iter.Seq2[K, V]) int
@@ -401,7 +401,7 @@ func main() {
 </details>
 
 <a name="Cycle"></a>
-## [Cycle](<https://github.com/go-softwarelab/common/blob/main/pkg/seq2/mapper.go#L81>)
+## Cycle
 
 ```go
 func Cycle[K, V any](seq iter.Seq2[K, V], count int) iter.Seq2[K, V]
@@ -451,7 +451,7 @@ b 2
 </details>
 
 <a name="Distinct"></a>
-## [Distinct](<https://github.com/go-softwarelab/common/blob/main/pkg/seq2/filter.go#L256>)
+## Distinct
 
 ```go
 func Distinct[K comparable, V comparable](seq iter.Seq2[K, V]) iter.Seq2[K, V]
@@ -499,7 +499,7 @@ map[a:1 b:2 c:3]
 </details>
 
 <a name="DistinctKeys"></a>
-## [DistinctKeys](<https://github.com/go-softwarelab/common/blob/main/pkg/seq2/filter.go#L261>)
+## DistinctKeys
 
 ```go
 func DistinctKeys[K comparable, V any](seq iter.Seq2[K, V]) iter.Seq2[K, V]
@@ -547,7 +547,7 @@ map[a:1 b:2 c:4]
 </details>
 
 <a name="Each"></a>
-## [Each](<https://github.com/go-softwarelab/common/blob/main/pkg/seq2/consumer.go#L24>)
+## Each
 
 ```go
 func Each[K any, V any](seq iter.Seq2[K, V], consumer Consumer[K, V]) iter.Seq2[K, V]
@@ -595,13 +595,13 @@ Each: c -> 3
 </details>
 
 <a name="Empty"></a>
-## [Empty](<https://github.com/go-softwarelab/common/blob/main/pkg/seq2/producers.go#L9>)
+## Empty
 
 ```go
 func Empty[K, V any]() iter.Seq2[K, V]
 ```
 
-
+Empty returns an empty sequence.
 
 <details>
 <summary>Example</summary>
@@ -638,7 +638,7 @@ func main() {
 </details>
 
 <a name="Every"></a>
-## [Every](<https://github.com/go-softwarelab/common/blob/main/pkg/seq2/find.go#L139>)
+## Every
 
 ```go
 func Every[K, V any](seq iter.Seq2[K, V], predicate Predicate[K, V]) bool
@@ -683,7 +683,7 @@ true
 </details>
 
 <a name="Exists"></a>
-## [Exists](<https://github.com/go-softwarelab/common/blob/main/pkg/seq2/find.go#L129>)
+## Exists
 
 ```go
 func Exists[K, V any](seq iter.Seq2[K, V], predicate Predicate[K, V]) bool
@@ -728,7 +728,7 @@ true
 </details>
 
 <a name="Filter"></a>
-## [Filter](<https://github.com/go-softwarelab/common/blob/main/pkg/seq2/filter.go#L15>)
+## Filter
 
 ```go
 func Filter[K any, V any](seq iter.Seq2[K, V], predicate Predicate[K, V]) iter.Seq2[K, V]
@@ -775,7 +775,7 @@ map[b:2 d:4]
 </details>
 
 <a name="FilterByKey"></a>
-## [FilterByKey](<https://github.com/go-softwarelab/common/blob/main/pkg/seq2/filter.go#L34>)
+## FilterByKey
 
 ```go
 func FilterByKey[K any, V any](seq iter.Seq2[K, V], predicate KeyPredicate[K]) iter.Seq2[K, V]
@@ -822,7 +822,7 @@ map[c:3 d:4]
 </details>
 
 <a name="FilterByValue"></a>
-## [FilterByValue](<https://github.com/go-softwarelab/common/blob/main/pkg/seq2/filter.go#L47>)
+## FilterByValue
 
 ```go
 func FilterByValue[K any, V any](seq iter.Seq2[K, V], predicate ValuePredicate[V]) iter.Seq2[K, V]
@@ -869,7 +869,7 @@ map[a:1 b:2]
 </details>
 
 <a name="Find"></a>
-## [Find](<https://github.com/go-softwarelab/common/blob/main/pkg/seq2/find.go#L10>)
+## Find
 
 ```go
 func Find[K, V any](seq iter.Seq2[K, V], predicate Predicate[K, V]) (optional.Elem[K], optional.Elem[V])
@@ -914,7 +914,7 @@ Key: c, Value: 3
 </details>
 
 <a name="FindAll"></a>
-## [FindAll](<https://github.com/go-softwarelab/common/blob/main/pkg/seq2/find.go#L31>)
+## FindAll
 
 ```go
 func FindAll[K, V any](seq iter.Seq2[K, V], predicate Predicate[K, V]) iter.Seq2[K, V]
@@ -960,7 +960,7 @@ map[c:3 d:4]
 </details>
 
 <a name="FindByKey"></a>
-## [FindByKey](<https://github.com/go-softwarelab/common/blob/main/pkg/seq2/find.go#L36>)
+## FindByKey
 
 ```go
 func FindByKey[K, V any](seq iter.Seq2[K, V], predicate KeyPredicate[K]) (optional.Elem[K], optional.Elem[V])
@@ -1006,7 +1006,7 @@ Key: b, Value: 2
 </details>
 
 <a name="FindByValue"></a>
-## [FindByValue](<https://github.com/go-softwarelab/common/blob/main/pkg/seq2/find.go#L46>)
+## FindByValue
 
 ```go
 func FindByValue[K, V any](seq iter.Seq2[K, V], predicate ValuePredicate[V]) (optional.Elem[K], optional.Elem[V])
@@ -1051,7 +1051,7 @@ Key: d, Value: 4
 </details>
 
 <a name="FindLast"></a>
-## [FindLast](<https://github.com/go-softwarelab/common/blob/main/pkg/seq2/find.go#L20>)
+## FindLast
 
 ```go
 func FindLast[K, V any](seq iter.Seq2[K, V], predicate Predicate[K, V]) (optional.Elem[K], optional.Elem[V])
@@ -1096,7 +1096,7 @@ Key: d, Value: 4
 </details>
 
 <a name="Flush"></a>
-## [Flush](<https://github.com/go-softwarelab/common/blob/main/pkg/seq2/consumer.go#L36>)
+## Flush
 
 ```go
 func Flush[K any, V any](seq iter.Seq2[K, V])
@@ -1155,7 +1155,7 @@ Third element consumed
 </details>
 
 <a name="FoldKeys"></a>
-## [FoldKeys](<https://github.com/go-softwarelab/common/blob/main/pkg/seq2/reducers.go#L56>)
+## FoldKeys
 
 ```go
 func FoldKeys[K any, V any](seq2 iter.Seq2[K, V], accumulator func(agg K, key K, value V) K) optional.Elem[K]
@@ -1201,7 +1201,7 @@ abc
 </details>
 
 <a name="FoldKeysRight"></a>
-## [FoldKeysRight](<https://github.com/go-softwarelab/common/blob/main/pkg/seq2/reducers.go#L79>)
+## FoldKeysRight
 
 ```go
 func FoldKeysRight[K any, V any](seq2 iter.Seq2[K, V], accumulator func(agg K, key K, value V) K) optional.Elem[K]
@@ -1247,7 +1247,7 @@ cba
 </details>
 
 <a name="FoldValues"></a>
-## [FoldValues](<https://github.com/go-softwarelab/common/blob/main/pkg/seq2/reducers.go#L27>)
+## FoldValues
 
 ```go
 func FoldValues[K any, V any](seq2 iter.Seq2[K, V], accumulator func(agg V, key K, value V) V) optional.Elem[V]
@@ -1293,7 +1293,7 @@ func main() {
 </details>
 
 <a name="FoldValuesRight"></a>
-## [FoldValuesRight](<https://github.com/go-softwarelab/common/blob/main/pkg/seq2/reducers.go#L50>)
+## FoldValuesRight
 
 ```go
 func FoldValuesRight[K any, V any](seq2 iter.Seq2[K, V], accumulator func(agg V, key K, value V) V) optional.Elem[V]
@@ -1339,7 +1339,7 @@ func main() {
 </details>
 
 <a name="ForEach"></a>
-## [ForEach](<https://github.com/go-softwarelab/common/blob/main/pkg/seq2/consumer.go#L29>)
+## ForEach
 
 ```go
 func ForEach[K any, V any](seq iter.Seq2[K, V], consumer Consumer[K, V])
@@ -1385,7 +1385,7 @@ func main() {
 </details>
 
 <a name="FromMap"></a>
-## [FromMap](<https://github.com/go-softwarelab/common/blob/main/pkg/seq2/producers.go#L33>)
+## FromMap
 
 ```go
 func FromMap[Map ~map[K]V, K comparable, V any](m Map) iter.Seq2[K, V]
@@ -1394,7 +1394,7 @@ func FromMap[Map ~map[K]V, K comparable, V any](m Map) iter.Seq2[K, V]
 FromMap creates a new iter.Seq2 from the given map.
 
 <a name="FromSlice"></a>
-## [FromSlice](<https://github.com/go-softwarelab/common/blob/main/pkg/seq2/producers.go#L28>)
+## FromSlice
 
 ```go
 func FromSlice[Slice ~[]E, E any](slice Slice) iter.Seq2[int, E]
@@ -1437,7 +1437,7 @@ map[0:a 1:b 2:c]
 </details>
 
 <a name="Get"></a>
-## [Get](<https://github.com/go-softwarelab/common/blob/main/pkg/seq2/find.go#L56>)
+## Get
 
 ```go
 func Get[K comparable, V any](seq iter.Seq2[K, V], key K) optional.Elem[V]
@@ -1480,7 +1480,7 @@ func main() {
 </details>
 
 <a name="IsEmpty"></a>
-## [IsEmpty](<https://github.com/go-softwarelab/common/blob/main/pkg/seq2/seq2.go#L28>)
+## IsEmpty
 
 ```go
 func IsEmpty[K, V any](seq iter.Seq2[K, V]) bool
@@ -1524,7 +1524,7 @@ Non-empty sequence: false
 </details>
 
 <a name="IsNotEmpty"></a>
-## [IsNotEmpty](<https://github.com/go-softwarelab/common/blob/main/pkg/seq2/seq2.go#L36>)
+## IsNotEmpty
 
 ```go
 func IsNotEmpty[K, V any](seq iter.Seq2[K, V]) bool
@@ -1568,7 +1568,7 @@ Non-empty sequence: true
 </details>
 
 <a name="Keys"></a>
-## [Keys](<https://github.com/go-softwarelab/common/blob/main/pkg/seq2/seq2.go#L6>)
+## Keys
 
 ```go
 func Keys[K, V any](seq iter.Seq2[K, V]) iter.Seq[K]
@@ -1613,7 +1613,7 @@ func main() {
 </details>
 
 <a name="Limit"></a>
-## [Limit](<https://github.com/go-softwarelab/common/blob/main/pkg/seq2/filter.go#L152>)
+## Limit
 
 ```go
 func Limit[K any, V any](seq iter.Seq2[K, V], n int) iter.Seq2[K, V]
@@ -1658,7 +1658,7 @@ map[a:1 b:2 c:3]
 </details>
 
 <a name="Map"></a>
-## [Map](<https://github.com/go-softwarelab/common/blob/main/pkg/seq2/mapper.go#L30>)
+## Map
 
 ```go
 func Map[K, V, RV any](seq iter.Seq2[K, V], mapper Mapper[K, V, RV]) iter.Seq2[K, RV]
@@ -1705,7 +1705,7 @@ map[a:Value of a is 1 b:Value of b is 2 c:Value of c is 3]
 </details>
 
 <a name="MapKeys"></a>
-## [MapKeys](<https://github.com/go-softwarelab/common/blob/main/pkg/seq2/mapper.go#L37>)
+## MapKeys
 
 ```go
 func MapKeys[K, V, RK any](seq iter.Seq2[K, V], mapper KeyMapper[K, RK]) iter.Seq2[RK, V]
@@ -1753,7 +1753,7 @@ map[A:1 B:2 C:3]
 </details>
 
 <a name="MapPairs"></a>
-## [MapPairs](<https://github.com/go-softwarelab/common/blob/main/pkg/seq2/mapper.go#L18>)
+## MapPairs
 
 ```go
 func MapPairs[K, V, RK, RV any](seq iter.Seq2[K, V], mapper DoubleMapper[K, V, RK, RV]) iter.Seq2[RK, RV]
@@ -1801,7 +1801,7 @@ map[A:10 B:20 C:30]
 </details>
 
 <a name="MapTo"></a>
-## [MapTo](<https://github.com/go-softwarelab/common/blob/main/pkg/seq2/mapper.go#L63>)
+## MapTo
 
 ```go
 func MapTo[K, V, RV any](seq iter.Seq2[K, V], mapper Mapper[K, V, RV]) iter.Seq[RV]
@@ -1821,6 +1821,7 @@ package main
 import (
 	"fmt"
 
+	"github.com/go-softwarelab/common/pkg/seq"
 	"github.com/go-softwarelab/common/pkg/seq2"
 )
 
@@ -1833,30 +1834,25 @@ func main() {
 		return fmt.Sprintf("%s=%d", k, v)
 	})
 
-	// Collect into a slice for display
-	var result []string
-	for v := range mapped {
-		result = append(result, v)
-	}
-
-	// Sort for consistent output
-	seq2.Sort(seq2.FromSlice(result))
-
-	fmt.Println(result)
+	seq.ForEach(mapped, func(v string) {
+		fmt.Println(v)
+	})
 }
 ```
 
 **Output**
 
 ```
-[a=1 b=2 c=3]
+a=1
+b=2
+c=3
 ```
 
 
 </details>
 
 <a name="MapToValues"></a>
-## [MapToValues](<https://github.com/go-softwarelab/common/blob/main/pkg/seq2/mapper.go#L51>)
+## MapToValues
 
 ```go
 func MapToValues[K, V, RV any](seq iter.Seq2[K, V], mapper ValueMapper[V, RV]) iter.Seq[RV]
@@ -1906,7 +1902,7 @@ Value: c
 </details>
 
 <a name="MapValues"></a>
-## [MapValues](<https://github.com/go-softwarelab/common/blob/main/pkg/seq2/mapper.go#L44>)
+## MapValues
 
 ```go
 func MapValues[K, V, RV any](seq iter.Seq2[K, V], mapper ValueMapper[V, RV]) iter.Seq2[K, RV]
@@ -1953,7 +1949,7 @@ map[a:1 b:4 c:9]
 </details>
 
 <a name="MaxKey"></a>
-## [MaxKey](<https://github.com/go-softwarelab/common/blob/main/pkg/seq2/reducers.go#L96>)
+## MaxKey
 
 ```go
 func MaxKey[K types.Ordered, V any](seq2 iter.Seq2[K, V]) optional.Elem[K]
@@ -1997,7 +1993,7 @@ z
 </details>
 
 <a name="MaxValue"></a>
-## [MaxValue](<https://github.com/go-softwarelab/common/blob/main/pkg/seq2/reducers.go#L84>)
+## MaxValue
 
 ```go
 func MaxValue[K any, V types.Ordered](seq2 iter.Seq2[K, V]) optional.Elem[V]
@@ -2041,7 +2037,7 @@ func main() {
 </details>
 
 <a name="MinKey"></a>
-## [MinKey](<https://github.com/go-softwarelab/common/blob/main/pkg/seq2/reducers.go#L102>)
+## MinKey
 
 ```go
 func MinKey[K types.Ordered, V any](seq2 iter.Seq2[K, V]) optional.Elem[K]
@@ -2085,7 +2081,7 @@ a
 </details>
 
 <a name="MinValue"></a>
-## [MinValue](<https://github.com/go-softwarelab/common/blob/main/pkg/seq2/reducers.go#L90>)
+## MinValue
 
 ```go
 func MinValue[K any, V types.Ordered](seq2 iter.Seq2[K, V]) optional.Elem[V]
@@ -2129,7 +2125,7 @@ func main() {
 </details>
 
 <a name="Narrow"></a>
-## [Narrow](<https://github.com/go-softwarelab/common/blob/main/pkg/seq2/mapper.go#L76>)
+## Narrow
 
 ```go
 func Narrow[K, V, RV any](seq iter.Seq2[K, V], mapper Mapper[K, V, RV]) iter.Seq[RV]
@@ -2149,6 +2145,7 @@ package main
 import (
 	"fmt"
 
+	"github.com/go-softwarelab/common/pkg/seq"
 	"github.com/go-softwarelab/common/pkg/seq2"
 )
 
@@ -2158,33 +2155,28 @@ func main() {
 
 	// Narrow is an alias for MapTo
 	mapped := seq2.Narrow(input, func(k string, v int) string {
-		return fmt.Sprintf("%s-%d", k, v)
+		return fmt.Sprintf("%s=%d", k, v)
 	})
 
-	// Collect into a slice for display
-	var result []string
-	for v := range mapped {
-		result = append(result, v)
-	}
-
-	// Sort for consistent output
-	seq2.Sort(seq2.FromSlice(result))
-
-	fmt.Println(result)
+	seq.ForEach(mapped, func(v string) {
+		fmt.Println(v)
+	})
 }
 ```
 
 **Output**
 
 ```
-[a-1 b-2 c-3]
+a=1
+b=2
+c=3
 ```
 
 
 </details>
 
 <a name="None"></a>
-## [None](<https://github.com/go-softwarelab/common/blob/main/pkg/seq2/find.go#L149>)
+## None
 
 ```go
 func None[K, V any](seq iter.Seq2[K, V], predicate Predicate[K, V]) bool
@@ -2229,7 +2221,7 @@ true
 </details>
 
 <a name="NotContains"></a>
-## [NotContains](<https://github.com/go-softwarelab/common/blob/main/pkg/seq2/find.go#L74>)
+## NotContains
 
 ```go
 func NotContains[K comparable, V any](seq iter.Seq2[K, V], key K) bool
@@ -2272,7 +2264,7 @@ true
 </details>
 
 <a name="NotContainsPair"></a>
-## [NotContainsPair](<https://github.com/go-softwarelab/common/blob/main/pkg/seq2/find.go#L124>)
+## NotContainsPair
 
 ```go
 func NotContainsPair[K comparable, V comparable](seq iter.Seq2[K, V], key K, value V) bool
@@ -2315,7 +2307,7 @@ true
 </details>
 
 <a name="NotContainsValue"></a>
-## [NotContainsValue](<https://github.com/go-softwarelab/common/blob/main/pkg/seq2/find.go#L99>)
+## NotContainsValue
 
 ```go
 func NotContainsValue[K any, V comparable](seq iter.Seq2[K, V], value V) bool
@@ -2358,7 +2350,7 @@ true
 </details>
 
 <a name="Of"></a>
-## [Of](<https://github.com/go-softwarelab/common/blob/main/pkg/seq2/producers.go#L23>)
+## Of
 
 ```go
 func Of[E any](elems ...E) iter.Seq2[int, E]
@@ -2400,7 +2392,7 @@ map[0:1 1:2 2:3]
 </details>
 
 <a name="Offset"></a>
-## [Offset](<https://github.com/go-softwarelab/common/blob/main/pkg/seq2/filter.go#L108>)
+## Offset
 
 ```go
 func Offset[K any, V any](seq iter.Seq2[K, V], n int) iter.Seq2[K, V]
@@ -2444,7 +2436,7 @@ map[2:30 3:40 4:20]
 </details>
 
 <a name="Pair"></a>
-## [Pair](<https://github.com/go-softwarelab/common/blob/main/pkg/seq2/producers.go#L14>)
+## Pair
 
 ```go
 func Pair[K, V any](k K, v V) iter.Seq2[K, V]
@@ -2487,7 +2479,7 @@ key : 42
 </details>
 
 <a name="Prepend"></a>
-## [Prepend](<https://github.com/go-softwarelab/common/blob/main/pkg/seq2/joins.go#L55>)
+## Prepend
 
 ```go
 func Prepend[K any, V any](seq iter.Seq2[K, V], key K, value V) iter.Seq2[K, V]
@@ -2532,7 +2524,7 @@ map[a:1 b:2 c:3]
 </details>
 
 <a name="Reduce"></a>
-## [Reduce](<https://github.com/go-softwarelab/common/blob/main/pkg/seq2/reducers.go#L12>)
+## Reduce
 
 ```go
 func Reduce[K any, V any, R any](seq2 iter.Seq2[K, V], accumulator func(agg R, key K, value V) R, initial R) R
@@ -2586,7 +2578,7 @@ func main() {
 </details>
 
 <a name="ReduceRight"></a>
-## [ReduceRight](<https://github.com/go-softwarelab/common/blob/main/pkg/seq2/reducers.go#L21>)
+## ReduceRight
 
 ```go
 func ReduceRight[K any, V any, R any](seq2 iter.Seq2[K, V], accumulator func(agg R, key K, value V) R, initial R) R
@@ -2640,7 +2632,7 @@ func main() {
 </details>
 
 <a name="Repeat"></a>
-## [Repeat](<https://github.com/go-softwarelab/common/blob/main/pkg/seq2/producers.go#L62>)
+## Repeat
 
 ```go
 func Repeat[K any, V any](key K, value V, count int) iter.Seq2[K, V]
@@ -2685,7 +2677,7 @@ key : 42
 </details>
 
 <a name="Reverse"></a>
-## [Reverse](<https://github.com/go-softwarelab/common/blob/main/pkg/seq2/producers.go#L94>)
+## Reverse
 
 ```go
 func Reverse[K, V any](seq iter.Seq2[K, V]) iter.Seq2[K, V]
@@ -2738,7 +2730,7 @@ func main() {
 </details>
 
 <a name="Skip"></a>
-## [Skip](<https://github.com/go-softwarelab/common/blob/main/pkg/seq2/filter.go#L60>)
+## Skip
 
 ```go
 func Skip[K any, V any](seq iter.Seq2[K, V], n int) iter.Seq2[K, V]
@@ -2782,7 +2774,7 @@ map[2:30 3:40 4:20]
 </details>
 
 <a name="SkipUntil"></a>
-## [SkipUntil](<https://github.com/go-softwarelab/common/blob/main/pkg/seq2/filter.go#L91>)
+## SkipUntil
 
 ```go
 func SkipUntil[K any, V any](seq iter.Seq2[K, V], predicate Predicate[K, V]) iter.Seq2[K, V]
@@ -2828,7 +2820,7 @@ map[2:30 3:40 4:20]
 </details>
 
 <a name="SkipWhile"></a>
-## [SkipWhile](<https://github.com/go-softwarelab/common/blob/main/pkg/seq2/filter.go#L75>)
+## SkipWhile
 
 ```go
 func SkipWhile[K any, V any](seq iter.Seq2[K, V], predicate Predicate[K, V]) iter.Seq2[K, V]
@@ -2874,7 +2866,7 @@ map[2:30 3:40 4:20]
 </details>
 
 <a name="Sort"></a>
-## [Sort](<https://github.com/go-softwarelab/common/blob/main/pkg/seq2/sort.go#L12>)
+## Sort
 
 ```go
 func Sort[K types.Ordered, V any](seq iter.Seq2[K, V]) iter.Seq2[K, V]
@@ -2923,7 +2915,7 @@ c : 3
 </details>
 
 <a name="SortBy"></a>
-## [SortBy](<https://github.com/go-softwarelab/common/blob/main/pkg/seq2/sort.go#L19>)
+## SortBy
 
 ```go
 func SortBy[K any, V any, R types.Ordered](seq iter.Seq2[K, V], mapper func(K, V) R) iter.Seq2[K, V]
@@ -2974,7 +2966,7 @@ c : 3
 </details>
 
 <a name="SortComparingKeys"></a>
-## [SortComparingKeys](<https://github.com/go-softwarelab/common/blob/main/pkg/seq2/sort.go#L36>)
+## SortComparingKeys
 
 ```go
 func SortComparingKeys[K any, V any](seq iter.Seq2[K, V], cmp func(K, K) int) iter.Seq2[K, V]
@@ -3026,7 +3018,7 @@ a : 1
 </details>
 
 <a name="SortComparingValues"></a>
-## [SortComparingValues](<https://github.com/go-softwarelab/common/blob/main/pkg/seq2/sort.go#L43>)
+## SortComparingValues
 
 ```go
 func SortComparingValues[K any, V any](seq iter.Seq2[K, V], cmp func(V, V) int) iter.Seq2[K, V]
@@ -3079,7 +3071,7 @@ a : 1
 </details>
 
 <a name="Split"></a>
-## [Split](<https://github.com/go-softwarelab/common/blob/main/pkg/seq2/joins.go#L45>)
+## Split
 
 ```go
 func Split[K any, V any](seq iter.Seq2[K, V]) (iter.Seq[K], iter.Seq[V])
@@ -3134,7 +3126,7 @@ Values: [1 2 3]
 </details>
 
 <a name="Take"></a>
-## [Take](<https://github.com/go-softwarelab/common/blob/main/pkg/seq2/filter.go#L113>)
+## Take
 
 ```go
 func Take[K any, V any](seq iter.Seq2[K, V], n int) iter.Seq2[K, V]
@@ -3179,7 +3171,7 @@ map[a:1 b:2]
 </details>
 
 <a name="TakeUntil"></a>
-## [TakeUntil](<https://github.com/go-softwarelab/common/blob/main/pkg/seq2/filter.go#L140>)
+## TakeUntil
 
 ```go
 func TakeUntil[K any, V any](seq iter.Seq2[K, V], predicate Predicate[K, V]) iter.Seq2[K, V]
@@ -3226,7 +3218,7 @@ map[a:1 b:2]
 </details>
 
 <a name="TakeWhile"></a>
-## [TakeWhile](<https://github.com/go-softwarelab/common/blob/main/pkg/seq2/filter.go#L129>)
+## TakeWhile
 
 ```go
 func TakeWhile[K any, V any](seq iter.Seq2[K, V], predicate Predicate[K, V]) iter.Seq2[K, V]
@@ -3272,7 +3264,7 @@ map[0:a 1:b]
 </details>
 
 <a name="Tap"></a>
-## [Tap](<https://github.com/go-softwarelab/common/blob/main/pkg/seq2/consumer.go#L12>)
+## Tap
 
 ```go
 func Tap[K any, V any](seq iter.Seq2[K, V], consumer Consumer[K, V]) iter.Seq2[K, V]
@@ -3322,7 +3314,7 @@ Processing: c => 3
 </details>
 
 <a name="Tick"></a>
-## [Tick](<https://github.com/go-softwarelab/common/blob/main/pkg/seq2/producers.go#L73>)
+## Tick
 
 ```go
 func Tick(d time.Duration) iter.Seq2[int, time.Time]
@@ -3368,7 +3360,7 @@ func main() {
 </details>
 
 <a name="ToMap"></a>
-## [ToMap](<https://github.com/go-softwarelab/common/blob/main/pkg/seq2/consumer.go#L42>)
+## ToMap
 
 ```go
 func ToMap[Map ~map[K]V, K comparable, V any](seq iter.Seq2[K, V], m Map)
@@ -3412,7 +3404,7 @@ map[a:1 b:2 c:3]
 </details>
 
 <a name="UnZip"></a>
-## [UnZip](<https://github.com/go-softwarelab/common/blob/main/pkg/seq2/joins.go#L40>)
+## UnZip
 
 ```go
 func UnZip[K any, V any](seq iter.Seq2[K, V]) (iter.Seq[K], iter.Seq[V])
@@ -3509,7 +3501,7 @@ func main() {
 </details>
 
 <a name="Union"></a>
-## [Union](<https://github.com/go-softwarelab/common/blob/main/pkg/seq2/joins.go#L19>)
+## Union
 
 ```go
 func Union[K comparable, V comparable](seq1 iter.Seq2[K, V], seq2 iter.Seq2[K, V]) iter.Seq2[K, V]
@@ -3556,7 +3548,7 @@ map[a:1 b:2 c:3 d:4 e:5]
 </details>
 
 <a name="UnionAll"></a>
-## [UnionAll](<https://github.com/go-softwarelab/common/blob/main/pkg/seq2/joins.go#L24>)
+## UnionAll
 
 ```go
 func UnionAll[K any, V any](seq1 iter.Seq2[K, V], seq2 iter.Seq2[K, V]) iter.Seq2[K, V]
@@ -3603,7 +3595,7 @@ map[a:1 b:2 c:3]
 </details>
 
 <a name="Uniq"></a>
-## [Uniq](<https://github.com/go-softwarelab/common/blob/main/pkg/seq2/filter.go#L157>)
+## Uniq
 
 ```go
 func Uniq[K comparable, V comparable](seq iter.Seq2[K, V]) iter.Seq2[K, V]
@@ -3651,7 +3643,7 @@ map[a:1 b:2 c:3]
 </details>
 
 <a name="UniqBy"></a>
-## [UniqBy](<https://github.com/go-softwarelab/common/blob/main/pkg/seq2/filter.go#L207>)
+## UniqBy
 
 ```go
 func UniqBy[K any, V any, K2 comparable](seq iter.Seq2[K, V], mapper Mapper[K, V, K2]) iter.Seq2[K, V]
@@ -3699,7 +3691,7 @@ map[apple:1 banana:2 blueberry:5]
 </details>
 
 <a name="UniqByKeys"></a>
-## [UniqByKeys](<https://github.com/go-softwarelab/common/blob/main/pkg/seq2/filter.go#L223>)
+## UniqByKeys
 
 ```go
 func UniqByKeys[K any, V any, K2 comparable](seq iter.Seq2[K, V], mapper KeyMapper[K, K2]) iter.Seq2[K, V]
@@ -3747,7 +3739,7 @@ map[Apple:1 Banana:3]
 </details>
 
 <a name="UniqByValues"></a>
-## [UniqByValues](<https://github.com/go-softwarelab/common/blob/main/pkg/seq2/filter.go#L239>)
+## UniqByValues
 
 ```go
 func UniqByValues[K any, V any, V2 comparable](seq iter.Seq2[K, V], mapper ValueMapper[V, V2]) iter.Seq2[K, V]
@@ -3794,7 +3786,7 @@ map[a:10 b:21 d:44]
 </details>
 
 <a name="UniqKeys"></a>
-## [UniqKeys](<https://github.com/go-softwarelab/common/blob/main/pkg/seq2/filter.go#L177>)
+## UniqKeys
 
 ```go
 func UniqKeys[K comparable, V any](seq iter.Seq2[K, V]) iter.Seq2[K, V]
@@ -3842,7 +3834,7 @@ map[a:1 b:2 c:4]
 </details>
 
 <a name="UniqValues"></a>
-## [UniqValues](<https://github.com/go-softwarelab/common/blob/main/pkg/seq2/filter.go#L192>)
+## UniqValues
 
 ```go
 func UniqValues[K any, V comparable](seq iter.Seq2[K, V]) iter.Seq2[K, V]
@@ -3888,7 +3880,7 @@ map[a:1 b:2 d:3]
 </details>
 
 <a name="Values"></a>
-## [Values](<https://github.com/go-softwarelab/common/blob/main/pkg/seq2/seq2.go#L17>)
+## Values
 
 ```go
 func Values[K, V any](seq iter.Seq2[K, V]) iter.Seq[V]
@@ -3933,7 +3925,7 @@ a b c
 </details>
 
 <a name="Where"></a>
-## [Where](<https://github.com/go-softwarelab/common/blob/main/pkg/seq2/filter.go#L29>)
+## Where
 
 ```go
 func Where[K any, V any](seq iter.Seq2[K, V], predicate Predicate[K, V]) iter.Seq2[K, V]
@@ -3980,7 +3972,7 @@ map[c:3 d:4]
 </details>
 
 <a name="WithIndex"></a>
-## [WithIndex](<https://github.com/go-softwarelab/common/blob/main/pkg/seq2/producers.go#L44>)
+## WithIndex
 
 ```go
 func WithIndex[E any](seq iter.Seq[E]) iter.Seq2[int, E]
@@ -4026,7 +4018,7 @@ map[0:a 1:b 2:c]
 </details>
 
 <a name="WithoutIndex"></a>
-## [WithoutIndex](<https://github.com/go-softwarelab/common/blob/main/pkg/seq2/producers.go#L57>)
+## WithoutIndex
 
 ```go
 func WithoutIndex[E any](indexed iter.Seq2[int, E]) iter.Seq[E]
@@ -4072,7 +4064,7 @@ func main() {
 </details>
 
 <a name="Consumer"></a>
-## type [Consumer](<https://github.com/go-softwarelab/common/blob/main/pkg/seq2/consumer.go#L9>)
+## type Consumer
 
 Consumer is a function that consumes an element of an iter.Seq2.
 
@@ -4081,7 +4073,7 @@ type Consumer[K any, V any] = func(K, V)
 ```
 
 <a name="DoubleMapper"></a>
-## type [DoubleMapper](<https://github.com/go-softwarelab/common/blob/main/pkg/seq2/mapper.go#L9>)
+## type DoubleMapper
 
 DoubleMapper is a function that takes an element and returns a new sequence element.
 
@@ -4090,7 +4082,7 @@ type DoubleMapper[K, V, RK, RV any] = func(K, V) (RK, RV)
 ```
 
 <a name="KeyMapper"></a>
-## type [KeyMapper](<https://github.com/go-softwarelab/common/blob/main/pkg/seq2/mapper.go#L12>)
+## type KeyMapper
 
 KeyMapper is a function that takes Key a new Key.
 
@@ -4099,7 +4091,7 @@ type KeyMapper[K, R any] = func(K) R
 ```
 
 <a name="KeyPredicate"></a>
-## type [KeyPredicate](<https://github.com/go-softwarelab/common/blob/main/pkg/seq2/filter.go#L9>)
+## type KeyPredicate
 
 KeyPredicate is a function that is used to filter by key.
 
@@ -4108,7 +4100,7 @@ type KeyPredicate[E any] = KeyMapper[E, bool]
 ```
 
 <a name="Mapper"></a>
-## type [Mapper](<https://github.com/go-softwarelab/common/blob/main/pkg/seq2/mapper.go#L6>)
+## type Mapper
 
 Mapper is a function that takes an element and returns a new element.
 
@@ -4117,7 +4109,7 @@ type Mapper[K, V, R any] = func(K, V) R
 ```
 
 <a name="Predicate"></a>
-## type [Predicate](<https://github.com/go-softwarelab/common/blob/main/pkg/seq2/filter.go#L6>)
+## type Predicate
 
 Predicate is a function that takes an element and returns a boolean.
 
@@ -4126,7 +4118,7 @@ type Predicate[K any, V any] = Mapper[K, V, bool]
 ```
 
 <a name="Sequence"></a>
-## type [Sequence](<https://github.com/go-softwarelab/common/blob/main/pkg/seq2/sequence.go#L10-L12>)
+## type Sequence
 
 Sequence is a wrapper around iter.Seq2 that provides fluent API for seq2 operations.
 
@@ -4137,7 +4129,7 @@ type Sequence[K comparable, V comparable] struct {
 ```
 
 <a name="AsSequence"></a>
-### [AsSequence](<https://github.com/go-softwarelab/common/blob/main/pkg/seq2/sequence.go#L15>)
+### AsSequence
 
 ```go
 func AsSequence[K comparable, V comparable](seq iter.Seq2[K, V]) Sequence[K, V]
@@ -4183,7 +4175,7 @@ func main() {
 </details>
 
 <a name="ConcatSequences"></a>
-### [ConcatSequences](<https://github.com/go-softwarelab/common/blob/main/pkg/seq2/sequence.go#L20>)
+### ConcatSequences
 
 ```go
 func ConcatSequences[K comparable, V comparable](sequences ...Sequence[K, V]) Sequence[K, V]
@@ -4232,7 +4224,7 @@ func main() {
 </details>
 
 <a name="Sequence[K, V].Append"></a>
-### [Sequence\[K, V\].Append](<https://github.com/go-softwarelab/common/blob/main/pkg/seq2/sequence.go#L39>)
+### Sequence[K, V].Append
 
 ```go
 func (s Sequence[K, V]) Append(key K, value V) Sequence[K, V]
@@ -4279,7 +4271,7 @@ func main() {
 </details>
 
 <a name="Sequence[K, V].Collect"></a>
-### [Sequence\[K, V\].Collect](<https://github.com/go-softwarelab/common/blob/main/pkg/seq2/sequence.go#L114>)
+### Sequence[K, V].Collect
 
 ```go
 func (s Sequence[K, V]) Collect() map[K]V
@@ -4288,7 +4280,7 @@ func (s Sequence[K, V]) Collect() map[K]V
 Collect collects the elements into a map.
 
 <a name="Sequence[K, V].Contains"></a>
-### [Sequence\[K, V\].Contains](<https://github.com/go-softwarelab/common/blob/main/pkg/seq2/sequence.go#L194>)
+### Sequence[K, V].Contains
 
 ```go
 func (s Sequence[K, V]) Contains(key K) bool
@@ -4330,7 +4322,7 @@ Contains key 5: false
 </details>
 
 <a name="Sequence[K, V].ContainsPair"></a>
-### [Sequence\[K, V\].ContainsPair](<https://github.com/go-softwarelab/common/blob/main/pkg/seq2/sequence.go#L214>)
+### Sequence[K, V].ContainsPair
 
 ```go
 func (s Sequence[K, V]) ContainsPair(key K, value V) bool
@@ -4372,7 +4364,7 @@ Contains pair 1:'c': false
 </details>
 
 <a name="Sequence[K, V].ContainsValue"></a>
-### [Sequence\[K, V\].ContainsValue](<https://github.com/go-softwarelab/common/blob/main/pkg/seq2/sequence.go#L204>)
+### Sequence[K, V].ContainsValue
 
 ```go
 func (s Sequence[K, V]) ContainsValue(value V) bool
@@ -4414,7 +4406,7 @@ Contains value 'z': false
 </details>
 
 <a name="Sequence[K, V].Count"></a>
-### [Sequence\[K, V\].Count](<https://github.com/go-softwarelab/common/blob/main/pkg/seq2/sequence.go#L119>)
+### Sequence[K, V].Count
 
 ```go
 func (s Sequence[K, V]) Count() int
@@ -4423,7 +4415,7 @@ func (s Sequence[K, V]) Count() int
 Count returns the number of elements in the sequence.
 
 <a name="Sequence[K, V].Cycle"></a>
-### [Sequence\[K, V\].Cycle](<https://github.com/go-softwarelab/common/blob/main/pkg/seq2/sequence.go#L184>)
+### Sequence[K, V].Cycle
 
 ```go
 func (s Sequence[K, V]) Cycle(count int) Sequence[K, V]
@@ -4470,7 +4462,7 @@ func main() {
 </details>
 
 <a name="Sequence[K, V].Distinct"></a>
-### [Sequence\[K, V\].Distinct](<https://github.com/go-softwarelab/common/blob/main/pkg/seq2/sequence.go#L254>)
+### Sequence[K, V].Distinct
 
 ```go
 func (s Sequence[K, V]) Distinct() Sequence[K, V]
@@ -4479,7 +4471,7 @@ func (s Sequence[K, V]) Distinct() Sequence[K, V]
 Distinct is an alias for Uniq.
 
 <a name="Sequence[K, V].Each"></a>
-### [Sequence\[K, V\].Each](<https://github.com/go-softwarelab/common/blob/main/pkg/seq2/sequence.go#L94>)
+### Sequence[K, V].Each
 
 ```go
 func (s Sequence[K, V]) Each(consumer Consumer[K, V]) Sequence[K, V]
@@ -4488,7 +4480,7 @@ func (s Sequence[K, V]) Each(consumer Consumer[K, V]) Sequence[K, V]
 Each is an alias for Tap.
 
 <a name="Sequence[K, V].Every"></a>
-### [Sequence\[K, V\].Every](<https://github.com/go-softwarelab/common/blob/main/pkg/seq2/sequence.go#L229>)
+### Sequence[K, V].Every
 
 ```go
 func (s Sequence[K, V]) Every(predicate Predicate[K, V]) bool
@@ -4538,7 +4530,7 @@ All values 'a': false
 </details>
 
 <a name="Sequence[K, V].Exists"></a>
-### [Sequence\[K, V\].Exists](<https://github.com/go-softwarelab/common/blob/main/pkg/seq2/sequence.go#L224>)
+### Sequence[K, V].Exists
 
 ```go
 func (s Sequence[K, V]) Exists(predicate Predicate[K, V]) bool
@@ -4582,7 +4574,7 @@ Has value 'b': true
 </details>
 
 <a name="Sequence[K, V].Filter"></a>
-### [Sequence\[K, V\].Filter](<https://github.com/go-softwarelab/common/blob/main/pkg/seq2/sequence.go#L49>)
+### Sequence[K, V].Filter
 
 ```go
 func (s Sequence[K, V]) Filter(predicate Predicate[K, V]) Sequence[K, V]
@@ -4631,7 +4623,7 @@ func main() {
 </details>
 
 <a name="Sequence[K, V].FilterByKey"></a>
-### [Sequence\[K, V\].FilterByKey](<https://github.com/go-softwarelab/common/blob/main/pkg/seq2/sequence.go#L59>)
+### Sequence[K, V].FilterByKey
 
 ```go
 func (s Sequence[K, V]) FilterByKey(predicate KeyPredicate[K]) Sequence[K, V]
@@ -4680,7 +4672,7 @@ func main() {
 </details>
 
 <a name="Sequence[K, V].FilterByValue"></a>
-### [Sequence\[K, V\].FilterByValue](<https://github.com/go-softwarelab/common/blob/main/pkg/seq2/sequence.go#L64>)
+### Sequence[K, V].FilterByValue
 
 ```go
 func (s Sequence[K, V]) FilterByValue(predicate ValuePredicate[V]) Sequence[K, V]
@@ -4729,7 +4721,7 @@ func main() {
 </details>
 
 <a name="Sequence[K, V].Find"></a>
-### [Sequence\[K, V\].Find](<https://github.com/go-softwarelab/common/blob/main/pkg/seq2/sequence.go#L144>)
+### Sequence[K, V].Find
 
 ```go
 func (s Sequence[K, V]) Find(predicate Predicate[K, V]) (optional.Elem[K], optional.Elem[V])
@@ -4773,7 +4765,7 @@ Key: 2, Value: c
 </details>
 
 <a name="Sequence[K, V].FindAll"></a>
-### [Sequence\[K, V\].FindAll](<https://github.com/go-softwarelab/common/blob/main/pkg/seq2/sequence.go#L154>)
+### Sequence[K, V].FindAll
 
 ```go
 func (s Sequence[K, V]) FindAll(predicate Predicate[K, V]) Sequence[K, V]
@@ -4782,7 +4774,7 @@ func (s Sequence[K, V]) FindAll(predicate Predicate[K, V]) Sequence[K, V]
 FindAll returns all elements that satisfy the predicate.
 
 <a name="Sequence[K, V].FindLast"></a>
-### [Sequence\[K, V\].FindLast](<https://github.com/go-softwarelab/common/blob/main/pkg/seq2/sequence.go#L149>)
+### Sequence[K, V].FindLast
 
 ```go
 func (s Sequence[K, V]) FindLast(predicate Predicate[K, V]) (optional.Elem[K], optional.Elem[V])
@@ -4791,7 +4783,7 @@ func (s Sequence[K, V]) FindLast(predicate Predicate[K, V]) (optional.Elem[K], o
 FindLast returns the last element that satisfies the predicate.
 
 <a name="Sequence[K, V].Flush"></a>
-### [Sequence\[K, V\].Flush](<https://github.com/go-softwarelab/common/blob/main/pkg/seq2/sequence.go#L104>)
+### Sequence[K, V].Flush
 
 ```go
 func (s Sequence[K, V]) Flush()
@@ -4800,7 +4792,7 @@ func (s Sequence[K, V]) Flush()
 Flush consumes all elements of the sequence.
 
 <a name="Sequence[K, V].FoldValues"></a>
-### [Sequence\[K, V\].FoldValues](<https://github.com/go-softwarelab/common/blob/main/pkg/seq2/sequence.go#L159>)
+### Sequence[K, V].FoldValues
 
 ```go
 func (s Sequence[K, V]) FoldValues(accumulator func(agg V, key K, value V) V) optional.Elem[V]
@@ -4844,7 +4836,7 @@ Concatenated: abc
 </details>
 
 <a name="Sequence[K, V].FoldValuesRight"></a>
-### [Sequence\[K, V\].FoldValuesRight](<https://github.com/go-softwarelab/common/blob/main/pkg/seq2/sequence.go#L164>)
+### Sequence[K, V].FoldValuesRight
 
 ```go
 func (s Sequence[K, V]) FoldValuesRight(accumulator func(agg V, key K, value V) V) optional.Elem[V]
@@ -4853,7 +4845,7 @@ func (s Sequence[K, V]) FoldValuesRight(accumulator func(agg V, key K, value V) 
 FoldValuesRight folds values from right to left.
 
 <a name="Sequence[K, V].ForEach"></a>
-### [Sequence\[K, V\].ForEach](<https://github.com/go-softwarelab/common/blob/main/pkg/seq2/sequence.go#L99>)
+### Sequence[K, V].ForEach
 
 ```go
 func (s Sequence[K, V]) ForEach(consumer Consumer[K, V])
@@ -4899,7 +4891,7 @@ func main() {
 </details>
 
 <a name="Sequence[K, V].Get"></a>
-### [Sequence\[K, V\].Get](<https://github.com/go-softwarelab/common/blob/main/pkg/seq2/sequence.go#L259>)
+### Sequence[K, V].Get
 
 ```go
 func (s Sequence[K, V]) Get(key K) optional.Elem[V]
@@ -4944,7 +4936,7 @@ Has value for key 5: false
 </details>
 
 <a name="Sequence[K, V].IsEmpty"></a>
-### [Sequence\[K, V\].IsEmpty](<https://github.com/go-softwarelab/common/blob/main/pkg/seq2/sequence.go#L134>)
+### Sequence[K, V].IsEmpty
 
 ```go
 func (s Sequence[K, V]) IsEmpty() bool
@@ -4953,7 +4945,7 @@ func (s Sequence[K, V]) IsEmpty() bool
 IsEmpty returns true if the sequence is empty.
 
 <a name="Sequence[K, V].IsNotEmpty"></a>
-### [Sequence\[K, V\].IsNotEmpty](<https://github.com/go-softwarelab/common/blob/main/pkg/seq2/sequence.go#L139>)
+### Sequence[K, V].IsNotEmpty
 
 ```go
 func (s Sequence[K, V]) IsNotEmpty() bool
@@ -4962,7 +4954,7 @@ func (s Sequence[K, V]) IsNotEmpty() bool
 IsNotEmpty returns true if the sequence is not empty.
 
 <a name="Sequence[K, V].Keys"></a>
-### [Sequence\[K, V\].Keys](<https://github.com/go-softwarelab/common/blob/main/pkg/seq2/sequence.go#L124>)
+### Sequence[K, V].Keys
 
 ```go
 func (s Sequence[K, V]) Keys() iter.Seq[K]
@@ -4982,6 +4974,7 @@ package main
 import (
 	"fmt"
 
+	"github.com/go-softwarelab/common/pkg/seq"
 	"github.com/go-softwarelab/common/pkg/seq2"
 )
 
@@ -4989,26 +4982,25 @@ func main() {
 	sequence := seq2.AsSequence(seq2.Of("a", "b", "c"))
 	keys := sequence.Keys()
 
-	var result []int
-	for k := range keys {
-		result = append(result, k)
-	}
-
-	fmt.Println(result)
+	seq.ForEach(keys, func(k int) {
+		fmt.Println(k)
+	})
 }
 ```
 
 **Output**
 
 ```
-[0 1 2]
+0
+1
+2
 ```
 
 
 </details>
 
 <a name="Sequence[K, V].Limit"></a>
-### [Sequence\[K, V\].Limit](<https://github.com/go-softwarelab/common/blob/main/pkg/seq2/sequence.go#L84>)
+### Sequence[K, V].Limit
 
 ```go
 func (s Sequence[K, V]) Limit(n int) Sequence[K, V]
@@ -5017,7 +5009,7 @@ func (s Sequence[K, V]) Limit(n int) Sequence[K, V]
 Limit is an alias for Take.
 
 <a name="Sequence[K, V].None"></a>
-### [Sequence\[K, V\].None](<https://github.com/go-softwarelab/common/blob/main/pkg/seq2/sequence.go#L234>)
+### Sequence[K, V].None
 
 ```go
 func (s Sequence[K, V]) None(predicate Predicate[K, V]) bool
@@ -5026,7 +5018,7 @@ func (s Sequence[K, V]) None(predicate Predicate[K, V]) bool
 None returns true if no element satisfies the predicate.
 
 <a name="Sequence[K, V].NotContains"></a>
-### [Sequence\[K, V\].NotContains](<https://github.com/go-softwarelab/common/blob/main/pkg/seq2/sequence.go#L199>)
+### Sequence[K, V].NotContains
 
 ```go
 func (s Sequence[K, V]) NotContains(key K) bool
@@ -5035,7 +5027,7 @@ func (s Sequence[K, V]) NotContains(key K) bool
 NotContains returns true if the sequence does not contain the key.
 
 <a name="Sequence[K, V].NotContainsPair"></a>
-### [Sequence\[K, V\].NotContainsPair](<https://github.com/go-softwarelab/common/blob/main/pkg/seq2/sequence.go#L219>)
+### Sequence[K, V].NotContainsPair
 
 ```go
 func (s Sequence[K, V]) NotContainsPair(key K, value V) bool
@@ -5044,7 +5036,7 @@ func (s Sequence[K, V]) NotContainsPair(key K, value V) bool
 NotContainsPair returns true if the sequence does not contain the key\-value pair.
 
 <a name="Sequence[K, V].NotContainsValue"></a>
-### [Sequence\[K, V\].NotContainsValue](<https://github.com/go-softwarelab/common/blob/main/pkg/seq2/sequence.go#L209>)
+### Sequence[K, V].NotContainsValue
 
 ```go
 func (s Sequence[K, V]) NotContainsValue(value V) bool
@@ -5053,7 +5045,7 @@ func (s Sequence[K, V]) NotContainsValue(value V) bool
 NotContainsValue returns true if the sequence does not contain the value.
 
 <a name="Sequence[K, V].Offset"></a>
-### [Sequence\[K, V\].Offset](<https://github.com/go-softwarelab/common/blob/main/pkg/seq2/sequence.go#L74>)
+### Sequence[K, V].Offset
 
 ```go
 func (s Sequence[K, V]) Offset(n int) Sequence[K, V]
@@ -5062,7 +5054,7 @@ func (s Sequence[K, V]) Offset(n int) Sequence[K, V]
 Offset is an alias for Skip.
 
 <a name="Sequence[K, V].Prepend"></a>
-### [Sequence\[K, V\].Prepend](<https://github.com/go-softwarelab/common/blob/main/pkg/seq2/sequence.go#L44>)
+### Sequence[K, V].Prepend
 
 ```go
 func (s Sequence[K, V]) Prepend(key K, value V) Sequence[K, V]
@@ -5109,7 +5101,7 @@ func main() {
 </details>
 
 <a name="Sequence[K, V].Repeat"></a>
-### [Sequence\[K, V\].Repeat](<https://github.com/go-softwarelab/common/blob/main/pkg/seq2/sequence.go#L189>)
+### Sequence[K, V].Repeat
 
 ```go
 func (s Sequence[K, V]) Repeat(count int) Sequence[K, V]
@@ -5118,7 +5110,7 @@ func (s Sequence[K, V]) Repeat(count int) Sequence[K, V]
 Repeat is an alias for Cycle.
 
 <a name="Sequence[K, V].Reverse"></a>
-### [Sequence\[K, V\].Reverse](<https://github.com/go-softwarelab/common/blob/main/pkg/seq2/sequence.go#L179>)
+### Sequence[K, V].Reverse
 
 ```go
 func (s Sequence[K, V]) Reverse() Sequence[K, V]
@@ -5165,7 +5157,7 @@ func main() {
 </details>
 
 <a name="Sequence[K, V].Skip"></a>
-### [Sequence\[K, V\].Skip](<https://github.com/go-softwarelab/common/blob/main/pkg/seq2/sequence.go#L69>)
+### Sequence[K, V].Skip
 
 ```go
 func (s Sequence[K, V]) Skip(n int) Sequence[K, V]
@@ -5212,7 +5204,7 @@ func main() {
 </details>
 
 <a name="Sequence[K, V].SortComparingKeys"></a>
-### [Sequence\[K, V\].SortComparingKeys](<https://github.com/go-softwarelab/common/blob/main/pkg/seq2/sequence.go#L169>)
+### Sequence[K, V].SortComparingKeys
 
 ```go
 func (s Sequence[K, V]) SortComparingKeys(compare func(K, K) int) Sequence[K, V]
@@ -5221,7 +5213,7 @@ func (s Sequence[K, V]) SortComparingKeys(compare func(K, K) int) Sequence[K, V]
 SortComparingKeys sorts the sequence by keys using a custom comparator.
 
 <a name="Sequence[K, V].SortComparingValues"></a>
-### [Sequence\[K, V\].SortComparingValues](<https://github.com/go-softwarelab/common/blob/main/pkg/seq2/sequence.go#L174>)
+### Sequence[K, V].SortComparingValues
 
 ```go
 func (s Sequence[K, V]) SortComparingValues(compare func(V, V) int) Sequence[K, V]
@@ -5230,7 +5222,7 @@ func (s Sequence[K, V]) SortComparingValues(compare func(V, V) int) Sequence[K, 
 SortComparingValues sorts the sequence by values using a custom comparator.
 
 <a name="Sequence[K, V].Take"></a>
-### [Sequence\[K, V\].Take](<https://github.com/go-softwarelab/common/blob/main/pkg/seq2/sequence.go#L79>)
+### Sequence[K, V].Take
 
 ```go
 func (s Sequence[K, V]) Take(n int) Sequence[K, V]
@@ -5277,7 +5269,7 @@ func main() {
 </details>
 
 <a name="Sequence[K, V].Tap"></a>
-### [Sequence\[K, V\].Tap](<https://github.com/go-softwarelab/common/blob/main/pkg/seq2/sequence.go#L89>)
+### Sequence[K, V].Tap
 
 ```go
 func (s Sequence[K, V]) Tap(consumer Consumer[K, V]) Sequence[K, V]
@@ -5323,7 +5315,7 @@ func main() {
 </details>
 
 <a name="Sequence[K, V].ToMap"></a>
-### [Sequence\[K, V\].ToMap](<https://github.com/go-softwarelab/common/blob/main/pkg/seq2/sequence.go#L109>)
+### Sequence[K, V].ToMap
 
 ```go
 func (s Sequence[K, V]) ToMap(m map[K]V)
@@ -5332,7 +5324,7 @@ func (s Sequence[K, V]) ToMap(m map[K]V)
 ToMap converts the sequence to a map.
 
 <a name="Sequence[K, V].Union"></a>
-### [Sequence\[K, V\].Union](<https://github.com/go-softwarelab/common/blob/main/pkg/seq2/sequence.go#L29>)
+### Sequence[K, V].Union
 
 ```go
 func (s Sequence[K, V]) Union(other Sequence[K, V]) Sequence[K, V]
@@ -5382,7 +5374,7 @@ e : 5
 </details>
 
 <a name="Sequence[K, V].UnionAll"></a>
-### [Sequence\[K, V\].UnionAll](<https://github.com/go-softwarelab/common/blob/main/pkg/seq2/sequence.go#L34>)
+### Sequence[K, V].UnionAll
 
 ```go
 func (s Sequence[K, V]) UnionAll(other Sequence[K, V]) Sequence[K, V]
@@ -5431,7 +5423,7 @@ func main() {
 </details>
 
 <a name="Sequence[K, V].Uniq"></a>
-### [Sequence\[K, V\].Uniq](<https://github.com/go-softwarelab/common/blob/main/pkg/seq2/sequence.go#L239>)
+### Sequence[K, V].Uniq
 
 ```go
 func (s Sequence[K, V]) Uniq() Sequence[K, V]
@@ -5478,7 +5470,7 @@ func main() {
 </details>
 
 <a name="Sequence[K, V].UniqKeys"></a>
-### [Sequence\[K, V\].UniqKeys](<https://github.com/go-softwarelab/common/blob/main/pkg/seq2/sequence.go#L244>)
+### Sequence[K, V].UniqKeys
 
 ```go
 func (s Sequence[K, V]) UniqKeys() Sequence[K, V]
@@ -5487,7 +5479,7 @@ func (s Sequence[K, V]) UniqKeys() Sequence[K, V]
 UniqKeys returns a sequence with unique keys.
 
 <a name="Sequence[K, V].UniqValues"></a>
-### [Sequence\[K, V\].UniqValues](<https://github.com/go-softwarelab/common/blob/main/pkg/seq2/sequence.go#L249>)
+### Sequence[K, V].UniqValues
 
 ```go
 func (s Sequence[K, V]) UniqValues() Sequence[K, V]
@@ -5496,7 +5488,7 @@ func (s Sequence[K, V]) UniqValues() Sequence[K, V]
 UniqValues returns a sequence with unique values.
 
 <a name="Sequence[K, V].Values"></a>
-### [Sequence\[K, V\].Values](<https://github.com/go-softwarelab/common/blob/main/pkg/seq2/sequence.go#L129>)
+### Sequence[K, V].Values
 
 ```go
 func (s Sequence[K, V]) Values() iter.Seq[V]
@@ -5516,6 +5508,7 @@ package main
 import (
 	"fmt"
 
+	"github.com/go-softwarelab/common/pkg/seq"
 	"github.com/go-softwarelab/common/pkg/seq2"
 )
 
@@ -5523,26 +5516,25 @@ func main() {
 	sequence := seq2.AsSequence(seq2.Of("a", "b", "c"))
 	values := sequence.Values()
 
-	var result []string
-	for v := range values {
-		result = append(result, v)
-	}
-
-	fmt.Println(result)
+	seq.ForEach(values, func(v string) {
+		fmt.Println(v)
+	})
 }
 ```
 
 **Output**
 
 ```
-[a b c]
+a
+b
+c
 ```
 
 
 </details>
 
 <a name="Sequence[K, V].Where"></a>
-### [Sequence\[K, V\].Where](<https://github.com/go-softwarelab/common/blob/main/pkg/seq2/sequence.go#L54>)
+### Sequence[K, V].Where
 
 ```go
 func (s Sequence[K, V]) Where(predicate Predicate[K, V]) Sequence[K, V]
@@ -5551,7 +5543,7 @@ func (s Sequence[K, V]) Where(predicate Predicate[K, V]) Sequence[K, V]
 Where returns a new sequence with elements that satisfy the predicate.
 
 <a name="ValueMapper"></a>
-## type [ValueMapper](<https://github.com/go-softwarelab/common/blob/main/pkg/seq2/mapper.go#L15>)
+## type ValueMapper
 
 ValueMapper is a function that takes Value a new Value.
 
@@ -5560,7 +5552,7 @@ type ValueMapper[V, R any] = func(V) R
 ```
 
 <a name="ValuePredicate"></a>
-## type [ValuePredicate](<https://github.com/go-softwarelab/common/blob/main/pkg/seq2/filter.go#L12>)
+## type ValuePredicate
 
 ValuePredicate is a function that is used to filter by value.
 
