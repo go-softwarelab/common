@@ -21,7 +21,6 @@ jobs:
         with:
           fetch-depth: 0
           ref: ${{ github.ref }}
-          ssh-key: ${{ secrets.DEPLOY_KEY }}
 
       - uses: actions/setup-node@v4
         with:
@@ -34,5 +33,31 @@ jobs:
         working-directory: docs
 
       - name: Build website
-        run: yarn deploy
+        run: yarn build
         working-directory: docs
+
+      - name: Upload Build Artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: docs/build
+
+  deploy:
+    name: Deploy to GitHub Pages
+    needs: build_docs
+
+    # Grant GITHUB_TOKEN the permissions required to make a Pages deployment
+    permissions:
+      pages: write # to deploy to Pages
+      id-token: write # to verify the deployment originates from an appropriate source
+      deployments: write
+
+    # Deploy to the Page environment
+    environment:
+      name: Page
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
