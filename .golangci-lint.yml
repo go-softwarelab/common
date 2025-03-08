@@ -71,9 +71,6 @@ linters:
     - wastedassign
 
 linters-settings:
-  wrapcheck:
-    ignoreSigRegexps:
-    ignorePackageGlobs:
   revive:
     rules:
       - name: exported
