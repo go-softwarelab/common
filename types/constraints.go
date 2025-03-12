@@ -36,6 +36,13 @@ type Float interface {
 	~float32 | ~float64
 }
 
+// Number is a constraint that permits any numeric type.
+// If future releases of Go add new predeclared numeric types,
+// this constraint will be modified to include them.
+type Number interface {
+	Integer | Float
+}
+
 // Complex is a constraint that permits any complex numeric type.
 // If future releases of Go add new predeclared complex numeric types,
 // this constraint will be modified to include them.
