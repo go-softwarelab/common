@@ -4,7 +4,7 @@ import "reflect"
 
 // Nil checks if a value is nil.
 func Nil(value any) bool {
-	defer func() { recover() }() // nolint:errcheck
+	defer func() { recover() }() //nolint:errcheck
 	return value == nil || reflect.ValueOf(value).IsNil()
 }
 
