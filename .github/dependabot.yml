@@ -32,3 +32,19 @@ updates:
           - "minor"
           - "patch"
           - "major"
+
+  # Maintain dependencies for docusaurus
+  - package-ecosystem: "npm"
+    target-branch: "main"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+    labels:
+      - "dependencies"
+    groups:
+      npm:
+        update-types:
+          - "minor"
+          - "patch"
+          - "major"
