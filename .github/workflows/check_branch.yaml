@@ -12,7 +12,7 @@ permissions:
 
 jobs:
   on-push:
-    uses: bactions/workflows/.github/workflows/on-push-go.yml@go-generate
+    uses: bactions/workflows/.github/workflows/on-push-go.yml@main
     secrets:
       DEPLOY_KEY: ${{ secrets.DEPLOY_KEY }}
   test-docs:
