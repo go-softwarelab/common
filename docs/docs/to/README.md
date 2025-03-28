@@ -1113,6 +1113,146 @@ NoMoreThan(15, 10) = 10
 
 </details>
 
+<a name="Options"></a>
+## Options
+
+```go
+func Options[T any](opts ...func(*T)) T
+```
+
+Options helper function to handle options pattern.
+
+<details>
+<summary>Example</summary>
+
+
+
+
+```go
+package main
+
+import (
+	"fmt"
+
+	"github.com/go-softwarelab/common/pkg/to"
+)
+
+func main() {
+	// Prepare definition of config
+	type Config struct {
+		Host  string
+		Port  int
+		Debug bool
+	}
+
+	// Define reusable option functions
+	withHost := func(host string) func(*Config) {
+		return func(c *Config) {
+			c.Host = host
+		}
+	}
+
+	withPort := func(port int) func(*Config) {
+		return func(c *Config) {
+			c.Port = port
+		}
+	}
+
+	withDebug := func(c *Config) {
+		c.Debug = true
+	}
+
+	// Handle opts
+	config := to.Options[Config](
+		withHost("example.com"),
+		withPort(443),
+		withDebug,
+	)
+
+	fmt.Printf("Host: %s\n", config.Host)
+	fmt.Printf("Port: %d\n", config.Port)
+	fmt.Printf("Debug: %v\n", config.Debug)
+
+}
+```
+
+**Output**
+
+```
+Host: example.com
+Port: 443
+Debug: true
+```
+
+
+</details>
+
+<a name="OptionsWithDefault"></a>
+## OptionsWithDefault
+
+```go
+func OptionsWithDefault[T any](defaultOptions T, opts ...func(*T)) T
+```
+
+OptionsWithDefault helper function to handle options pattern with default value for options.
+
+<details>
+<summary>Example</summary>
+
+
+
+
+```go
+package main
+
+import (
+	"fmt"
+
+	"github.com/go-softwarelab/common/pkg/to"
+)
+
+func main() {
+	type Config struct {
+		Host  string
+		Port  int
+		Debug bool
+	}
+
+	// Default configuration
+	defaultConfig := Config{
+		Host:  "127.0.0.1",
+		Port:  3000,
+		Debug: false,
+	}
+
+	// Override some default values using OptionsWithDefault
+	config := to.OptionsWithDefault(defaultConfig,
+		func(c *Config) {
+			c.Port = 8080
+		},
+		func(c *Config) {
+			c.Debug = true
+		},
+	)
+
+	fmt.Printf("Host: %s\n", config.Host)
+	fmt.Printf("Port: %d\n", config.Port)
+	fmt.Printf("Debug: %v\n", config.Debug)
+
+}
+```
+
+**Output**
+
+```
+Host: 127.0.0.1
+Port: 8080
+Debug: true
+```
+
+
+</details>
+
 <a name="PascalCase"></a>
 ## PascalCase
 
