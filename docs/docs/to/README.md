@@ -129,6 +129,41 @@ AtMost will return a function that will clamp the value to be at most the max va
 
 See Also: NoMoreThan
 
+<details>
+<summary>Example</summary>
+
+
+
+
+```go
+package main
+
+import (
+	"fmt"
+
+	"github.com/go-softwarelab/common/pkg/to"
+)
+
+func main() {
+	// Creating a function that ensures values are at most 100
+	ensurePercentage := to.AtMost(100)
+
+	fmt.Printf("ensurePercentage(50) = %d\n", ensurePercentage(50))
+	fmt.Printf("ensurePercentage(150) = %d\n", ensurePercentage(150))
+
+}
+```
+
+**Output**
+
+```
+ensurePercentage(50) = 50
+ensurePercentage(150) = 100
+```
+
+
+</details>
+
 <a name="BoolFromNumber"></a>
 ## BoolFromNumber
 
@@ -582,6 +617,47 @@ bool(false)
 
 </details>
 
+<a name="Float32"></a>
+## Float32
+
+```go
+func Float32[V types.SignedNumber](value V) (float32, error)
+```
+
+Float32 will convert any number to float
+
+<details>
+<summary>Example</summary>
+
+
+
+
+```go
+package main
+
+import (
+	"fmt"
+
+	"github.com/go-softwarelab/common/pkg/to"
+)
+
+func main() {
+	// Converting within range
+	val, err := to.Float32(3)
+	fmt.Printf("%T(%g), Error: %v\n", val, val, err)
+
+}
+```
+
+**Output**
+
+```
+float32(3), Error: <nil>
+```
+
+
+</details>
+
 <a name="Float32FromString"></a>
 ## Float32FromString
 
@@ -590,6 +666,120 @@ func Float32FromString(value string) (float32, error)
 ```
 
 Float32FromString will convert any string to float32, with range checks
+
+<details>
+<summary>Example</summary>
+
+
+
+
+```go
+package main
+
+import (
+	"fmt"
+
+	"github.com/go-softwarelab/common/pkg/to"
+)
+
+func main() {
+	// Valid conversion
+	val, err := to.Float32FromString("3.14159")
+	fmt.Printf("%T(%g), Error: %v\n", val, val, err)
+
+}
+```
+
+**Output**
+
+```
+float32(3.14159), Error: <nil>
+```
+
+
+</details>
+
+<a name="Float32FromUnsigned"></a>
+## Float32FromUnsigned
+
+```go
+func Float32FromUnsigned[V types.Unsigned](value V) (float32, error)
+```
+
+Float32FromUnsigned will convert any unassigned number to float
+
+<details>
+<summary>Example</summary>
+
+
+
+
+```go
+package main
+
+import (
+	"fmt"
+
+	"github.com/go-softwarelab/common/pkg/to"
+)
+
+func main() {
+	// Converting within range
+	val, err := to.Float32FromUnsigned(uint(42))
+	fmt.Printf("%T(%g), Error: %v\n", val, val, err)
+
+}
+```
+
+**Output**
+
+```
+float32(42), Error: <nil>
+```
+
+
+</details>
+
+<a name="Float64"></a>
+## Float64
+
+```go
+func Float64[V types.SignedNumber](value V) (float64, error)
+```
+
+Float64 will convert any number to float
+
+<details>
+<summary>Example</summary>
+
+
+
+
+```go
+package main
+
+import (
+	"fmt"
+
+	"github.com/go-softwarelab/common/pkg/to"
+)
+
+func main() {
+	// Converting within range
+	val, err := to.Float64(3)
+	fmt.Printf("%T(%g), Error: %v\n", val, val, err)
+
+}
+```
+
+**Output**
+
+```
+float64(3), Error: <nil>
+```
+
+
+</details>
 
 <a name="Float64FromString"></a>
 ## Float64FromString
@@ -632,11 +822,52 @@ float64(3.14159), Error: <nil>
 
 </details>
 
+<a name="Float64FromUnsigned"></a>
+## Float64FromUnsigned
+
+```go
+func Float64FromUnsigned[V types.Unsigned](value V) (float64, error)
+```
+
+Float64FromUnsigned will convert any unassigned number to float
+
+<details>
+<summary>Example</summary>
+
+
+
+
+```go
+package main
+
+import (
+	"fmt"
+
+	"github.com/go-softwarelab/common/pkg/to"
+)
+
+func main() {
+	// Converting within range
+	val, err := to.Float64FromUnsigned(uint64(42))
+	fmt.Printf("%T(%g), Error: %v\n", val, val, err)
+
+}
+```
+
+**Output**
+
+```
+float64(42), Error: <nil>
+```
+
+
+</details>
+
 <a name="Int"></a>
 ## Int
 
 ```go
-func Int[V types.Signed](value V) (int, error)
+func Int[V types.SignedNumber](value V) (int, error)
 ```
 
 Int will convert any integer to int, with range checks
@@ -677,10 +908,48 @@ int(42), Error: <nil>
 ## Int16
 
 ```go
-func Int16[V types.Signed](value V) (int16, error)
+func Int16[V types.SignedNumber](value V) (int16, error)
 ```
 
 Int16 will convert any integer to int16, with range checks
+
+<details>
+<summary>Example</summary>
+
+
+
+
+```go
+package main
+
+import (
+	"errors"
+	"fmt"
+
+	"github.com/go-softwarelab/common/pkg/to"
+)
+
+func main() {
+	// Converting within range
+	val, err := to.Int16(1000)
+	fmt.Printf("%T(%d), Error: %v\n", val, val, err)
+
+	// Converting out of range
+	valOOR, errOOR := to.Int16(40000)
+	fmt.Printf("%T(%d), Error: %v\n", valOOR, valOOR, errors.Is(errOOR, to.ErrValueOutOfRange))
+
+}
+```
+
+**Output**
+
+```
+int16(1000), Error: <nil>
+int16(0), Error: true
+```
+
+
+</details>
 
 <a name="Int16FromString"></a>
 ## Int16FromString
@@ -738,14 +1007,84 @@ func Int16FromUnsigned[V types.Unsigned](value V) (int16, error)
 
 Int16FromUnsigned will convert any unsigned integer to int16, with range checks.
 
+<details>
+<summary>Example</summary>
+
+
+
+
+```go
+package main
+
+import (
+	"errors"
+	"fmt"
+
+	"github.com/go-softwarelab/common/pkg/to"
+)
+
+func main() {
+	// Converting within range
+	val, err := to.Int16FromUnsigned(uint(1000))
+	fmt.Printf("%T(%d), Error: %v\n", val, val, err)
+
+	// Converting out of range
+	valOOR, errOOR := to.Int16FromUnsigned(uint(40000))
+	fmt.Printf("%T(%d), Error: %v\n", valOOR, valOOR, errors.Is(errOOR, to.ErrValueOutOfRange))
+
+}
+```
+
+**Output**
+
+```
+int16(1000), Error: <nil>
+int16(0), Error: true
+```
+
+
+</details>
+
 <a name="Int32"></a>
 ## Int32
 
 ```go
-func Int32[V types.Signed](value V) (int32, error)
+func Int32[V types.SignedNumber](value V) (int32, error)
 ```
 
 Int32 will convert any integer to int32, with range checks
+
+<details>
+<summary>Example</summary>
+
+
+
+
+```go
+package main
+
+import (
+	"fmt"
+
+	"github.com/go-softwarelab/common/pkg/to"
+)
+
+func main() {
+	// Converting within range
+	val, err := to.Int32(1000000)
+	fmt.Printf("%T(%d), Error: %v\n", val, val, err)
+
+}
+```
+
+**Output**
+
+```
+int32(1000000), Error: <nil>
+```
+
+
+</details>
 
 <a name="Int32FromString"></a>
 ## Int32FromString
@@ -756,6 +1095,38 @@ func Int32FromString(value string) (int32, error)
 
 Int32FromString will convert any string to int32, with range checks
 
+<details>
+<summary>Example</summary>
+
+
+
+
+```go
+package main
+
+import (
+	"fmt"
+
+	"github.com/go-softwarelab/common/pkg/to"
+)
+
+func main() {
+	// Valid conversion
+	val, err := to.Int32FromString("1234567")
+	fmt.Printf("%T(%d), Error: %v\n", val, val, err)
+
+}
+```
+
+**Output**
+
+```
+int32(1234567), Error: <nil>
+```
+
+
+</details>
+
 <a name="Int32FromUnsigned"></a>
 ## Int32FromUnsigned
 
@@ -765,14 +1136,78 @@ func Int32FromUnsigned[V types.Unsigned](value V) (int32, error)
 
 Int32FromUnsigned will convert any unsigned integer to int32, with range checks.
 
+<details>
+<summary>Example</summary>
+
+
+
+
+```go
+package main
+
+import (
+	"fmt"
+
+	"github.com/go-softwarelab/common/pkg/to"
+)
+
+func main() {
+	// Converting within range
+	val, err := to.Int32FromUnsigned(uint(1000000))
+	fmt.Printf("%T(%d), Error: %v\n", val, val, err)
+
+}
+```
+
+**Output**
+
+```
+int32(1000000), Error: <nil>
+```
+
+
+</details>
+
 <a name="Int64"></a>
 ## Int64
 
 ```go
-func Int64[V types.Signed](value V) (int64, error)
+func Int64[V types.SignedNumber](value V) (int64, error)
 ```
 
 Int64 will convert any integer to int64, with range checks
+
+<details>
+<summary>Example</summary>
+
+
+
+
+```go
+package main
+
+import (
+	"fmt"
+
+	"github.com/go-softwarelab/common/pkg/to"
+)
+
+func main() {
+	// Converting within range
+	val, err := to.Int64(9223372036854775807)
+	fmt.Printf("%T(%d), Error: %v\n", val, val, err)
+
+}
+```
+
+**Output**
+
+```
+int64(9223372036854775807), Error: <nil>
+```
+
+
+</details>
 
 <a name="Int64FromString"></a>
 ## Int64FromString
@@ -783,6 +1218,38 @@ func Int64FromString(value string) (int64, error)
 
 Int64FromString will convert any string to int64, with range checks
 
+<details>
+<summary>Example</summary>
+
+
+
+
+```go
+package main
+
+import (
+	"fmt"
+
+	"github.com/go-softwarelab/common/pkg/to"
+)
+
+func main() {
+	// Valid conversion
+	val, err := to.Int64FromString("9223372036854775807")
+	fmt.Printf("%T(%d), Error: %v\n", val, val, err)
+
+}
+```
+
+**Output**
+
+```
+int64(9223372036854775807), Error: <nil>
+```
+
+
+</details>
+
 <a name="Int64FromUnsigned"></a>
 ## Int64FromUnsigned
 
@@ -792,11 +1259,43 @@ func Int64FromUnsigned[V types.Unsigned](value V) (int64, error)
 
 Int64FromUnsigned will convert any unsigned integer to int64, with range checks.
 
+<details>
+<summary>Example</summary>
+
+
+
+
+```go
+package main
+
+import (
+	"fmt"
+
+	"github.com/go-softwarelab/common/pkg/to"
+)
+
+func main() {
+	// Converting within range
+	val, err := to.Int64FromUnsigned(uint64(9223372036854775807))
+	fmt.Printf("%T(%d), Error: %v\n", val, val, err)
+
+}
+```
+
+**Output**
+
+```
+int64(9223372036854775807), Error: <nil>
+```
+
+
+</details>
+
 <a name="Int8"></a>
 ## Int8
 
 ```go
-func Int8[V types.Signed](value V) (int8, error)
+func Int8[V types.SignedNumber](value V) (int8, error)
 ```
 
 Int8 will convert any integer to int8, with range checks
@@ -848,6 +1347,44 @@ func Int8FromString(value string) (int8, error)
 
 Int8FromString will convert any string to int8, with range checks
 
+<details>
+<summary>Example</summary>
+
+
+
+
+```go
+package main
+
+import (
+	"errors"
+	"fmt"
+
+	"github.com/go-softwarelab/common/pkg/to"
+)
+
+func main() {
+	// Valid conversion
+	val, err := to.Int8FromString("100")
+	fmt.Printf("%T(%d), Error: %v\n", val, val, err)
+
+	// Out of range
+	valOOR, errOOR := to.Int8FromString("200")
+	fmt.Printf("%T(%d), Error: %v\n", valOOR, valOOR, errors.Is(errOOR, to.ErrValueOutOfRange))
+
+}
+```
+
+**Output**
+
+```
+int8(100), Error: <nil>
+int8(0), Error: true
+```
+
+
+</details>
+
 <a name="Int8FromUnsigned"></a>
 ## Int8FromUnsigned
 
@@ -856,6 +1393,44 @@ func Int8FromUnsigned[V types.Unsigned](value V) (int8, error)
 ```
 
 Int8FromUnsigned will convert any unsigned integer to int8, with range checks.
+
+<details>
+<summary>Example</summary>
+
+
+
+
+```go
+package main
+
+import (
+	"errors"
+	"fmt"
+
+	"github.com/go-softwarelab/common/pkg/to"
+)
+
+func main() {
+	// Converting within range
+	val, err := to.Int8FromUnsigned(uint(42))
+	fmt.Printf("%T(%d), Error: %v\n", val, val, err)
+
+	// Converting out of range
+	valOOR, errOOR := to.Int8FromUnsigned(uint(200))
+	fmt.Printf("%T(%d), Error: %v\n", valOOR, valOOR, errors.Is(errOOR, to.ErrValueOutOfRange))
+
+}
+```
+
+**Output**
+
+```
+int8(42), Error: <nil>
+int8(0), Error: true
+```
+
+
+</details>
 
 <a name="IntFromString"></a>
 ## IntFromString
@@ -866,6 +1441,44 @@ func IntFromString(value string) (int, error)
 
 IntFromString will convert any string to int, with range checks
 
+<details>
+<summary>Example</summary>
+
+
+
+
+```go
+package main
+
+import (
+	"errors"
+	"fmt"
+
+	"github.com/go-softwarelab/common/pkg/to"
+)
+
+func main() {
+	// Valid conversion
+	val, err := to.IntFromString("12345")
+	fmt.Printf("%T(%d), Error: %v\n", val, val, err)
+
+	// Invalid syntax
+	valSyntax, errSyntax := to.IntFromString("abc")
+	fmt.Printf("%T(%d), Error: %v\n", valSyntax, valSyntax, errors.Is(errSyntax, to.ErrInvalidStringSyntax))
+
+}
+```
+
+**Output**
+
+```
+int(12345), Error: <nil>
+int(0), Error: true
+```
+
+
+</details>
+
 <a name="IntFromUnsigned"></a>
 ## IntFromUnsigned
 
@@ -874,6 +1487,38 @@ func IntFromUnsigned[V types.Unsigned](value V) (int, error)
 ```
 
 IntFromUnsigned will convert any unsigned integer to int, with range checks.
+
+<details>
+<summary>Example</summary>
+
+
+
+
+```go
+package main
+
+import (
+	"fmt"
+
+	"github.com/go-softwarelab/common/pkg/to"
+)
+
+func main() {
+	// Converting within range
+	val, err := to.IntFromUnsigned(uint16(42))
+	fmt.Printf("%T(%d), Error: %v\n", val, val, err)
+
+}
+```
+
+**Output**
+
+```
+int(42), Error: <nil>
+```
+
+
+</details>
 
 <a name="KebabCase"></a>
 ## KebabCase
@@ -1653,19 +2298,89 @@ string("世")
 ## UInt
 
 ```go
-func UInt[V types.Integer](value V) (uint, error)
+func UInt[V types.Number](value V) (uint, error)
 ```
 
 UInt will convert any integer to uint, with range checks
+
+<details>
+<summary>Example</summary>
+
+
+
+
+```go
+package main
+
+import (
+	"errors"
+	"fmt"
+
+	"github.com/go-softwarelab/common/pkg/to"
+)
+
+func main() {
+	// Converting positive value
+	val, err := to.UInt(42)
+	fmt.Printf("%T(%d), Error: %v\n", val, val, err)
+
+	// Converting negative value
+	valNeg, errNeg := to.UInt(-5)
+	fmt.Printf("%T(%d), Error: %v\n", valNeg, valNeg, errors.Is(errNeg, to.ErrValueOutOfRange))
+
+}
+```
+
+**Output**
+
+```
+uint(42), Error: <nil>
+uint(0), Error: true
+```
+
+
+</details>
 
 <a name="UInt16"></a>
 ## UInt16
 
 ```go
-func UInt16[V types.Integer](value V) (uint16, error)
+func UInt16[V types.Number](value V) (uint16, error)
 ```
 
 UInt16 will convert any integer to uint16, with range checks
+
+<details>
+<summary>Example</summary>
+
+
+
+
+```go
+package main
+
+import (
+	"fmt"
+
+	"github.com/go-softwarelab/common/pkg/to"
+)
+
+func main() {
+	// Converting within range
+	val, err := to.UInt16(65000)
+	fmt.Printf("%T(%d), Error: %v\n", val, val, err)
+
+}
+```
+
+**Output**
+
+```
+uint16(65000), Error: <nil>
+```
+
+
+</details>
 
 <a name="UInt16FromString"></a>
 ## UInt16FromString
@@ -1676,11 +2391,43 @@ func UInt16FromString(value string) (uint16, error)
 
 UInt16FromString will convert any string to uint16, with range checks
 
+<details>
+<summary>Example</summary>
+
+
+
+
+```go
+package main
+
+import (
+	"fmt"
+
+	"github.com/go-softwarelab/common/pkg/to"
+)
+
+func main() {
+	// Valid conversion
+	val, err := to.UInt16FromString("65000")
+	fmt.Printf("%T(%d), Error: %v\n", val, val, err)
+
+}
+```
+
+**Output**
+
+```
+uint16(65000), Error: <nil>
+```
+
+
+</details>
+
 <a name="UInt32"></a>
 ## UInt32
 
 ```go
-func UInt32[V types.Integer](value V) (uint32, error)
+func UInt32[V types.Number](value V) (uint32, error)
 ```
 
 UInt32 will convert any integer to uint32, with range checks
@@ -1732,14 +2479,78 @@ func UInt32FromString(value string) (uint32, error)
 
 UInt32FromString will convert any string to uint32, with range checks
 
+<details>
+<summary>Example</summary>
+
+
+
+
+```go
+package main
+
+import (
+	"fmt"
+
+	"github.com/go-softwarelab/common/pkg/to"
+)
+
+func main() {
+	// Valid conversion
+	val, err := to.UInt32FromString("4294967295")
+	fmt.Printf("%T(%d), Error: %v\n", val, val, err)
+
+}
+```
+
+**Output**
+
+```
+uint32(4294967295), Error: <nil>
+```
+
+
+</details>
+
 <a name="UInt64"></a>
 ## UInt64
 
 ```go
-func UInt64[V types.Integer](value V) (uint64, error)
+func UInt64[V types.Number](value V) (uint64, error)
 ```
 
 UInt64 will convert any integer to uint64, with range checks
+
+<details>
+<summary>Example</summary>
+
+
+
+
+```go
+package main
+
+import (
+	"fmt"
+
+	"github.com/go-softwarelab/common/pkg/to"
+)
+
+func main() {
+	// Converting within range
+	val, err := to.UInt64(uint(18446744073709551000))
+	fmt.Printf("%T(%d), Error: %v\n", val, val, err)
+
+}
+```
+
+**Output**
+
+```
+uint64(18446744073709551000), Error: <nil>
+```
+
+
+</details>
 
 <a name="UInt64FromString"></a>
 ## UInt64FromString
@@ -1750,14 +2561,84 @@ func UInt64FromString(value string) (uint64, error)
 
 UInt64FromString will convert any string to uint64, with range checks
 
+<details>
+<summary>Example</summary>
+
+
+
+
+```go
+package main
+
+import (
+	"fmt"
+
+	"github.com/go-softwarelab/common/pkg/to"
+)
+
+func main() {
+	// Valid conversion
+	val, err := to.UInt64FromString("18446744073709551615")
+	fmt.Printf("%T(%d), Error: %v\n", val, val, err)
+
+}
+```
+
+**Output**
+
+```
+uint64(18446744073709551615), Error: <nil>
+```
+
+
+</details>
+
 <a name="UInt8"></a>
 ## UInt8
 
 ```go
-func UInt8[V types.Integer](value V) (uint8, error)
+func UInt8[V types.Number](value V) (uint8, error)
 ```
 
 UInt8 will convert any integer to uint8, with range checks
+
+<details>
+<summary>Example</summary>
+
+
+
+
+```go
+package main
+
+import (
+	"errors"
+	"fmt"
+
+	"github.com/go-softwarelab/common/pkg/to"
+)
+
+func main() {
+	// Converting within range
+	val, err := to.UInt8(200)
+	fmt.Printf("%T(%d), Error: %v\n", val, val, err)
+
+	// Converting out of range
+	valOOR, errOOR := to.UInt8(300)
+	fmt.Printf("%T(%d), Error: %v\n", valOOR, valOOR, errors.Is(errOOR, to.ErrValueOutOfRange))
+
+}
+```
+
+**Output**
+
+```
+uint8(200), Error: <nil>
+uint8(0), Error: true
+```
+
+
+</details>
 
 <a name="UInt8FromString"></a>
 ## UInt8FromString
@@ -1768,6 +2649,38 @@ func UInt8FromString(value string) (uint8, error)
 
 UInt8FromString will convert any string to uint8, with range checks
 
+<details>
+<summary>Example</summary>
+
+
+
+
+```go
+package main
+
+import (
+	"fmt"
+
+	"github.com/go-softwarelab/common/pkg/to"
+)
+
+func main() {
+	// Valid conversion
+	val, err := to.UInt8FromString("200")
+	fmt.Printf("%T(%d), Error: %v\n", val, val, err)
+
+}
+```
+
+**Output**
+
+```
+uint8(200), Error: <nil>
+```
+
+
+</details>
+
 <a name="UIntFromString"></a>
 ## UIntFromString
 
@@ -1776,6 +2689,38 @@ func UIntFromString(value string) (uint, error)
 ```
 
 UIntFromString will convert any string to uint, with range checks
+
+<details>
+<summary>Example</summary>
+
+
+
+
+```go
+package main
+
+import (
+	"fmt"
+
+	"github.com/go-softwarelab/common/pkg/to"
+)
+
+func main() {
+	// Valid conversion
+	val, err := to.UIntFromString("42")
+	fmt.Printf("%T(%d), Error: %v\n", val, val, err)
+
+}
+```
+
+**Output**
+
+```
+uint(42), Error: <nil>
+```
+
+
+</details>
 
 <a name="Value"></a>
 ## Value
