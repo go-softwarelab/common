@@ -24,10 +24,10 @@ const (
 )
 
 // Int will convert any integer to int, with range checks
-func Int[V types.Signed](value V) (int, error) {
+func Int[V types.SignedNumber](value V) (int, error) {
 	valToCompare := int64(value)
 	if valToCompare < math.MinInt || valToCompare > math.MaxInt {
-		return 0, fmt.Errorf("%d %w to int", value, ErrValueOutOfRange)
+		return 0, fmt.Errorf("%v %w to int", value, ErrValueOutOfRange)
 	}
 	return int(value), nil
 }
@@ -41,10 +41,10 @@ func IntFromUnsigned[V types.Unsigned](value V) (int, error) {
 }
 
 // Int8 will convert any integer to int8, with range checks
-func Int8[V types.Signed](value V) (int8, error) {
+func Int8[V types.SignedNumber](value V) (int8, error) {
 	valToCompare := int64(value)
 	if valToCompare < math.MinInt8 || valToCompare > math.MaxInt8 {
-		return 0, fmt.Errorf("%d %w to int8", value, ErrValueOutOfRange)
+		return 0, fmt.Errorf("%v %w to int8", value, ErrValueOutOfRange)
 	}
 	return int8(value), nil
 }
@@ -58,10 +58,10 @@ func Int8FromUnsigned[V types.Unsigned](value V) (int8, error) {
 }
 
 // Int16 will convert any integer to int16, with range checks
-func Int16[V types.Signed](value V) (int16, error) {
+func Int16[V types.SignedNumber](value V) (int16, error) {
 	valToCompare := int64(value)
 	if valToCompare < math.MinInt16 || valToCompare > math.MaxInt16 {
-		return 0, fmt.Errorf("%d %w to int16", value, ErrValueOutOfRange)
+		return 0, fmt.Errorf("%v %w to int16", value, ErrValueOutOfRange)
 	}
 	return int16(value), nil
 }
@@ -75,10 +75,10 @@ func Int16FromUnsigned[V types.Unsigned](value V) (int16, error) {
 }
 
 // Int32 will convert any integer to int32, with range checks
-func Int32[V types.Signed](value V) (int32, error) {
+func Int32[V types.SignedNumber](value V) (int32, error) {
 	valToCompare := int64(value)
 	if valToCompare < math.MinInt32 || valToCompare > math.MaxInt32 {
-		return 0, fmt.Errorf("%d %w to int32", value, ErrValueOutOfRange)
+		return 0, fmt.Errorf("%v %w to int32", value, ErrValueOutOfRange)
 	}
 	return int32(value), nil
 }
@@ -92,56 +92,82 @@ func Int32FromUnsigned[V types.Unsigned](value V) (int32, error) {
 }
 
 // Int64 will convert any integer to int64, with range checks
-func Int64[V types.Signed](value V) (int64, error) {
+func Int64[V types.SignedNumber](value V) (int64, error) {
 	return int64(value), nil
 }
 
 // Int64FromUnsigned will convert any unsigned integer to int64, with range checks.
 func Int64FromUnsigned[V types.Unsigned](value V) (int64, error) {
 	if uint64(value) > maxInt64ForUnsigned {
-		return 0, fmt.Errorf("%d %w to int64", value, ErrValueOutOfRange)
+		return 0, fmt.Errorf("%v %w to int64", value, ErrValueOutOfRange)
 	}
 	return int64(value), nil
 }
 
 // UInt will convert any integer to uint, with range checks
-func UInt[V types.Integer](value V) (uint, error) {
+func UInt[V types.Number](value V) (uint, error) {
 	if value < 0 || uint64(value) > math.MaxUint {
-		return 0, fmt.Errorf("%d %w to uint", value, ErrValueOutOfRange)
+		return 0, fmt.Errorf("%v %w to uint", value, ErrValueOutOfRange)
 	}
 	return uint(value), nil
 }
 
 // UInt8 will convert any integer to uint8, with range checks
-func UInt8[V types.Integer](value V) (uint8, error) {
+func UInt8[V types.Number](value V) (uint8, error) {
 	if value < 0 || uint64(value) > math.MaxUint8 {
-		return 0, fmt.Errorf("%d %w to uint8", value, ErrValueOutOfRange)
+		return 0, fmt.Errorf("%v %w to uint8", value, ErrValueOutOfRange)
 	}
 	return uint8(value), nil
 }
 
 // UInt16 will convert any integer to uint16, with range checks
-func UInt16[V types.Integer](value V) (uint16, error) {
+func UInt16[V types.Number](value V) (uint16, error) {
 	if value < 0 || uint64(value) > math.MaxUint16 {
-		return 0, fmt.Errorf("%d %w to uint16", value, ErrValueOutOfRange)
+		return 0, fmt.Errorf("%v %w to uint16", value, ErrValueOutOfRange)
 	}
 	return uint16(value), nil
 }
 
 // UInt32 will convert any integer to uint32, with range checks
-func UInt32[V types.Integer](value V) (uint32, error) {
+func UInt32[V types.Number](value V) (uint32, error) {
 	if value < 0 || uint64(value) > math.MaxUint32 {
-		return 0, fmt.Errorf("%d %w to uint32", value, ErrValueOutOfRange)
+		return 0, fmt.Errorf("%v %w to uint32", value, ErrValueOutOfRange)
 	}
 	return uint32(value), nil
 }
 
 // UInt64 will convert any integer to uint64, with range checks
-func UInt64[V types.Integer](value V) (uint64, error) {
+func UInt64[V types.Number](value V) (uint64, error) {
 	if value < 0 {
-		return 0, fmt.Errorf("%d %w to uint64", value, ErrValueOutOfRange)
+		return 0, fmt.Errorf("%v %w to uint64", value, ErrValueOutOfRange)
 	}
 	return uint64(value), nil
+}
+
+// Float32 will convert any number to float
+func Float32[V types.SignedNumber](value V) (float32, error) {
+	if float64(value) < float64(math.SmallestNonzeroFloat32) || float64(value) > float64(math.MaxFloat32) {
+		return 0, fmt.Errorf("%v %w to float32", value, ErrValueOutOfRange)
+	}
+	return float32(value), nil
+}
+
+// Float64 will convert any number to float
+func Float64[V types.SignedNumber](value V) (float64, error) {
+	return float64(value), nil
+}
+
+// Float32FromUnsigned will convert any unassigned number to float
+func Float32FromUnsigned[V types.Unsigned](value V) (float32, error) {
+	if float64(value) > float64(math.MaxFloat32) {
+		return 0, fmt.Errorf("%v %w to float32", value, ErrValueOutOfRange)
+	}
+	return float32(value), nil
+}
+
+// Float64FromUnsigned will convert any unassigned number to float
+func Float64FromUnsigned[V types.Unsigned](value V) (float64, error) {
+	return float64(value), nil
 }
 
 // IntFromString will convert any string to int, with range checks
