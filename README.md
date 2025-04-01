@@ -4,6 +4,12 @@ Welcome to the `common` library by `go-softwarelab`! This library is designed to
 
 One of the standout features of this library is its powerful set of functions that enhance the usability of Go iterators (`iter.Seq` and `iter.Seq2`). These functions are designed to make working with sequences in Go as seamless and pleasant as possible.
 
+## Documentation
+
+For detailed documentation and examples, please visit [Go Common Utils](https://go-softwarelab.github.io/common) page.
+
+We hope you find the `common` library useful and that it helps you write Go code that's as clear as a summer sky!
+
 ## Installation
 
 To install the `common` library, simply run:
@@ -45,9 +51,3 @@ func main() {
 	})
 }
 ```
-
-## Documentation
-
-For more detailed documentation and examples, please visit [Go Common Utils](https://go-softwarelab.github.io/common) page.
-
-We hope you find the `common` library useful and that it helps you write Go code that's as clear as a summer sky!
