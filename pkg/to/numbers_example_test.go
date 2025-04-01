@@ -16,6 +16,15 @@ func ExampleInt() {
 	// int(42), Error: <nil>
 }
 
+func ExampleIntFromUnsigned() {
+	// Converting within range
+	val, err := to.IntFromUnsigned(uint16(42))
+	fmt.Printf("%T(%d), Error: %v\n", val, val, err)
+
+	// Output:
+	// int(42), Error: <nil>
+}
+
 func ExampleInt8() {
 	// Converting within range
 	val, err := to.Int8(42)
@@ -27,6 +36,208 @@ func ExampleInt8() {
 
 	// Output:
 	// int8(42), Error: <nil>
+	// int8(0), Error: true
+}
+
+func ExampleInt8FromUnsigned() {
+	// Converting within range
+	val, err := to.Int8FromUnsigned(uint(42))
+	fmt.Printf("%T(%d), Error: %v\n", val, val, err)
+
+	// Converting out of range
+	valOOR, errOOR := to.Int8FromUnsigned(uint(200))
+	fmt.Printf("%T(%d), Error: %v\n", valOOR, valOOR, errors.Is(errOOR, to.ErrValueOutOfRange))
+
+	// Output:
+	// int8(42), Error: <nil>
+	// int8(0), Error: true
+}
+
+func ExampleInt16() {
+	// Converting within range
+	val, err := to.Int16(1000)
+	fmt.Printf("%T(%d), Error: %v\n", val, val, err)
+
+	// Converting out of range
+	valOOR, errOOR := to.Int16(40000)
+	fmt.Printf("%T(%d), Error: %v\n", valOOR, valOOR, errors.Is(errOOR, to.ErrValueOutOfRange))
+
+	// Output:
+	// int16(1000), Error: <nil>
+	// int16(0), Error: true
+}
+
+func ExampleInt16FromUnsigned() {
+	// Converting within range
+	val, err := to.Int16FromUnsigned(uint(1000))
+	fmt.Printf("%T(%d), Error: %v\n", val, val, err)
+
+	// Converting out of range
+	valOOR, errOOR := to.Int16FromUnsigned(uint(40000))
+	fmt.Printf("%T(%d), Error: %v\n", valOOR, valOOR, errors.Is(errOOR, to.ErrValueOutOfRange))
+
+	// Output:
+	// int16(1000), Error: <nil>
+	// int16(0), Error: true
+}
+
+func ExampleInt32() {
+	// Converting within range
+	val, err := to.Int32(1000000)
+	fmt.Printf("%T(%d), Error: %v\n", val, val, err)
+
+	// Output:
+	// int32(1000000), Error: <nil>
+}
+
+func ExampleInt32FromUnsigned() {
+	// Converting within range
+	val, err := to.Int32FromUnsigned(uint(1000000))
+	fmt.Printf("%T(%d), Error: %v\n", val, val, err)
+
+	// Output:
+	// int32(1000000), Error: <nil>
+}
+
+func ExampleInt64() {
+	// Converting within range
+	val, err := to.Int64(9223372036854775807)
+	fmt.Printf("%T(%d), Error: %v\n", val, val, err)
+
+	// Output:
+	// int64(9223372036854775807), Error: <nil>
+}
+
+func ExampleInt64FromUnsigned() {
+	// Converting within range
+	val, err := to.Int64FromUnsigned(uint64(9223372036854775807))
+	fmt.Printf("%T(%d), Error: %v\n", val, val, err)
+
+	// Output:
+	// int64(9223372036854775807), Error: <nil>
+}
+
+func ExampleUInt() {
+	// Converting positive value
+	val, err := to.UInt(42)
+	fmt.Printf("%T(%d), Error: %v\n", val, val, err)
+
+	// Converting negative value
+	valNeg, errNeg := to.UInt(-5)
+	fmt.Printf("%T(%d), Error: %v\n", valNeg, valNeg, errors.Is(errNeg, to.ErrValueOutOfRange))
+
+	// Output:
+	// uint(42), Error: <nil>
+	// uint(0), Error: true
+}
+
+func ExampleUInt8() {
+	// Converting within range
+	val, err := to.UInt8(200)
+	fmt.Printf("%T(%d), Error: %v\n", val, val, err)
+
+	// Converting out of range
+	valOOR, errOOR := to.UInt8(300)
+	fmt.Printf("%T(%d), Error: %v\n", valOOR, valOOR, errors.Is(errOOR, to.ErrValueOutOfRange))
+
+	// Output:
+	// uint8(200), Error: <nil>
+	// uint8(0), Error: true
+}
+
+func ExampleUInt16() {
+	// Converting within range
+	val, err := to.UInt16(65000)
+	fmt.Printf("%T(%d), Error: %v\n", val, val, err)
+
+	// Output:
+	// uint16(65000), Error: <nil>
+}
+
+func ExampleUInt32() {
+	// Valid conversion
+	val, err := to.UInt32(42)
+	fmt.Printf("%T(%d), Error: %v\n", val, val, err)
+
+	// Negative number
+	valNeg, errNeg := to.UInt32(-5)
+	fmt.Printf("%T(%d), Error: %v\n", valNeg, valNeg, errors.Is(errNeg, to.ErrValueOutOfRange))
+
+	// Output:
+	// uint32(42), Error: <nil>
+	// uint32(0), Error: true
+}
+
+func ExampleUInt64() {
+	// Converting within range
+	val, err := to.UInt64(uint(18446744073709551000))
+	fmt.Printf("%T(%d), Error: %v\n", val, val, err)
+
+	// Output:
+	// uint64(18446744073709551000), Error: <nil>
+}
+
+func ExampleFloat32() {
+	// Converting within range
+	val, err := to.Float32(3)
+	fmt.Printf("%T(%g), Error: %v\n", val, val, err)
+
+	// Output:
+	// float32(3), Error: <nil>
+}
+
+func ExampleFloat64() {
+	// Converting within range
+	val, err := to.Float64(3)
+	fmt.Printf("%T(%g), Error: %v\n", val, val, err)
+
+	// Output:
+	// float64(3), Error: <nil>
+}
+
+func ExampleFloat32FromUnsigned() {
+	// Converting within range
+	val, err := to.Float32FromUnsigned(uint(42))
+	fmt.Printf("%T(%g), Error: %v\n", val, val, err)
+
+	// Output:
+	// float32(42), Error: <nil>
+}
+
+func ExampleFloat64FromUnsigned() {
+	// Converting within range
+	val, err := to.Float64FromUnsigned(uint64(42))
+	fmt.Printf("%T(%g), Error: %v\n", val, val, err)
+
+	// Output:
+	// float64(42), Error: <nil>
+}
+
+func ExampleIntFromString() {
+	// Valid conversion
+	val, err := to.IntFromString("12345")
+	fmt.Printf("%T(%d), Error: %v\n", val, val, err)
+
+	// Invalid syntax
+	valSyntax, errSyntax := to.IntFromString("abc")
+	fmt.Printf("%T(%d), Error: %v\n", valSyntax, valSyntax, errors.Is(errSyntax, to.ErrInvalidStringSyntax))
+
+	// Output:
+	// int(12345), Error: <nil>
+	// int(0), Error: true
+}
+
+func ExampleInt8FromString() {
+	// Valid conversion
+	val, err := to.Int8FromString("100")
+	fmt.Printf("%T(%d), Error: %v\n", val, val, err)
+
+	// Out of range
+	valOOR, errOOR := to.Int8FromString("200")
+	fmt.Printf("%T(%d), Error: %v\n", valOOR, valOOR, errors.Is(errOOR, to.ErrValueOutOfRange))
+
+	// Output:
+	// int8(100), Error: <nil>
 	// int8(0), Error: true
 }
 
@@ -44,18 +255,76 @@ func ExampleInt16FromString() {
 	// int16(0), Error: true
 }
 
-func ExampleUInt32() {
+func ExampleInt32FromString() {
 	// Valid conversion
-	val, err := to.UInt32(42)
+	val, err := to.Int32FromString("1234567")
 	fmt.Printf("%T(%d), Error: %v\n", val, val, err)
 
-	// Negative number
-	valNeg, errNeg := to.UInt32(-5)
-	fmt.Printf("%T(%d), Error: %v\n", valNeg, valNeg, errors.Is(errNeg, to.ErrValueOutOfRange))
+	// Output:
+	// int32(1234567), Error: <nil>
+}
+
+func ExampleInt64FromString() {
+	// Valid conversion
+	val, err := to.Int64FromString("9223372036854775807")
+	fmt.Printf("%T(%d), Error: %v\n", val, val, err)
 
 	// Output:
-	// uint32(42), Error: <nil>
-	// uint32(0), Error: true
+	// int64(9223372036854775807), Error: <nil>
+}
+
+func ExampleUIntFromString() {
+	// Valid conversion
+	val, err := to.UIntFromString("42")
+	fmt.Printf("%T(%d), Error: %v\n", val, val, err)
+
+	// Output:
+	// uint(42), Error: <nil>
+}
+
+func ExampleUInt8FromString() {
+	// Valid conversion
+	val, err := to.UInt8FromString("200")
+	fmt.Printf("%T(%d), Error: %v\n", val, val, err)
+
+	// Output:
+	// uint8(200), Error: <nil>
+}
+
+func ExampleUInt16FromString() {
+	// Valid conversion
+	val, err := to.UInt16FromString("65000")
+	fmt.Printf("%T(%d), Error: %v\n", val, val, err)
+
+	// Output:
+	// uint16(65000), Error: <nil>
+}
+
+func ExampleUInt32FromString() {
+	// Valid conversion
+	val, err := to.UInt32FromString("4294967295")
+	fmt.Printf("%T(%d), Error: %v\n", val, val, err)
+
+	// Output:
+	// uint32(4294967295), Error: <nil>
+}
+
+func ExampleUInt64FromString() {
+	// Valid conversion
+	val, err := to.UInt64FromString("18446744073709551615")
+	fmt.Printf("%T(%d), Error: %v\n", val, val, err)
+
+	// Output:
+	// uint64(18446744073709551615), Error: <nil>
+}
+
+func ExampleFloat32FromString() {
+	// Valid conversion
+	val, err := to.Float32FromString("3.14159")
+	fmt.Printf("%T(%g), Error: %v\n", val, val, err)
+
+	// Output:
+	// float32(3.14159), Error: <nil>
 }
 
 func ExampleFloat64FromString() {
@@ -129,6 +398,18 @@ func ExampleAtLeast() {
 	// Output:
 	// ensureAdult(15) = 18
 	// ensureAdult(21) = 21
+}
+
+func ExampleAtMost() {
+	// Creating a function that ensures values are at most 100
+	ensurePercentage := to.AtMost(100)
+
+	fmt.Printf("ensurePercentage(50) = %d\n", ensurePercentage(50))
+	fmt.Printf("ensurePercentage(150) = %d\n", ensurePercentage(150))
+
+	// Output:
+	// ensurePercentage(50) = 50
+	// ensurePercentage(150) = 100
 }
 
 func ExampleClampedWith() {

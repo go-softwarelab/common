@@ -43,6 +43,13 @@ type Number interface {
 	Integer | Float
 }
 
+// SignedNumber is a constraint that permits any signed numeric type.
+// If future releases of Go add new predeclared signed numeric types,
+// this constraint will be modified to include them.
+type SignedNumber interface {
+	Signed | Float
+}
+
 // Complex is a constraint that permits any complex numeric type.
 // If future releases of Go add new predeclared complex numeric types,
 // this constraint will be modified to include them.
