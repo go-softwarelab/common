@@ -29,7 +29,7 @@ func FlatMap[E any, R any](seq iter.Seq[E], mapper Mapper[E, iter.Seq[R]]) iter.
 		for v := range seq {
 			for r := range mapper(v) {
 				if !yield(r) {
-					break
+					return
 				}
 			}
 		}
@@ -42,7 +42,7 @@ func Flatten[Seq iter.Seq[iter.Seq[E]], E any](seq Seq) iter.Seq[E] {
 		for v := range seq {
 			for elem := range v {
 				if !yield(elem) {
-					break
+					return
 				}
 			}
 		}
@@ -55,7 +55,7 @@ func Cycle[E any](seq iter.Seq[E], count int) iter.Seq[E] {
 		for i := 0; i < count; i++ {
 			for v := range seq {
 				if !yield(v) {
-					break
+					return
 				}
 			}
 		}
