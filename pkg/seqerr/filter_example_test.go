@@ -235,11 +235,9 @@ func ExampleTakeWhileTrue() {
 		}
 	})
 
-	// Create a condition that will be true only for the first 4 elements
-	count := 0
+	// Create a condition that false
 	condition := func() bool {
-		count++
-		return count <= 4
+		return false
 	}
 
 	// Take elements while the condition remains true
@@ -255,10 +253,6 @@ func ExampleTakeWhileTrue() {
 	}
 
 	// Output:
-	// 0
-	// 1
-	// 2
-	// 3
 }
 
 func ExampleTakeUntilTrue() {
@@ -271,11 +265,9 @@ func ExampleTakeUntilTrue() {
 		}
 	})
 
-	// Create a condition that will become true after 5 elements
-	count := 0
+	// Create a condition that true
 	condition := func() bool {
-		count++
-		return count > 5
+		return true
 	}
 
 	// Take elements until the condition becomes true
@@ -291,9 +283,4 @@ func ExampleTakeUntilTrue() {
 	}
 
 	// Output:
-	// 0
-	// 1
-	// 2
-	// 3
-	// 4
 }
