@@ -1820,7 +1820,7 @@ func main() {
 func TakeUntilTrue[E any](seq iter.Seq2[E, error], stopCondition func() bool) iter.Seq2[E, error]
 ```
 
-TakeUntilTrue returns a new sequence that takes elements from the given sequence until the stop condition is satisfied.
+TakeUntilTrue returns a new sequence that takes elements from the given sequence until the stop condition is satisfied. If condition is met before the first element, the sequence will not yield any elements.
 
 <details>
 <summary>Example</summary>
@@ -1848,11 +1848,9 @@ func main() {
 		}
 	})
 
-	// Create a condition that will become true after 5 elements
-	count := 0
+	// Create a condition that true
 	condition := func() bool {
-		count++
-		return count > 5
+		return true
 	}
 
 	// Take elements until the condition becomes true
@@ -1873,11 +1871,7 @@ func main() {
 **Output**
 
 ```
-0
-1
-2
-3
-4
+
 ```
 
 
@@ -1952,10 +1946,10 @@ func main() {
 ## TakeWhileTrue
 
 ```go
-func TakeWhileTrue[E any](seq iter.Seq2[E, error], stopCondition func() bool) iter.Seq2[E, error]
+func TakeWhileTrue[E any](seq iter.Seq2[E, error], continueCondition func() bool) iter.Seq2[E, error]
 ```
 
-TakeWhileTrue returns a new sequence that takes elements from the given sequence while the stop condition is satisfied.
+TakeWhileTrue returns a new sequence that takes elements from the given sequence while the stop condition is satisfied. If condition is met before the first element, the sequence will not yield any elements.
 
 <details>
 <summary>Example</summary>
@@ -1983,11 +1977,9 @@ func main() {
 		}
 	})
 
-	// Create a condition that will be true only for the first 4 elements
-	count := 0
+	// Create a condition that false
 	condition := func() bool {
-		count++
-		return count <= 4
+		return false
 	}
 
 	// Take elements while the condition remains true
@@ -2008,10 +2000,7 @@ func main() {
 **Output**
 
 ```
-0
-1
-2
-3
+
 ```
 
 
