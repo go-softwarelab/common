@@ -2,7 +2,6 @@ package seq_test
 
 import (
 	"fmt"
-
 	"github.com/go-softwarelab/common/pkg/seq"
 )
 
@@ -58,4 +57,20 @@ func ExampleReverse() {
 	fmt.Println(result)
 	// Output:
 	// [3 2 1]
+}
+
+func ExamplePointersFromSlice() {
+	slice := []int{1, 2, 3}
+
+	pointersSequence := seq.PointersFromSlice(slice)
+
+	backToValues := seq.Map(pointersSequence, func(p *int) int {
+		// NOTE: p is a pointer so no copy is made here
+		return *p
+	})
+
+	result := seq.Collect(backToValues)
+	fmt.Println(result)
+	// Output:
+	// [1 2 3]
 }
