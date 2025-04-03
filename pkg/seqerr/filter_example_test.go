@@ -132,3 +132,168 @@ func ExampleFilter_sourceError() {
 	// 0
 	// Error: source error
 }
+
+func ExampleTake() {
+	// Create a sequence of numbers
+	sequence := iter.Seq2[int, error](func(yield func(int, error) bool) {
+		for i := range 10 {
+			if !yield(i, nil) {
+				break
+			}
+		}
+	})
+
+	// Take only the first 3 elements
+	taken := seqerr.Take(sequence, 3)
+
+	// Print results
+	for n, err := range taken {
+		if err != nil {
+			fmt.Printf("Error: %v\n", err)
+			break
+		}
+		fmt.Println(n)
+	}
+
+	// Output:
+	// 0
+	// 1
+	// 2
+}
+
+func ExampleTakeWhile() {
+	// Create a sequence of numbers
+	sequence := iter.Seq2[int, error](func(yield func(int, error) bool) {
+		for i := 0; i < 10; i++ {
+			if !yield(i, nil) {
+				break
+			}
+		}
+	})
+
+	// Take elements while they are less than 5
+	taken := seqerr.TakeWhile(sequence, func(n int) bool {
+		return n < 5
+	})
+
+	// Print results
+	for n, err := range taken {
+		if err != nil {
+			fmt.Printf("Error: %v\n", err)
+			break
+		}
+		fmt.Println(n)
+	}
+
+	// Output:
+	// 0
+	// 1
+	// 2
+	// 3
+	// 4
+}
+
+func ExampleTakeUntil() {
+	// Create a sequence of numbers
+	sequence := iter.Seq2[int, error](func(yield func(int, error) bool) {
+		for i := 0; i < 10; i++ {
+			if !yield(i, nil) {
+				break
+			}
+		}
+	})
+
+	// Take elements until we find one that's equal to 5
+	taken := seqerr.TakeUntil(sequence, func(n int) bool {
+		return n == 5
+	})
+
+	// Print results
+	for n, err := range taken {
+		if err != nil {
+			fmt.Printf("Error: %v\n", err)
+			break
+		}
+		fmt.Println(n)
+	}
+
+	// Output:
+	// 0
+	// 1
+	// 2
+	// 3
+	// 4
+}
+
+func ExampleTakeWhileTrue() {
+	// Create a sequence of numbers
+	sequence := iter.Seq2[int, error](func(yield func(int, error) bool) {
+		for i := 0; i < 10; i++ {
+			if !yield(i, nil) {
+				break
+			}
+		}
+	})
+
+	// Create a condition that will be true only for the first 4 elements
+	count := 0
+	condition := func() bool {
+		count++
+		return count <= 4
+	}
+
+	// Take elements while the condition remains true
+	taken := seqerr.TakeWhileTrue(sequence, condition)
+
+	// Print results
+	for n, err := range taken {
+		if err != nil {
+			fmt.Printf("Error: %v\n", err)
+			break
+		}
+		fmt.Println(n)
+	}
+
+	// Output:
+	// 0
+	// 1
+	// 2
+	// 3
+}
+
+func ExampleTakeUntilTrue() {
+	// Create a sequence of numbers
+	sequence := iter.Seq2[int, error](func(yield func(int, error) bool) {
+		for i := 0; i < 10; i++ {
+			if !yield(i, nil) {
+				break
+			}
+		}
+	})
+
+	// Create a condition that will become true after 5 elements
+	count := 0
+	condition := func() bool {
+		count++
+		return count > 5
+	}
+
+	// Take elements until the condition becomes true
+	taken := seqerr.TakeUntilTrue(sequence, condition)
+
+	// Print results
+	for n, err := range taken {
+		if err != nil {
+			fmt.Printf("Error: %v\n", err)
+			break
+		}
+		fmt.Println(n)
+	}
+
+	// Output:
+	// 0
+	// 1
+	// 2
+	// 3
+	// 4
+}
