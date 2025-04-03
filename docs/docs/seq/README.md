@@ -378,7 +378,7 @@ func main() {
 func Each[E any](seq iter.Seq[E], consumer Consumer[E]) iter.Seq[E]
 ```
 
-Each is an alias for Tap.
+Each returns a sequence that applies the given consumer to each element of the input sequence and pass it further. Each is an alias for Tap. Comparing to ForEach, this is a lazy function and doesn't consume the input sequence.
 
 <details>
 <summary>Example</summary>
@@ -869,7 +869,7 @@ cba
 func ForEach[E any](seq iter.Seq[E], consumer Consumer[E])
 ```
 
-ForEach applies consumer to each element of the input sequence.
+ForEach applies consumer to each element of the input sequence. Comparing to Each, this is not a lazy function and consumes the input sequence.
 
 <details>
 <summary>Example</summary>

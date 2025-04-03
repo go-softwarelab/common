@@ -20,12 +20,15 @@ func Tap[E any](seq iter.Seq[E], consumer func(E)) iter.Seq[E] {
 	}
 }
 
+// Each returns a sequence that applies the given consumer to each element of the input sequence and pass it further.
 // Each is an alias for Tap.
+// Comparing to ForEach, this is a lazy function and doesn't consume the input sequence.
 func Each[E any](seq iter.Seq[E], consumer Consumer[E]) iter.Seq[E] {
 	return Tap(seq, consumer)
 }
 
 // ForEach applies consumer to each element of the input sequence.
+// Comparing to Each, this is not a lazy function and consumes the input sequence.
 func ForEach[E any](seq iter.Seq[E], consumer Consumer[E]) {
 	for v := range seq {
 		consumer(v)

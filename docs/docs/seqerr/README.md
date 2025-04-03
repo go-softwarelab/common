@@ -228,6 +228,69 @@ Error: source error
 
 </details>
 
+<a name="Each"></a>
+## Each
+
+```go
+func Each[E any, C Consumer[E]](seq iter.Seq2[E, error], consumer C) iter.Seq2[E, error]
+```
+
+Each returns a sequence that applies the given consumer to each element of the input sequence and pass it further. Each is an alias for Tap. Comparing to ForEach, this is a lazy function and doesn't consume the input sequence.
+
+<details>
+<summary>Example</summary>
+
+
+
+
+```go
+package main
+
+import (
+	"fmt"
+	"iter"
+
+	"github.com/go-softwarelab/common/pkg/seqerr"
+)
+
+func main() {
+	// Create a sequence with numbers 1-3
+	sequence := iter.Seq2[int, error](func(yield func(int, error) bool) {
+		for i := 1; i <= 3; i++ {
+			if !yield(i, nil) {
+				break
+			}
+		}
+	})
+
+	// Use Each (alias for Tap) to print each element while passing it through
+	each := seqerr.Each(sequence, func(n int) {
+		fmt.Printf("Element: %d\n", n)
+	})
+
+	// Collect the elements after processing
+	result, err := seqerr.Collect(each)
+	if err != nil {
+		fmt.Printf("Error: %v\n", err)
+	}
+
+	fmt.Println("Result:", result)
+
+}
+```
+
+**Output**
+
+```
+Element: 1
+Element: 2
+Element: 3
+Result: [1 2 3]
+```
+
+
+</details>
+
 <a name="Filter"></a>
 ## Filter
 
@@ -958,6 +1021,185 @@ func main() {
 
 ```
 WORLD-hello
+```
+
+
+</details>
+
+<a name="ForEach"></a>
+## ForEach
+
+```go
+func ForEach[E any, C Consumer[E]](seq iter.Seq2[E, error], consumer C) error
+```
+
+ForEach applies consumer to each element of the input sequence. Comparing to Each, this is not a lazy function and consumes the input sequence.
+
+<details>
+<summary>Example</summary>
+
+
+
+
+```go
+package main
+
+import (
+	"fmt"
+	"iter"
+
+	"github.com/go-softwarelab/common/pkg/seqerr"
+)
+
+func main() {
+	// Create a sequence with numbers 1-3
+	sequence := iter.Seq2[int, error](func(yield func(int, error) bool) {
+		for i := 1; i <= 3; i++ {
+			if !yield(i, nil) {
+				break
+			}
+		}
+	})
+
+	// Use ForEach to process all elements
+	sum := 0
+	err := seqerr.ForEach(sequence, func(n int) {
+		fmt.Printf("Adding: %d\n", n)
+		sum += n
+	})
+
+	if err != nil {
+		fmt.Printf("Error: %v\n", err)
+	}
+
+	fmt.Println("Sum:", sum)
+
+}
+```
+
+**Output**
+
+```
+Adding: 1
+Adding: 2
+Adding: 3
+Sum: 6
+```
+
+
+</details>
+
+<details>
+<summary>Example (With Consumer Error)</summary>
+
+
+
+
+```go
+package main
+
+import (
+	"errors"
+	"fmt"
+	"iter"
+
+	"github.com/go-softwarelab/common/pkg/seqerr"
+)
+
+func main() {
+	// Create a sequence with numbers 1-3
+	sequence := iter.Seq2[int, error](func(yield func(int, error) bool) {
+		for i := 1; i <= 3; i++ {
+			if !yield(i, nil) {
+				break
+			}
+		}
+	})
+
+	// Use ForEach with a consumer that returns an error
+	sum := 0
+	err := seqerr.ForEach(sequence, func(n int) error {
+		if n == 2 {
+			return errors.New("consumer error")
+		}
+		fmt.Printf("Adding: %d\n", n)
+		sum += n
+		return nil
+	})
+
+	if err != nil {
+		fmt.Printf("Error: %v\n", err)
+	}
+
+	fmt.Println("Sum:", sum)
+
+}
+```
+
+**Output**
+
+```
+Adding: 1
+Error: consumer error
+Sum: 1
+```
+
+
+</details>
+
+<details>
+<summary>Example (With Error)</summary>
+
+
+
+
+```go
+package main
+
+import (
+	"errors"
+	"fmt"
+	"iter"
+
+	"github.com/go-softwarelab/common/pkg/seqerr"
+)
+
+func main() {
+	// Create a sequence with numbers 1-3
+	sequence := iter.Seq2[int, error](func(yield func(int, error) bool) {
+		for i := 1; i <= 3; i++ {
+			var err error
+			if i == 2 {
+				err = errors.New("source error")
+			}
+			if !yield(i, err) {
+				break
+			}
+		}
+	})
+
+	// Use ForEach to process elements
+	sum := 0
+	err := seqerr.ForEach(sequence, func(n int) {
+		fmt.Printf("Adding: %d\n", n)
+		sum += n
+	})
+
+	if err != nil {
+		fmt.Printf("Error: %v\n", err)
+	}
+
+	fmt.Println("Sum:", sum)
+
+}
+```
+
+**Output**
+
+```
+Adding: 1
+Error: source error
+Sum: 1
 ```
 
 
@@ -1775,6 +2017,127 @@ func main() {
 
 </details>
 
+<a name="Tap"></a>
+## Tap
+
+```go
+func Tap[E any, C Consumer[E]](seq iter.Seq2[E, error], consumer C) iter.Seq2[E, error]
+```
+
+Tap returns a sequence that applies the given consumer to each element of the input sequence and pass it further. In case if consumer returns an error, the sequence stops and pass only the error from consumer further.
+
+<details>
+<summary>Example</summary>
+
+
+
+
+```go
+package main
+
+import (
+	"fmt"
+	"iter"
+
+	"github.com/go-softwarelab/common/pkg/seqerr"
+)
+
+func main() {
+	// Create a sequence with numbers 1-3
+	sequence := iter.Seq2[int, error](func(yield func(int, error) bool) {
+		for i := 1; i <= 3; i++ {
+			if !yield(i, nil) {
+				break
+			}
+		}
+	})
+
+	// Use Tap to print each element while passing it through
+	tapped := seqerr.Tap(sequence, func(n int) {
+		fmt.Printf("Processing: %d\n", n)
+	})
+
+	// Collect the elements after tapping
+	result, err := seqerr.Collect(tapped)
+	if err != nil {
+		fmt.Printf("Error: %v\n", err)
+	}
+
+	fmt.Println("Result:", result)
+
+}
+```
+
+**Output**
+
+```
+Processing: 1
+Processing: 2
+Processing: 3
+Result: [1 2 3]
+```
+
+
+</details>
+
+<details>
+<summary>Example (With Error)</summary>
+
+
+
+
+```go
+package main
+
+import (
+	"errors"
+	"fmt"
+	"iter"
+
+	"github.com/go-softwarelab/common/pkg/seqerr"
+)
+
+func main() {
+	// Create a sequence
+	sequence := iter.Seq2[int, error](func(yield func(int, error) bool) {
+		for i := 1; i <= 3; i++ {
+			if !yield(i, nil) {
+				break
+			}
+		}
+	})
+
+	// Use Tap with a consumer that returns an error
+	tapped := seqerr.Tap(sequence, func(n int) error {
+		if n == 2 {
+			return errors.New("consumer error")
+		}
+		fmt.Printf("Processing: %d\n", n)
+		return nil
+	})
+
+	// Collect the elements after tapping
+	result, err := seqerr.Collect(tapped)
+	if err != nil {
+		fmt.Printf("Error: %v\n", err)
+	}
+
+	fmt.Println("Result:", result)
+
+}
+```
+
+**Output**
+
+```
+Processing: 1
+Error: consumer error
+Result: [1]
+```
+
+
+</details>
+
 <a name="ToSlice"></a>
 ## ToSlice
 
@@ -1881,6 +2244,35 @@ Error: source error
 
 
 </details>
+
+<a name="Consumer"></a>
+## type Consumer
+
+Consumer is a function that is consuming the sequence.
+
+```go
+type Consumer[E any] interface {
+    // contains filtered or unexported methods
+}
+```
+
+<a name="ConsumerWithError"></a>
+## type ConsumerWithError
+
+ConsumerWithError is a function that takes an element and returns an error.
+
+```go
+type ConsumerWithError[E any] = func(E) error
+```
+
+<a name="ConsumerWithoutError"></a>
+## type ConsumerWithoutError
+
+ConsumerWithoutError is a function that takes an element and returns nothing.
+
+```go
+type ConsumerWithoutError[E any] = func(E)
+```
 
 <a name="Mapper"></a>
 ## type Mapper

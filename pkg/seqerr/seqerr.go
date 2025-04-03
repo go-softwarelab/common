@@ -1,5 +1,30 @@
 package seqerr
 
+// ConsumerWithoutError is a function that takes an element and returns nothing.
+type ConsumerWithoutError[E any] = func(E)
+
+// ConsumerWithError is a function that takes an element and returns an error.
+type ConsumerWithError[E any] = func(E) error
+
+// Consumer is a function that is consuming the sequence.
+type Consumer[E any] interface {
+	func(E) error | func(E)
+}
+
+func toConsumerWithError[E any, C Consumer[E]](consumer C) ConsumerWithError[E] {
+	switch cons := any(consumer).(type) {
+	case ConsumerWithoutError[E]:
+		return func(e E) error {
+			cons(e)
+			return nil
+		}
+	case ConsumerWithError[E]:
+		return cons
+	default:
+		panic("unknown type")
+	}
+}
+
 // MapperWithError is a function that takes an element and returns a result and an error.
 type MapperWithError[E any, R any] = func(E) (R, error)
 
