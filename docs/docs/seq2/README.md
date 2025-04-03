@@ -559,7 +559,7 @@ map[a:1 b:2 c:4]
 func Each[K any, V any](seq iter.Seq2[K, V], consumer Consumer[K, V]) iter.Seq2[K, V]
 ```
 
-Each is an alias for Tap.
+Each returns a sequence that applies the given consumer to each element of the input sequence and pass it further. Each is an alias for Tap. Comparing to ForEach, this is a lazy function and doesn't consume the input sequence.
 
 <details>
 <summary>Example</summary>
@@ -1351,7 +1351,7 @@ func main() {
 func ForEach[K any, V any](seq iter.Seq2[K, V], consumer Consumer[K, V])
 ```
 
-ForEach applies consumer to each element of the input sequence.
+ForEach applies consumer to each element of the input sequence. Comparing to Each, this is not a lazy function and consumes the input sequence.
 
 <details>
 <summary>Example</summary>
