@@ -1163,6 +1163,63 @@ is.NotNil(nil): bool(false) - literal nil
 
 </details>
 
+<a name="NotOrError"></a>
+## NotOrError
+
+```go
+func NotOrError[T any](predicate func(T) (bool, error)) func(T) (bool, error)
+```
+
+NotOrError returns a function that inverts the result of the given predicate.
+
+<details>
+<summary>Example</summary>
+
+
+
+
+```go
+package main
+
+import (
+	"fmt"
+
+	"github.com/go-softwarelab/common/pkg/is"
+)
+
+func main() {
+	// Create a function to check if a value is positive with error handling
+	isPositiveWithError := func(x int) (bool, error) {
+		return x > 0, nil
+	}
+
+	// Create the negation of that function
+	isNotPositiveWithError := is.NotOrError(isPositiveWithError)
+
+	// Test with various values
+	result1, err1 := isNotPositiveWithError(5)
+	fmt.Printf("isNotPositiveWithError(5): %T(%v), err: %v - positive number\n", result1, result1, err1)
+
+	result2, err2 := isNotPositiveWithError(0)
+	fmt.Printf("isNotPositiveWithError(0): %T(%v), err: %v - zero\n", result2, result2, err2)
+
+	result3, err3 := isNotPositiveWithError(-3)
+	fmt.Printf("isNotPositiveWithError(-3): %T(%v), err: %v - negative number\n", result3, result3, err3)
+
+}
+```
+
+**Output**
+
+```
+isNotPositiveWithError(5): bool(false), err: <nil> - positive number
+isNotPositiveWithError(0): bool(true), err: <nil> - zero
+isNotPositiveWithError(-3): bool(true), err: <nil> - negative number
+```
+
+
+</details>
+
 <a name="Type"></a>
 ## Type
 
