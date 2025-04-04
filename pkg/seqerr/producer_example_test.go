@@ -53,3 +53,65 @@ func ExampleProduceWithArg() {
 	// Output:
 	// [a1 b1 c1]
 }
+
+func ExampleOf() {
+	sequence := seqerr.Of(1, 2, 3)
+
+	for item, err := range sequence {
+		if err != nil {
+			fmt.Printf("Error: %v\n", err)
+			break
+		}
+		fmt.Println(item)
+	}
+
+	// Output:
+	// 1
+	// 2
+	// 3
+}
+
+func ExampleFromSlice() {
+	slice := []string{"a", "b", "c"}
+	sequence := seqerr.FromSlice(slice)
+
+	for item, err := range sequence {
+		if err != nil {
+			fmt.Printf("Error: %v\n", err)
+			break
+		}
+		fmt.Println(item)
+	}
+
+	// Output:
+	// a
+	// b
+	// c
+}
+
+func ExampleFromSeq() {
+	// Create a sequence without errors first
+	originalSeq := func(yield func(int) bool) {
+		for i := 1; i <= 3; i++ {
+			if !yield(i) {
+				break
+			}
+		}
+	}
+
+	// Convert to sequence with error handling
+	sequence := seqerr.FromSeq(originalSeq)
+
+	for item, err := range sequence {
+		if err != nil {
+			fmt.Printf("Error: %v\n", err)
+			break
+		}
+		fmt.Println(item)
+	}
+
+	// Output:
+	// 1
+	// 2
+	// 3
+}

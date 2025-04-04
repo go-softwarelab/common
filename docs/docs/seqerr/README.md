@@ -1205,6 +1205,115 @@ Sum: 1
 
 </details>
 
+<a name="FromSeq"></a>
+## FromSeq
+
+```go
+func FromSeq[E any](sequence iter.Seq[E]) iter.Seq2[E, error]
+```
+
+FromSeq converts a sequence of elements into a sequence of elements and nil errors.
+
+<details>
+<summary>Example</summary>
+
+
+
+
+```go
+package main
+
+import (
+	"fmt"
+
+	"github.com/go-softwarelab/common/pkg/seqerr"
+)
+
+func main() {
+	// Create a sequence without errors first
+	originalSeq := func(yield func(int) bool) {
+		for i := 1; i <= 3; i++ {
+			if !yield(i) {
+				break
+			}
+		}
+	}
+
+	// Convert to sequence with error handling
+	sequence := seqerr.FromSeq(originalSeq)
+
+	for item, err := range sequence {
+		if err != nil {
+			fmt.Printf("Error: %v\n", err)
+			break
+		}
+		fmt.Println(item)
+	}
+
+}
+```
+
+**Output**
+
+```
+1
+2
+3
+```
+
+
+</details>
+
+<a name="FromSlice"></a>
+## FromSlice
+
+```go
+func FromSlice[E any](slice []E) iter.Seq2[E, error]
+```
+
+FromSlice converts a slice of elements into a sequence of elements and nil errors.
+
+<details>
+<summary>Example</summary>
+
+
+
+
+```go
+package main
+
+import (
+	"fmt"
+
+	"github.com/go-softwarelab/common/pkg/seqerr"
+)
+
+func main() {
+	slice := []string{"a", "b", "c"}
+	sequence := seqerr.FromSlice(slice)
+
+	for item, err := range sequence {
+		if err != nil {
+			fmt.Printf("Error: %v\n", err)
+			break
+		}
+		fmt.Println(item)
+	}
+
+}
+```
+
+**Output**
+
+```
+a
+b
+c
+```
+
+
+</details>
+
 <a name="Map"></a>
 ## Map
 
@@ -1401,6 +1510,55 @@ func MapSeq[E any, R any](seq iter.Seq[E], mapper MapperWithError[E, R]) iter.Se
 ```
 
 MapSeq applies a mapper function to each element of the sequence. The mapper function can return an error.
+
+<a name="Of"></a>
+## Of
+
+```go
+func Of[E any](elements ...E) iter.Seq2[E, error]
+```
+
+Of creates a new sequence of elements and nil errors, from the provided elements.
+
+<details>
+<summary>Example</summary>
+
+
+
+
+```go
+package main
+
+import (
+	"fmt"
+
+	"github.com/go-softwarelab/common/pkg/seqerr"
+)
+
+func main() {
+	sequence := seqerr.Of(1, 2, 3)
+
+	for item, err := range sequence {
+		if err != nil {
+			fmt.Printf("Error: %v\n", err)
+			break
+		}
+		fmt.Println(item)
+	}
+
+}
+```
+
+**Output**
+
+```
+1
+2
+3
+```
+
+
+</details>
 
 <a name="Produce"></a>
 ## Produce
