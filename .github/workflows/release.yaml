@@ -12,6 +12,8 @@ jobs:
     uses: bactions/workflows/.github/workflows/release-go-lib.yml@main
     with:
       version: ${{ github.ref_name }}
+    secrets:
+      SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL_RELEASE }}
 
   build_docs:
     name: Build docs page
