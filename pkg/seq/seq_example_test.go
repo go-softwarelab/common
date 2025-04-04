@@ -2,6 +2,7 @@ package seq_test
 
 import (
 	"fmt"
+
 	"github.com/go-softwarelab/common/pkg/seq"
 )
 
