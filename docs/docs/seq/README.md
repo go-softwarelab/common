@@ -1528,6 +1528,54 @@ func main() {
 
 </details>
 
+<a name="PointersFromSlice"></a>
+## PointersFromSlice
+
+```go
+func PointersFromSlice[Slice ~[]E, E any](slice Slice) iter.Seq[*E]
+```
+
+PointersFromSlice creates a new sequence of pointers for the given slice of value elements.
+
+<details>
+<summary>Example</summary>
+
+
+
+
+```go
+package main
+
+import (
+	"fmt"
+
+	"github.com/go-softwarelab/common/pkg/seq"
+)
+
+func main() {
+	slice := []int{1, 2, 3}
+
+	pointersSequence := seq.PointersFromSlice(slice)
+
+	backToValues := seq.Map(pointersSequence, func(p *int) int {
+		// NOTE: p is a pointer so no copy is made here
+		return *p
+	})
+
+	result := seq.Collect(backToValues)
+	fmt.Println(result)
+}
+```
+
+**Output**
+
+```
+[1 2 3]
+```
+
+
+</details>
+
 <a name="Prepend"></a>
 ## Prepend
 

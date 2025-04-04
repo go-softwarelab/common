@@ -15,6 +15,17 @@ func FromSlice[Slice ~[]E, E any](slice Slice) iter.Seq[E] {
 	return slices.Values(slice)
 }
 
+// PointersFromSlice creates a new sequence of pointers for the given slice of value elements.
+func PointersFromSlice[Slice ~[]E, E any](slice Slice) iter.Seq[*E] {
+	return func(yield func(*E) bool) {
+		for i := range slice {
+			if !yield(&slice[i]) {
+				break
+			}
+		}
+	}
+}
+
 // Reverse creates a new sequence that iterates over the elements of the given sequence in reverse order.
 func Reverse[E any](seq iter.Seq[E]) iter.Seq[E] {
 	return func(yield func(E) bool) {
