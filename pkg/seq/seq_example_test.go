@@ -28,6 +28,18 @@ func ExampleFromSlice() {
 	// [1 2 3]
 }
 
+func ExampleFromSliceReversed() {
+	slice := []int{1, 2, 3}
+
+	sequence := seq.FromSliceReversed(slice)
+
+	result := seq.Collect(sequence)
+
+	fmt.Println(result)
+	// Output:
+	// [3 2 1]
+}
+
 func ExampleToSlice() {
 	sequence := seq.Of(1, 2, 3)
 
