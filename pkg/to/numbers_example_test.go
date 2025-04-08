@@ -336,23 +336,23 @@ func ExampleFloat64FromString() {
 	// float64(3.14159), Error: <nil>
 }
 
-func ExampleClamped() {
+func ExampleValueBetween() {
 	// Within range
-	val := to.Clamped(5, 0, 10)
-	fmt.Printf("Clamped(5, 0, 10) = %d\n", val)
+	val := to.ValueBetween(5, 0, 10)
+	fmt.Printf("ValueBetween(5, 0, 10) = %d\n", val)
 
 	// Lower than min
-	val = to.Clamped(-5, 0, 10)
-	fmt.Printf("Clamped(-5, 0, 10) = %d\n", val)
+	val = to.ValueBetween(-5, 0, 10)
+	fmt.Printf("ValueBetween(-5, 0, 10) = %d\n", val)
 
 	// Higher than max
-	val = to.Clamped(15, 0, 10)
-	fmt.Printf("Clamped(15, 0, 10) = %d\n", val)
+	val = to.ValueBetween(15, 0, 10)
+	fmt.Printf("ValueBetween(15, 0, 10) = %d\n", val)
 
 	// Output:
-	// Clamped(5, 0, 10) = 5
-	// Clamped(-5, 0, 10) = 0
-	// Clamped(15, 0, 10) = 10
+	// ValueBetween(5, 0, 10) = 5
+	// ValueBetween(-5, 0, 10) = 0
+	// ValueBetween(15, 0, 10) = 10
 }
 
 func ExampleNoLessThan() {
@@ -412,9 +412,9 @@ func ExampleAtMost() {
 	// ensurePercentage(150) = 100
 }
 
-func ExampleClampedWith() {
+func ExampleValueBetweenThe() {
 	// Creating a percentage validator (0-100)
-	validatePercentage := to.ClampedWith(0, 100)
+	validatePercentage := to.ValueBetweenThe(0, 100)
 
 	fmt.Printf("validatePercentage(-20) = %d\n", validatePercentage(-20))
 	fmt.Printf("validatePercentage(50) = %d\n", validatePercentage(50))

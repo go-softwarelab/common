@@ -362,12 +362,13 @@ func AtMost[T types.Ordered](max T) func(value T) T {
 	}
 }
 
-// Clamped will clamp the value between the min and max values.
+// ValueBetween will clamp the value between the min and max values.
+// In other words it ensures that result is min <= value <= max.
 // For value that is less than min, it will return min.
 // For value that is greater than max, it will return max.
 //
-// See Also: ClampedWith to use it in Map functions.
-func Clamped[T types.Ordered](value, min, max T) T {
+// See Also: ValueBetweenThe to use it in Map functions.
+func ValueBetween[T types.Ordered](value, min, max T) T {
 	if value < min {
 		return min
 	} else if value > max {
@@ -376,14 +377,15 @@ func Clamped[T types.Ordered](value, min, max T) T {
 	return value
 }
 
-// ClampedWith returns a function that clamps the value between the min and max values.
-// It's wrapped around Clamped function, to make it usable in Map functions.
+// ValueBetweenThe returns a function that clamps the value between the min and max values.
+// In other words it ensures that result is min <= value <= max.
 // For value that is less than min, it will return min.
 // For value that is greater than max, it will return max.
+// It's wrapped around ValueBetween function, to make it usable in Map functions.
 //
-// See Also: Clamped
-func ClampedWith[T types.Ordered](min, max T) func(value T) T {
+// See Also: ValueBetween
+func ValueBetweenThe[T types.Ordered](min, max T) func(value T) T {
 	return func(value T) T {
-		return Clamped(value, min, max)
+		return ValueBetween(value, min, max)
 	}
 }
