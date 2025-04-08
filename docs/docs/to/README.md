@@ -369,107 +369,6 @@ string("Multiple. Sentences. Here.")
 
 </details>
 
-<a name="Clamped"></a>
-## Clamped
-
-```go
-func Clamped[T types.Ordered](value, min, max T) T
-```
-
-Clamped will clamp the value between the min and max values. For value that is less than min, it will return min. For value that is greater than max, it will return max.
-
-See Also: ClampedWith to use it in Map functions.
-
-<details>
-<summary>Example</summary>
-
-
-
-
-```go
-package main
-
-import (
-	"fmt"
-
-	"github.com/go-softwarelab/common/pkg/to"
-)
-
-func main() {
-	// Within range
-	val := to.Clamped(5, 0, 10)
-	fmt.Printf("Clamped(5, 0, 10) = %d\n", val)
-
-	// Lower than min
-	val = to.Clamped(-5, 0, 10)
-	fmt.Printf("Clamped(-5, 0, 10) = %d\n", val)
-
-	// Higher than max
-	val = to.Clamped(15, 0, 10)
-	fmt.Printf("Clamped(15, 0, 10) = %d\n", val)
-
-}
-```
-
-**Output**
-
-```
-Clamped(5, 0, 10) = 5
-Clamped(-5, 0, 10) = 0
-Clamped(15, 0, 10) = 10
-```
-
-
-</details>
-
-<a name="ClampedWith"></a>
-## ClampedWith
-
-```go
-func ClampedWith[T types.Ordered](min, max T) func(value T) T
-```
-
-ClampedWith returns a function that clamps the value between the min and max values. It's wrapped around Clamped function, to make it usable in Map functions. For value that is less than min, it will return min. For value that is greater than max, it will return max.
-
-See Also: Clamped
-
-<details>
-<summary>Example</summary>
-
-
-
-
-```go
-package main
-
-import (
-	"fmt"
-
-	"github.com/go-softwarelab/common/pkg/to"
-)
-
-func main() {
-	// Creating a percentage validator (0-100)
-	validatePercentage := to.ClampedWith(0, 100)
-
-	fmt.Printf("validatePercentage(-20) = %d\n", validatePercentage(-20))
-	fmt.Printf("validatePercentage(50) = %d\n", validatePercentage(50))
-	fmt.Printf("validatePercentage(150) = %d\n", validatePercentage(150))
-
-}
-```
-
-**Output**
-
-```
-validatePercentage(-20) = 0
-validatePercentage(50) = 50
-validatePercentage(150) = 100
-```
-
-
-</details>
-
 <a name="Ellipsis"></a>
 ## Ellipsis
 
@@ -2905,6 +2804,107 @@ func main() {
 ```
 int(42)
 string("")
+```
+
+
+</details>
+
+<a name="ValueBetween"></a>
+## ValueBetween
+
+```go
+func ValueBetween[T types.Ordered](value, min, max T) T
+```
+
+ValueBetween will clamp the value between the min and max values. In other words it ensures that result is min \<= value \<= max. For value that is less than min, it will return min. For value that is greater than max, it will return max.
+
+See Also: ValueBetweenThe to use it in Map functions.
+
+<details>
+<summary>Example</summary>
+
+
+
+
+```go
+package main
+
+import (
+	"fmt"
+
+	"github.com/go-softwarelab/common/pkg/to"
+)
+
+func main() {
+	// Within range
+	val := to.ValueBetween(5, 0, 10)
+	fmt.Printf("ValueBetween(5, 0, 10) = %d\n", val)
+
+	// Lower than min
+	val = to.ValueBetween(-5, 0, 10)
+	fmt.Printf("ValueBetween(-5, 0, 10) = %d\n", val)
+
+	// Higher than max
+	val = to.ValueBetween(15, 0, 10)
+	fmt.Printf("ValueBetween(15, 0, 10) = %d\n", val)
+
+}
+```
+
+**Output**
+
+```
+ValueBetween(5, 0, 10) = 5
+ValueBetween(-5, 0, 10) = 0
+ValueBetween(15, 0, 10) = 10
+```
+
+
+</details>
+
+<a name="ValueBetweenThe"></a>
+## ValueBetweenThe
+
+```go
+func ValueBetweenThe[T types.Ordered](min, max T) func(value T) T
+```
+
+ValueBetweenThe returns a function that clamps the value between the min and max values. In other words it ensures that result is min \<= value \<= max. For value that is less than min, it will return min. For value that is greater than max, it will return max. It's wrapped around ValueBetween function, to make it usable in Map functions.
+
+See Also: ValueBetween
+
+<details>
+<summary>Example</summary>
+
+
+
+
+```go
+package main
+
+import (
+	"fmt"
+
+	"github.com/go-softwarelab/common/pkg/to"
+)
+
+func main() {
+	// Creating a percentage validator (0-100)
+	validatePercentage := to.ValueBetweenThe(0, 100)
+
+	fmt.Printf("validatePercentage(-20) = %d\n", validatePercentage(-20))
+	fmt.Printf("validatePercentage(50) = %d\n", validatePercentage(50))
+	fmt.Printf("validatePercentage(150) = %d\n", validatePercentage(150))
+
+}
+```
+
+**Output**
+
+```
+validatePercentage(-20) = 0
+validatePercentage(50) = 50
+validatePercentage(150) = 100
 ```
 
 
