@@ -765,6 +765,58 @@ func main() {
 
 </details>
 
+<a name="FlattenSlices"></a>
+## FlattenSlices
+
+```go
+func FlattenSlices[Seq iter.Seq[[]E], E any](seq Seq) iter.Seq[E]
+```
+
+FlattenSlices flattens a sequence of slices.
+
+<details>
+<summary>Example</summary>
+
+
+
+
+```go
+package main
+
+import (
+	"fmt"
+
+	"github.com/go-softwarelab/common/pkg/seq"
+)
+
+func main() {
+	// Create a sequence of slices
+	sequence := seq.Of(1, 2, 3)
+
+	seqOfSlices := seq.Map(sequence, func(n int) []int {
+		return []int{n, n + 1}
+	})
+
+	// Flatten the sequence of slices
+	flattened := seq.FlattenSlices(seqOfSlices)
+
+	// Collect results
+	result := seq.Collect(flattened)
+
+	fmt.Println(result)
+
+}
+```
+
+**Output**
+
+```
+[1 2 2 3 3 4]
+```
+
+
+</details>
+
 <a name="Flush"></a>
 ## Flush
 
