@@ -949,6 +949,50 @@ func main() {
 
 </details>
 
+<a name="FromSliceReversed"></a>
+## FromSliceReversed
+
+```go
+func FromSliceReversed[Slice ~[]E, E any](slice Slice) iter.Seq[E]
+```
+
+FromSliceReversed creates a new sequence from the given slice starting from last elements to first. It is more efficient then first creating a seq from slice and then reversing it.
+
+<details>
+<summary>Example</summary>
+
+
+
+
+```go
+package main
+
+import (
+	"fmt"
+
+	"github.com/go-softwarelab/common/pkg/seq"
+)
+
+func main() {
+	slice := []int{1, 2, 3}
+
+	sequence := seq.FromSliceReversed(slice)
+
+	result := seq.Collect(sequence)
+
+	fmt.Println(result)
+}
+```
+
+**Output**
+
+```
+[3 2 1]
+```
+
+
+</details>
+
 <a name="GroupBy"></a>
 ## GroupBy
 
@@ -1838,7 +1882,7 @@ cba
 ## Repeat
 
 ```go
-func Repeat[E any](elem E, count int) iter.Seq[E]
+func Repeat[E any, N types.Integer](elem E, count N) iter.Seq[E]
 ```
 
 Repeat returns a sequence that yields the same element \`count\` times.
