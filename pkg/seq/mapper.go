@@ -49,6 +49,19 @@ func Flatten[Seq iter.Seq[iter.Seq[E]], E any](seq Seq) iter.Seq[E] {
 	}
 }
 
+// FlattenSlices flattens a sequence of slices.
+func FlattenSlices[Seq iter.Seq[[]E], E any](seq Seq) iter.Seq[E] {
+	return func(yield func(E) bool) {
+		for v := range seq {
+			for _, elem := range v {
+				if !yield(elem) {
+					return
+				}
+			}
+		}
+	}
+}
+
 // Cycle repeats the sequence count times.
 func Cycle[E any](seq iter.Seq[E], count int) iter.Seq[E] {
 	return func(yield func(E) bool) {
