@@ -61,6 +61,26 @@ func ExampleFlatten() {
 	// [1 2 3 4]
 }
 
+func ExampleFlattenSlices() {
+	// Create a sequence of slices
+	sequence := seq.Of(1, 2, 3)
+
+	seqOfSlices := seq.Map(sequence, func(n int) []int {
+		return []int{n, n + 1}
+	})
+
+	// Flatten the sequence of slices
+	flattened := seq.FlattenSlices(seqOfSlices)
+
+	// Collect results
+	result := seq.Collect(flattened)
+
+	fmt.Println(result)
+
+	// Output:
+	// [1 2 2 3 3 4]
+}
+
 func ExampleCycle() {
 	input := seq.Of(1, 2, 3)
 
