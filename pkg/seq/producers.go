@@ -8,9 +8,9 @@ import (
 )
 
 // Repeat returns a sequence that yields the same element `count` times.
-func Repeat[E any](elem E, count int) iter.Seq[E] {
+func Repeat[E any, N types.Integer](elem E, count N) iter.Seq[E] {
 	return func(yield func(E) bool) {
-		for i := 0; i < count; i++ {
+		for i := N(0); i < count; i++ {
 			if !yield(elem) {
 				break
 			}

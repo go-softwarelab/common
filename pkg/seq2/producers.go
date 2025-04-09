@@ -4,6 +4,8 @@ import (
 	"iter"
 	"slices"
 	"time"
+
+	"github.com/go-softwarelab/common/types"
 )
 
 // Empty returns an empty sequence.
@@ -60,9 +62,9 @@ func WithoutIndex[E any](indexed iter.Seq2[int, E]) iter.Seq[E] {
 }
 
 // Repeat repeats the given pair `count` times.
-func Repeat[K any, V any](key K, value V, count int) iter.Seq2[K, V] {
+func Repeat[K any, V any, N types.Integer](key K, value V, count N) iter.Seq2[K, V] {
 	return func(yield func(K, V) bool) {
-		for i := 0; i < count; i++ {
+		for i := N(0); i < count; i++ {
 			if !yield(key, value) {
 				break
 			}
