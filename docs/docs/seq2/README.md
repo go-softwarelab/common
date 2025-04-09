@@ -2641,7 +2641,7 @@ func main() {
 ## Repeat
 
 ```go
-func Repeat[K any, V any](key K, value V, count int) iter.Seq2[K, V]
+func Repeat[K any, V any, N types.Integer](key K, value V, count N) iter.Seq2[K, V]
 ```
 
 Repeat repeats the given pair \`count\` times.

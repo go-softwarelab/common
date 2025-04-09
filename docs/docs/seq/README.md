@@ -1882,7 +1882,7 @@ cba
 ## Repeat
 
 ```go
-func Repeat[E any](elem E, count int) iter.Seq[E]
+func Repeat[E any, N types.Integer](elem E, count N) iter.Seq[E]
 ```
 
 Repeat returns a sequence that yields the same element \`count\` times.
