@@ -12,6 +12,7 @@ import (
 
 const valueNotPresentErrorMessage = "value is not present"
 
+// ValueNotPresent is the error returned or passed to iter.Seq2 when the value is not present.
 var ValueNotPresent = errors.New(valueNotPresentErrorMessage)
 
 // Elem represents an optional value.
@@ -67,6 +68,15 @@ func (o Elem[E]) Or(other Elem[E]) Elem[E] {
 	}
 
 	return other
+}
+
+// ShouldGet returns the value if present, otherwise returns the error ValueNotPresent.
+func (o Elem[E]) ShouldGet() (E, error) {
+	if o.IsEmpty() {
+		return to.ZeroValue[E](), ValueNotPresent
+	}
+
+	return *o.value, nil
 }
 
 // MustGet returns the value if present, otherwise panics.
