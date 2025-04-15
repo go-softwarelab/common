@@ -8,7 +8,7 @@ import "github.com/go-softwarelab/common/pkg/optional"
 
 ## Variables
 
-<a name="ValueNotPresent"></a>
+<a name="ValueNotPresent"></a>ValueNotPresent is the error returned or passed to iter.Seq2 when the value is not present.
 
 ```go
 var ValueNotPresent = errors.New(valueNotPresentErrorMessage)
@@ -709,6 +709,15 @@ Empty error: not found-1
 
 
 </details>
+
+<a name="Elem[E].ShouldGet"></a>
+### Elem[E].ShouldGet
+
+```go
+func (o Elem[E]) ShouldGet() (E, error)
+```
+
+ShouldGet returns the value if present, otherwise returns the error ValueNotPresent.
 
 <a name="Elem[E].ToSeq"></a>
 ### Elem[E].ToSeq
