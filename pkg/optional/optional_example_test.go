@@ -81,6 +81,25 @@ func ExampleElem_Or() {
 	// Empty or second: second
 }
 
+func ExampleElem_ShouldGet() {
+	opt := optional.Of(42)
+	empty := optional.Empty[int]()
+
+	val1, err1 := opt.ShouldGet()
+	fmt.Println("Value:", val1)
+	fmt.Println("Error:", err1)
+
+	val2, err2 := empty.ShouldGet()
+	fmt.Println("Empty value:", val2)
+	fmt.Println("Empty error:", err2)
+
+	// Output:
+	// Value: 42
+	// Error: <nil>
+	// Empty value: 0
+	// Empty error: value is not present
+}
+
 func ExampleElem_MustGet() {
 	opt := optional.Of("hello")
 	fmt.Println("Value:", opt.MustGet())
