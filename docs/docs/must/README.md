@@ -13,7 +13,7 @@ These utilities are designed to reduce error\-checking boilerplate and improve c
 
 
 <a name="ConvertToFloat32"></a>
-## ConvertToFloat32
+## [ConvertToFloat32](<https://github.com/go-softwarelab/common/blob/main/pkg/must/converters.go#L84>)
 
 ```go
 func ConvertToFloat32[V types.SignedNumber](value V) float32
@@ -67,7 +67,7 @@ Error: 3.5e+38 value out of range to convert to float32
 </details>
 
 <a name="ConvertToFloat32FromUnsigned"></a>
-## ConvertToFloat32FromUnsigned
+## [ConvertToFloat32FromUnsigned](<https://github.com/go-softwarelab/common/blob/main/pkg/must/converters.go#L94>)
 
 ```go
 func ConvertToFloat32FromUnsigned[V types.Unsigned](value V) float32
@@ -108,7 +108,7 @@ float32(42)
 </details>
 
 <a name="ConvertToFloat64"></a>
-## ConvertToFloat64
+## [ConvertToFloat64](<https://github.com/go-softwarelab/common/blob/main/pkg/must/converters.go#L89>)
 
 ```go
 func ConvertToFloat64[V types.SignedNumber](value V) float64
@@ -149,7 +149,7 @@ float64(3)
 </details>
 
 <a name="ConvertToFloat64FromUnsigned"></a>
-## ConvertToFloat64FromUnsigned
+## [ConvertToFloat64FromUnsigned](<https://github.com/go-softwarelab/common/blob/main/pkg/must/converters.go#L99>)
 
 ```go
 func ConvertToFloat64FromUnsigned[V types.Unsigned](value V) float64
@@ -190,7 +190,7 @@ float64(42)
 </details>
 
 <a name="ConvertToInt"></a>
-## ConvertToInt
+## [ConvertToInt](<https://github.com/go-softwarelab/common/blob/main/pkg/must/converters.go#L9>)
 
 ```go
 func ConvertToInt[V types.SignedNumber](value V) int
@@ -231,7 +231,7 @@ int(42)
 </details>
 
 <a name="ConvertToInt16"></a>
-## ConvertToInt16
+## [ConvertToInt16](<https://github.com/go-softwarelab/common/blob/main/pkg/must/converters.go#L29>)
 
 ```go
 func ConvertToInt16[V types.SignedNumber](value V) int16
@@ -284,7 +284,7 @@ Error: 40000 value out of range to convert to int16
 </details>
 
 <a name="ConvertToInt16FromUnsigned"></a>
-## ConvertToInt16FromUnsigned
+## [ConvertToInt16FromUnsigned](<https://github.com/go-softwarelab/common/blob/main/pkg/must/converters.go#L34>)
 
 ```go
 func ConvertToInt16FromUnsigned[V types.Unsigned](value V) int16
@@ -337,7 +337,7 @@ Error: 40000 value out of range to convert to int16
 </details>
 
 <a name="ConvertToInt32"></a>
-## ConvertToInt32
+## [ConvertToInt32](<https://github.com/go-softwarelab/common/blob/main/pkg/must/converters.go#L39>)
 
 ```go
 func ConvertToInt32[V types.SignedNumber](value V) int32
@@ -390,7 +390,7 @@ Error: 3000000000 value out of range to convert to int32
 </details>
 
 <a name="ConvertToInt32FromUnsigned"></a>
-## ConvertToInt32FromUnsigned
+## [ConvertToInt32FromUnsigned](<https://github.com/go-softwarelab/common/blob/main/pkg/must/converters.go#L44>)
 
 ```go
 func ConvertToInt32FromUnsigned[V types.Unsigned](value V) int32
@@ -443,7 +443,7 @@ Error: 3000000000 value out of range to convert to int32
 </details>
 
 <a name="ConvertToInt64"></a>
-## ConvertToInt64
+## [ConvertToInt64](<https://github.com/go-softwarelab/common/blob/main/pkg/must/converters.go#L49>)
 
 ```go
 func ConvertToInt64[V types.SignedNumber](value V) int64
@@ -484,7 +484,7 @@ int64(9223372036854775807)
 </details>
 
 <a name="ConvertToInt64FromUnsigned"></a>
-## ConvertToInt64FromUnsigned
+## [ConvertToInt64FromUnsigned](<https://github.com/go-softwarelab/common/blob/main/pkg/must/converters.go#L54>)
 
 ```go
 func ConvertToInt64FromUnsigned[V types.Unsigned](value V) int64
@@ -537,7 +537,7 @@ Error: 9223372036854775808 value out of range to convert to int64
 </details>
 
 <a name="ConvertToInt8"></a>
-## ConvertToInt8
+## [ConvertToInt8](<https://github.com/go-softwarelab/common/blob/main/pkg/must/converters.go#L19>)
 
 ```go
 func ConvertToInt8[V types.SignedNumber](value V) int8
@@ -590,7 +590,7 @@ Error: 1000 value out of range to convert to int8
 </details>
 
 <a name="ConvertToInt8FromUnsigned"></a>
-## ConvertToInt8FromUnsigned
+## [ConvertToInt8FromUnsigned](<https://github.com/go-softwarelab/common/blob/main/pkg/must/converters.go#L24>)
 
 ```go
 func ConvertToInt8FromUnsigned[V types.Unsigned](value V) int8
@@ -643,7 +643,7 @@ Error: 200 value out of range to convert to int8
 </details>
 
 <a name="ConvertToIntFromUnsigned"></a>
-## ConvertToIntFromUnsigned
+## [ConvertToIntFromUnsigned](<https://github.com/go-softwarelab/common/blob/main/pkg/must/converters.go#L14>)
 
 ```go
 func ConvertToIntFromUnsigned[V types.Unsigned](value V) int
@@ -697,7 +697,7 @@ Error: 9223372036854775808 value out of range to convert to int
 </details>
 
 <a name="ConvertToUInt"></a>
-## ConvertToUInt
+## [ConvertToUInt](<https://github.com/go-softwarelab/common/blob/main/pkg/must/converters.go#L59>)
 
 ```go
 func ConvertToUInt[V types.Number](value V) uint
@@ -750,7 +750,7 @@ Error: -5 value out of range to convert to uint
 </details>
 
 <a name="ConvertToUInt16"></a>
-## ConvertToUInt16
+## [ConvertToUInt16](<https://github.com/go-softwarelab/common/blob/main/pkg/must/converters.go#L69>)
 
 ```go
 func ConvertToUInt16[V types.Number](value V) uint16
@@ -803,7 +803,7 @@ Error: 70000 value out of range to convert to uint16
 </details>
 
 <a name="ConvertToUInt32"></a>
-## ConvertToUInt32
+## [ConvertToUInt32](<https://github.com/go-softwarelab/common/blob/main/pkg/must/converters.go#L74>)
 
 ```go
 func ConvertToUInt32[V types.Number](value V) uint32
@@ -856,7 +856,7 @@ Error: -5 value out of range to convert to uint32
 </details>
 
 <a name="ConvertToUInt64"></a>
-## ConvertToUInt64
+## [ConvertToUInt64](<https://github.com/go-softwarelab/common/blob/main/pkg/must/converters.go#L79>)
 
 ```go
 func ConvertToUInt64[V types.Number](value V) uint64
@@ -909,7 +909,7 @@ Error: -1 value out of range to convert to uint64
 </details>
 
 <a name="ConvertToUInt8"></a>
-## ConvertToUInt8
+## [ConvertToUInt8](<https://github.com/go-softwarelab/common/blob/main/pkg/must/converters.go#L64>)
 
 ```go
 func ConvertToUInt8[V types.Number](value V) uint8

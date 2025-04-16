@@ -33,7 +33,7 @@ var String = Type[string]
 ```
 
 <a name="Between"></a>
-## Between
+## [Between](<https://github.com/go-softwarelab/common/blob/main/pkg/is/comparisons.go#L80>)
 
 ```go
 func Between[T types.Ordered](value, a, b T) bool
@@ -81,7 +81,7 @@ bool(false)
 </details>
 
 <a name="BetweenThe"></a>
-## BetweenThe
+## [BetweenThe](<https://github.com/go-softwarelab/common/blob/main/pkg/is/comparisons.go#L85>)
 
 ```go
 func BetweenThe[T types.Ordered](a, b T) func(T) bool
@@ -138,7 +138,7 @@ bool(false)
 </details>
 
 <a name="BlankString"></a>
-## BlankString
+## [BlankString](<https://github.com/go-softwarelab/common/blob/main/pkg/is/strings.go#L11>)
 
 ```go
 func BlankString(s string) bool
@@ -186,7 +186,7 @@ is.BlankString("hello"): bool(false) - non-blank string
 </details>
 
 <a name="Empty"></a>
-## Empty
+## [Empty](<https://github.com/go-softwarelab/common/blob/main/pkg/is/types.go#L17>)
 
 ```go
 func Empty[T comparable](value T) bool
@@ -241,7 +241,7 @@ is.Empty(true): bool(false) - non-zero bool
 </details>
 
 <a name="EmptyString"></a>
-## EmptyString
+## [EmptyString](<https://github.com/go-softwarelab/common/blob/main/pkg/is/strings.go#L6>)
 
 ```go
 func EmptyString(s string) bool
@@ -285,7 +285,7 @@ is.EmptyString("hello"): bool(false) - non-empty string
 </details>
 
 <a name="Equal"></a>
-## Equal
+## [Equal](<https://github.com/go-softwarelab/common/blob/main/pkg/is/comparisons.go#L15>)
 
 ```go
 func Equal[T comparable](a, b T) bool
@@ -333,7 +333,7 @@ is.Equal("hello", "world"): false (different strings)
 </details>
 
 <a name="EqualTo"></a>
-## EqualTo
+## [EqualTo](<https://github.com/go-softwarelab/common/blob/main/pkg/is/comparisons.go#L25>)
 
 ```go
 func EqualTo[T comparable](expected T) func(T) bool
@@ -387,7 +387,7 @@ isAdmin("user"): false (non-matching role)
 </details>
 
 <a name="Greater"></a>
-## Greater
+## [Greater](<https://github.com/go-softwarelab/common/blob/main/pkg/is/comparisons.go#L32>)
 
 ```go
 func Greater[T types.Ordered](a, b T) bool
@@ -439,7 +439,7 @@ is.Greater("apple", "zebra"): false (alphabetical order)
 </details>
 
 <a name="GreaterOrEqual"></a>
-## GreaterOrEqual
+## [GreaterOrEqual](<https://github.com/go-softwarelab/common/blob/main/pkg/is/comparisons.go#L44>)
 
 ```go
 func GreaterOrEqual[T types.Ordered](a, b T) bool
@@ -485,7 +485,7 @@ is.GreaterOrEqual(30, 42): false (30 ≥ 42)
 </details>
 
 <a name="GreaterOrEqualTo"></a>
-## GreaterOrEqualTo
+## [GreaterOrEqualTo](<https://github.com/go-softwarelab/common/blob/main/pkg/is/comparisons.go#L49>)
 
 ```go
 func GreaterOrEqualTo[T types.Ordered](expected T) func(T) bool
@@ -543,7 +543,7 @@ isPassing(59.9): false (59.9 is failing)
 </details>
 
 <a name="GreaterThen"></a>
-## GreaterThen
+## [GreaterThen](<https://github.com/go-softwarelab/common/blob/main/pkg/is/comparisons.go#L37>)
 
 ```go
 func GreaterThen[T types.Ordered](expected T) func(T) bool
@@ -599,7 +599,7 @@ isHot(25.0): false (25.0°C below hot threshold)
 </details>
 
 <a name="Less"></a>
-## Less
+## [Less](<https://github.com/go-softwarelab/common/blob/main/pkg/is/comparisons.go#L56>)
 
 ```go
 func Less[T types.Ordered](a, b T) bool
@@ -649,7 +649,7 @@ is.Less("apple", "zebra"): true (alphabetical order)
 </details>
 
 <a name="LessOrEqual"></a>
-## LessOrEqual
+## [LessOrEqual](<https://github.com/go-softwarelab/common/blob/main/pkg/is/comparisons.go#L68>)
 
 ```go
 func LessOrEqual[T types.Ordered](a, b T) bool
@@ -695,7 +695,7 @@ is.LessOrEqual(50, 42): false (50 ≤ 42)
 </details>
 
 <a name="LessOrEqualTo"></a>
-## LessOrEqualTo
+## [LessOrEqualTo](<https://github.com/go-softwarelab/common/blob/main/pkg/is/comparisons.go#L73>)
 
 ```go
 func LessOrEqualTo[T types.Ordered](expected T) func(T) bool
@@ -753,7 +753,7 @@ isWithinWeightLimit(23.5): false (23.5kg exceeds limit)
 </details>
 
 <a name="LessThen"></a>
-## LessThen
+## [LessThen](<https://github.com/go-softwarelab/common/blob/main/pkg/is/comparisons.go#L61>)
 
 ```go
 func LessThen[T types.Ordered](expected T) func(T) bool
@@ -809,7 +809,7 @@ isFreezing(0.0): false (0.0°C at freezing point)
 </details>
 
 <a name="Nil"></a>
-## Nil
+## [Nil](<https://github.com/go-softwarelab/common/blob/main/pkg/is/types.go#L6>)
 
 ```go
 func Nil(value any) bool
@@ -863,7 +863,7 @@ is.Nil(nilMap): bool(true) - nil map
 </details>
 
 <a name="Not"></a>
-## Not
+## [Not](<https://github.com/go-softwarelab/common/blob/main/pkg/is/operators.go#L4>)
 
 ```go
 func Not[T any](predicate func(T) bool) func(T) bool
@@ -915,7 +915,7 @@ isNotPositive(-3): bool(true) - negative number
 </details>
 
 <a name="NotBlankString"></a>
-## NotBlankString
+## [NotBlankString](<https://github.com/go-softwarelab/common/blob/main/pkg/is/strings.go#L21>)
 
 ```go
 func NotBlankString(s string) bool
@@ -963,7 +963,7 @@ is.NotBlankString(""): bool(false) - empty string
 </details>
 
 <a name="NotEmpty"></a>
-## NotEmpty
+## [NotEmpty](<https://github.com/go-softwarelab/common/blob/main/pkg/is/types.go#L23>)
 
 ```go
 func NotEmpty[T comparable](value T) bool
@@ -1018,7 +1018,7 @@ is.NotEmpty(false): bool(false) - zero bool
 </details>
 
 <a name="NotEmptyString"></a>
-## NotEmptyString
+## [NotEmptyString](<https://github.com/go-softwarelab/common/blob/main/pkg/is/strings.go#L16>)
 
 ```go
 func NotEmptyString(s string) bool
@@ -1064,7 +1064,7 @@ is.NotEmptyString(""): bool(false) - empty string
 </details>
 
 <a name="NotEqual"></a>
-## NotEqual
+## [NotEqual](<https://github.com/go-softwarelab/common/blob/main/pkg/is/comparisons.go#L20>)
 
 ```go
 func NotEqual[T comparable](a, b T) bool
@@ -1112,7 +1112,7 @@ is.NotEqual("hello", "hello"): false (same strings)
 </details>
 
 <a name="NotNil"></a>
-## NotNil
+## [NotNil](<https://github.com/go-softwarelab/common/blob/main/pkg/is/types.go#L12>)
 
 ```go
 func NotNil(value any) bool
@@ -1164,7 +1164,7 @@ is.NotNil(nil): bool(false) - literal nil
 </details>
 
 <a name="NotOrError"></a>
-## NotOrError
+## [NotOrError](<https://github.com/go-softwarelab/common/blob/main/pkg/is/operators.go#L11>)
 
 ```go
 func NotOrError[T any](predicate func(T) (bool, error)) func(T) (bool, error)
@@ -1221,7 +1221,7 @@ isNotPositiveWithError(-3): bool(true), err: <nil> - negative number
 </details>
 
 <a name="Type"></a>
-## Type
+## [Type](<https://github.com/go-softwarelab/common/blob/main/pkg/is/types.go#L28>)
 
 ```go
 func Type[T any](value any) bool
@@ -1278,7 +1278,7 @@ is.Type[bool](value3): bool(true) - bool value
 </details>
 
 <a name="Zero"></a>
-## Zero
+## [Zero](<https://github.com/go-softwarelab/common/blob/main/pkg/is/comparisons.go#L10>)
 
 ```go
 func Zero[T comparable](value T) bool
