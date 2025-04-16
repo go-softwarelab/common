@@ -215,7 +215,7 @@ Zero value present: false
 </details>
 
 <a name="Elem[E].IfNotPresent"></a>
-### [Elem\[E\].IfNotPresent](<https://github.com/go-softwarelab/common/blob/main/pkg/optional/optional.go#L140>)
+### [Elem\[E\].IfNotPresent](<https://github.com/go-softwarelab/common/blob/main/pkg/optional/optional.go#L149>)
 
 ```go
 func (o Elem[E]) IfNotPresent(fn func())
@@ -263,7 +263,7 @@ This executes when empty
 </details>
 
 <a name="Elem[E].IfPresent"></a>
-### [Elem\[E\].IfPresent](<https://github.com/go-softwarelab/common/blob/main/pkg/optional/optional.go#L133>)
+### [Elem\[E\].IfPresent](<https://github.com/go-softwarelab/common/blob/main/pkg/optional/optional.go#L142>)
 
 ```go
 func (o Elem[E]) IfPresent(fn func(E))
@@ -311,7 +311,7 @@ Value is present: hello
 </details>
 
 <a name="Elem[E].IsEmpty"></a>
-### [Elem\[E\].IsEmpty](<https://github.com/go-softwarelab/common/blob/main/pkg/optional/optional.go#L147>)
+### [Elem\[E\].IsEmpty](<https://github.com/go-softwarelab/common/blob/main/pkg/optional/optional.go#L156>)
 
 ```go
 func (o Elem[E]) IsEmpty() bool
@@ -320,7 +320,7 @@ func (o Elem[E]) IsEmpty() bool
 IsEmpty returns true if the value is not present.
 
 <a name="Elem[E].IsNotEmpty"></a>
-### [Elem\[E\].IsNotEmpty](<https://github.com/go-softwarelab/common/blob/main/pkg/optional/optional.go#L157>)
+### [Elem\[E\].IsNotEmpty](<https://github.com/go-softwarelab/common/blob/main/pkg/optional/optional.go#L166>)
 
 ```go
 func (o Elem[E]) IsNotEmpty() bool
@@ -364,7 +364,7 @@ Second is not empty: false
 </details>
 
 <a name="Elem[E].IsPresent"></a>
-### [Elem\[E\].IsPresent](<https://github.com/go-softwarelab/common/blob/main/pkg/optional/optional.go#L152>)
+### [Elem\[E\].IsPresent](<https://github.com/go-softwarelab/common/blob/main/pkg/optional/optional.go#L161>)
 
 ```go
 func (o Elem[E]) IsPresent() bool
@@ -507,7 +507,7 @@ Empty or second: second
 </details>
 
 <a name="Elem[E].OrElse"></a>
-### [Elem\[E\].OrElse](<https://github.com/go-softwarelab/common/blob/main/pkg/optional/optional.go#L97>)
+### [Elem\[E\].OrElse](<https://github.com/go-softwarelab/common/blob/main/pkg/optional/optional.go#L106>)
 
 ```go
 func (o Elem[E]) OrElse(defaultValue E) E
@@ -551,7 +551,7 @@ Empty value: default
 </details>
 
 <a name="Elem[E].OrElseGet"></a>
-### [Elem\[E\].OrElseGet](<https://github.com/go-softwarelab/common/blob/main/pkg/optional/optional.go#L106>)
+### [Elem\[E\].OrElseGet](<https://github.com/go-softwarelab/common/blob/main/pkg/optional/optional.go#L115>)
 
 ```go
 func (o Elem[E]) OrElseGet(defaultValue func() E) E
@@ -603,7 +603,7 @@ Empty value again: default-2
 </details>
 
 <a name="Elem[E].OrError"></a>
-### [Elem\[E\].OrError](<https://github.com/go-softwarelab/common/blob/main/pkg/optional/optional.go#L115>)
+### [Elem\[E\].OrError](<https://github.com/go-softwarelab/common/blob/main/pkg/optional/optional.go#L124>)
 
 ```go
 func (o Elem[E]) OrError(err error) (E, error)
@@ -654,7 +654,7 @@ Empty error: true
 </details>
 
 <a name="Elem[E].OrErrorGet"></a>
-### [Elem\[E\].OrErrorGet](<https://github.com/go-softwarelab/common/blob/main/pkg/optional/optional.go#L124>)
+### [Elem\[E\].OrErrorGet](<https://github.com/go-softwarelab/common/blob/main/pkg/optional/optional.go#L133>)
 
 ```go
 func (o Elem[E]) OrErrorGet(err func() error) (E, error)
@@ -711,7 +711,7 @@ Empty error: not found-1
 </details>
 
 <a name="Elem[E].OrZeroValue"></a>
-### Elem[E].OrZeroValue
+### [Elem\[E\].OrZeroValue](<https://github.com/go-softwarelab/common/blob/main/pkg/optional/optional.go#L97>)
 
 ```go
 func (o Elem[E]) OrZeroValue() E
@@ -806,7 +806,7 @@ Empty error: value is not present
 </details>
 
 <a name="Elem[E].ToSeq"></a>
-### [Elem\[E\].ToSeq](<https://github.com/go-softwarelab/common/blob/main/pkg/optional/optional.go#L162>)
+### [Elem\[E\].ToSeq](<https://github.com/go-softwarelab/common/blob/main/pkg/optional/optional.go#L171>)
 
 ```go
 func (o Elem[E]) ToSeq() iter.Seq[E]
@@ -862,7 +862,7 @@ Empty values length: 0
 </details>
 
 <a name="Elem[E].ToSeq2"></a>
-### [Elem\[E\].ToSeq2](<https://github.com/go-softwarelab/common/blob/main/pkg/optional/optional.go#L172>)
+### [Elem\[E\].ToSeq2](<https://github.com/go-softwarelab/common/blob/main/pkg/optional/optional.go#L181>)
 
 ```go
 func (o Elem[E]) ToSeq2() iter.Seq2[E, error]
