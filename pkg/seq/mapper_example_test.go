@@ -21,6 +21,33 @@ func ExampleMap() {
 	// [Number_1 Number_2 Number_3]
 }
 
+func ExampleMapOrErr() {
+	input := seq.Of(1, 2, 3)
+
+	// Example mapper function that returns an error for values > 2
+	mapper := func(v int) (string, error) {
+		if v > 2 {
+			return "", fmt.Errorf("value %d is too large", v)
+		}
+		return fmt.Sprintf("Number_%d", v), nil
+	}
+
+	results := seq.MapOrErr(input, mapper)
+
+	for val, err := range results {
+		if err != nil {
+			fmt.Printf("Error: %v\n", err)
+		} else {
+			fmt.Printf("Mapped value: %s\n", val)
+		}
+	}
+
+	// Output:
+	// Mapped value: Number_1
+	// Mapped value: Number_2
+	// Error: value 3 is too large
+}
+
 func ExampleSelect() {
 	input := seq.Of(1, 2, 3)
 
