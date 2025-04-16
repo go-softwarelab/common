@@ -710,6 +710,50 @@ Empty error: not found-1
 
 </details>
 
+<a name="Elem[E].OrZeroValue"></a>
+### Elem[E].OrZeroValue
+
+```go
+func (o Elem[E]) OrZeroValue() E
+```
+
+OrZeroValue returns the value if present, otherwise returns the zero value of the type.
+
+<details>
+<summary>Example</summary>
+
+
+
+
+```go
+package main
+
+import (
+	"fmt"
+
+	"github.com/go-softwarelab/common/pkg/optional"
+)
+
+func main() {
+	opt := optional.Of(42)
+	empty := optional.Empty[int]()
+
+	fmt.Println("Present value:", opt.OrZeroValue())
+	fmt.Println("Empty value:", empty.OrZeroValue())
+
+}
+```
+
+**Output**
+
+```
+Present value: 42
+Empty value: 0
+```
+
+
+</details>
+
 <a name="Elem[E].ShouldGet"></a>
 ### [Elem\[E\].ShouldGet](<https://github.com/go-softwarelab/common/blob/main/pkg/optional/optional.go#L74>)
 
