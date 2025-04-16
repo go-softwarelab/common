@@ -34,7 +34,7 @@ func main() {
 		panic("failed to get current file path")
 	}
 
-	root := path.Dir(path.Dir(currentFile))
+	root := path.Dir(path.Dir(path.Dir(currentFile)))
 	docsRoot := path.Join(root, "docs", "docs")
 	packageRoot := path.Join(root, "pkg")
 
@@ -65,7 +65,7 @@ func main() {
 		}
 
 		// Create a documentation package
-		pkg, err := lang.NewPackageFromBuild(log, buildPkg)
+		pkg, err := lang.NewPackageFromBuild(log, buildPkg, lang.PackageWithRepositoryOverrides(&lang.Repo{DefaultBranch: "main"}))
 		if err != nil {
 			return fmt.Errorf("failed to create package from %s: %w", path, err)
 		}

@@ -27,7 +27,7 @@ var ErrValueOutOfRange = fmt.Errorf("%w to convert", strconv.ErrRange)
 ```
 
 <a name="Any"></a>
-## Any
+## [Any](<https://github.com/go-softwarelab/common/blob/main/pkg/to/types.go#L68>)
 
 ```go
 func Any[T any](value T) any
@@ -73,7 +73,7 @@ Type: string
 </details>
 
 <a name="AtLeast"></a>
-## AtLeast
+## [AtLeast](<https://github.com/go-softwarelab/common/blob/main/pkg/to/numbers.go#L341>)
 
 ```go
 func AtLeast[T types.Ordered](min T) func(value T) T
@@ -119,7 +119,7 @@ ensureAdult(21) = 21
 </details>
 
 <a name="AtMost"></a>
-## AtMost
+## [AtMost](<https://github.com/go-softwarelab/common/blob/main/pkg/to/numbers.go#L359>)
 
 ```go
 func AtMost[T types.Ordered](max T) func(value T) T
@@ -165,7 +165,7 @@ ensurePercentage(150) = 100
 </details>
 
 <a name="BoolFromNumber"></a>
-## BoolFromNumber
+## [BoolFromNumber](<https://github.com/go-softwarelab/common/blob/main/pkg/to/booleans.go#L21>)
 
 ```go
 func BoolFromNumber[V types.Number](value V) bool
@@ -215,7 +215,7 @@ func main() {
 </details>
 
 <a name="BoolFromString"></a>
-## BoolFromString
+## [BoolFromString](<https://github.com/go-softwarelab/common/blob/main/pkg/to/booleans.go#L11>)
 
 ```go
 func BoolFromString(value string) (bool, error)
@@ -272,7 +272,7 @@ not-a-bool -> false true
 </details>
 
 <a name="CamelCase"></a>
-## CamelCase
+## [CamelCase](<https://github.com/go-softwarelab/common/blob/main/pkg/to/strings.go#L90>)
 
 ```go
 func CamelCase(str string) string
@@ -321,7 +321,7 @@ string("pascalCaseString")
 </details>
 
 <a name="Capitalized"></a>
-## Capitalized
+## [Capitalized](<https://github.com/go-softwarelab/common/blob/main/pkg/to/strings.go#L121>)
 
 ```go
 func Capitalized(str string) string
@@ -370,7 +370,7 @@ string("Multiple. Sentences. Here.")
 </details>
 
 <a name="Ellipsis"></a>
-## Ellipsis
+## [Ellipsis](<https://github.com/go-softwarelab/common/blob/main/pkg/to/strings.go#L139>)
 
 ```go
 func Ellipsis(str string, length int) string
@@ -419,7 +419,7 @@ string("...")
 </details>
 
 <a name="EllipsisWith"></a>
-## EllipsisWith
+## [EllipsisWith](<https://github.com/go-softwarelab/common/blob/main/pkg/to/strings.go#L155>)
 
 ```go
 func EllipsisWith(length int) func(str string) string
@@ -466,7 +466,7 @@ string("Short")
 </details>
 
 <a name="EmptyValue"></a>
-## EmptyValue
+## [EmptyValue](<https://github.com/go-softwarelab/common/blob/main/pkg/to/types.go#L19>)
 
 ```go
 func EmptyValue[T any]() T
@@ -517,7 +517,7 @@ bool(false)
 </details>
 
 <a name="Float32"></a>
-## Float32
+## [Float32](<https://github.com/go-softwarelab/common/blob/main/pkg/to/numbers.go#L148>)
 
 ```go
 func Float32[V types.SignedNumber](value V) (float32, error)
@@ -558,7 +558,7 @@ float32(3), Error: <nil>
 </details>
 
 <a name="Float32FromString"></a>
-## Float32FromString
+## [Float32FromString](<https://github.com/go-softwarelab/common/blob/main/pkg/to/numbers.go#L304>)
 
 ```go
 func Float32FromString(value string) (float32, error)
@@ -599,7 +599,7 @@ float32(3.14159), Error: <nil>
 </details>
 
 <a name="Float32FromUnsigned"></a>
-## Float32FromUnsigned
+## [Float32FromUnsigned](<https://github.com/go-softwarelab/common/blob/main/pkg/to/numbers.go#L161>)
 
 ```go
 func Float32FromUnsigned[V types.Unsigned](value V) (float32, error)
@@ -640,7 +640,7 @@ float32(42), Error: <nil>
 </details>
 
 <a name="Float64"></a>
-## Float64
+## [Float64](<https://github.com/go-softwarelab/common/blob/main/pkg/to/numbers.go#L156>)
 
 ```go
 func Float64[V types.SignedNumber](value V) (float64, error)
@@ -681,7 +681,7 @@ float64(3), Error: <nil>
 </details>
 
 <a name="Float64FromString"></a>
-## Float64FromString
+## [Float64FromString](<https://github.com/go-softwarelab/common/blob/main/pkg/to/numbers.go#L317>)
 
 ```go
 func Float64FromString(value string) (float64, error)
@@ -722,7 +722,7 @@ float64(3.14159), Error: <nil>
 </details>
 
 <a name="Float64FromUnsigned"></a>
-## Float64FromUnsigned
+## [Float64FromUnsigned](<https://github.com/go-softwarelab/common/blob/main/pkg/to/numbers.go#L169>)
 
 ```go
 func Float64FromUnsigned[V types.Unsigned](value V) (float64, error)
@@ -763,7 +763,7 @@ float64(42), Error: <nil>
 </details>
 
 <a name="Int"></a>
-## Int
+## [Int](<https://github.com/go-softwarelab/common/blob/main/pkg/to/numbers.go#L27>)
 
 ```go
 func Int[V types.SignedNumber](value V) (int, error)
@@ -804,7 +804,7 @@ int(42), Error: <nil>
 </details>
 
 <a name="Int16"></a>
-## Int16
+## [Int16](<https://github.com/go-softwarelab/common/blob/main/pkg/to/numbers.go#L61>)
 
 ```go
 func Int16[V types.SignedNumber](value V) (int16, error)
@@ -851,7 +851,7 @@ int16(0), Error: true
 </details>
 
 <a name="Int16FromString"></a>
-## Int16FromString
+## [Int16FromString](<https://github.com/go-softwarelab/common/blob/main/pkg/to/numbers.go#L200>)
 
 ```go
 func Int16FromString(value string) (int16, error)
@@ -898,7 +898,7 @@ int16(0), Error: true
 </details>
 
 <a name="Int16FromUnsigned"></a>
-## Int16FromUnsigned
+## [Int16FromUnsigned](<https://github.com/go-softwarelab/common/blob/main/pkg/to/numbers.go#L70>)
 
 ```go
 func Int16FromUnsigned[V types.Unsigned](value V) (int16, error)
@@ -945,7 +945,7 @@ int16(0), Error: true
 </details>
 
 <a name="Int32"></a>
-## Int32
+## [Int32](<https://github.com/go-softwarelab/common/blob/main/pkg/to/numbers.go#L78>)
 
 ```go
 func Int32[V types.SignedNumber](value V) (int32, error)
@@ -986,7 +986,7 @@ int32(1000000), Error: <nil>
 </details>
 
 <a name="Int32FromString"></a>
-## Int32FromString
+## [Int32FromString](<https://github.com/go-softwarelab/common/blob/main/pkg/to/numbers.go#L213>)
 
 ```go
 func Int32FromString(value string) (int32, error)
@@ -1027,7 +1027,7 @@ int32(1234567), Error: <nil>
 </details>
 
 <a name="Int32FromUnsigned"></a>
-## Int32FromUnsigned
+## [Int32FromUnsigned](<https://github.com/go-softwarelab/common/blob/main/pkg/to/numbers.go#L87>)
 
 ```go
 func Int32FromUnsigned[V types.Unsigned](value V) (int32, error)
@@ -1068,7 +1068,7 @@ int32(1000000), Error: <nil>
 </details>
 
 <a name="Int64"></a>
-## Int64
+## [Int64](<https://github.com/go-softwarelab/common/blob/main/pkg/to/numbers.go#L95>)
 
 ```go
 func Int64[V types.SignedNumber](value V) (int64, error)
@@ -1109,7 +1109,7 @@ int64(9223372036854775807), Error: <nil>
 </details>
 
 <a name="Int64FromString"></a>
-## Int64FromString
+## [Int64FromString](<https://github.com/go-softwarelab/common/blob/main/pkg/to/numbers.go#L226>)
 
 ```go
 func Int64FromString(value string) (int64, error)
@@ -1150,7 +1150,7 @@ int64(9223372036854775807), Error: <nil>
 </details>
 
 <a name="Int64FromUnsigned"></a>
-## Int64FromUnsigned
+## [Int64FromUnsigned](<https://github.com/go-softwarelab/common/blob/main/pkg/to/numbers.go#L100>)
 
 ```go
 func Int64FromUnsigned[V types.Unsigned](value V) (int64, error)
@@ -1191,7 +1191,7 @@ int64(9223372036854775807), Error: <nil>
 </details>
 
 <a name="Int8"></a>
-## Int8
+## [Int8](<https://github.com/go-softwarelab/common/blob/main/pkg/to/numbers.go#L44>)
 
 ```go
 func Int8[V types.SignedNumber](value V) (int8, error)
@@ -1238,7 +1238,7 @@ int8(0), Error: true
 </details>
 
 <a name="Int8FromString"></a>
-## Int8FromString
+## [Int8FromString](<https://github.com/go-softwarelab/common/blob/main/pkg/to/numbers.go#L187>)
 
 ```go
 func Int8FromString(value string) (int8, error)
@@ -1285,7 +1285,7 @@ int8(0), Error: true
 </details>
 
 <a name="Int8FromUnsigned"></a>
-## Int8FromUnsigned
+## [Int8FromUnsigned](<https://github.com/go-softwarelab/common/blob/main/pkg/to/numbers.go#L53>)
 
 ```go
 func Int8FromUnsigned[V types.Unsigned](value V) (int8, error)
@@ -1332,7 +1332,7 @@ int8(0), Error: true
 </details>
 
 <a name="IntFromString"></a>
-## IntFromString
+## [IntFromString](<https://github.com/go-softwarelab/common/blob/main/pkg/to/numbers.go#L174>)
 
 ```go
 func IntFromString(value string) (int, error)
@@ -1379,7 +1379,7 @@ int(0), Error: true
 </details>
 
 <a name="IntFromUnsigned"></a>
-## IntFromUnsigned
+## [IntFromUnsigned](<https://github.com/go-softwarelab/common/blob/main/pkg/to/numbers.go#L36>)
 
 ```go
 func IntFromUnsigned[V types.Unsigned](value V) (int, error)
@@ -1420,7 +1420,7 @@ int(42), Error: <nil>
 </details>
 
 <a name="KebabCase"></a>
-## KebabCase
+## [KebabCase](<https://github.com/go-softwarelab/common/blob/main/pkg/to/strings.go#L103>)
 
 ```go
 func KebabCase(str string) string
@@ -1469,7 +1469,7 @@ string("pascal-case-string")
 </details>
 
 <a name="Nil"></a>
-## Nil
+## [Nil](<https://github.com/go-softwarelab/common/blob/main/pkg/to/types.go#L9>)
 
 ```go
 func Nil[T any]() *T
@@ -1519,7 +1519,7 @@ func main() {
 </details>
 
 <a name="NilOfType"></a>
-## NilOfType
+## [NilOfType](<https://github.com/go-softwarelab/common/blob/main/pkg/to/types.go#L14>)
 
 ```go
 func NilOfType[T any](_ *T) *T
@@ -1561,7 +1561,7 @@ func main() {
 </details>
 
 <a name="NoLessThan"></a>
-## NoLessThan
+## [NoLessThan](<https://github.com/go-softwarelab/common/blob/main/pkg/to/numbers.go#L330>)
 
 ```go
 func NoLessThan[T types.Ordered](value, min T) T
@@ -1612,7 +1612,7 @@ NoLessThan(3.14, 4.0) = 4.00
 </details>
 
 <a name="NoMoreThan"></a>
-## NoMoreThan
+## [NoMoreThan](<https://github.com/go-softwarelab/common/blob/main/pkg/to/numbers.go#L348>)
 
 ```go
 func NoMoreThan[T types.Ordered](value, max T) T
@@ -1658,7 +1658,7 @@ NoMoreThan(15, 10) = 10
 </details>
 
 <a name="Options"></a>
-## Options
+## [Options](<https://github.com/go-softwarelab/common/blob/main/pkg/to/options.go#L4>)
 
 ```go
 func Options[T any](opts ...func(*T)) T
@@ -1732,7 +1732,7 @@ Debug: true
 </details>
 
 <a name="OptionsWithDefault"></a>
-## OptionsWithDefault
+## [OptionsWithDefault](<https://github.com/go-softwarelab/common/blob/main/pkg/to/options.go#L13>)
 
 ```go
 func OptionsWithDefault[T any](defaultOptions T, opts ...func(*T)) T
@@ -1798,7 +1798,7 @@ Debug: true
 </details>
 
 <a name="PascalCase"></a>
-## PascalCase
+## [PascalCase](<https://github.com/go-softwarelab/common/blob/main/pkg/to/strings.go#L81>)
 
 ```go
 func PascalCase(str string) string
@@ -1847,7 +1847,7 @@ string("SnakeCaseString")
 </details>
 
 <a name="Ptr"></a>
-## Ptr
+## [Ptr](<https://github.com/go-softwarelab/common/blob/main/pkg/to/types.go#L4>)
 
 ```go
 func Ptr[T any](x T) *T
@@ -1893,7 +1893,7 @@ func main() {
 </details>
 
 <a name="Sentences"></a>
-## Sentences
+## [Sentences](<https://github.com/go-softwarelab/common/blob/main/pkg/to/strings.go#L62>)
 
 ```go
 func Sentences(str string) []string
@@ -1935,7 +1935,7 @@ func main() {
 </details>
 
 <a name="SliceOfAny"></a>
-## SliceOfAny
+## [SliceOfAny](<https://github.com/go-softwarelab/common/blob/main/pkg/to/types.go#L73>)
 
 ```go
 func SliceOfAny[T any](collection []T) []any
@@ -1980,7 +1980,7 @@ First element type: int
 </details>
 
 <a name="SliceOfPtr"></a>
-## SliceOfPtr
+## [SliceOfPtr](<https://github.com/go-softwarelab/common/blob/main/pkg/to/types.go#L50>)
 
 ```go
 func SliceOfPtr[T any](collection []T) []*T
@@ -2028,7 +2028,7 @@ Length: 3
 </details>
 
 <a name="SliceOfValue"></a>
-## SliceOfValue
+## [SliceOfValue](<https://github.com/go-softwarelab/common/blob/main/pkg/to/types.go#L59>)
 
 ```go
 func SliceOfValue[T any](collection []*T) []T
@@ -2076,7 +2076,7 @@ int(0) (zero value from nil)
 </details>
 
 <a name="SnakeCase"></a>
-## SnakeCase
+## [SnakeCase](<https://github.com/go-softwarelab/common/blob/main/pkg/to/strings.go#L112>)
 
 ```go
 func SnakeCase(str string) string
@@ -2125,7 +2125,7 @@ string("pascal_case_string")
 </details>
 
 <a name="StringFromBool"></a>
-## StringFromBool
+## [StringFromBool](<https://github.com/go-softwarelab/common/blob/main/pkg/to/strings.go#L30>)
 
 ```go
 func StringFromBool(value bool) string
@@ -2170,7 +2170,7 @@ string("false")
 </details>
 
 <a name="StringFromBytes"></a>
-## StringFromBytes
+## [StringFromBytes](<https://github.com/go-softwarelab/common/blob/main/pkg/to/strings.go#L35>)
 
 ```go
 func StringFromBytes(value []byte) string
@@ -2211,7 +2211,7 @@ string("hello")
 </details>
 
 <a name="StringFromFloat"></a>
-## StringFromFloat
+## [StringFromFloat](<https://github.com/go-softwarelab/common/blob/main/pkg/to/strings.go#L25>)
 
 ```go
 func StringFromFloat[V types.Float](value V) string
@@ -2252,7 +2252,7 @@ string("3.141590")
 </details>
 
 <a name="StringFromInteger"></a>
-## StringFromInteger
+## [StringFromInteger](<https://github.com/go-softwarelab/common/blob/main/pkg/to/strings.go#L20>)
 
 ```go
 func StringFromInteger[V types.Integer](value V) string
@@ -2293,7 +2293,7 @@ string("42")
 </details>
 
 <a name="StringFromRune"></a>
-## StringFromRune
+## [StringFromRune](<https://github.com/go-softwarelab/common/blob/main/pkg/to/strings.go#L40>)
 
 ```go
 func StringFromRune(value rune) string
@@ -2334,7 +2334,7 @@ string("世")
 </details>
 
 <a name="UInt"></a>
-## UInt
+## [UInt](<https://github.com/go-softwarelab/common/blob/main/pkg/to/numbers.go#L108>)
 
 ```go
 func UInt[V types.Number](value V) (uint, error)
@@ -2381,7 +2381,7 @@ uint(0), Error: true
 </details>
 
 <a name="UInt16"></a>
-## UInt16
+## [UInt16](<https://github.com/go-softwarelab/common/blob/main/pkg/to/numbers.go#L124>)
 
 ```go
 func UInt16[V types.Number](value V) (uint16, error)
@@ -2422,7 +2422,7 @@ uint16(65000), Error: <nil>
 </details>
 
 <a name="UInt16FromString"></a>
-## UInt16FromString
+## [UInt16FromString](<https://github.com/go-softwarelab/common/blob/main/pkg/to/numbers.go#L265>)
 
 ```go
 func UInt16FromString(value string) (uint16, error)
@@ -2463,7 +2463,7 @@ uint16(65000), Error: <nil>
 </details>
 
 <a name="UInt32"></a>
-## UInt32
+## [UInt32](<https://github.com/go-softwarelab/common/blob/main/pkg/to/numbers.go#L132>)
 
 ```go
 func UInt32[V types.Number](value V) (uint32, error)
@@ -2510,7 +2510,7 @@ uint32(0), Error: true
 </details>
 
 <a name="UInt32FromString"></a>
-## UInt32FromString
+## [UInt32FromString](<https://github.com/go-softwarelab/common/blob/main/pkg/to/numbers.go#L278>)
 
 ```go
 func UInt32FromString(value string) (uint32, error)
@@ -2551,7 +2551,7 @@ uint32(4294967295), Error: <nil>
 </details>
 
 <a name="UInt64"></a>
-## UInt64
+## [UInt64](<https://github.com/go-softwarelab/common/blob/main/pkg/to/numbers.go#L140>)
 
 ```go
 func UInt64[V types.Number](value V) (uint64, error)
@@ -2592,7 +2592,7 @@ uint64(18446744073709551000), Error: <nil>
 </details>
 
 <a name="UInt64FromString"></a>
-## UInt64FromString
+## [UInt64FromString](<https://github.com/go-softwarelab/common/blob/main/pkg/to/numbers.go#L291>)
 
 ```go
 func UInt64FromString(value string) (uint64, error)
@@ -2633,7 +2633,7 @@ uint64(18446744073709551615), Error: <nil>
 </details>
 
 <a name="UInt8"></a>
-## UInt8
+## [UInt8](<https://github.com/go-softwarelab/common/blob/main/pkg/to/numbers.go#L116>)
 
 ```go
 func UInt8[V types.Number](value V) (uint8, error)
@@ -2680,7 +2680,7 @@ uint8(0), Error: true
 </details>
 
 <a name="UInt8FromString"></a>
-## UInt8FromString
+## [UInt8FromString](<https://github.com/go-softwarelab/common/blob/main/pkg/to/numbers.go#L252>)
 
 ```go
 func UInt8FromString(value string) (uint8, error)
@@ -2721,7 +2721,7 @@ uint8(200), Error: <nil>
 </details>
 
 <a name="UIntFromString"></a>
-## UIntFromString
+## [UIntFromString](<https://github.com/go-softwarelab/common/blob/main/pkg/to/numbers.go#L239>)
 
 ```go
 func UIntFromString(value string) (uint, error)
@@ -2762,7 +2762,7 @@ uint(42), Error: <nil>
 </details>
 
 <a name="Value"></a>
-## Value
+## [Value](<https://github.com/go-softwarelab/common/blob/main/pkg/to/types.go#L32>)
 
 ```go
 func Value[T any](x *T) T
@@ -2810,7 +2810,7 @@ string("")
 </details>
 
 <a name="ValueBetween"></a>
-## ValueBetween
+## [ValueBetween](<https://github.com/go-softwarelab/common/blob/main/pkg/to/numbers.go#L371>)
 
 ```go
 func ValueBetween[T types.Ordered](value, min, max T) T
@@ -2863,7 +2863,7 @@ ValueBetween(15, 0, 10) = 10
 </details>
 
 <a name="ValueBetweenThe"></a>
-## ValueBetweenThe
+## [ValueBetweenThe](<https://github.com/go-softwarelab/common/blob/main/pkg/to/numbers.go#L387>)
 
 ```go
 func ValueBetweenThe[T types.Ordered](min, max T) func(value T) T
@@ -2911,7 +2911,7 @@ validatePercentage(150) = 100
 </details>
 
 <a name="ValueOr"></a>
-## ValueOr
+## [ValueOr](<https://github.com/go-softwarelab/common/blob/main/pkg/to/types.go#L41>)
 
 ```go
 func ValueOr[T any](x *T, fallback T) T
@@ -2959,7 +2959,7 @@ string("fallback")
 </details>
 
 <a name="Words"></a>
-## Words
+## [Words](<https://github.com/go-softwarelab/common/blob/main/pkg/to/strings.go#L45>)
 
 ```go
 func Words(str string) []string
@@ -3012,7 +3012,7 @@ func main() {
 </details>
 
 <a name="ZeroValue"></a>
-## ZeroValue
+## [ZeroValue](<https://github.com/go-softwarelab/common/blob/main/pkg/to/types.go#L26>)
 
 ```go
 func ZeroValue[T any]() T
@@ -3058,7 +3058,7 @@ string("")
 </details>
 
 <a name="IfElseCondition"></a>
-## type IfElseCondition
+## type [IfElseCondition](<https://github.com/go-softwarelab/common/blob/main/pkg/to/conditional.go#L4-L7>)
 
 IfElseCondition is a struct that provides a fluent API for conditional value mapping.
 
@@ -3069,7 +3069,7 @@ type IfElseCondition[T any] struct {
 ```
 
 <a name="If"></a>
-### If
+### [If](<https://github.com/go-softwarelab/common/blob/main/pkg/to/conditional.go#L10>)
 
 ```go
 func If[T any](condition bool, resultProvider func() T) *IfElseCondition[T]
@@ -3122,7 +3122,7 @@ condition is false
 </details>
 
 <a name="IfThen"></a>
-### IfThen
+### [IfThen](<https://github.com/go-softwarelab/common/blob/main/pkg/to/conditional.go#L18>)
 
 ```go
 func IfThen[T any](condition bool, resultWhenTrue T) *IfElseCondition[T]
@@ -3167,7 +3167,7 @@ condition is false
 </details>
 
 <a name="IfElseCondition[T].Else"></a>
-### *IfElseCondition[T].Else
+### [\*IfElseCondition\[T\].Else](<https://github.com/go-softwarelab/common/blob/main/pkg/to/conditional.go#L52>)
 
 ```go
 func (c *IfElseCondition[T]) Else(resultProvider func() T) T
@@ -3176,7 +3176,7 @@ func (c *IfElseCondition[T]) Else(resultProvider func() T) T
 Else accepts the default result provider and returns the result of the condition evaluation.
 
 <a name="IfElseCondition[T].ElseIf"></a>
-### *IfElseCondition[T].ElseIf
+### [\*IfElseCondition\[T\].ElseIf](<https://github.com/go-softwarelab/common/blob/main/pkg/to/conditional.go#L28>)
 
 ```go
 func (c *IfElseCondition[T]) ElseIf(condition bool, resultProvider func() T) *IfElseCondition[T]
@@ -3236,7 +3236,7 @@ senior
 </details>
 
 <a name="IfElseCondition[T].ElseIfThen"></a>
-### *IfElseCondition[T].ElseIfThen
+### [\*IfElseCondition\[T\].ElseIfThen](<https://github.com/go-softwarelab/common/blob/main/pkg/to/conditional.go#L39>)
 
 ```go
 func (c *IfElseCondition[T]) ElseIfThen(condition bool, resultWhenTrue T) *IfElseCondition[T]
@@ -3282,7 +3282,7 @@ B
 </details>
 
 <a name="IfElseCondition[T].ElseThen"></a>
-### *IfElseCondition[T].ElseThen
+### [\*IfElseCondition\[T\].ElseThen](<https://github.com/go-softwarelab/common/blob/main/pkg/to/conditional.go#L60>)
 
 ```go
 func (c *IfElseCondition[T]) ElseThen(resultWhenFalse T) T
@@ -3291,7 +3291,7 @@ func (c *IfElseCondition[T]) ElseThen(resultWhenFalse T) T
 ElseThen accepts the default result and returns the result of the condition evaluation.
 
 <a name="SwitchCase"></a>
-## type SwitchCase
+## type [SwitchCase](<https://github.com/go-softwarelab/common/blob/main/pkg/to/conditional.go#L68-L75>)
 
 SwitchCase provides a fluent API for conditional \(switch\-like\) value mapping. Represents case predicates.
 
@@ -3350,7 +3350,7 @@ All uppercase
 </details>
 
 <a name="Switch"></a>
-### Switch
+### [Switch](<https://github.com/go-softwarelab/common/blob/main/pkg/to/conditional.go#L86>)
 
 ```go
 func Switch[V comparable, R any](value V) SwitchCase[V, R]
@@ -3401,7 +3401,7 @@ Wednesday
 </details>
 
 <a name="SwitchThen"></a>
-## type SwitchThen
+## type [SwitchThen](<https://github.com/go-softwarelab/common/blob/main/pkg/to/conditional.go#L78-L83>)
 
 SwitchThen provides a fluent API for conditional \(switch\-like\) value mapping. Represents case results.
 

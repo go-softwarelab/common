@@ -18,4 +18,4 @@
 // We hope you find the `common` library useful and that it helps you write Go code that's as clear as a summer sky!
 package common
 
-//go:generate go run -C ./tools gen_docs.go
+//go:generate go run -C ./internal/tools gen_docs.go

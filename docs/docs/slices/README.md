@@ -13,7 +13,7 @@ The package is designed to reduce boilerplate code and improve readability by pr
 
 
 <a name="Count"></a>
-## Count
+## [Count](<https://github.com/go-softwarelab/common/blob/main/pkg/slices/consumer.go#L14>)
 
 ```go
 func Count[E any](collection []E) int
@@ -60,7 +60,7 @@ func main() {
 </details>
 
 <a name="Filter"></a>
-## Filter
+## [Filter](<https://github.com/go-softwarelab/common/blob/main/pkg/slices/filter.go#L4>)
 
 ```go
 func Filter[E any, Slice ~[]E](collection Slice, predicate func(item E) bool) Slice
@@ -104,7 +104,7 @@ func main() {
 </details>
 
 <a name="FlatMap"></a>
-## FlatMap
+## [FlatMap](<https://github.com/go-softwarelab/common/blob/main/pkg/slices/mapper.go#L18>)
 
 ```go
 func FlatMap[E any, R any](collection []E, mapper Mapper[E, []R]) []R
@@ -148,7 +148,7 @@ func main() {
 </details>
 
 <a name="Flatten"></a>
-## Flatten
+## [Flatten](<https://github.com/go-softwarelab/common/blob/main/pkg/slices/mapper.go#L29>)
 
 ```go
 func Flatten[E any, Slice ~[]E](collection []Slice) Slice
@@ -194,7 +194,7 @@ func main() {
 </details>
 
 <a name="ForEach"></a>
-## ForEach
+## [ForEach](<https://github.com/go-softwarelab/common/blob/main/pkg/slices/consumer.go#L7>)
 
 ```go
 func ForEach[E any](collection []E, consumer Consumer[E])
@@ -239,7 +239,7 @@ func main() {
 </details>
 
 <a name="Map"></a>
-## Map
+## [Map](<https://github.com/go-softwarelab/common/blob/main/pkg/slices/mapper.go#L7>)
 
 ```go
 func Map[E any, R any](collection []E, mapper Mapper[E, R]) []R
@@ -283,7 +283,7 @@ func main() {
 </details>
 
 <a name="Reduce"></a>
-## Reduce
+## [Reduce](<https://github.com/go-softwarelab/common/blob/main/pkg/slices/reducer.go#L4>)
 
 ```go
 func Reduce[E any, R any](collection []E, accumulator func(agg R, item E) R, initial R) R
@@ -371,7 +371,7 @@ func main() {
 </details>
 
 <a name="ReduceRight"></a>
-## ReduceRight
+## [ReduceRight](<https://github.com/go-softwarelab/common/blob/main/pkg/slices/reducer.go#L13>)
 
 ```go
 func ReduceRight[E any, R any](collection []E, accumulator func(agg R, item E) R, initial R) R
@@ -415,7 +415,7 @@ cba
 </details>
 
 <a name="Uniq"></a>
-## Uniq
+## [Uniq](<https://github.com/go-softwarelab/common/blob/main/pkg/slices/filter.go#L18>)
 
 ```go
 func Uniq[E comparable, Slice ~[]E](collection Slice) Slice
@@ -457,7 +457,7 @@ func main() {
 </details>
 
 <a name="UniqBy"></a>
-## UniqBy
+## [UniqBy](<https://github.com/go-softwarelab/common/blob/main/pkg/slices/filter.go#L36>)
 
 ```go
 func UniqBy[E any, R comparable, Slice ~[]E](collection Slice, mapper func(E) R) Slice
@@ -502,7 +502,7 @@ func main() {
 </details>
 
 <a name="Consumer"></a>
-## type Consumer
+## type [Consumer](<https://github.com/go-softwarelab/common/blob/main/pkg/slices/consumer.go#L4>)
 
 Consumer is a function that consumes an element of a sequence.
 
@@ -511,7 +511,7 @@ type Consumer[E any] = func(E)
 ```
 
 <a name="Mapper"></a>
-## type Mapper
+## type [Mapper](<https://github.com/go-softwarelab/common/blob/main/pkg/slices/mapper.go#L4>)
 
 Mapper is a function that maps a value of type T to a value of type R.
 

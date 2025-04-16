@@ -15,7 +15,7 @@ By integrating seamlessly with the iter.Seq ecosystem, this package provides a c
 
 
 <a name="Collect"></a>
-## Collect
+## [Collect](<https://github.com/go-softwarelab/common/blob/main/pkg/seqerr/consumer.go#L19>)
 
 ```go
 func Collect[E any](seq iter.Seq2[E, error]) ([]E, error)
@@ -122,7 +122,7 @@ Error: source error
 </details>
 
 <a name="Count"></a>
-## Count
+## [Count](<https://github.com/go-softwarelab/common/blob/main/pkg/seqerr/consumer.go#L24>)
 
 ```go
 func Count[E any](seq iter.Seq2[E, error]) (int, error)
@@ -229,7 +229,7 @@ Error: source error
 </details>
 
 <a name="Each"></a>
-## Each
+## [Each](<https://github.com/go-softwarelab/common/blob/main/pkg/seqerr/consumer.go#L61>)
 
 ```go
 func Each[E any, C Consumer[E]](seq iter.Seq2[E, error], consumer C) iter.Seq2[E, error]
@@ -292,7 +292,7 @@ Result: [1 2 3]
 </details>
 
 <a name="Filter"></a>
-## Filter
+## [Filter](<https://github.com/go-softwarelab/common/blob/main/pkg/seqerr/filter.go#L10>)
 
 ```go
 func Filter[E any, P Predicate[E]](seq iter.Seq2[E, error], predicate P) iter.Seq2[E, error]
@@ -524,7 +524,7 @@ Error: even value not allowed
 </details>
 
 <a name="FlatMap"></a>
-## FlatMap
+## [FlatMap](<https://github.com/go-softwarelab/common/blob/main/pkg/seqerr/mapper.go#L55>)
 
 ```go
 func FlatMap[E any, R any](seq iter.Seq2[E, error], mapper MapperWithoutError[E, iter.Seq[R]]) iter.Seq2[R, error]
@@ -591,7 +591,7 @@ func main() {
 </details>
 
 <a name="FlatMapOrErr"></a>
-## FlatMapOrErr
+## [FlatMapOrErr](<https://github.com/go-softwarelab/common/blob/main/pkg/seqerr/mapper.go#L74>)
 
 ```go
 func FlatMapOrErr[E any, R any](seq iter.Seq2[E, error], mapper MapperWithError[E, iter.Seq[R]]) iter.Seq2[R, error]
@@ -666,7 +666,7 @@ Error: strconv.Atoi: parsing "two": invalid syntax
 </details>
 
 <a name="Flatten"></a>
-## Flatten
+## [Flatten](<https://github.com/go-softwarelab/common/blob/main/pkg/seqerr/mapper.go#L98>)
 
 ```go
 func Flatten[Seq iter.Seq2[iter.Seq[E], error], E any](seq Seq) iter.Seq2[E, error]
@@ -729,7 +729,7 @@ func main() {
 </details>
 
 <a name="FlattenSlices"></a>
-## FlattenSlices
+## [FlattenSlices](<https://github.com/go-softwarelab/common/blob/main/pkg/seqerr/mapper.go#L116>)
 
 ```go
 func FlattenSlices[Seq iter.Seq2[[]E, error], E any](seq Seq) iter.Seq2[E, error]
@@ -852,7 +852,7 @@ Error: slice error
 </details>
 
 <a name="Fold"></a>
-## Fold
+## [Fold](<https://github.com/go-softwarelab/common/blob/main/pkg/seqerr/reducer.go#L29>)
 
 ```go
 func Fold[E any](seq iter.Seq2[E, error], accumulator func(agg E, item E) E) (optional.Elem[E], error)
@@ -963,7 +963,7 @@ Empty sequence
 </details>
 
 <a name="FoldRight"></a>
-## FoldRight
+## [FoldRight](<https://github.com/go-softwarelab/common/blob/main/pkg/seqerr/reducer.go#L57>)
 
 ```go
 func FoldRight[E any](seq iter.Seq2[E, error], accumulator func(agg E, item E) E) (optional.Elem[E], error)
@@ -1027,7 +1027,7 @@ WORLD-hello
 </details>
 
 <a name="ForEach"></a>
-## ForEach
+## [ForEach](<https://github.com/go-softwarelab/common/blob/main/pkg/seqerr/consumer.go#L67>)
 
 ```go
 func ForEach[E any, C Consumer[E]](seq iter.Seq2[E, error], consumer C) error
@@ -1206,7 +1206,7 @@ Sum: 1
 </details>
 
 <a name="FromSeq"></a>
-## FromSeq
+## [FromSeq](<https://github.com/go-softwarelab/common/blob/main/pkg/seqerr/producer.go#L24>)
 
 ```go
 func FromSeq[E any](sequence iter.Seq[E]) iter.Seq2[E, error]
@@ -1265,7 +1265,7 @@ func main() {
 </details>
 
 <a name="FromSlice"></a>
-## FromSlice
+## [FromSlice](<https://github.com/go-softwarelab/common/blob/main/pkg/seqerr/producer.go#L13>)
 
 ```go
 func FromSlice[E any](slice []E) iter.Seq2[E, error]
@@ -1315,7 +1315,7 @@ c
 </details>
 
 <a name="Map"></a>
-## Map
+## [Map](<https://github.com/go-softwarelab/common/blob/main/pkg/seqerr/mapper.go#L23>)
 
 ```go
 func Map[E any, R any](seq iter.Seq2[E, error], mapper MapperWithoutError[E, R]) iter.Seq2[R, error]
@@ -1434,7 +1434,7 @@ Error: source error
 </details>
 
 <a name="MapOrErr"></a>
-## MapOrErr
+## [MapOrErr](<https://github.com/go-softwarelab/common/blob/main/pkg/seqerr/mapper.go#L39>)
 
 ```go
 func MapOrErr[E any, R any](seq iter.Seq2[E, error], mapper MapperWithError[E, R]) iter.Seq2[R, error]
@@ -1503,7 +1503,7 @@ Error: strconv.Atoi: parsing "two": invalid syntax
 </details>
 
 <a name="MapSeq"></a>
-## MapSeq
+## [MapSeq](<https://github.com/go-softwarelab/common/blob/main/pkg/seqerr/mapper.go#L11>)
 
 ```go
 func MapSeq[E any, R any](seq iter.Seq[E], mapper MapperWithError[E, R]) iter.Seq2[R, error]
@@ -1512,7 +1512,7 @@ func MapSeq[E any, R any](seq iter.Seq[E], mapper MapperWithError[E, R]) iter.Se
 MapSeq applies a mapper function to each element of the sequence. The mapper function can return an error.
 
 <a name="Of"></a>
-## Of
+## [Of](<https://github.com/go-softwarelab/common/blob/main/pkg/seqerr/producer.go#L8>)
 
 ```go
 func Of[E any](elements ...E) iter.Seq2[E, error]
@@ -1561,7 +1561,7 @@ func main() {
 </details>
 
 <a name="Produce"></a>
-## Produce
+## [Produce](<https://github.com/go-softwarelab/common/blob/main/pkg/seqerr/producer.go#L35>)
 
 ```go
 func Produce[E, A any](next func(A) ([]E, A, error)) iter.Seq2[[]E, error]
@@ -1618,7 +1618,7 @@ func main() {
 </details>
 
 <a name="ProduceWithArg"></a>
-## ProduceWithArg
+## [ProduceWithArg](<https://github.com/go-softwarelab/common/blob/main/pkg/seqerr/producer.go#L44>)
 
 ```go
 func ProduceWithArg[E, A any](next func(A) ([]E, A, error), arg A) iter.Seq2[[]E, error]
@@ -1674,7 +1674,7 @@ func main() {
 </details>
 
 <a name="Reduce"></a>
-## Reduce
+## [Reduce](<https://github.com/go-softwarelab/common/blob/main/pkg/seqerr/reducer.go#L12>)
 
 ```go
 func Reduce[E any, R any](seq iter.Seq2[E, error], accumulator func(agg R, item E) R, initial R) (R, error)
@@ -1785,7 +1785,7 @@ Sum: 0
 </details>
 
 <a name="ReduceRight"></a>
-## ReduceRight
+## [ReduceRight](<https://github.com/go-softwarelab/common/blob/main/pkg/seqerr/reducer.go#L24>)
 
 ```go
 func ReduceRight[E any, R any](seq iter.Seq2[E, error], accumulator func(agg R, item E) R, initial R) (R, error)
@@ -1846,7 +1846,7 @@ hello beautiful world
 </details>
 
 <a name="Take"></a>
-## Take
+## [Take](<https://github.com/go-softwarelab/common/blob/main/pkg/seqerr/filter.go#L38>)
 
 ```go
 func Take[E any](seq iter.Seq2[E, error], n int) iter.Seq2[E, error]
@@ -1907,7 +1907,7 @@ func main() {
 </details>
 
 <a name="TakeUntil"></a>
-## TakeUntil
+## [TakeUntil](<https://github.com/go-softwarelab/common/blob/main/pkg/seqerr/filter.go#L64>)
 
 ```go
 func TakeUntil[E any, P Predicate[E]](seq iter.Seq2[E, error], predicate P) iter.Seq2[E, error]
@@ -1972,7 +1972,7 @@ func main() {
 </details>
 
 <a name="TakeUntilTrue"></a>
-## TakeUntilTrue
+## [TakeUntilTrue](<https://github.com/go-softwarelab/common/blob/main/pkg/seqerr/filter.go#L96>)
 
 ```go
 func TakeUntilTrue[E any](seq iter.Seq2[E, error], stopCondition func() bool) iter.Seq2[E, error]
@@ -2036,7 +2036,7 @@ func main() {
 </details>
 
 <a name="TakeWhile"></a>
-## TakeWhile
+## [TakeWhile](<https://github.com/go-softwarelab/common/blob/main/pkg/seqerr/filter.go#L58>)
 
 ```go
 func TakeWhile[E any, P Predicate[E]](seq iter.Seq2[E, error], predicate P) iter.Seq2[E, error]
@@ -2101,7 +2101,7 @@ func main() {
 </details>
 
 <a name="TakeWhileTrue"></a>
-## TakeWhileTrue
+## [TakeWhileTrue](<https://github.com/go-softwarelab/common/blob/main/pkg/seqerr/filter.go#L88>)
 
 ```go
 func TakeWhileTrue[E any](seq iter.Seq2[E, error], continueCondition func() bool) iter.Seq2[E, error]
@@ -2165,7 +2165,7 @@ func main() {
 </details>
 
 <a name="Tap"></a>
-## Tap
+## [Tap](<https://github.com/go-softwarelab/common/blob/main/pkg/seqerr/consumer.go#L37>)
 
 ```go
 func Tap[E any, C Consumer[E]](seq iter.Seq2[E, error], consumer C) iter.Seq2[E, error]
@@ -2286,7 +2286,7 @@ Result: [1]
 </details>
 
 <a name="ToSlice"></a>
-## ToSlice
+## [ToSlice](<https://github.com/go-softwarelab/common/blob/main/pkg/seqerr/consumer.go#L8>)
 
 ```go
 func ToSlice[Slice ~[]E, E any](seq iter.Seq2[E, error], slice Slice) (Slice, error)
@@ -2393,7 +2393,7 @@ Error: source error
 </details>
 
 <a name="Consumer"></a>
-## type Consumer
+## type [Consumer](<https://github.com/go-softwarelab/common/blob/main/pkg/seqerr/seqerr.go#L10-L12>)
 
 Consumer is a function that is consuming the sequence.
 
@@ -2404,7 +2404,7 @@ type Consumer[E any] interface {
 ```
 
 <a name="ConsumerWithError"></a>
-## type ConsumerWithError
+## type [ConsumerWithError](<https://github.com/go-softwarelab/common/blob/main/pkg/seqerr/seqerr.go#L7>)
 
 ConsumerWithError is a function that takes an element and returns an error.
 
@@ -2413,7 +2413,7 @@ type ConsumerWithError[E any] = func(E) error
 ```
 
 <a name="ConsumerWithoutError"></a>
-## type ConsumerWithoutError
+## type [ConsumerWithoutError](<https://github.com/go-softwarelab/common/blob/main/pkg/seqerr/seqerr.go#L4>)
 
 ConsumerWithoutError is a function that takes an element and returns nothing.
 
@@ -2422,7 +2422,7 @@ type ConsumerWithoutError[E any] = func(E)
 ```
 
 <a name="Mapper"></a>
-## type Mapper
+## type [Mapper](<https://github.com/go-softwarelab/common/blob/main/pkg/seqerr/seqerr.go#L36-L38>)
 
 Mapper is a function that takes an element and returns a result. It can return an error.
 
@@ -2433,7 +2433,7 @@ type Mapper[E any, R any] interface {
 ```
 
 <a name="MapperWithError"></a>
-## type MapperWithError
+## type [MapperWithError](<https://github.com/go-softwarelab/common/blob/main/pkg/seqerr/seqerr.go#L29>)
 
 MapperWithError is a function that takes an element and returns a result and an error.
 
@@ -2442,7 +2442,7 @@ type MapperWithError[E any, R any] = func(E) (R, error)
 ```
 
 <a name="MapperWithoutError"></a>
-## type MapperWithoutError
+## type [MapperWithoutError](<https://github.com/go-softwarelab/common/blob/main/pkg/seqerr/seqerr.go#L32>)
 
 MapperWithoutError is a function that takes an element and returns a result.
 
@@ -2451,7 +2451,7 @@ type MapperWithoutError[E any, R any] = func(E) R
 ```
 
 <a name="Predicate"></a>
-## type Predicate
+## type [Predicate](<https://github.com/go-softwarelab/common/blob/main/pkg/seqerr/seqerr.go#L51-L53>)
 
 Predicate is a function that takes an element and returns a boolean. It can return an error.
 
@@ -2462,7 +2462,7 @@ type Predicate[E any] interface {
 ```
 
 <a name="PredicateWithError"></a>
-## type PredicateWithError
+## type [PredicateWithError](<https://github.com/go-softwarelab/common/blob/main/pkg/seqerr/seqerr.go#L41>)
 
 PredicateWithError is a function that takes an element and returns a boolean, it can fail with error.
 
@@ -2471,7 +2471,7 @@ type PredicateWithError[E any] = func(E) (bool, error)
 ```
 
 <a name="PredicateWithoutError"></a>
-## type PredicateWithoutError
+## type [PredicateWithoutError](<https://github.com/go-softwarelab/common/blob/main/pkg/seqerr/seqerr.go#L44>)
 
 PredicateWithoutError is a function that takes an element and returns a boolean.
 
@@ -2480,7 +2480,7 @@ type PredicateWithoutError[E any] = func(E) bool
 ```
 
 <a name="Validator"></a>
-## type Validator
+## type [Validator](<https://github.com/go-softwarelab/common/blob/main/pkg/seqerr/seqerr.go#L47>)
 
 Validator is a function that takes an element and returns an error.
 
