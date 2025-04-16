@@ -93,6 +93,15 @@ func (o Elem[E]) MustGetf(msg string, args ...any) E {
 	return *o.value
 }
 
+// OrZeroValue returns the value if present, otherwise returns the zero value of the type.
+func (o Elem[E]) OrZeroValue() E {
+	if o.IsEmpty() {
+		return to.ZeroValue[E]()
+	}
+
+	return *o.value
+}
+
 // OrElse returns the value if present, otherwise returns the default value.
 func (o Elem[E]) OrElse(defaultValue E) E {
 	if o.IsEmpty() {
