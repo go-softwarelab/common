@@ -67,6 +67,143 @@ Is present: false
 
 </details>
 
+<a name="Map"></a>
+### [Map](<https://github.com/go-softwarelab/common/blob/main/pkg/optional/optional_funcs.go#L4>)
+
+```go
+func Map[E, R any](o Elem[E], f func(E) R) Elem[R]
+```
+
+Map is a function that maps the value of optional if it is present.
+
+<details>
+<summary>Example</summary>
+
+
+
+
+```go
+package main
+
+import (
+	"fmt"
+	"strings"
+
+	"github.com/go-softwarelab/common/pkg/optional"
+)
+
+func main() {
+	// Map a present value
+	opt := optional.Of("hello")
+
+	// Map to uppercase
+	upperOpt := optional.Map(opt, strings.ToUpper)
+	fmt.Println("Mapped value:", upperOpt.MustGet())
+
+	// Map with more complex function
+	lenOpt := optional.Map(opt, func(s string) int {
+		return len(s)
+	})
+	fmt.Println("String length:", lenOpt.MustGet())
+
+}
+```
+
+**Output**
+
+```
+Mapped value: HELLO
+String length: 5
+```
+
+
+</details>
+
+<details>
+<summary>Example (Chain)</summary>
+
+
+
+
+```go
+package main
+
+import (
+	"fmt"
+
+	"github.com/go-softwarelab/common/pkg/optional"
+)
+
+func main() {
+	// Chaining multiple Map operations
+	opt := optional.Of(42)
+
+	msg := optional.Map(opt, func(n int) string {
+		return fmt.Sprintf("Number: %d", n)
+	})
+
+	result := optional.Map(msg, func(s string) []byte {
+		return []byte(s)
+	})
+
+	// Check if result is present
+	if result.IsPresent() {
+		fmt.Printf("Result type: %T\n", result.MustGet())
+		fmt.Printf("Result length: %d\n", len(result.MustGet()))
+	}
+
+}
+```
+
+**Output**
+
+```
+Result type: []uint8
+Result length: 10
+```
+
+
+</details>
+
+<details>
+<summary>Example (Empty)</summary>
+
+
+
+
+```go
+package main
+
+import (
+	"fmt"
+	"strings"
+
+	"github.com/go-softwarelab/common/pkg/optional"
+)
+
+func main() {
+	// Map an empty optional
+	emptyOpt := optional.Empty[string]()
+
+	// Map function won't be called for empty optionals
+	mapped := optional.Map(emptyOpt, strings.ToUpper)
+
+	fmt.Println("Is mapped empty:", mapped.IsEmpty())
+	fmt.Println("Is mapped present:", mapped.IsPresent())
+
+}
+```
+
+**Output**
+
+```
+Is mapped empty: true
+Is mapped present: false
+```
+
+
+</details>
+
 <a name="Of"></a>
 ### [Of](<https://github.com/go-softwarelab/common/blob/main/pkg/optional/optional.go#L31>)
 
