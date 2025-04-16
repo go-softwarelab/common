@@ -17,6 +17,18 @@ func Map[E any, R any](seq iter.Seq[E], mapper Mapper[E, R]) iter.Seq[R] {
 	}
 }
 
+// MapOrErr applies a mapper function which can return error to each element of the sequence.
+func MapOrErr[E any, R any](seq iter.Seq[E], mapper func(E) (R, error)) iter.Seq2[R, error] {
+	return func(yield func(R, error) bool) {
+		for v := range seq {
+			result, err := mapper(v)
+			if !yield(result, err) {
+				break
+			}
+		}
+	}
+}
+
 // Select applies a mapper function to each element of the sequence.
 // SQL-like alias for Map
 func Select[E any, R any](seq iter.Seq[E], mapper Mapper[E, R]) iter.Seq[R] {

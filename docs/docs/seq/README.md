@@ -284,7 +284,7 @@ func Count[E any](seq iter.Seq[E]) int
 Count returns the number of elements in the sequence.
 
 <a name="Cycle"></a>
-## [Cycle](<https://github.com/go-softwarelab/common/blob/main/pkg/seq/mapper.go#L66>)
+## [Cycle](<https://github.com/go-softwarelab/common/blob/main/pkg/seq/mapper.go#L78>)
 
 ```go
 func Cycle[E any](seq iter.Seq[E], count int) iter.Seq[E]
@@ -675,7 +675,7 @@ func main() {
 </details>
 
 <a name="FlatMap"></a>
-## [FlatMap](<https://github.com/go-softwarelab/common/blob/main/pkg/seq/mapper.go#L27>)
+## [FlatMap](<https://github.com/go-softwarelab/common/blob/main/pkg/seq/mapper.go#L39>)
 
 ```go
 func FlatMap[E any, R any](seq iter.Seq[E], mapper Mapper[E, iter.Seq[R]]) iter.Seq[R]
@@ -722,7 +722,7 @@ func main() {
 </details>
 
 <a name="Flatten"></a>
-## [Flatten](<https://github.com/go-softwarelab/common/blob/main/pkg/seq/mapper.go#L40>)
+## [Flatten](<https://github.com/go-softwarelab/common/blob/main/pkg/seq/mapper.go#L52>)
 
 ```go
 func Flatten[Seq iter.Seq[iter.Seq[E]], E any](seq Seq) iter.Seq[E]
@@ -766,7 +766,7 @@ func main() {
 </details>
 
 <a name="FlattenSlices"></a>
-## [FlattenSlices](<https://github.com/go-softwarelab/common/blob/main/pkg/seq/mapper.go#L53>)
+## [FlattenSlices](<https://github.com/go-softwarelab/common/blob/main/pkg/seq/mapper.go#L65>)
 
 ```go
 func FlattenSlices[Seq iter.Seq[[]E], E any](seq Seq) iter.Seq[E]
@@ -1260,6 +1260,65 @@ func main() {
 
 ```
 [Number_1 Number_2 Number_3]
+```
+
+
+</details>
+
+<a name="MapOrErr"></a>
+## [MapOrErr](<https://github.com/go-softwarelab/common/blob/main/pkg/seq/mapper.go#L21>)
+
+```go
+func MapOrErr[E any, R any](seq iter.Seq[E], mapper func(E) (R, error)) iter.Seq2[R, error]
+```
+
+MapOrErr applies a mapper function which can return error to each element of the sequence.
+
+<details>
+<summary>Example</summary>
+
+
+
+
+```go
+package main
+
+import (
+	"fmt"
+
+	"github.com/go-softwarelab/common/pkg/seq"
+)
+
+func main() {
+	input := seq.Of(1, 2, 3)
+
+	// Example mapper function that returns an error for values > 2
+	mapper := func(v int) (string, error) {
+		if v > 2 {
+			return "", fmt.Errorf("value %d is too large", v)
+		}
+		return fmt.Sprintf("Number_%d", v), nil
+	}
+
+	results := seq.MapOrErr(input, mapper)
+
+	for val, err := range results {
+		if err != nil {
+			fmt.Printf("Error: %v\n", err)
+		} else {
+			fmt.Printf("Mapped value: %s\n", val)
+		}
+	}
+
+}
+```
+
+**Output**
+
+```
+Mapped value: Number_1
+Mapped value: Number_2
+Error: value 3 is too large
 ```
 
 
@@ -2016,7 +2075,7 @@ func main() {
 </details>
 
 <a name="Select"></a>
-## [Select](<https://github.com/go-softwarelab/common/blob/main/pkg/seq/mapper.go#L22>)
+## [Select](<https://github.com/go-softwarelab/common/blob/main/pkg/seq/mapper.go#L34>)
 
 ```go
 func Select[E any, R any](seq iter.Seq[E], mapper Mapper[E, R]) iter.Seq[R]
