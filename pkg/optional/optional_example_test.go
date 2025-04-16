@@ -289,3 +289,15 @@ func ExampleElem_IsNotEmpty() {
 	// First is not empty: true
 	// Second is not empty: false
 }
+
+func ExampleElem_OrZeroValue() {
+	opt := optional.Of(42)
+	empty := optional.Empty[int]()
+
+	fmt.Println("Present value:", opt.OrZeroValue())
+	fmt.Println("Empty value:", empty.OrZeroValue())
+
+	// Output:
+	// Present value: 42
+	// Empty value: 0
+}
