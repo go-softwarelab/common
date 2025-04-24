@@ -195,7 +195,7 @@ type Ordered = cmp.Ordered
 ```
 
 <a name="Pair"></a>
-## type [Pair](<https://github.com/go-softwarelab/common/blob/main/pkg/types/pair.go#L4-L7>)
+## type [Pair](<https://github.com/go-softwarelab/common/blob/main/pkg/types/pair.go#L6-L9>)
 
 Pair is a generic type that represents a pair of values.
 
@@ -206,29 +206,69 @@ type Pair[L, R any] struct {
 }
 ```
 
-<a name="Pair[L, R].GetLeft"></a>
-### [Pair\[L, R\].GetLeft](<https://github.com/go-softwarelab/common/blob/main/pkg/types/pair.go#L10>)
+<a name="NewPair"></a>
+### [NewPair](<https://github.com/go-softwarelab/common/blob/main/pkg/types/pair.go#L12>)
 
 ```go
-func (p Pair[L, R]) GetLeft() L
+func NewPair[L, R any](left L, right R) *Pair[L, R]
+```
+
+NewPair creates a new Pair with the given left and right values.
+
+<a name="Pair[L, R].GetLeft"></a>
+### [\*Pair\[L, R\].GetLeft](<https://github.com/go-softwarelab/common/blob/main/pkg/types/pair.go#L17>)
+
+```go
+func (p *Pair[L, R]) GetLeft() L
 ```
 
 GetLeft returns the left value of the pair.
 
 <a name="Pair[L, R].GetRight"></a>
-### [Pair\[L, R\].GetRight](<https://github.com/go-softwarelab/common/blob/main/pkg/types/pair.go#L15>)
+### [\*Pair\[L, R\].GetRight](<https://github.com/go-softwarelab/common/blob/main/pkg/types/pair.go#L22>)
 
 ```go
-func (p Pair[L, R]) GetRight() R
+func (p *Pair[L, R]) GetRight() R
 ```
 
 GetRight returns the right value of the pair.
 
-<a name="Pair[L, R].Unpack"></a>
-### [Pair\[L, R\].Unpack](<https://github.com/go-softwarelab/common/blob/main/pkg/types/pair.go#L20>)
+<a name="Pair[L, R].Seq"></a>
+### [\*Pair\[L, R\].Seq](<https://github.com/go-softwarelab/common/blob/main/pkg/types/pair.go#L39>)
 
 ```go
-func (p Pair[L, R]) Unpack() (L, R)
+func (p *Pair[L, R]) Seq() iter.Seq[Pair[L, R]]
+```
+
+Seq returns an iter.Seq with this Pair.
+
+This is useful for reusing functions provided by package seq.
+
+<a name="Pair[L, R].Seq2"></a>
+### [\*Pair\[L, R\].Seq2](<https://github.com/go-softwarelab/common/blob/main/pkg/types/pair.go#L48>)
+
+```go
+func (p *Pair[L, R]) Seq2() iter.Seq2[L, R]
+```
+
+Seq2 returns an iter.Seq2 with left and right value.
+
+This is useful for reusing functions provided by package seq2.
+
+<a name="Pair[L, R].ToTuple"></a>
+### [\*Pair\[L, R\].ToTuple](<https://github.com/go-softwarelab/common/blob/main/pkg/types/pair.go#L32>)
+
+```go
+func (p *Pair[L, R]) ToTuple() Tuple2[L, R]
+```
+
+ToTuple converts the Pair to a Tuple.
+
+<a name="Pair[L, R].Unpack"></a>
+### [\*Pair\[L, R\].Unpack](<https://github.com/go-softwarelab/common/blob/main/pkg/types/pair.go#L27>)
+
+```go
+func (p *Pair[L, R]) Unpack() (L, R)
 ```
 
 Unpack returns the left and right values of the pair.
