@@ -3,7 +3,7 @@ package seq
 import (
 	"iter"
 
-	"github.com/go-softwarelab/common/types"
+	"github.com/go-softwarelab/common/pkg/types"
 )
 
 // Concat concatenates multiple sequences into a single sequence.

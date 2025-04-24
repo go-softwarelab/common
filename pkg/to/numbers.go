@@ -6,7 +6,7 @@ import (
 	"math"
 	"strconv"
 
-	"github.com/go-softwarelab/common/types"
+	"github.com/go-softwarelab/common/pkg/types"
 )
 
 // ErrValueOutOfRange is returned when the value is out of range of the target type.

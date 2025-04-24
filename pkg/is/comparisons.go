@@ -3,7 +3,7 @@ package is
 import (
 	"cmp"
 
-	"github.com/go-softwarelab/common/types"
+	"github.com/go-softwarelab/common/pkg/types"
 )
 
 // Zero checks if a value is zero.
