@@ -2,7 +2,7 @@ package must
 
 import (
 	"github.com/go-softwarelab/common/pkg/to"
-	"github.com/go-softwarelab/common/types"
+	"github.com/go-softwarelab/common/pkg/types"
 )
 
 // ConvertToInt converts any signed number to int, panicking on range errors

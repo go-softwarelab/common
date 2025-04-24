@@ -5,7 +5,7 @@ import (
 
 	"github.com/go-softwarelab/common/pkg/optional"
 	"github.com/go-softwarelab/common/pkg/seq"
-	"github.com/go-softwarelab/common/types"
+	"github.com/go-softwarelab/common/pkg/types"
 )
 
 // Reduce applies a function against an accumulator and each element in the sequence (from left to right) to reduce it to a single value.

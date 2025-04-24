@@ -5,12 +5,34 @@ import (
 	"slices"
 	"time"
 
-	"github.com/go-softwarelab/common/types"
+	"github.com/go-softwarelab/common/pkg/types"
 )
 
 // Empty returns an empty sequence.
 func Empty[K, V any]() iter.Seq2[K, V] {
 	return func(yield func(K, V) bool) {}
+}
+
+// Keys returns a sequence of keys from a sequence of key-value pairs.
+func Keys[K, V any](seq iter.Seq2[K, V]) iter.Seq[K] {
+	return func(yield func(K) bool) {
+		for k := range seq {
+			if !yield(k) {
+				break
+			}
+		}
+	}
+}
+
+// Values returns a sequence of values from a sequence of key-value pairs.
+func Values[K, V any](seq iter.Seq2[K, V]) iter.Seq[V] {
+	return func(yield func(V) bool) {
+		for _, v := range seq {
+			if !yield(v) {
+				break
+			}
+		}
+	}
 }
 
 // Pair returns a sequence with given key value.

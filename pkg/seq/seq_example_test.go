@@ -6,84 +6,20 @@ import (
 	"github.com/go-softwarelab/common/pkg/seq"
 )
 
-func ExampleOf() {
-	sequence := seq.Of(1, 2, 3)
+func ExampleIsEmpty() {
+	input := seq.Of(1, 2, 3)
 
-	result := seq.Collect(sequence)
-
-	fmt.Println(result)
+	fmt.Println(seq.IsEmpty(input))
 	// Output:
-	// [1 2 3]
+	// false
 }
 
-func ExampleFromSlice() {
-	slice := []int{1, 2, 3}
+func ExampleIsNotEmpty() {
+	input := seq.Of(1, 2, 3)
 
-	sequence := seq.FromSlice(slice)
+	isNotEmpty := seq.IsNotEmpty(input)
 
-	result := seq.Collect(sequence)
-
-	fmt.Println(result)
+	fmt.Println(isNotEmpty)
 	// Output:
-	// [1 2 3]
-}
-
-func ExampleFromSliceReversed() {
-	slice := []int{1, 2, 3}
-
-	sequence := seq.FromSliceReversed(slice)
-
-	result := seq.Collect(sequence)
-
-	fmt.Println(result)
-	// Output:
-	// [3 2 1]
-}
-
-func ExampleToSlice() {
-	sequence := seq.Of(1, 2, 3)
-
-	slice := make([]int, 0, 3)
-	result := seq.ToSlice(sequence, slice)
-
-	fmt.Println(result)
-	// Output:
-	// [1 2 3]
-}
-
-func ExampleCollect() {
-	sequence := seq.Of(1, 2, 3)
-
-	result := seq.Collect(sequence)
-
-	fmt.Println(result)
-	// Output:
-	// [1 2 3]
-}
-
-func ExampleReverse() {
-	sequence := seq.Of(1, 2, 3)
-
-	reversed := seq.Reverse(sequence)
-
-	result := seq.Collect(reversed)
-	fmt.Println(result)
-	// Output:
-	// [3 2 1]
-}
-
-func ExamplePointersFromSlice() {
-	slice := []int{1, 2, 3}
-
-	pointersSequence := seq.PointersFromSlice(slice)
-
-	backToValues := seq.Map(pointersSequence, func(p *int) int {
-		// NOTE: p is a pointer so no copy is made here
-		return *p
-	})
-
-	result := seq.Collect(backToValues)
-	fmt.Println(result)
-	// Output:
-	// [1 2 3]
+	// true
 }

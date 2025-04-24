@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"strconv"
 
-	"github.com/go-softwarelab/common/types"
+	"github.com/go-softwarelab/common/pkg/types"
 )
 
 // BoolFromString will convert any string to bool

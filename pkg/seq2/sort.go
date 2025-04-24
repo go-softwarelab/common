@@ -5,7 +5,7 @@ import (
 	"iter"
 	"slices"
 
-	"github.com/go-softwarelab/common/types"
+	"github.com/go-softwarelab/common/pkg/types"
 )
 
 // Sort sorts the elements of a sequence by key in ascending order.

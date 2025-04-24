@@ -6,7 +6,7 @@ import (
 	"strings"
 	"unicode"
 
-	"github.com/go-softwarelab/common/types"
+	"github.com/go-softwarelab/common/pkg/types"
 )
 
 var (

@@ -42,3 +42,13 @@ func ExampleForEach() {
 	// 2
 	// 3
 }
+
+func ExampleCollect() {
+	sequence := seq.Of(1, 2, 3)
+
+	result := seq.Collect(sequence)
+
+	fmt.Println(result)
+	// Output:
+	// [1 2 3]
+}

@@ -1391,7 +1391,7 @@ func main() {
 </details>
 
 <a name="FromMap"></a>
-## [FromMap](<https://github.com/go-softwarelab/common/blob/main/pkg/seq2/producers.go#L36>)
+## [FromMap](<https://github.com/go-softwarelab/common/blob/main/pkg/seq2/producers.go#L58>)
 
 ```go
 func FromMap[Map ~map[K]V, K comparable, V any](m Map) iter.Seq2[K, V]
@@ -1400,7 +1400,7 @@ func FromMap[Map ~map[K]V, K comparable, V any](m Map) iter.Seq2[K, V]
 FromMap creates a new iter.Seq2 from the given map.
 
 <a name="FromSlice"></a>
-## [FromSlice](<https://github.com/go-softwarelab/common/blob/main/pkg/seq2/producers.go#L31>)
+## [FromSlice](<https://github.com/go-softwarelab/common/blob/main/pkg/seq2/producers.go#L53>)
 
 ```go
 func FromSlice[Slice ~[]E, E any](slice Slice) iter.Seq2[int, E]
@@ -1486,7 +1486,7 @@ func main() {
 </details>
 
 <a name="IsEmpty"></a>
-## [IsEmpty](<https://github.com/go-softwarelab/common/blob/main/pkg/seq2/seq2.go#L28>)
+## [IsEmpty](<https://github.com/go-softwarelab/common/blob/main/pkg/seq2/seq2.go#L6>)
 
 ```go
 func IsEmpty[K, V any](seq iter.Seq2[K, V]) bool
@@ -1530,7 +1530,7 @@ Non-empty sequence: false
 </details>
 
 <a name="IsNotEmpty"></a>
-## [IsNotEmpty](<https://github.com/go-softwarelab/common/blob/main/pkg/seq2/seq2.go#L36>)
+## [IsNotEmpty](<https://github.com/go-softwarelab/common/blob/main/pkg/seq2/seq2.go#L14>)
 
 ```go
 func IsNotEmpty[K, V any](seq iter.Seq2[K, V]) bool
@@ -1574,7 +1574,7 @@ Non-empty sequence: true
 </details>
 
 <a name="Keys"></a>
-## [Keys](<https://github.com/go-softwarelab/common/blob/main/pkg/seq2/seq2.go#L6>)
+## [Keys](<https://github.com/go-softwarelab/common/blob/main/pkg/seq2/producers.go#L17>)
 
 ```go
 func Keys[K, V any](seq iter.Seq2[K, V]) iter.Seq[K]
@@ -2356,7 +2356,7 @@ true
 </details>
 
 <a name="Of"></a>
-## [Of](<https://github.com/go-softwarelab/common/blob/main/pkg/seq2/producers.go#L26>)
+## [Of](<https://github.com/go-softwarelab/common/blob/main/pkg/seq2/producers.go#L48>)
 
 ```go
 func Of[E any](elems ...E) iter.Seq2[int, E]
@@ -2442,7 +2442,7 @@ map[2:30 3:40 4:20]
 </details>
 
 <a name="Pair"></a>
-## [Pair](<https://github.com/go-softwarelab/common/blob/main/pkg/seq2/producers.go#L17>)
+## [Pair](<https://github.com/go-softwarelab/common/blob/main/pkg/seq2/producers.go#L39>)
 
 ```go
 func Pair[K, V any](k K, v V) iter.Seq2[K, V]
@@ -2638,7 +2638,7 @@ func main() {
 </details>
 
 <a name="Repeat"></a>
-## [Repeat](<https://github.com/go-softwarelab/common/blob/main/pkg/seq2/producers.go#L65>)
+## [Repeat](<https://github.com/go-softwarelab/common/blob/main/pkg/seq2/producers.go#L87>)
 
 ```go
 func Repeat[K any, V any, N types.Integer](key K, value V, count N) iter.Seq2[K, V]
@@ -2683,7 +2683,7 @@ key : 42
 </details>
 
 <a name="Reverse"></a>
-## [Reverse](<https://github.com/go-softwarelab/common/blob/main/pkg/seq2/producers.go#L98>)
+## [Reverse](<https://github.com/go-softwarelab/common/blob/main/pkg/seq2/producers.go#L120>)
 
 ```go
 func Reverse[K, V any](seq iter.Seq2[K, V]) iter.Seq2[K, V]
@@ -3320,7 +3320,7 @@ Processing: c => 3
 </details>
 
 <a name="Tick"></a>
-## [Tick](<https://github.com/go-softwarelab/common/blob/main/pkg/seq2/producers.go#L76>)
+## [Tick](<https://github.com/go-softwarelab/common/blob/main/pkg/seq2/producers.go#L98>)
 
 ```go
 func Tick(d time.Duration) iter.Seq2[int, time.Time]
@@ -3886,7 +3886,7 @@ map[a:1 b:2 d:3]
 </details>
 
 <a name="Values"></a>
-## [Values](<https://github.com/go-softwarelab/common/blob/main/pkg/seq2/seq2.go#L17>)
+## [Values](<https://github.com/go-softwarelab/common/blob/main/pkg/seq2/producers.go#L28>)
 
 ```go
 func Values[K, V any](seq iter.Seq2[K, V]) iter.Seq[V]
@@ -3978,7 +3978,7 @@ map[c:3 d:4]
 </details>
 
 <a name="WithIndex"></a>
-## [WithIndex](<https://github.com/go-softwarelab/common/blob/main/pkg/seq2/producers.go#L47>)
+## [WithIndex](<https://github.com/go-softwarelab/common/blob/main/pkg/seq2/producers.go#L69>)
 
 ```go
 func WithIndex[E any](seq iter.Seq[E]) iter.Seq2[int, E]
@@ -4024,7 +4024,7 @@ map[0:a 1:b 2:c]
 </details>
 
 <a name="WithoutIndex"></a>
-## [WithoutIndex](<https://github.com/go-softwarelab/common/blob/main/pkg/seq2/producers.go#L60>)
+## [WithoutIndex](<https://github.com/go-softwarelab/common/blob/main/pkg/seq2/producers.go#L82>)
 
 ```go
 func WithoutIndex[E any](indexed iter.Seq2[int, E]) iter.Seq[E]
