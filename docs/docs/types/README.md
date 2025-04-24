@@ -58,120 +58,6 @@ type Integer interface {
 }
 ```
 
-<a name="Maybe"></a>
-## type [Maybe](<https://github.com/go-softwarelab/common/blob/main/pkg/types/maybe.go#L12-L15>)
-
-Maybe is a type representing a result that could be either a value or an error.
-
-```go
-type Maybe[V any] struct {
-    // contains filtered or unexported fields
-}
-```
-
-<a name="MaybeOf"></a>
-### [MaybeOf](<https://github.com/go-softwarelab/common/blob/main/pkg/types/maybe.go#L26>)
-
-```go
-func MaybeOf[V any](pair PairLike[V, error]) *Maybe[V]
-```
-
-MaybeOf creates a Maybe instance from a PairLike argument.
-
-<a name="NewMaybe"></a>
-### [NewMaybe](<https://github.com/go-softwarelab/common/blob/main/pkg/types/maybe.go#L18>)
-
-```go
-func NewMaybe[V any](value V, err error) *Maybe[V]
-```
-
-NewMaybe creates a new Maybe instance with the provided value and error.
-
-<a name="Maybe[V].IsError"></a>
-### [\*Maybe\[V\].IsError](<https://github.com/go-softwarelab/common/blob/main/pkg/types/maybe.go#L34>)
-
-```go
-func (m *Maybe[V]) IsError() bool
-```
-
-IsError checks if the Maybe instance contains an error.
-
-<a name="Maybe[V].IsNotError"></a>
-### [\*Maybe\[V\].IsNotError](<https://github.com/go-softwarelab/common/blob/main/pkg/types/maybe.go#L39>)
-
-```go
-func (m *Maybe[V]) IsNotError() bool
-```
-
-IsNotError checks if the Maybe instance does not contain an error.
-
-<a name="Maybe[V].MustGetValue"></a>
-### [\*Maybe\[V\].MustGetValue](<https://github.com/go-softwarelab/common/blob/main/pkg/types/maybe.go#L49>)
-
-```go
-func (m *Maybe[V]) MustGetValue() V
-```
-
-MustGetValue returns the value from the Maybe instance, panicking if there is an error.
-
-<a name="Maybe[V].Or"></a>
-### [\*Maybe\[V\].Or](<https://github.com/go-softwarelab/common/blob/main/pkg/types/maybe.go#L73>)
-
-```go
-func (m *Maybe[V]) Or(alternative *Maybe[V]) *Maybe[V]
-```
-
-Or returns this Maybe if there is no error, otherwise it returns the provided alternative Maybe instance.
-
-<a name="Maybe[V].OrElse"></a>
-### [\*Maybe\[V\].OrElse](<https://github.com/go-softwarelab/common/blob/main/pkg/types/maybe.go#L57>)
-
-```go
-func (m *Maybe[V]) OrElse(defaultValue V) V
-```
-
-OrElse returns the value if there is no error, otherwise it returns the provided default value.
-
-<a name="Maybe[V].OrElseGet"></a>
-### [\*Maybe\[V\].OrElseGet](<https://github.com/go-softwarelab/common/blob/main/pkg/types/maybe.go#L65>)
-
-```go
-func (m *Maybe[V]) OrElseGet(defaultValue func() V) V
-```
-
-OrElseGet returns the value if there is no error, otherwise it returns the result of the provided function.
-
-<a name="Maybe[V].Seq"></a>
-### [\*Maybe\[V\].Seq](<https://github.com/go-softwarelab/common/blob/main/pkg/types/maybe.go#L83>)
-
-```go
-func (m *Maybe[V]) Seq() iter.Seq[Maybe[V]]
-```
-
-Seq returns an iter.Seq with this Maybe.
-
-This is useful for reusing functions provided by package seq.
-
-<a name="Maybe[V].Seq2"></a>
-### [\*Maybe\[V\].Seq2](<https://github.com/go-softwarelab/common/blob/main/pkg/types/maybe.go#L92>)
-
-```go
-func (m *Maybe[V]) Seq2() iter.Seq2[V, error]
-```
-
-Seq2 returns an iter.Seq2 with value and error.
-
-This is useful for reusing functions provided by package seq2 or seqerr.
-
-<a name="Maybe[V].ShouldGetValue"></a>
-### [\*Maybe\[V\].ShouldGetValue](<https://github.com/go-softwarelab/common/blob/main/pkg/types/maybe.go#L44>)
-
-```go
-func (m *Maybe[V]) ShouldGetValue() (V, error)
-```
-
-ShouldGetValue returns the value and error from the Maybe instance.
-
 <a name="Number"></a>
 ## type [Number](<https://github.com/go-softwarelab/common/blob/main/pkg/types/constraints.go#L42-L44>)
 
@@ -274,9 +160,9 @@ func (p *Pair[L, R]) Unpack() (L, R)
 Unpack returns the left and right values of the pair.
 
 <a name="PairLike"></a>
-## type [PairLike](<https://github.com/go-softwarelab/common/blob/main/pkg/types/maybe.go#L6-L9>)
+## type [PairLike](<https://github.com/go-softwarelab/common/blob/main/pkg/types/result.go#L6-L9>)
 
-PairLike represents any type that is pair\-like, it is used for creating a Maybe instance.
+PairLike represents any type that is pair\-like, it is used for creating a Result instance.
 
 ```go
 type PairLike[L, R any] interface {
@@ -284,6 +170,147 @@ type PairLike[L, R any] interface {
     GetRight() R
 }
 ```
+
+<a name="Result"></a>
+## type [Result](<https://github.com/go-softwarelab/common/blob/main/pkg/types/result.go#L12-L15>)
+
+Result is a type representing a result that could be either a value or an error.
+
+```go
+type Result[V any] struct {
+    // contains filtered or unexported fields
+}
+```
+
+<a name="FailureResult"></a>
+### [FailureResult](<https://github.com/go-softwarelab/common/blob/main/pkg/types/result.go#L23>)
+
+```go
+func FailureResult[V any](err error) *Result[V]
+```
+
+FailureResult creates a new Result instance with the provided error.
+
+<a name="ResultFrom"></a>
+### [ResultFrom](<https://github.com/go-softwarelab/common/blob/main/pkg/types/result.go#L36>)
+
+```go
+func ResultFrom[V any](provider func() (V, error)) *Result[V]
+```
+
+ResultFrom creates a Result instance from a function that returns a value and an error.
+
+<a name="ResultFromPair"></a>
+### [ResultFromPair](<https://github.com/go-softwarelab/common/blob/main/pkg/types/result.go#L45>)
+
+```go
+func ResultFromPair[V any](pair PairLike[V, error]) *Result[V]
+```
+
+ResultFromPair creates a Result instance from a PairLike argument.
+
+<a name="ResultOf"></a>
+### [ResultOf](<https://github.com/go-softwarelab/common/blob/main/pkg/types/result.go#L28>)
+
+```go
+func ResultOf[V any](value V, err error) *Result[V]
+```
+
+ResultOf creates a new Result instance with the provided value and error.
+
+<a name="SuccessResult"></a>
+### [SuccessResult](<https://github.com/go-softwarelab/common/blob/main/pkg/types/result.go#L18>)
+
+```go
+func SuccessResult[V any](value V) *Result[V]
+```
+
+SuccessResult creates a new Result instance with the provided value.
+
+<a name="Result[V].IsError"></a>
+### [\*Result\[V\].IsError](<https://github.com/go-softwarelab/common/blob/main/pkg/types/result.go#L53>)
+
+```go
+func (m *Result[V]) IsError() bool
+```
+
+IsError checks if the Result instance contains an error.
+
+<a name="Result[V].IsNotError"></a>
+### [\*Result\[V\].IsNotError](<https://github.com/go-softwarelab/common/blob/main/pkg/types/result.go#L58>)
+
+```go
+func (m *Result[V]) IsNotError() bool
+```
+
+IsNotError checks if the Result instance does not contain an error.
+
+<a name="Result[V].MustGetValue"></a>
+### [\*Result\[V\].MustGetValue](<https://github.com/go-softwarelab/common/blob/main/pkg/types/result.go#L68>)
+
+```go
+func (m *Result[V]) MustGetValue() V
+```
+
+MustGetValue returns the value from the Result instance, panicking if there is an error.
+
+<a name="Result[V].Or"></a>
+### [\*Result\[V\].Or](<https://github.com/go-softwarelab/common/blob/main/pkg/types/result.go#L92>)
+
+```go
+func (m *Result[V]) Or(alternative *Result[V]) *Result[V]
+```
+
+Or returns this Result if there is no error, otherwise it returns the provided alternative Result instance.
+
+<a name="Result[V].OrElse"></a>
+### [\*Result\[V\].OrElse](<https://github.com/go-softwarelab/common/blob/main/pkg/types/result.go#L76>)
+
+```go
+func (m *Result[V]) OrElse(defaultValue V) V
+```
+
+OrElse returns the value if there is no error, otherwise it returns the provided default value.
+
+<a name="Result[V].OrElseGet"></a>
+### [\*Result\[V\].OrElseGet](<https://github.com/go-softwarelab/common/blob/main/pkg/types/result.go#L84>)
+
+```go
+func (m *Result[V]) OrElseGet(defaultValue func() V) V
+```
+
+OrElseGet returns the value if there is no error, otherwise it returns the result of the provided function.
+
+<a name="Result[V].Seq"></a>
+### [\*Result\[V\].Seq](<https://github.com/go-softwarelab/common/blob/main/pkg/types/result.go#L102>)
+
+```go
+func (m *Result[V]) Seq() iter.Seq[Result[V]]
+```
+
+Seq returns an iter.Seq with this Result.
+
+This is useful for reusing functions provided by package seq.
+
+<a name="Result[V].Seq2"></a>
+### [\*Result\[V\].Seq2](<https://github.com/go-softwarelab/common/blob/main/pkg/types/result.go#L111>)
+
+```go
+func (m *Result[V]) Seq2() iter.Seq2[V, error]
+```
+
+Seq2 returns an iter.Seq2 with value and error.
+
+This is useful for reusing functions provided by package seq2 or seqerr.
+
+<a name="Result[V].ShouldGetValue"></a>
+### [\*Result\[V\].ShouldGetValue](<https://github.com/go-softwarelab/common/blob/main/pkg/types/result.go#L63>)
+
+```go
+func (m *Result[V]) ShouldGetValue() (V, error)
+```
+
+ShouldGetValue returns the value and error from the Result instance.
 
 <a name="Signed"></a>
 ## type [Signed](<https://github.com/go-softwarelab/common/blob/main/pkg/types/constraints.go#L14-L16>)
