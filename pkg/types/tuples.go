@@ -1,6 +1,14 @@
-package collection
+package types
 
-// Tuple2 is a group of 2 elements (pair).
+// Tuple is a group of 2 elements
+type Tuple[A, B any] = Tuple2[A, B]
+
+// NewTuple creates a Tuple from given values.
+func NewTuple[A, B any](a A, b B) Tuple[A, B] {
+	return Tuple[A, B]{A: a, B: b}
+}
+
+// Tuple2 is a group of 2 elements.
 type Tuple2[A, B any] struct {
 	A A
 	B B
@@ -9,6 +17,16 @@ type Tuple2[A, B any] struct {
 // NewTuple2 creates a Tuple2 from given values.
 func NewTuple2[A, B any](a A, b B) Tuple2[A, B] {
 	return Tuple2[A, B]{A: a, B: b}
+}
+
+// GetLeft returns the left value of the tuple.
+func (t Tuple2[A, B]) GetLeft() A {
+	return t.A
+}
+
+// GetRight returns the right value of the tuple.
+func (t Tuple2[A, B]) GetRight() B {
+	return t.B
 }
 
 // Tuple3 is a group of 3 elements.
