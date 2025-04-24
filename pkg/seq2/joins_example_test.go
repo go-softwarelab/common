@@ -16,7 +16,7 @@ func ExampleConcat() {
 	// Concatenate two sequences
 	combined := seq2.Concat(first, second)
 
-	result := seq2.Collect(combined)
+	result := seq2.CollectToMap(combined)
 	fmt.Println(result)
 	// Output:
 	// map[a:1 b:2 c:3 d:4]
@@ -31,7 +31,7 @@ func ExampleUnion() {
 	// Union returns distinct elements from both sequences
 	combined := seq2.Union(first, second)
 
-	result := seq2.Collect(combined)
+	result := seq2.CollectToMap(combined)
 	fmt.Println(result)
 	// Output:
 	// map[a:1 b:2 c:3 d:4 e:5]
@@ -46,7 +46,7 @@ func ExampleUnionAll() {
 	// UnionAll is an alias for Concat
 	combined := seq2.UnionAll(first, second)
 
-	result := seq2.Collect(combined)
+	result := seq2.CollectToMap(combined)
 	fmt.Println(result)
 	// Output:
 	// map[a:1 b:2 c:3]
@@ -123,7 +123,7 @@ func ExampleAppend() {
 	// Append a new key-value pair to the sequence
 	appended := seq2.Append(input, "c", 3)
 
-	result := seq2.Collect(appended)
+	result := seq2.CollectToMap(appended)
 	fmt.Println(result)
 	// Output:
 	// map[a:1 b:2 c:3]
@@ -136,7 +136,7 @@ func ExamplePrepend() {
 	// Prepend a new key-value pair to the sequence
 	prepended := seq2.Prepend(input, "a", 1)
 
-	result := seq2.Collect(prepended)
+	result := seq2.CollectToMap(prepended)
 	fmt.Println(result)
 	// Output:
 	// map[a:1 b:2 c:3]

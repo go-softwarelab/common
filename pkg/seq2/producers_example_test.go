@@ -34,7 +34,7 @@ func ExampleOf() {
 	// Create a sequence from individual elements
 	indexed := seq2.Of(1, 2, 3)
 
-	result := seq2.Collect(indexed)
+	result := seq2.CollectToMap(indexed)
 	fmt.Println(result)
 	// Output:
 	// map[0:1 1:2 2:3]
@@ -45,7 +45,7 @@ func ExampleFromSlice() {
 	slice := []string{"a", "b", "c"}
 	sequence := seq2.FromSlice(slice)
 
-	result := seq2.Collect(sequence)
+	result := seq2.CollectToMap(sequence)
 	fmt.Println(result)
 	// Output:
 	// map[0:a 1:b 2:c]
@@ -58,7 +58,7 @@ func ExampleWithIndex() {
 	// Add indexes
 	indexed := seq2.WithIndex(values)
 
-	result := seq2.Collect(indexed)
+	result := seq2.CollectToMap(indexed)
 	fmt.Println(result)
 	// Output:
 	// map[0:a 1:b 2:c]
@@ -97,7 +97,7 @@ func ExampleReverse() {
 	// Reverse it
 	reversed := seq2.Reverse(sequence)
 
-	// Collect into pairs for ordered display
+	// CollectToMap into pairs for ordered display
 	var pairs []string
 	seq2.ForEach(reversed, func(k int, v string) {
 		fmt.Println(k, ":", v)
