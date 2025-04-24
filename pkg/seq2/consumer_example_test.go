@@ -93,6 +93,17 @@ func ExampleToMap() {
 	// map[a:1 b:2 c:3]
 }
 
+func ExampleCollectToMap() {
+	input := seq2.FromMap(map[string]int{"a": 1, "b": 2, "c": 3})
+	input = seq2.Sort(input)
+
+	result := seq2.CollectToMap(input)
+
+	fmt.Println(result)
+	// Output:
+	// map[a:1 b:2 c:3]
+}
+
 func ExampleCollect() {
 	input := seq2.FromMap(map[string]int{"a": 1, "b": 2, "c": 3})
 	input = seq2.Sort(input)
@@ -100,8 +111,9 @@ func ExampleCollect() {
 	result := seq2.Collect(input)
 
 	fmt.Println(result)
+
 	// Output:
-	// map[a:1 b:2 c:3]
+	// [{a 1} {b 2} {c 3}]
 }
 
 func ExampleCount() {

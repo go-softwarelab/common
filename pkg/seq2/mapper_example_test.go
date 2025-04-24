@@ -17,7 +17,7 @@ func ExampleMapPairs() {
 		return strings.ToUpper(k), v * 10
 	})
 
-	result := seq2.Collect(mapped)
+	result := seq2.CollectToMap(mapped)
 	fmt.Println(result)
 	// Output:
 	// map[A:10 B:20 C:30]
@@ -32,7 +32,7 @@ func ExampleMap() {
 		return fmt.Sprintf("Value of %s is %d", k, v)
 	})
 
-	result := seq2.Collect(mapped)
+	result := seq2.CollectToMap(mapped)
 	fmt.Println(result)
 	// Output:
 	// map[a:Value of a is 1 b:Value of b is 2 c:Value of c is 3]
@@ -47,7 +47,7 @@ func ExampleMapKeys() {
 		return strings.ToUpper(k)
 	})
 
-	result := seq2.Collect(mapped)
+	result := seq2.CollectToMap(mapped)
 	fmt.Println(result)
 	// Output:
 	// map[A:1 B:2 C:3]
@@ -62,7 +62,7 @@ func ExampleMapValues() {
 		return v * v
 	})
 
-	result := seq2.Collect(mapped)
+	result := seq2.CollectToMap(mapped)
 	fmt.Println(result)
 	// Output:
 	// map[a:1 b:4 c:9]

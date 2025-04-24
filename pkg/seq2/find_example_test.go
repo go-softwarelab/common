@@ -41,7 +41,7 @@ func ExampleFindAll() {
 		return v > 2
 	})
 
-	result := seq2.Collect(found)
+	result := seq2.CollectToMap(found)
 	fmt.Println(result)
 	// Output:
 	// map[c:3 d:4]

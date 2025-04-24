@@ -3,6 +3,9 @@ package seq2
 import (
 	"iter"
 	"maps"
+	"slices"
+
+	"github.com/go-softwarelab/common/pkg/types"
 )
 
 // Consumer is a function that consumes an element of an iter.Seq2.
@@ -46,9 +49,17 @@ func ToMap[Map ~map[K]V, K comparable, V any](seq iter.Seq2[K, V], m Map) {
 	maps.Insert(m, seq)
 }
 
-// Collect collects the elements of the given sequence into a map.
-func Collect[K comparable, V any](seq iter.Seq2[K, V]) map[K]V {
+// CollectToMap collects the elements of the given sequence into a map.
+func CollectToMap[K comparable, V any](seq iter.Seq2[K, V]) map[K]V {
 	return maps.Collect(seq)
+}
+
+// Collect collects the elements of the given sequence into a slice of types.Pair of K and V.
+func Collect[K comparable, V any](seq iter.Seq2[K, V]) []types.Pair[K, V] {
+	pairs := MapTo(seq, func(k K, v V) types.Pair[K, V] {
+		return *types.NewPair(k, v)
+	})
+	return slices.Collect(pairs)
 }
 
 // Count returns the number of elements in the sequence.

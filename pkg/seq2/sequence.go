@@ -110,9 +110,9 @@ func (s Sequence[K, V]) ToMap(m map[K]V) {
 	ToMap(s.seq, m)
 }
 
-// Collect collects the elements into a map.
-func (s Sequence[K, V]) Collect() map[K]V {
-	return Collect(s.seq)
+// CollectToMap collects the elements into a map.
+func (s Sequence[K, V]) CollectToMap() map[K]V {
+	return CollectToMap(s.seq)
 }
 
 // Count returns the number of elements in the sequence.

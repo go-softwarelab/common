@@ -17,7 +17,7 @@ func ExampleFilter() {
 		return v%2 == 0
 	})
 
-	result := seq2.Collect(filtered)
+	result := seq2.CollectToMap(filtered)
 	fmt.Println(result)
 	// Output:
 	// map[b:2 d:4]
@@ -32,7 +32,7 @@ func ExampleWhere() {
 		return v > 2
 	})
 
-	result := seq2.Collect(filtered)
+	result := seq2.CollectToMap(filtered)
 	fmt.Println(result)
 	// Output:
 	// map[c:3 d:4]
@@ -47,7 +47,7 @@ func ExampleFilterByKey() {
 		return k > "b"
 	})
 
-	result := seq2.Collect(filtered)
+	result := seq2.CollectToMap(filtered)
 	fmt.Println(result)
 	// Output:
 	// map[c:3 d:4]
@@ -62,7 +62,7 @@ func ExampleFilterByValue() {
 		return v <= 2
 	})
 
-	result := seq2.Collect(filtered)
+	result := seq2.CollectToMap(filtered)
 	fmt.Println(result)
 	// Output:
 	// map[a:1 b:2]
@@ -74,7 +74,7 @@ func ExampleSkip() {
 	// Skip the first 2 elements
 	skipped := seq2.Skip(input, 2)
 
-	result := seq2.Collect(skipped)
+	result := seq2.CollectToMap(skipped)
 	fmt.Println(result)
 	// Output:
 	// map[2:30 3:40 4:20]
@@ -88,7 +88,7 @@ func ExampleSkipWhile() {
 		return v < 30
 	})
 
-	result := seq2.Collect(skipped)
+	result := seq2.CollectToMap(skipped)
 	fmt.Println(result)
 	// Output:
 	// map[2:30 3:40 4:20]
@@ -102,7 +102,7 @@ func ExampleSkipUntil() {
 		return v == 30
 	})
 
-	result := seq2.Collect(skipped)
+	result := seq2.CollectToMap(skipped)
 	fmt.Println(result)
 	// Output:
 	// map[2:30 3:40 4:20]
@@ -114,7 +114,7 @@ func ExampleOffset() {
 	// Skip the first 2 elements
 	skipped := seq2.Offset(input, 2)
 
-	result := seq2.Collect(skipped)
+	result := seq2.CollectToMap(skipped)
 	fmt.Println(result)
 	// Output:
 	// map[2:30 3:40 4:20]
@@ -127,7 +127,7 @@ func ExampleTake() {
 	// Take the first 2 elements
 	taken := seq2.Take(input, 2)
 
-	result := seq2.Collect(taken)
+	result := seq2.CollectToMap(taken)
 	fmt.Println(result)
 	// Output:
 	// map[a:1 b:2]
@@ -141,7 +141,7 @@ func ExampleTakeWhile() {
 		return v != "c"
 	})
 
-	result := seq2.Collect(taken)
+	result := seq2.CollectToMap(taken)
 	fmt.Println(result)
 	// Output:
 	// map[0:a 1:b]
@@ -156,7 +156,7 @@ func ExampleTakeUntil() {
 		return v > 2
 	})
 
-	result := seq2.Collect(taken)
+	result := seq2.CollectToMap(taken)
 	fmt.Println(result)
 	// Output:
 	// map[a:1 b:2]
@@ -169,7 +169,7 @@ func ExampleLimit() {
 	// Limit is an alias for Take
 	taken := seq2.Limit(input, 3)
 
-	result := seq2.Collect(taken)
+	result := seq2.CollectToMap(taken)
 	fmt.Println(result)
 	// Output:
 	// map[a:1 b:2 c:3]
@@ -185,7 +185,7 @@ func ExampleUniq() {
 	// Get unique key-value pairs
 	unique := seq2.Uniq(input)
 
-	result := seq2.Collect(unique)
+	result := seq2.CollectToMap(unique)
 	fmt.Println(result)
 	// Output:
 	// map[a:1 b:2 c:3]
@@ -201,7 +201,7 @@ func ExampleUniqKeys() {
 	// Get entries with unique keys (first occurrence wins)
 	unique := seq2.UniqKeys(input)
 
-	result := seq2.Collect(unique)
+	result := seq2.CollectToMap(unique)
 	fmt.Println(result)
 	// Output:
 	// map[a:1 b:2 c:4]
@@ -215,7 +215,7 @@ func ExampleUniqValues() {
 	// Get entries with unique values (first occurrence wins)
 	unique := seq2.UniqValues(input)
 
-	result := seq2.Collect(unique)
+	result := seq2.CollectToMap(unique)
 	fmt.Println(result)
 	// Output:
 	// map[a:1 b:2 d:3]
@@ -230,7 +230,7 @@ func ExampleUniqBy() {
 		return string(k[0]) + strconv.Itoa(v%2)
 	})
 
-	result := seq2.Collect(unique)
+	result := seq2.CollectToMap(unique)
 	fmt.Println(result)
 	// Output:
 	// map[apple:1 banana:2 blueberry:5]
@@ -245,7 +245,7 @@ func ExampleUniqByKeys() {
 		return strings.ToLower(string(k[0]))
 	})
 
-	result := seq2.Collect(unique)
+	result := seq2.CollectToMap(unique)
 	fmt.Println(result)
 	// Output:
 	// map[Apple:1 Banana:3]
@@ -260,7 +260,7 @@ func ExampleUniqByValues() {
 		return v % 10
 	})
 
-	result := seq2.Collect(unique)
+	result := seq2.CollectToMap(unique)
 	fmt.Println(result)
 	// Output:
 	// map[a:10 b:21 d:44]
@@ -276,7 +276,7 @@ func ExampleDistinct() {
 	// Distinct is an alias for Uniq
 	unique := seq2.Distinct(input)
 
-	result := seq2.Collect(unique)
+	result := seq2.CollectToMap(unique)
 	fmt.Println(result)
 	// Output:
 	// map[a:1 b:2 c:3]
@@ -292,7 +292,7 @@ func ExampleDistinctKeys() {
 	// DistinctKeys is an alias for UniqKeys
 	unique := seq2.DistinctKeys(input)
 
-	result := seq2.Collect(unique)
+	result := seq2.CollectToMap(unique)
 	fmt.Println(result)
 	// Output:
 	// map[a:1 b:2 c:4]

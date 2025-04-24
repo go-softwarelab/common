@@ -43,7 +43,7 @@ func main() {
 	// Append a new key-value pair to the sequence
 	appended := seq2.Append(input, "c", 3)
 
-	result := seq2.Collect(appended)
+	result := seq2.CollectToMap(appended)
 	fmt.Println(result)
 }
 ```
@@ -58,13 +58,13 @@ map[a:1 b:2 c:3]
 </details>
 
 <a name="Collect"></a>
-## [Collect](<https://github.com/go-softwarelab/common/blob/main/pkg/seq2/consumer.go#L50>)
+## [Collect](<https://github.com/go-softwarelab/common/blob/main/pkg/seq2/consumer.go#L58>)
 
 ```go
-func Collect[K comparable, V any](seq iter.Seq2[K, V]) map[K]V
+func Collect[K comparable, V any](seq iter.Seq2[K, V]) []types.Pair[K, V]
 ```
 
-Collect collects the elements of the given sequence into a map.
+Collect collects the elements of the given sequence into a slice of types.Pair of K and V.
 
 <details>
 <summary>Example</summary>
@@ -86,6 +86,50 @@ func main() {
 	input = seq2.Sort(input)
 
 	result := seq2.Collect(input)
+
+	fmt.Println(result)
+
+}
+```
+
+**Output**
+
+```
+[{a 1} {b 2} {c 3}]
+```
+
+
+</details>
+
+<a name="CollectToMap"></a>
+## [CollectToMap](<https://github.com/go-softwarelab/common/blob/main/pkg/seq2/consumer.go#L53>)
+
+```go
+func CollectToMap[K comparable, V any](seq iter.Seq2[K, V]) map[K]V
+```
+
+CollectToMap collects the elements of the given sequence into a map.
+
+<details>
+<summary>Example</summary>
+
+
+
+
+```go
+package main
+
+import (
+	"fmt"
+
+	"github.com/go-softwarelab/common/pkg/seq2"
+)
+
+func main() {
+	input := seq2.FromMap(map[string]int{"a": 1, "b": 2, "c": 3})
+	input = seq2.Sort(input)
+
+	result := seq2.CollectToMap(input)
 
 	fmt.Println(result)
 }
@@ -133,7 +177,7 @@ func main() {
 	// Concatenate two sequences
 	combined := seq2.Concat(first, second)
 
-	result := seq2.Collect(combined)
+	result := seq2.CollectToMap(combined)
 	fmt.Println(result)
 }
 ```
@@ -363,7 +407,7 @@ true
 </details>
 
 <a name="Count"></a>
-## [Count](<https://github.com/go-softwarelab/common/blob/main/pkg/seq2/consumer.go#L55>)
+## [Count](<https://github.com/go-softwarelab/common/blob/main/pkg/seq2/consumer.go#L66>)
 
 ```go
 func Count[K any, V any](seq iter.Seq2[K, V]) int
@@ -490,7 +534,7 @@ func main() {
 	// Distinct is an alias for Uniq
 	unique := seq2.Distinct(input)
 
-	result := seq2.Collect(unique)
+	result := seq2.CollectToMap(unique)
 	fmt.Println(result)
 }
 ```
@@ -538,7 +582,7 @@ func main() {
 	// DistinctKeys is an alias for UniqKeys
 	unique := seq2.DistinctKeys(input)
 
-	result := seq2.Collect(unique)
+	result := seq2.CollectToMap(unique)
 	fmt.Println(result)
 }
 ```
@@ -553,7 +597,7 @@ map[a:1 b:2 c:4]
 </details>
 
 <a name="Each"></a>
-## [Each](<https://github.com/go-softwarelab/common/blob/main/pkg/seq2/consumer.go#L26>)
+## [Each](<https://github.com/go-softwarelab/common/blob/main/pkg/seq2/consumer.go#L29>)
 
 ```go
 func Each[K any, V any](seq iter.Seq2[K, V], consumer Consumer[K, V]) iter.Seq2[K, V]
@@ -766,7 +810,7 @@ func main() {
 		return v%2 == 0
 	})
 
-	result := seq2.Collect(filtered)
+	result := seq2.CollectToMap(filtered)
 	fmt.Println(result)
 }
 ```
@@ -813,7 +857,7 @@ func main() {
 		return k > "b"
 	})
 
-	result := seq2.Collect(filtered)
+	result := seq2.CollectToMap(filtered)
 	fmt.Println(result)
 }
 ```
@@ -860,7 +904,7 @@ func main() {
 		return v <= 2
 	})
 
-	result := seq2.Collect(filtered)
+	result := seq2.CollectToMap(filtered)
 	fmt.Println(result)
 }
 ```
@@ -951,7 +995,7 @@ func main() {
 		return v > 2
 	})
 
-	result := seq2.Collect(found)
+	result := seq2.CollectToMap(found)
 	fmt.Println(result)
 }
 ```
@@ -1102,7 +1146,7 @@ Key: d, Value: 4
 </details>
 
 <a name="Flush"></a>
-## [Flush](<https://github.com/go-softwarelab/common/blob/main/pkg/seq2/consumer.go#L39>)
+## [Flush](<https://github.com/go-softwarelab/common/blob/main/pkg/seq2/consumer.go#L42>)
 
 ```go
 func Flush[K any, V any](seq iter.Seq2[K, V])
@@ -1345,7 +1389,7 @@ func main() {
 </details>
 
 <a name="ForEach"></a>
-## [ForEach](<https://github.com/go-softwarelab/common/blob/main/pkg/seq2/consumer.go#L32>)
+## [ForEach](<https://github.com/go-softwarelab/common/blob/main/pkg/seq2/consumer.go#L35>)
 
 ```go
 func ForEach[K any, V any](seq iter.Seq2[K, V], consumer Consumer[K, V])
@@ -1428,7 +1472,7 @@ func main() {
 	slice := []string{"a", "b", "c"}
 	sequence := seq2.FromSlice(slice)
 
-	result := seq2.Collect(sequence)
+	result := seq2.CollectToMap(sequence)
 	fmt.Println(result)
 }
 ```
@@ -1649,7 +1693,7 @@ func main() {
 	// Limit is an alias for Take
 	taken := seq2.Limit(input, 3)
 
-	result := seq2.Collect(taken)
+	result := seq2.CollectToMap(taken)
 	fmt.Println(result)
 }
 ```
@@ -1696,7 +1740,7 @@ func main() {
 		return fmt.Sprintf("Value of %s is %d", k, v)
 	})
 
-	result := seq2.Collect(mapped)
+	result := seq2.CollectToMap(mapped)
 	fmt.Println(result)
 }
 ```
@@ -1744,7 +1788,7 @@ func main() {
 		return strings.ToUpper(k)
 	})
 
-	result := seq2.Collect(mapped)
+	result := seq2.CollectToMap(mapped)
 	fmt.Println(result)
 }
 ```
@@ -1792,7 +1836,7 @@ func main() {
 		return strings.ToUpper(k), v * 10
 	})
 
-	result := seq2.Collect(mapped)
+	result := seq2.CollectToMap(mapped)
 	fmt.Println(result)
 }
 ```
@@ -1940,7 +1984,7 @@ func main() {
 		return v * v
 	})
 
-	result := seq2.Collect(mapped)
+	result := seq2.CollectToMap(mapped)
 	fmt.Println(result)
 }
 ```
@@ -2383,7 +2427,7 @@ func main() {
 	// Create a sequence from individual elements
 	indexed := seq2.Of(1, 2, 3)
 
-	result := seq2.Collect(indexed)
+	result := seq2.CollectToMap(indexed)
 	fmt.Println(result)
 }
 ```
@@ -2427,7 +2471,7 @@ func main() {
 	// Skip the first 2 elements
 	skipped := seq2.Offset(input, 2)
 
-	result := seq2.Collect(skipped)
+	result := seq2.CollectToMap(skipped)
 	fmt.Println(result)
 }
 ```
@@ -2515,7 +2559,7 @@ func main() {
 	// Prepend a new key-value pair to the sequence
 	prepended := seq2.Prepend(input, "a", 1)
 
-	result := seq2.Collect(prepended)
+	result := seq2.CollectToMap(prepended)
 	fmt.Println(result)
 }
 ```
@@ -2714,7 +2758,7 @@ func main() {
 	// Reverse it
 	reversed := seq2.Reverse(sequence)
 
-	// Collect into pairs for ordered display
+	// CollectToMap into pairs for ordered display
 	var pairs []string
 	seq2.ForEach(reversed, func(k int, v string) {
 		fmt.Println(k, ":", v)
@@ -2765,7 +2809,7 @@ func main() {
 	// Skip the first 2 elements
 	skipped := seq2.Skip(input, 2)
 
-	result := seq2.Collect(skipped)
+	result := seq2.CollectToMap(skipped)
 	fmt.Println(result)
 }
 ```
@@ -2811,7 +2855,7 @@ func main() {
 		return v == 30
 	})
 
-	result := seq2.Collect(skipped)
+	result := seq2.CollectToMap(skipped)
 	fmt.Println(result)
 }
 ```
@@ -2857,7 +2901,7 @@ func main() {
 		return v < 30
 	})
 
-	result := seq2.Collect(skipped)
+	result := seq2.CollectToMap(skipped)
 	fmt.Println(result)
 }
 ```
@@ -3162,7 +3206,7 @@ func main() {
 	// Take the first 2 elements
 	taken := seq2.Take(input, 2)
 
-	result := seq2.Collect(taken)
+	result := seq2.CollectToMap(taken)
 	fmt.Println(result)
 }
 ```
@@ -3209,7 +3253,7 @@ func main() {
 		return v > 2
 	})
 
-	result := seq2.Collect(taken)
+	result := seq2.CollectToMap(taken)
 	fmt.Println(result)
 }
 ```
@@ -3255,7 +3299,7 @@ func main() {
 		return v != "c"
 	})
 
-	result := seq2.Collect(taken)
+	result := seq2.CollectToMap(taken)
 	fmt.Println(result)
 }
 ```
@@ -3270,7 +3314,7 @@ map[0:a 1:b]
 </details>
 
 <a name="Tap"></a>
-## [Tap](<https://github.com/go-softwarelab/common/blob/main/pkg/seq2/consumer.go#L12>)
+## [Tap](<https://github.com/go-softwarelab/common/blob/main/pkg/seq2/consumer.go#L15>)
 
 ```go
 func Tap[K any, V any](seq iter.Seq2[K, V], consumer Consumer[K, V]) iter.Seq2[K, V]
@@ -3366,7 +3410,7 @@ func main() {
 </details>
 
 <a name="ToMap"></a>
-## [ToMap](<https://github.com/go-softwarelab/common/blob/main/pkg/seq2/consumer.go#L45>)
+## [ToMap](<https://github.com/go-softwarelab/common/blob/main/pkg/seq2/consumer.go#L48>)
 
 ```go
 func ToMap[Map ~map[K]V, K comparable, V any](seq iter.Seq2[K, V], m Map)
@@ -3539,7 +3583,7 @@ func main() {
 	// Union returns distinct elements from both sequences
 	combined := seq2.Union(first, second)
 
-	result := seq2.Collect(combined)
+	result := seq2.CollectToMap(combined)
 	fmt.Println(result)
 }
 ```
@@ -3586,7 +3630,7 @@ func main() {
 	// UnionAll is an alias for Concat
 	combined := seq2.UnionAll(first, second)
 
-	result := seq2.Collect(combined)
+	result := seq2.CollectToMap(combined)
 	fmt.Println(result)
 }
 ```
@@ -3634,7 +3678,7 @@ func main() {
 	// Get unique key-value pairs
 	unique := seq2.Uniq(input)
 
-	result := seq2.Collect(unique)
+	result := seq2.CollectToMap(unique)
 	fmt.Println(result)
 }
 ```
@@ -3682,7 +3726,7 @@ func main() {
 		return string(k[0]) + strconv.Itoa(v%2)
 	})
 
-	result := seq2.Collect(unique)
+	result := seq2.CollectToMap(unique)
 	fmt.Println(result)
 }
 ```
@@ -3730,7 +3774,7 @@ func main() {
 		return strings.ToLower(string(k[0]))
 	})
 
-	result := seq2.Collect(unique)
+	result := seq2.CollectToMap(unique)
 	fmt.Println(result)
 }
 ```
@@ -3777,7 +3821,7 @@ func main() {
 		return v % 10
 	})
 
-	result := seq2.Collect(unique)
+	result := seq2.CollectToMap(unique)
 	fmt.Println(result)
 }
 ```
@@ -3825,7 +3869,7 @@ func main() {
 	// Get entries with unique keys (first occurrence wins)
 	unique := seq2.UniqKeys(input)
 
-	result := seq2.Collect(unique)
+	result := seq2.CollectToMap(unique)
 	fmt.Println(result)
 }
 ```
@@ -3871,7 +3915,7 @@ func main() {
 	// Get entries with unique values (first occurrence wins)
 	unique := seq2.UniqValues(input)
 
-	result := seq2.Collect(unique)
+	result := seq2.CollectToMap(unique)
 	fmt.Println(result)
 }
 ```
@@ -3963,7 +4007,7 @@ func main() {
 		return v > 2
 	})
 
-	result := seq2.Collect(filtered)
+	result := seq2.CollectToMap(filtered)
 	fmt.Println(result)
 }
 ```
@@ -4009,7 +4053,7 @@ func main() {
 	// Add indexes
 	indexed := seq2.WithIndex(values)
 
-	result := seq2.Collect(indexed)
+	result := seq2.CollectToMap(indexed)
 	fmt.Println(result)
 }
 ```
@@ -4070,7 +4114,7 @@ func main() {
 </details>
 
 <a name="Consumer"></a>
-## type [Consumer](<https://github.com/go-softwarelab/common/blob/main/pkg/seq2/consumer.go#L9>)
+## type [Consumer](<https://github.com/go-softwarelab/common/blob/main/pkg/seq2/consumer.go#L12>)
 
 Consumer is a function that consumes an element of an iter.Seq2.
 
@@ -4276,14 +4320,14 @@ func main() {
 
 </details>
 
-<a name="Sequence[K, V].Collect"></a>
-### [Sequence\[K, V\].Collect](<https://github.com/go-softwarelab/common/blob/main/pkg/seq2/sequence.go#L114>)
+<a name="Sequence[K, V].CollectToMap"></a>
+### [Sequence\[K, V\].CollectToMap](<https://github.com/go-softwarelab/common/blob/main/pkg/seq2/sequence.go#L114>)
 
 ```go
-func (s Sequence[K, V]) Collect() map[K]V
+func (s Sequence[K, V]) CollectToMap() map[K]V
 ```
 
-Collect collects the elements into a map.
+CollectToMap collects the elements into a map.
 
 <a name="Sequence[K, V].Contains"></a>
 ### [Sequence\[K, V\].Contains](<https://github.com/go-softwarelab/common/blob/main/pkg/seq2/sequence.go#L194>)
