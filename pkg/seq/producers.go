@@ -8,6 +8,11 @@ import (
 	"github.com/go-softwarelab/common/pkg/types"
 )
 
+// Empty creates a new empty sequence.
+func Empty[E any]() iter.Seq[E] {
+	return func(yield func(E) bool) {}
+}
+
 // Of creates a new sequence from the given elements.
 func Of[E any](elems ...E) iter.Seq[E] {
 	return FromSlice(elems)

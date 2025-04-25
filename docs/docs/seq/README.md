@@ -416,6 +416,15 @@ func main() {
 
 </details>
 
+<a name="Empty"></a>
+## [Empty](<https://github.com/go-softwarelab/common/blob/main/pkg/seq/producers.go#L12>)
+
+```go
+func Empty[E any]() iter.Seq[E]
+```
+
+Empty creates a new empty sequence.
+
 <a name="Every"></a>
 ## [Every](<https://github.com/go-softwarelab/common/blob/main/pkg/seq/find.go#L71>)
 
@@ -958,7 +967,7 @@ func main() {
 </details>
 
 <a name="FromSlice"></a>
-## [FromSlice](<https://github.com/go-softwarelab/common/blob/main/pkg/seq/producers.go#L17>)
+## [FromSlice](<https://github.com/go-softwarelab/common/blob/main/pkg/seq/producers.go#L22>)
 
 ```go
 func FromSlice[Slice ~[]E, E any](slice Slice) iter.Seq[E]
@@ -1002,7 +1011,7 @@ func main() {
 </details>
 
 <a name="FromSliceReversed"></a>
-## [FromSliceReversed](<https://github.com/go-softwarelab/common/blob/main/pkg/seq/producers.go#L23>)
+## [FromSliceReversed](<https://github.com/go-softwarelab/common/blob/main/pkg/seq/producers.go#L28>)
 
 ```go
 func FromSliceReversed[Slice ~[]E, E any](slice Slice) iter.Seq[E]
@@ -1493,7 +1502,7 @@ false
 </details>
 
 <a name="Of"></a>
-## [Of](<https://github.com/go-softwarelab/common/blob/main/pkg/seq/producers.go#L12>)
+## [Of](<https://github.com/go-softwarelab/common/blob/main/pkg/seq/producers.go#L17>)
 
 ```go
 func Of[E any](elems ...E) iter.Seq[E]
@@ -1684,7 +1693,7 @@ func main() {
 </details>
 
 <a name="PointersFromSlice"></a>
-## [PointersFromSlice](<https://github.com/go-softwarelab/common/blob/main/pkg/seq/producers.go#L34>)
+## [PointersFromSlice](<https://github.com/go-softwarelab/common/blob/main/pkg/seq/producers.go#L39>)
 
 ```go
 func PointersFromSlice[Slice ~[]E, E any](slice Slice) iter.Seq[*E]
@@ -1776,7 +1785,7 @@ func main() {
 </details>
 
 <a name="Range"></a>
-## [Range](<https://github.com/go-softwarelab/common/blob/main/pkg/seq/producers.go#L72>)
+## [Range](<https://github.com/go-softwarelab/common/blob/main/pkg/seq/producers.go#L77>)
 
 ```go
 func Range[E types.Integer](start, end E) iter.Seq[E]
@@ -1818,7 +1827,7 @@ func main() {
 </details>
 
 <a name="RangeTo"></a>
-## [RangeTo](<https://github.com/go-softwarelab/common/blob/main/pkg/seq/producers.go#L77>)
+## [RangeTo](<https://github.com/go-softwarelab/common/blob/main/pkg/seq/producers.go#L82>)
 
 ```go
 func RangeTo[E types.Integer](end E) iter.Seq[E]
@@ -1860,7 +1869,7 @@ func main() {
 </details>
 
 <a name="RangeWithStep"></a>
-## [RangeWithStep](<https://github.com/go-softwarelab/common/blob/main/pkg/seq/producers.go#L61>)
+## [RangeWithStep](<https://github.com/go-softwarelab/common/blob/main/pkg/seq/producers.go#L66>)
 
 ```go
 func RangeWithStep[E types.Integer](start, end, step E) iter.Seq[E]
@@ -1990,7 +1999,7 @@ cba
 </details>
 
 <a name="Repeat"></a>
-## [Repeat](<https://github.com/go-softwarelab/common/blob/main/pkg/seq/producers.go#L50>)
+## [Repeat](<https://github.com/go-softwarelab/common/blob/main/pkg/seq/producers.go#L55>)
 
 ```go
 func Repeat[E any, N types.Integer](elem E, count N) iter.Seq[E]
@@ -2032,7 +2041,7 @@ func main() {
 </details>
 
 <a name="Reverse"></a>
-## [Reverse](<https://github.com/go-softwarelab/common/blob/main/pkg/seq/producers.go#L45>)
+## [Reverse](<https://github.com/go-softwarelab/common/blob/main/pkg/seq/producers.go#L50>)
 
 ```go
 func Reverse[E any](seq iter.Seq[E]) iter.Seq[E]
@@ -2482,7 +2491,7 @@ func main() {
 </details>
 
 <a name="Tick"></a>
-## [Tick](<https://github.com/go-softwarelab/common/blob/main/pkg/seq/producers.go#L82>)
+## [Tick](<https://github.com/go-softwarelab/common/blob/main/pkg/seq/producers.go#L87>)
 
 ```go
 func Tick(d time.Duration) iter.Seq[time.Time]
