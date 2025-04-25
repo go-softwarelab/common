@@ -227,6 +227,24 @@ func SuccessResult[V any](value V) *Result[V]
 
 SuccessResult creates a new Result instance with the provided value.
 
+<a name="Result[V].Get"></a>
+### [\*Result\[V\].Get](<https://github.com/go-softwarelab/common/blob/main/pkg/types/result.go#L63>)
+
+```go
+func (m *Result[V]) Get() (V, error)
+```
+
+Get returns the value and error from the Result instance.
+
+<a name="Result[V].GetError"></a>
+### [\*Result\[V\].GetError](<https://github.com/go-softwarelab/common/blob/main/pkg/types/result.go#L77>)
+
+```go
+func (m *Result[V]) GetError() error
+```
+
+GetError returns the error from the Result instance. If there is no error, it returns nil.
+
 <a name="Result[V].IsError"></a>
 ### [\*Result\[V\].IsError](<https://github.com/go-softwarelab/common/blob/main/pkg/types/result.go#L53>)
 
@@ -245,6 +263,15 @@ func (m *Result[V]) IsNotError() bool
 
 IsNotError checks if the Result instance does not contain an error.
 
+<a name="Result[V].MustGetError"></a>
+### [\*Result\[V\].MustGetError](<https://github.com/go-softwarelab/common/blob/main/pkg/types/result.go#L82>)
+
+```go
+func (m *Result[V]) MustGetError() error
+```
+
+MustGetError returns the error from the Result instance, panicking if there is no error.
+
 <a name="Result[V].MustGetValue"></a>
 ### [\*Result\[V\].MustGetValue](<https://github.com/go-softwarelab/common/blob/main/pkg/types/result.go#L68>)
 
@@ -255,7 +282,7 @@ func (m *Result[V]) MustGetValue() V
 MustGetValue returns the value from the Result instance, panicking if there is an error.
 
 <a name="Result[V].Or"></a>
-### [\*Result\[V\].Or](<https://github.com/go-softwarelab/common/blob/main/pkg/types/result.go#L92>)
+### [\*Result\[V\].Or](<https://github.com/go-softwarelab/common/blob/main/pkg/types/result.go#L106>)
 
 ```go
 func (m *Result[V]) Or(alternative *Result[V]) *Result[V]
@@ -264,7 +291,7 @@ func (m *Result[V]) Or(alternative *Result[V]) *Result[V]
 Or returns this Result if there is no error, otherwise it returns the provided alternative Result instance.
 
 <a name="Result[V].OrElse"></a>
-### [\*Result\[V\].OrElse](<https://github.com/go-softwarelab/common/blob/main/pkg/types/result.go#L76>)
+### [\*Result\[V\].OrElse](<https://github.com/go-softwarelab/common/blob/main/pkg/types/result.go#L90>)
 
 ```go
 func (m *Result[V]) OrElse(defaultValue V) V
@@ -273,7 +300,7 @@ func (m *Result[V]) OrElse(defaultValue V) V
 OrElse returns the value if there is no error, otherwise it returns the provided default value.
 
 <a name="Result[V].OrElseGet"></a>
-### [\*Result\[V\].OrElseGet](<https://github.com/go-softwarelab/common/blob/main/pkg/types/result.go#L84>)
+### [\*Result\[V\].OrElseGet](<https://github.com/go-softwarelab/common/blob/main/pkg/types/result.go#L98>)
 
 ```go
 func (m *Result[V]) OrElseGet(defaultValue func() V) V
@@ -282,7 +309,7 @@ func (m *Result[V]) OrElseGet(defaultValue func() V) V
 OrElseGet returns the value if there is no error, otherwise it returns the result of the provided function.
 
 <a name="Result[V].Seq"></a>
-### [\*Result\[V\].Seq](<https://github.com/go-softwarelab/common/blob/main/pkg/types/result.go#L102>)
+### [\*Result\[V\].Seq](<https://github.com/go-softwarelab/common/blob/main/pkg/types/result.go#L116>)
 
 ```go
 func (m *Result[V]) Seq() iter.Seq[Result[V]]
@@ -293,7 +320,7 @@ Seq returns an iter.Seq with this Result.
 This is useful for reusing functions provided by package seq.
 
 <a name="Result[V].Seq2"></a>
-### [\*Result\[V\].Seq2](<https://github.com/go-softwarelab/common/blob/main/pkg/types/result.go#L111>)
+### [\*Result\[V\].Seq2](<https://github.com/go-softwarelab/common/blob/main/pkg/types/result.go#L125>)
 
 ```go
 func (m *Result[V]) Seq2() iter.Seq2[V, error]
@@ -302,15 +329,6 @@ func (m *Result[V]) Seq2() iter.Seq2[V, error]
 Seq2 returns an iter.Seq2 with value and error.
 
 This is useful for reusing functions provided by package seq2 or seqerr.
-
-<a name="Result[V].ShouldGetValue"></a>
-### [\*Result\[V\].ShouldGetValue](<https://github.com/go-softwarelab/common/blob/main/pkg/types/result.go#L63>)
-
-```go
-func (m *Result[V]) ShouldGetValue() (V, error)
-```
-
-ShouldGetValue returns the value and error from the Result instance.
 
 <a name="Signed"></a>
 ## type [Signed](<https://github.com/go-softwarelab/common/blob/main/pkg/types/constraints.go#L14-L16>)

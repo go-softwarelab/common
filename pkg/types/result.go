@@ -59,8 +59,8 @@ func (m *Result[V]) IsNotError() bool {
 	return m.err == nil
 }
 
-// ShouldGetValue returns the value and error from the Result instance.
-func (m *Result[V]) ShouldGetValue() (V, error) {
+// Get returns the value and error from the Result instance.
+func (m *Result[V]) Get() (V, error) {
 	return m.value, m.err
 }
 
@@ -70,6 +70,20 @@ func (m *Result[V]) MustGetValue() V {
 		panic(m.err)
 	}
 	return m.value
+}
+
+// GetError returns the error from the Result instance.
+// If there is no error, it returns nil.
+func (m *Result[V]) GetError() error {
+	return m.err
+}
+
+// MustGetError returns the error from the Result instance, panicking if there is no error.
+func (m *Result[V]) MustGetError() error {
+	if m.IsNotError() {
+		panic("no error present")
+	}
+	return m.err
 }
 
 // OrElse returns the value if there is no error, otherwise it returns the provided default value.
