@@ -138,10 +138,10 @@ bool(false)
 </details>
 
 <a name="BlankString"></a>
-## [BlankString](<https://github.com/go-softwarelab/common/blob/main/pkg/is/strings.go#L11>)
+## [BlankString](<https://github.com/go-softwarelab/common/blob/main/pkg/is/strings.go#L17>)
 
 ```go
-func BlankString(s string) bool
+func BlankString[S string | *string](str S) (isBlank bool)
 ```
 
 BlankString returns true if the string is empty or contains only whitespace
@@ -244,7 +244,7 @@ is.Empty(true): bool(false) - non-zero bool
 ## [EmptyString](<https://github.com/go-softwarelab/common/blob/main/pkg/is/strings.go#L6>)
 
 ```go
-func EmptyString(s string) bool
+func EmptyString[S string | *string](s S) (isEmpty bool)
 ```
 
 EmptyString returns true if the string is empty
@@ -915,10 +915,10 @@ isNotPositive(-3): bool(true) - negative number
 </details>
 
 <a name="NotBlankString"></a>
-## [NotBlankString](<https://github.com/go-softwarelab/common/blob/main/pkg/is/strings.go#L21>)
+## [NotBlankString](<https://github.com/go-softwarelab/common/blob/main/pkg/is/strings.go#L33>)
 
 ```go
-func NotBlankString(s string) bool
+func NotBlankString[S string | *string](s S) bool
 ```
 
 NotBlankString returns true if the string is not empty or contains only whitespace
@@ -1018,10 +1018,10 @@ is.NotEmpty(false): bool(false) - zero bool
 </details>
 
 <a name="NotEmptyString"></a>
-## [NotEmptyString](<https://github.com/go-softwarelab/common/blob/main/pkg/is/strings.go#L16>)
+## [NotEmptyString](<https://github.com/go-softwarelab/common/blob/main/pkg/is/strings.go#L28>)
 
 ```go
-func NotEmptyString(s string) bool
+func NotEmptyString[S string | *string](s S) bool
 ```
 
 NotEmptyString returns true if the string is not empty
