@@ -2,6 +2,8 @@ package slices
 
 // Mapper is a function that maps a value of type T to a value of type R.
 type Mapper[T any, R any] = func(T) R
+
+// MapperWithError is a function that maps a value of type T to a value of type R or returns an error.
 type MapperWithError[T any, R any] = func(T) (R, error)
 
 // Map returns new slice where each element is a result of applying mapper to each element of the original slice.

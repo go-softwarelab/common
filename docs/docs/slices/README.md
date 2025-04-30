@@ -104,7 +104,7 @@ func main() {
 </details>
 
 <a name="FlatMap"></a>
-## [FlatMap](<https://github.com/go-softwarelab/common/blob/main/pkg/slices/mapper.go#L35>)
+## [FlatMap](<https://github.com/go-softwarelab/common/blob/main/pkg/slices/mapper.go#L37>)
 
 ```go
 func FlatMap[E any, R any](collection []E, mapper Mapper[E, []R]) []R
@@ -148,7 +148,7 @@ func main() {
 </details>
 
 <a name="FlatMapOrError"></a>
-## [FlatMapOrError](<https://github.com/go-softwarelab/common/blob/main/pkg/slices/mapper.go#L47>)
+## [FlatMapOrError](<https://github.com/go-softwarelab/common/blob/main/pkg/slices/mapper.go#L49>)
 
 ```go
 func FlatMapOrError[E any, R any](collection []E, mapper MapperWithError[E, []R]) ([]R, error)
@@ -198,6 +198,8 @@ func main() {
 
 	if err != nil {
 		fmt.Println("Error occurred")
+	} else {
+		fmt.Println(result)
 	}
 
 }
@@ -214,7 +216,7 @@ Error occurred
 </details>
 
 <a name="Flatten"></a>
-## [Flatten](<https://github.com/go-softwarelab/common/blob/main/pkg/slices/mapper.go#L62>)
+## [Flatten](<https://github.com/go-softwarelab/common/blob/main/pkg/slices/mapper.go#L64>)
 
 ```go
 func Flatten[E any, Slice ~[]E](collection []Slice) Slice
@@ -305,7 +307,7 @@ func main() {
 </details>
 
 <a name="Map"></a>
-## [Map](<https://github.com/go-softwarelab/common/blob/main/pkg/slices/mapper.go#L8>)
+## [Map](<https://github.com/go-softwarelab/common/blob/main/pkg/slices/mapper.go#L10>)
 
 ```go
 func Map[E any, R any](collection []E, mapper Mapper[E, R]) []R
@@ -349,7 +351,7 @@ func main() {
 </details>
 
 <a name="MapOrError"></a>
-## [MapOrError](<https://github.com/go-softwarelab/common/blob/main/pkg/slices/mapper.go#L20>)
+## [MapOrError](<https://github.com/go-softwarelab/common/blob/main/pkg/slices/mapper.go#L22>)
 
 ```go
 func MapOrError[E any, R any](collection []E, mapper MapperWithError[E, R]) ([]R, error)
@@ -394,6 +396,8 @@ func main() {
 
 	if err != nil {
 		fmt.Println("Error occurred")
+	} else {
+		fmt.Println(parsed)
 	}
 
 }
@@ -647,9 +651,9 @@ type Mapper[T any, R any] = func(T) R
 ```
 
 <a name="MapperWithError"></a>
-## type [MapperWithError](<https://github.com/go-softwarelab/common/blob/main/pkg/slices/mapper.go#L5>)
+## type [MapperWithError](<https://github.com/go-softwarelab/common/blob/main/pkg/slices/mapper.go#L7>)
 
-
+MapperWithError is a function that maps a value of type T to a value of type R or returns an error.
 
 ```go
 type MapperWithError[T any, R any] = func(T) (R, error)

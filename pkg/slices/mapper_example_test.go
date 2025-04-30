@@ -66,6 +66,8 @@ func ExampleMapOrError() {
 
 	if err != nil {
 		fmt.Println("Error occurred")
+	} else {
+		fmt.Println(parsed)
 	}
 
 	// Output:
@@ -100,6 +102,8 @@ func ExampleFlatMapOrError() {
 
 	if err != nil {
 		fmt.Println("Error occurred")
+	} else {
+		fmt.Println(result)
 	}
 
 	// Output:
