@@ -891,6 +891,118 @@ Empty value: 0
 
 </details>
 
+<a name="Elem[E].Seq"></a>
+### [Elem\[E\].Seq](<https://github.com/go-softwarelab/common/blob/main/pkg/optional/optional.go#L171>)
+
+```go
+func (o Elem[E]) Seq() iter.Seq[E]
+```
+
+Seq returns the sequence with yelded value if present, otherwise returns an empty sequence.
+
+<details>
+<summary>Example</summary>
+
+
+
+
+```go
+package main
+
+import (
+	"fmt"
+
+	"github.com/go-softwarelab/common/pkg/optional"
+	"github.com/go-softwarelab/common/pkg/seq"
+)
+
+func main() {
+	opt := optional.Of("hello")
+
+	var values []string
+	seq.ForEach(opt.Seq(), func(value string) {
+		values = append(values, value)
+	})
+
+	fmt.Println("Values:", values)
+
+	empty := optional.Empty[string]()
+	var emptyValues []string
+	seq.ForEach(empty.Seq(), func(value string) {
+		emptyValues = append(emptyValues, value)
+	})
+
+	fmt.Println("Empty values length:", len(emptyValues))
+
+}
+```
+
+**Output**
+
+```
+Values: [hello]
+Empty values length: 0
+```
+
+
+</details>
+
+<a name="Elem[E].Seq2"></a>
+### [Elem\[E\].Seq2](<https://github.com/go-softwarelab/common/blob/main/pkg/optional/optional.go#L181>)
+
+```go
+func (o Elem[E]) Seq2() iter.Seq2[E, error]
+```
+
+Seq2 returns the iter.Seq2\[E, error\] with yelded value if present, otherwise yields an error. Useful with usage of seqerr package.
+
+<details>
+<summary>Example</summary>
+
+
+
+
+```go
+package main
+
+import (
+	"fmt"
+
+	"github.com/go-softwarelab/common/pkg/optional"
+	"github.com/go-softwarelab/common/pkg/seqerr"
+)
+
+func main() {
+	opt := optional.Of("hello")
+	empty := optional.Empty[string]()
+
+	err := seqerr.ForEach(opt.Seq2(), func(value string) {
+		fmt.Printf("Value: %s\n", value)
+	})
+	if err != nil {
+		panic(err)
+	}
+
+	// With empty value
+	err = seqerr.ForEach(empty.Seq2(), func(value string) {
+		fmt.Printf("Unexpected value: %s\n", value)
+	})
+	if err != nil {
+		fmt.Printf("Expected error: %v\n", err)
+	}
+}
+```
+
+**Output**
+
+```
+Value: hello
+Expected error: value is not present
+```
+
+
+</details>
+
 <a name="Elem[E].ShouldGet"></a>
 ### [Elem\[E\].ShouldGet](<https://github.com/go-softwarelab/common/blob/main/pkg/optional/optional.go#L74>)
 
@@ -937,118 +1049,6 @@ Value: 42
 Error: <nil>
 Empty value: 0
 Empty error: value is not present
-```
-
-
-</details>
-
-<a name="Elem[E].ToSeq"></a>
-### [Elem\[E\].ToSeq](<https://github.com/go-softwarelab/common/blob/main/pkg/optional/optional.go#L171>)
-
-```go
-func (o Elem[E]) ToSeq() iter.Seq[E]
-```
-
-ToSeq returns the sequence with yelded value if present, otherwise returns an empty sequence.
-
-<details>
-<summary>Example</summary>
-
-
-
-
-```go
-package main
-
-import (
-	"fmt"
-
-	"github.com/go-softwarelab/common/pkg/optional"
-	"github.com/go-softwarelab/common/pkg/seq"
-)
-
-func main() {
-	opt := optional.Of("hello")
-
-	var values []string
-	seq.ForEach(opt.ToSeq(), func(value string) {
-		values = append(values, value)
-	})
-
-	fmt.Println("Values:", values)
-
-	empty := optional.Empty[string]()
-	var emptyValues []string
-	seq.ForEach(empty.ToSeq(), func(value string) {
-		emptyValues = append(emptyValues, value)
-	})
-
-	fmt.Println("Empty values length:", len(emptyValues))
-
-}
-```
-
-**Output**
-
-```
-Values: [hello]
-Empty values length: 0
-```
-
-
-</details>
-
-<a name="Elem[E].ToSeq2"></a>
-### [Elem\[E\].ToSeq2](<https://github.com/go-softwarelab/common/blob/main/pkg/optional/optional.go#L181>)
-
-```go
-func (o Elem[E]) ToSeq2() iter.Seq2[E, error]
-```
-
-ToSeq2 returns the iter.Seq2\[E, error\] with yelded value if present, otherwise yields an error. Useful with usage of seqerr package.
-
-<details>
-<summary>Example</summary>
-
-
-
-
-```go
-package main
-
-import (
-	"fmt"
-
-	"github.com/go-softwarelab/common/pkg/optional"
-	"github.com/go-softwarelab/common/pkg/seqerr"
-)
-
-func main() {
-	opt := optional.Of("hello")
-	empty := optional.Empty[string]()
-
-	err := seqerr.ForEach(opt.ToSeq2(), func(value string) {
-		fmt.Printf("Value: %s\n", value)
-	})
-	if err != nil {
-		panic(err)
-	}
-
-	// With empty value
-	err = seqerr.ForEach(empty.ToSeq2(), func(value string) {
-		fmt.Printf("Unexpected value: %s\n", value)
-	})
-	if err != nil {
-		fmt.Printf("Expected error: %v\n", err)
-	}
-}
-```
-
-**Output**
-
-```
-Value: hello
-Expected error: value is not present
 ```
 
 

@@ -167,8 +167,8 @@ func (o Elem[E]) IsNotEmpty() bool {
 	return o.value != nil
 }
 
-// ToSeq returns the sequence with yelded value if present, otherwise returns an empty sequence.
-func (o Elem[E]) ToSeq() iter.Seq[E] {
+// Seq returns the sequence with yelded value if present, otherwise returns an empty sequence.
+func (o Elem[E]) Seq() iter.Seq[E] {
 	return func(yield func(E) bool) {
 		if o.IsPresent() {
 			yield(*o.value)
@@ -176,9 +176,9 @@ func (o Elem[E]) ToSeq() iter.Seq[E] {
 	}
 }
 
-// ToSeq2 returns the iter.Seq2[E, error] with yelded value if present, otherwise yields an error.
+// Seq2 returns the iter.Seq2[E, error] with yelded value if present, otherwise yields an error.
 // Useful with usage of seqerr package.
-func (o Elem[E]) ToSeq2() iter.Seq2[E, error] {
+func (o Elem[E]) Seq2() iter.Seq2[E, error] {
 	return func(yield func(E, error) bool) {
 		if o.IsPresent() {
 			yield(*o.value, nil)
