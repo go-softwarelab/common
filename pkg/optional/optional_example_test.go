@@ -232,11 +232,11 @@ func ExampleElem_IfNotPresent() {
 	// This executes when empty
 }
 
-func ExampleElem_ToSeq() {
+func ExampleElem_Seq() {
 	opt := optional.Of("hello")
 
 	var values []string
-	seq.ForEach(opt.ToSeq(), func(value string) {
+	seq.ForEach(opt.Seq(), func(value string) {
 		values = append(values, value)
 	})
 
@@ -244,7 +244,7 @@ func ExampleElem_ToSeq() {
 
 	empty := optional.Empty[string]()
 	var emptyValues []string
-	seq.ForEach(empty.ToSeq(), func(value string) {
+	seq.ForEach(empty.Seq(), func(value string) {
 		emptyValues = append(emptyValues, value)
 	})
 
@@ -255,11 +255,11 @@ func ExampleElem_ToSeq() {
 	// Empty values length: 0
 }
 
-func ExampleElem_ToSeq2() {
+func ExampleElem_Seq2() {
 	opt := optional.Of("hello")
 	empty := optional.Empty[string]()
 
-	err := seqerr.ForEach(opt.ToSeq2(), func(value string) {
+	err := seqerr.ForEach(opt.Seq2(), func(value string) {
 		fmt.Printf("Value: %s\n", value)
 	})
 	if err != nil {
@@ -267,7 +267,7 @@ func ExampleElem_ToSeq2() {
 	}
 
 	// With empty value
-	err = seqerr.ForEach(empty.ToSeq2(), func(value string) {
+	err = seqerr.ForEach(empty.Seq2(), func(value string) {
 		fmt.Printf("Unexpected value: %s\n", value)
 	})
 	if err != nil {
