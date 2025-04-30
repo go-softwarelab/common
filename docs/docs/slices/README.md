@@ -104,7 +104,7 @@ func main() {
 </details>
 
 <a name="FlatMap"></a>
-## [FlatMap](<https://github.com/go-softwarelab/common/blob/main/pkg/slices/mapper.go#L18>)
+## [FlatMap](<https://github.com/go-softwarelab/common/blob/main/pkg/slices/mapper.go#L35>)
 
 ```go
 func FlatMap[E any, R any](collection []E, mapper Mapper[E, []R]) []R
@@ -147,8 +147,74 @@ func main() {
 
 </details>
 
+<a name="FlatMapOrError"></a>
+## [FlatMapOrError](<https://github.com/go-softwarelab/common/blob/main/pkg/slices/mapper.go#L47>)
+
+```go
+func FlatMapOrError[E any, R any](collection []E, mapper MapperWithError[E, []R]) ([]R, error)
+```
+
+FlatMapOrError returns new slice where each element is a result of applying mapper to each element of the original slice and flattening the result. If any of the mappers return an error, the function returns an error.
+
+<details>
+<summary>Example</summary>
+
+
+
+
+```go
+package main
+
+import (
+	"fmt"
+
+	"github.com/go-softwarelab/common/pkg/slices"
+)
+
+func main() {
+	collection := []int{1, 2, 3}
+
+	// Create pairs for each number, which could return an error
+	result, err := slices.FlatMapOrError(collection, func(v int) ([]int, error) {
+		if v <= 0 {
+			return nil, fmt.Errorf("value must be positive: %d", v)
+		}
+		return []int{v, v * 10}, nil
+	})
+
+	if err != nil {
+		panic(err)
+	}
+	fmt.Println(result)
+
+	// Now with an error case
+	collection = []int{1, 0, 3}
+	result, err = slices.FlatMapOrError(collection, func(v int) ([]int, error) {
+		if v <= 0 {
+			return nil, fmt.Errorf("value must be positive: %d", v)
+		}
+		return []int{v, v * 10}, nil
+	})
+
+	if err != nil {
+		fmt.Println("Error occurred")
+	}
+
+}
+```
+
+**Output**
+
+```
+[1 10 2 20 3 30]
+Error occurred
+```
+
+
+</details>
+
 <a name="Flatten"></a>
-## [Flatten](<https://github.com/go-softwarelab/common/blob/main/pkg/slices/mapper.go#L29>)
+## [Flatten](<https://github.com/go-softwarelab/common/blob/main/pkg/slices/mapper.go#L62>)
 
 ```go
 func Flatten[E any, Slice ~[]E](collection []Slice) Slice
@@ -239,13 +305,13 @@ func main() {
 </details>
 
 <a name="Map"></a>
-## [Map](<https://github.com/go-softwarelab/common/blob/main/pkg/slices/mapper.go#L7>)
+## [Map](<https://github.com/go-softwarelab/common/blob/main/pkg/slices/mapper.go#L8>)
 
 ```go
 func Map[E any, R any](collection []E, mapper Mapper[E, R]) []R
 ```
 
-Map returns new slice where each element is a result of applying mapper to each element of the original slice and flattening the result.
+Map returns new slice where each element is a result of applying mapper to each element of the original slice.
 
 <details>
 <summary>Example</summary>
@@ -277,6 +343,67 @@ func main() {
 
 ```
 [1 4 9]
+```
+
+
+</details>
+
+<a name="MapOrError"></a>
+## [MapOrError](<https://github.com/go-softwarelab/common/blob/main/pkg/slices/mapper.go#L20>)
+
+```go
+func MapOrError[E any, R any](collection []E, mapper MapperWithError[E, R]) ([]R, error)
+```
+
+MapOrError returns new slice where each element is a result of applying mapper to each element of the original slice. If any of the mappers return an error, the function returns an error.
+
+<details>
+<summary>Example</summary>
+
+
+
+
+```go
+package main
+
+import (
+	"fmt"
+	"strconv"
+
+	"github.com/go-softwarelab/common/pkg/slices"
+)
+
+func main() {
+	collection := []string{"1", "2", "3"}
+
+	// Parse strings to ints, which could return an error
+	parsed, err := slices.MapOrError(collection, func(v string) (int, error) {
+		return strconv.Atoi(v)
+	})
+
+	if err != nil {
+		panic(err)
+	}
+	fmt.Println(parsed)
+
+	// Now with an error case
+	collection = []string{"1", "invalid", "3"}
+	parsed, err = slices.MapOrError(collection, func(v string) (int, error) {
+		return strconv.Atoi(v)
+	})
+
+	if err != nil {
+		fmt.Println("Error occurred")
+	}
+
+}
+```
+
+**Output**
+
+```
+[1 2 3]
+Error occurred
 ```
 
 
@@ -517,4 +644,13 @@ Mapper is a function that maps a value of type T to a value of type R.
 
 ```go
 type Mapper[T any, R any] = func(T) R
+```
+
+<a name="MapperWithError"></a>
+## type [MapperWithError](<https://github.com/go-softwarelab/common/blob/main/pkg/slices/mapper.go#L5>)
+
+
+
+```go
+type MapperWithError[T any, R any] = func(T) (R, error)
 ```
