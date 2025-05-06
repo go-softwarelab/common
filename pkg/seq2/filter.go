@@ -154,6 +154,8 @@ func Limit[K any, V any](seq iter.Seq2[K, V], n int) iter.Seq2[K, V] {
 }
 
 // Uniq returns a new sequence that contains only the unique elements of the given sequence.
+// It compares both key and value.
+// In case of pointers, pointers are compared, not the values they point to.
 func Uniq[K comparable, V comparable](seq iter.Seq2[K, V]) iter.Seq2[K, V] {
 	type entry struct {
 		k K
@@ -173,7 +175,7 @@ func Uniq[K comparable, V comparable](seq iter.Seq2[K, V]) iter.Seq2[K, V] {
 	}
 }
 
-// UniqKeys returns a new sequence that contains only the unique keys of the given sequence.
+// UniqKeys returns a new sequence that contains only the elements with unique keys from the given sequence.
 func UniqKeys[K comparable, V any](seq iter.Seq2[K, V]) iter.Seq2[K, V] {
 	return func(yield func(K, V) bool) {
 		keys := make(map[K]struct{})
@@ -188,7 +190,7 @@ func UniqKeys[K comparable, V any](seq iter.Seq2[K, V]) iter.Seq2[K, V] {
 	}
 }
 
-// UniqValues returns a new sequence that contains only the unique values of the given sequence.
+// UniqValues returns a new sequence that contains only the elements with unique values from the given sequence.
 func UniqValues[K any, V comparable](seq iter.Seq2[K, V]) iter.Seq2[K, V] {
 	return func(yield func(K, V) bool) {
 		values := make(map[V]struct{})
@@ -203,7 +205,7 @@ func UniqValues[K any, V comparable](seq iter.Seq2[K, V]) iter.Seq2[K, V] {
 	}
 }
 
-// UniqBy returns a new sequence that contains only the unique elements of the given sequence based on a key.
+// UniqBy returns a new sequence that contains only the unique elements of the given sequence based on result of the mapper.
 func UniqBy[K any, V any, K2 comparable](seq iter.Seq2[K, V], mapper Mapper[K, V, K2]) iter.Seq2[K, V] {
 	return func(yield func(K, V) bool) {
 		seen := make(map[K2]struct{})
@@ -219,7 +221,7 @@ func UniqBy[K any, V any, K2 comparable](seq iter.Seq2[K, V], mapper Mapper[K, V
 	}
 }
 
-// UniqByKeys returns a new sequence that contains only the unique elements of the given sequence based on a key.
+// UniqByKeys returns a new sequence that contains only the unique elements of the given sequence based on a result of key mapper.
 func UniqByKeys[K any, V any, K2 comparable](seq iter.Seq2[K, V], mapper KeyMapper[K, K2]) iter.Seq2[K, V] {
 	return func(yield func(K, V) bool) {
 		seen := make(map[K2]struct{})
@@ -235,7 +237,7 @@ func UniqByKeys[K any, V any, K2 comparable](seq iter.Seq2[K, V], mapper KeyMapp
 	}
 }
 
-// UniqByValues returns a new sequence that contains only the unique elements of the given sequence based on a key.
+// UniqByValues returns a new sequence that contains only the unique elements of the given sequence based on a result of value mapper.
 func UniqByValues[K any, V any, V2 comparable](seq iter.Seq2[K, V], mapper ValueMapper[V, V2]) iter.Seq2[K, V] {
 	return func(yield func(K, V) bool) {
 		seen := make(map[V2]struct{})

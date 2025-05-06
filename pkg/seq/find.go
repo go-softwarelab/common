@@ -7,7 +7,7 @@ import (
 )
 
 // Find returns the first element that satisfies the predicate.
-func Find[E any](seq iter.Seq[E], predicate Predicate[E]) optional.Elem[E] {
+func Find[E any](seq iter.Seq[E], predicate Predicate[E]) optional.Value[E] {
 	for v := range seq {
 		if predicate(v) {
 			return optional.Of(v)
@@ -17,7 +17,7 @@ func Find[E any](seq iter.Seq[E], predicate Predicate[E]) optional.Elem[E] {
 }
 
 // FindLast returns the last element that satisfies the predicate.
-func FindLast[E any](seq iter.Seq[E], predicate Predicate[E]) optional.Elem[E] {
+func FindLast[E any](seq iter.Seq[E], predicate Predicate[E]) optional.Value[E] {
 	result := optional.Empty[E]()
 	for v := range seq {
 		if predicate(v) {

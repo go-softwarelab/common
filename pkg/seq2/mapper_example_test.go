@@ -8,12 +8,12 @@ import (
 	"github.com/go-softwarelab/common/pkg/seq2"
 )
 
-func ExampleMapPairs() {
+func ExampleMap() {
 	input := seq2.FromMap(map[string]int{"a": 1, "b": 2, "c": 3})
-	input = seq2.Sort(input)
+	input = seq2.SortByKeys(input)
 
-	// Map keys to uppercase and multiply values by 10
-	mapped := seq2.MapPairs(input, func(k string, v int) (string, int) {
+	// Map both key and value to produce a new value (keeps original keys)
+	mapped := seq2.Map(input, func(k string, v int) (string, int) {
 		return strings.ToUpper(k), v * 10
 	})
 
@@ -23,24 +23,9 @@ func ExampleMapPairs() {
 	// map[A:10 B:20 C:30]
 }
 
-func ExampleMap() {
-	input := seq2.FromMap(map[string]int{"a": 1, "b": 2, "c": 3})
-	input = seq2.Sort(input)
-
-	// Map both key and value to produce a new value (keeps original keys)
-	mapped := seq2.Map(input, func(k string, v int) string {
-		return fmt.Sprintf("Value of %s is %d", k, v)
-	})
-
-	result := seq2.CollectToMap(mapped)
-	fmt.Println(result)
-	// Output:
-	// map[a:Value of a is 1 b:Value of b is 2 c:Value of c is 3]
-}
-
 func ExampleMapKeys() {
 	input := seq2.FromMap(map[string]int{"a": 1, "b": 2, "c": 3})
-	input = seq2.Sort(input)
+	input = seq2.SortByKeys(input)
 
 	// Map keys to uppercase (keeps original values)
 	mapped := seq2.MapKeys(input, func(k string) string {
@@ -55,7 +40,7 @@ func ExampleMapKeys() {
 
 func ExampleMapValues() {
 	input := seq2.FromMap(map[string]int{"a": 1, "b": 2, "c": 3})
-	input = seq2.Sort(input)
+	input = seq2.SortByKeys(input)
 
 	// Map values to their squares (keeps original keys)
 	mapped := seq2.MapValues(input, func(v int) int {
@@ -68,28 +53,9 @@ func ExampleMapValues() {
 	// map[a:1 b:4 c:9]
 }
 
-func ExampleMapToValues() {
-	input := seq2.Of("a", "b", "c")
-
-	// Map values to strings and return as sequence of values
-	mapped := seq2.MapToValues(input, func(v string) string {
-		return fmt.Sprintf("Value: %s", v)
-	})
-
-	for v := range mapped {
-		fmt.Println(v)
-	}
-
-	// Output:
-	// Value: a
-	// Value: b
-	// Value: c
-
-}
-
 func ExampleMapTo() {
 	input := seq2.FromMap(map[string]int{"a": 1, "b": 2, "c": 3})
-	input = seq2.Sort(input)
+	input = seq2.SortByKeys(input)
 
 	// Map each key-value pair to a string
 	mapped := seq2.MapTo(input, func(k string, v int) string {
@@ -105,30 +71,12 @@ func ExampleMapTo() {
 	// c=3
 }
 
-func ExampleNarrow() {
-	input := seq2.FromMap(map[string]int{"a": 1, "b": 2, "c": 3})
-	input = seq2.Sort(input)
-
-	// Narrow is an alias for MapTo
-	mapped := seq2.Narrow(input, func(k string, v int) string {
-		return fmt.Sprintf("%s=%d", k, v)
-	})
-
-	seq.ForEach(mapped, func(v string) {
-		fmt.Println(v)
-	})
-	// Output:
-	// a=1
-	// b=2
-	// c=3
-}
-
-func ExampleCycle() {
+func ExampleCycleTimes() {
 	input := seq2.FromMap(map[string]int{"a": 1, "b": 2})
-	input = seq2.Sort(input)
+	input = seq2.SortByKeys(input)
 
 	// Repeat the sequence 2 times
-	cycled := seq2.Cycle(input, 2)
+	cycled := seq2.CycleTimes(input, 2)
 
 	seq2.ForEach(cycled, func(k string, v int) {
 		fmt.Println(k, v)

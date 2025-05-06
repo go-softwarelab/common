@@ -12,7 +12,7 @@ func Concat[E any](sequences ...iter.Seq[E]) iter.Seq[E] {
 		for _, seq := range sequences {
 			for v := range seq {
 				if !yield(v) {
-					break
+					return
 				}
 			}
 		}

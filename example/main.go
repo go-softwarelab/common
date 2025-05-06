@@ -16,7 +16,7 @@ func main() {
 		return tick.Format("15:04:05")
 	})
 
-	messages := seq2.Narrow(stringTime, func(number int, tick string) string {
+	messages := seq2.MapTo(stringTime, func(number int, tick string) string {
 		return fmt.Sprintf("Current time %s\t\t\t You are waiting for %ds", tick, number)
 	})
 

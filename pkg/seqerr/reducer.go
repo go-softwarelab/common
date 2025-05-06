@@ -26,7 +26,7 @@ func ReduceRight[E any, R any](seq iter.Seq2[E, error], accumulator func(agg R, 
 }
 
 // Fold applies a function against an accumulator and each element in the sequence (from left to right) to reduce it to a single value.
-func Fold[E any](seq iter.Seq2[E, error], accumulator func(agg E, item E) E) (optional.Elem[E], error) {
+func Fold[E any](seq iter.Seq2[E, error], accumulator func(agg E, item E) E) (optional.Value[E], error) {
 	next, stop := iter.Pull2(seq)
 	defer stop()
 
@@ -54,6 +54,6 @@ func Fold[E any](seq iter.Seq2[E, error], accumulator func(agg E, item E) E) (op
 }
 
 // FoldRight applies a function against an accumulator and each element in the sequence (from right to left) to reduce it to a single value.
-func FoldRight[E any](seq iter.Seq2[E, error], accumulator func(agg E, item E) E) (optional.Elem[E], error) {
+func FoldRight[E any](seq iter.Seq2[E, error], accumulator func(agg E, item E) E) (optional.Value[E], error) {
 	return Fold(seq2.Reverse(seq), accumulator)
 }

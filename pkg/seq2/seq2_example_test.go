@@ -8,7 +8,7 @@ import (
 )
 
 func ExampleKeys() {
-	input := seq2.Of("a", "b", "c")
+	input := seq2.OfIndexed("a", "b", "c")
 
 	keys := seq2.Keys(input)
 
@@ -20,7 +20,7 @@ func ExampleKeys() {
 }
 
 func ExampleValues() {
-	input := seq2.Of("a", "b", "c")
+	input := seq2.OfIndexed("a", "b", "c")
 
 	keys := seq2.Values(input)
 
@@ -34,7 +34,7 @@ func ExampleValues() {
 func ExampleIsEmpty() {
 	emptySeq := seq2.Empty[any, any]()
 
-	nonEmptySeq := seq2.Of("a")
+	nonEmptySeq := seq2.OfIndexed("a")
 
 	fmt.Printf("Empty sequence: %v\n", seq2.IsEmpty(emptySeq))
 	fmt.Printf("Non-empty sequence: %v\n", seq2.IsEmpty(nonEmptySeq))
@@ -46,7 +46,7 @@ func ExampleIsEmpty() {
 func ExampleIsNotEmpty() {
 	emptySeq := seq2.Empty[any, any]()
 
-	nonEmptySeq := seq2.Of("a")
+	nonEmptySeq := seq2.OfIndexed("a")
 
 	fmt.Printf("Empty sequence: %v\n", seq2.IsNotEmpty(emptySeq))
 	fmt.Printf("Non-empty sequence: %v\n", seq2.IsNotEmpty(nonEmptySeq))

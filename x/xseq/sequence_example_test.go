@@ -1,13 +1,14 @@
-package seq_test
+package xseq_test
 
 import (
 	"fmt"
 
 	"github.com/go-softwarelab/common/pkg/seq"
+	"github.com/go-softwarelab/common/x/xseq"
 )
 
 func ExampleAsSequence() {
-	sequence := seq.AsSequence(seq.Of(1, 2, 3))
+	sequence := xseq.AsSequence(seq.Of(1, 2, 3))
 	result := sequence.Collect()
 	fmt.Println(result)
 	// Output:
@@ -15,9 +16,9 @@ func ExampleAsSequence() {
 }
 
 func ExampleConcatSequences() {
-	seq1 := seq.AsSequence(seq.Of(1, 2))
-	seq2 := seq.AsSequence(seq.Of(3, 4))
-	concatenated := seq.ConcatSequences(seq1, seq2)
+	seq1 := xseq.AsSequence(seq.Of(1, 2))
+	seq2 := xseq.AsSequence(seq.Of(3, 4))
+	concatenated := xseq.ConcatSequences(seq1, seq2)
 	result := concatenated.Collect()
 	fmt.Println(result)
 	// Output:
@@ -25,8 +26,8 @@ func ExampleConcatSequences() {
 }
 
 func ExampleSequence_Union() {
-	seq1 := seq.AsSequence(seq.Of(1, 2, 3))
-	seq2 := seq.AsSequence(seq.Of(3, 4, 5))
+	seq1 := xseq.AsSequence(seq.Of(1, 2, 3))
+	seq2 := xseq.AsSequence(seq.Of(3, 4, 5))
 	union := seq1.Union(seq2)
 	result := union.Collect()
 	fmt.Println(result)
@@ -35,8 +36,8 @@ func ExampleSequence_Union() {
 }
 
 func ExampleSequence_UnionAll() {
-	seq1 := seq.AsSequence(seq.Of(1, 2, 3))
-	seq2 := seq.AsSequence(seq.Of(3, 4, 5))
+	seq1 := xseq.AsSequence(seq.Of(1, 2, 3))
+	seq2 := xseq.AsSequence(seq.Of(3, 4, 5))
 	unionAll := seq1.UnionAll(seq2)
 	result := unionAll.Collect()
 	fmt.Println(result)
@@ -45,7 +46,7 @@ func ExampleSequence_UnionAll() {
 }
 
 func ExampleSequence_Append() {
-	sequence := seq.AsSequence(seq.Of(1, 2, 3))
+	sequence := xseq.AsSequence(seq.Of(1, 2, 3))
 	appended := sequence.Append(4, 5)
 	result := appended.Collect()
 	fmt.Println(result)
@@ -54,7 +55,7 @@ func ExampleSequence_Append() {
 }
 
 func ExampleSequence_Prepend() {
-	sequence := seq.AsSequence(seq.Of(3, 4, 5))
+	sequence := xseq.AsSequence(seq.Of(3, 4, 5))
 	prepended := sequence.Prepend(1, 2)
 	result := prepended.Collect()
 	fmt.Println(result)
@@ -63,7 +64,7 @@ func ExampleSequence_Prepend() {
 }
 
 func ExampleSequence_Filter() {
-	sequence := seq.AsSequence(seq.Of(1, 2, 3, 4, 5))
+	sequence := xseq.AsSequence(seq.Of(1, 2, 3, 4, 5))
 	filtered := sequence.Filter(func(v int) bool {
 		return v%2 == 0
 	})
@@ -74,7 +75,7 @@ func ExampleSequence_Filter() {
 }
 
 func ExampleSequence_Where() {
-	sequence := seq.AsSequence(seq.Of(1, 2, 3, 4, 5))
+	sequence := xseq.AsSequence(seq.Of(1, 2, 3, 4, 5))
 	filtered := sequence.Where(func(v int) bool {
 		return v%2 == 0
 	})
@@ -85,7 +86,7 @@ func ExampleSequence_Where() {
 }
 
 func ExampleSequence_Skip() {
-	sequence := seq.AsSequence(seq.Of(1, 2, 3, 4, 5))
+	sequence := xseq.AsSequence(seq.Of(1, 2, 3, 4, 5))
 	skipped := sequence.Skip(2)
 	result := skipped.Collect()
 	fmt.Println(result)
@@ -94,7 +95,7 @@ func ExampleSequence_Skip() {
 }
 
 func ExampleSequence_Offset() {
-	sequence := seq.AsSequence(seq.Of(1, 2, 3, 4, 5))
+	sequence := xseq.AsSequence(seq.Of(1, 2, 3, 4, 5))
 	offset := sequence.Offset(2)
 	result := offset.Collect()
 	fmt.Println(result)
@@ -103,7 +104,7 @@ func ExampleSequence_Offset() {
 }
 
 func ExampleSequence_Take() {
-	sequence := seq.AsSequence(seq.Of(1, 2, 3, 4, 5))
+	sequence := xseq.AsSequence(seq.Of(1, 2, 3, 4, 5))
 	taken := sequence.Take(3)
 	result := taken.Collect()
 	fmt.Println(result)
@@ -112,7 +113,7 @@ func ExampleSequence_Take() {
 }
 
 func ExampleSequence_Limit() {
-	sequence := seq.AsSequence(seq.Of(1, 2, 3, 4, 5))
+	sequence := xseq.AsSequence(seq.Of(1, 2, 3, 4, 5))
 	limited := sequence.Limit(2)
 	result := limited.Collect()
 	fmt.Println(result)
@@ -121,7 +122,7 @@ func ExampleSequence_Limit() {
 }
 
 func ExampleSequence_Tap() {
-	sequence := seq.AsSequence(seq.Of(1, 2, 3)).Tap(func(v int) {
+	sequence := xseq.AsSequence(seq.Of(1, 2, 3)).Tap(func(v int) {
 		fmt.Println(v)
 	})
 	sequence.Flush()
@@ -132,7 +133,7 @@ func ExampleSequence_Tap() {
 }
 
 func ExampleSequence_Each() {
-	sequence := seq.AsSequence(seq.Of(1, 2, 3)).Each(func(v int) {
+	sequence := xseq.AsSequence(seq.Of(1, 2, 3)).Each(func(v int) {
 		fmt.Println(v)
 	})
 	sequence.Flush()
@@ -143,7 +144,7 @@ func ExampleSequence_Each() {
 }
 
 func ExampleSequence_ForEach() {
-	seq.AsSequence(seq.Of(1, 2, 3)).ForEach(func(v int) {
+	xseq.AsSequence(seq.Of(1, 2, 3)).ForEach(func(v int) {
 		fmt.Println(v)
 	})
 	// Output:
@@ -153,13 +154,13 @@ func ExampleSequence_ForEach() {
 }
 
 func ExampleSequence_Flush() {
-	sequence := seq.AsSequence(seq.Of(1, 2, 3))
+	sequence := xseq.AsSequence(seq.Of(1, 2, 3))
 	sequence.Flush()
 	// No output expected
 }
 
 func ExampleSequence_Collect() {
-	sequence := seq.AsSequence(seq.Of(1, 2, 3))
+	sequence := xseq.AsSequence(seq.Of(1, 2, 3))
 	result := sequence.Collect()
 	fmt.Println(result)
 	// Output:
@@ -167,7 +168,7 @@ func ExampleSequence_Collect() {
 }
 
 func ExampleSequence_Count() {
-	sequence := seq.AsSequence(seq.Of(1, 2, 3))
+	sequence := xseq.AsSequence(seq.Of(1, 2, 3))
 	count := sequence.Count()
 	fmt.Println(count)
 	// Output:
@@ -175,7 +176,7 @@ func ExampleSequence_Count() {
 }
 
 func ExampleSequence_ToSlice() {
-	sequence := seq.AsSequence(seq.Of(1, 2, 3))
+	sequence := xseq.AsSequence(seq.Of(1, 2, 3))
 	var slice []int
 	result := sequence.ToSlice(slice)
 	fmt.Println(result)
@@ -184,7 +185,7 @@ func ExampleSequence_ToSlice() {
 }
 
 func ExampleSequence_Find() {
-	sequence := seq.AsSequence(seq.Of(1, 2, 3, 4, 5))
+	sequence := xseq.AsSequence(seq.Of(1, 2, 3, 4, 5))
 	found := sequence.Find(func(v int) bool {
 		return v > 3
 	})
@@ -195,7 +196,7 @@ func ExampleSequence_Find() {
 }
 
 func ExampleSequence_FindLast() {
-	sequence := seq.AsSequence(seq.Of(1, 2, 3, 4, 5))
+	sequence := xseq.AsSequence(seq.Of(1, 2, 3, 4, 5))
 	found := sequence.FindLast(func(v int) bool {
 		return v > 3
 	})
@@ -206,7 +207,7 @@ func ExampleSequence_FindLast() {
 }
 
 func ExampleSequence_FindAll() {
-	sequence := seq.AsSequence(seq.Of(1, 2, 3, 4, 5))
+	sequence := xseq.AsSequence(seq.Of(1, 2, 3, 4, 5))
 	foundAll := sequence.FindAll(func(v int) bool {
 		return v > 3
 	})
@@ -217,7 +218,7 @@ func ExampleSequence_FindAll() {
 }
 
 func ExampleSequence_Contains() {
-	sequence := seq.AsSequence(seq.Of(1, 2, 3, 4, 5))
+	sequence := xseq.AsSequence(seq.Of(1, 2, 3, 4, 5))
 	contains := sequence.Contains(3)
 	fmt.Println(contains)
 	// Output:
@@ -225,7 +226,7 @@ func ExampleSequence_Contains() {
 }
 
 func ExampleSequence_NotContains() {
-	sequence := seq.AsSequence(seq.Of(1, 2, 3, 4, 5))
+	sequence := xseq.AsSequence(seq.Of(1, 2, 3, 4, 5))
 	notContains := sequence.NotContains(6)
 	fmt.Println(notContains)
 	// Output:
@@ -233,7 +234,7 @@ func ExampleSequence_NotContains() {
 }
 
 func ExampleSequence_ContainsAll() {
-	sequence := seq.AsSequence(seq.Of(1, 2, 3, 4, 5))
+	sequence := xseq.AsSequence(seq.Of(1, 2, 3, 4, 5))
 	containsAll := sequence.ContainsAll(2, 3, 4)
 	fmt.Println(containsAll)
 	// Output:
@@ -241,7 +242,7 @@ func ExampleSequence_ContainsAll() {
 }
 
 func ExampleSequence_Exists() {
-	sequence := seq.AsSequence(seq.Of(1, 2, 3, 4, 5))
+	sequence := xseq.AsSequence(seq.Of(1, 2, 3, 4, 5))
 	exists := sequence.Exists(func(v int) bool {
 		return v > 3
 	})
@@ -251,7 +252,7 @@ func ExampleSequence_Exists() {
 }
 
 func ExampleSequence_Every() {
-	sequence := seq.AsSequence(seq.Of(1, 2, 3, 4, 5))
+	sequence := xseq.AsSequence(seq.Of(1, 2, 3, 4, 5))
 	every := sequence.Every(func(v int) bool {
 		return v > 0
 	})
@@ -261,7 +262,7 @@ func ExampleSequence_Every() {
 }
 
 func ExampleSequence_None() {
-	sequence := seq.AsSequence(seq.Of(1, 2, 3, 4, 5))
+	sequence := xseq.AsSequence(seq.Of(1, 2, 3, 4, 5))
 	none := sequence.None(func(v int) bool {
 		return v > 5
 	})
@@ -271,7 +272,7 @@ func ExampleSequence_None() {
 }
 
 func ExampleSequence_IsNotEmpty() {
-	sequence := seq.AsSequence(seq.Of(1, 2, 3))
+	sequence := xseq.AsSequence(seq.Of(1, 2, 3))
 	isNotEmpty := sequence.IsNotEmpty()
 	fmt.Println(isNotEmpty)
 	// Output:
@@ -279,7 +280,7 @@ func ExampleSequence_IsNotEmpty() {
 }
 
 func ExampleSequence_IsEmpty() {
-	sequence := seq.AsSequence(seq.Of[int]())
+	sequence := xseq.AsSequence(seq.Of[int]())
 	isEmpty := sequence.IsEmpty()
 	fmt.Println(isEmpty)
 	// Output:
@@ -287,7 +288,7 @@ func ExampleSequence_IsEmpty() {
 }
 
 func ExampleSequence_Partition() {
-	sequence := seq.AsSequence(seq.Of(1, 2, 3, 4, 5))
+	sequence := xseq.AsSequence(seq.Of(1, 2, 3, 4, 5))
 	partitions := sequence.Partition(2)
 	for partition := range partitions {
 		fmt.Println(seq.Collect(partition))
@@ -299,7 +300,7 @@ func ExampleSequence_Partition() {
 }
 
 func ExampleSequence_Uniq() {
-	sequence := seq.AsSequence(seq.Of(1, 2, 2, 3, 3, 3))
+	sequence := xseq.AsSequence(seq.Of(1, 2, 2, 3, 3, 3))
 	unique := sequence.Uniq()
 	result := unique.Collect()
 	fmt.Println(result)
@@ -308,7 +309,7 @@ func ExampleSequence_Uniq() {
 }
 
 func ExampleSequence_Distinct() {
-	sequence := seq.AsSequence(seq.Of(1, 2, 2, 3, 3, 3))
+	sequence := xseq.AsSequence(seq.Of(1, 2, 2, 3, 3, 3))
 	distinct := sequence.Distinct()
 	result := distinct.Collect()
 	fmt.Println(result)
@@ -317,7 +318,7 @@ func ExampleSequence_Distinct() {
 }
 
 func ExampleSequence_Reverse() {
-	sequence := seq.AsSequence(seq.Of(1, 2, 3))
+	sequence := xseq.AsSequence(seq.Of(1, 2, 3))
 	reversed := sequence.Reverse()
 	result := reversed.Collect()
 	fmt.Println(result)
@@ -325,17 +326,8 @@ func ExampleSequence_Reverse() {
 	// [3 2 1]
 }
 
-func ExampleSequence_Repeat() {
-	sequence := seq.AsSequence(seq.Of(1, 2, 3))
-	repeated := sequence.Repeat(2)
-	result := repeated.Collect()
-	fmt.Println(result)
-	// Output:
-	// [1 2 3 1 2 3]
-}
-
 func ExampleSequence_Fold() {
-	sequence := seq.AsSequence(seq.Of(1, 2, 3, 4, 5))
+	sequence := xseq.AsSequence(seq.Of(1, 2, 3, 4, 5))
 	sum := sequence.Fold(func(agg, item int) int {
 		return agg + item
 	})
@@ -346,7 +338,7 @@ func ExampleSequence_Fold() {
 }
 
 func ExampleSequence_FoldRight() {
-	sequence := seq.AsSequence(seq.Of("a", "b", "c"))
+	sequence := xseq.AsSequence(seq.Of("a", "b", "c"))
 	concat := sequence.FoldRight(func(agg, item string) string {
 		return agg + item
 	})

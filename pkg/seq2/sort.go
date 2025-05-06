@@ -8,8 +8,8 @@ import (
 	"github.com/go-softwarelab/common/pkg/types"
 )
 
-// Sort sorts the elements of a sequence by key in ascending order.
-func Sort[K types.Ordered, V any](seq iter.Seq2[K, V]) iter.Seq2[K, V] {
+// SortByKeys sorts the elements of a sequence by key in ascending order.
+func SortByKeys[K types.Ordered, V any](seq iter.Seq2[K, V]) iter.Seq2[K, V] {
 	return sortComparingPair(seq, func(a, b *pair[K, V]) int {
 		return cmp.Compare(a.k, b.k)
 	})
@@ -17,7 +17,7 @@ func Sort[K types.Ordered, V any](seq iter.Seq2[K, V]) iter.Seq2[K, V] {
 
 // SortBy sorts the elements of a sequence by result of the mapper.
 func SortBy[K any, V any, R types.Ordered](seq iter.Seq2[K, V], mapper func(K, V) R) iter.Seq2[K, V] {
-	withNewKey := MapPairs(seq, func(k K, v V) (R, *pair[K, V]) {
+	withNewKey := Map(seq, func(k K, v V) (R, *pair[K, V]) {
 		return mapper(k, v), &pair[K, V]{k, v}
 	})
 
@@ -27,7 +27,9 @@ func SortBy[K any, V any, R types.Ordered](seq iter.Seq2[K, V], mapper func(K, V
 		})
 
 		for _, p := range sorted {
-			yield(p.k, p.v)
+			if !yield(p.k, p.v) {
+				break
+			}
 		}
 	}
 }
@@ -53,7 +55,7 @@ type pair[K, V any] struct {
 
 func sortComparingPair[K any, V any](seq iter.Seq2[K, V], cmp func(*pair[K, V], *pair[K, V]) int) iter.Seq2[K, V] {
 	return func(yield func(K, V) bool) {
-		pairs := Narrow(seq, func(k K, v V) *pair[K, V] {
+		pairs := MapTo(seq, func(k K, v V) *pair[K, V] {
 			return &pair[K, V]{k, v}
 		})
 		sorted := slices.SortedFunc(pairs, cmp)

@@ -9,9 +9,9 @@ import (
 
 func ExampleConcat() {
 	first := seq2.FromMap(map[string]int{"a": 1, "b": 2})
-	first = seq2.Sort(first)
+	first = seq2.SortByKeys(first)
 	second := seq2.FromMap(map[string]int{"c": 3, "d": 4})
-	second = seq2.Sort(second)
+	second = seq2.SortByKeys(second)
 
 	// Concatenate two sequences
 	combined := seq2.Concat(first, second)
@@ -24,9 +24,9 @@ func ExampleConcat() {
 
 func ExampleUnion() {
 	first := seq2.FromMap(map[string]int{"a": 1, "b": 2, "c": 3})
-	first = seq2.Sort(first)
+	first = seq2.SortByKeys(first)
 	second := seq2.FromMap(map[string]int{"c": 3, "d": 4, "e": 5})
-	second = seq2.Sort(second)
+	second = seq2.SortByKeys(second)
 
 	// Union returns distinct elements from both sequences
 	combined := seq2.Union(first, second)
@@ -39,9 +39,9 @@ func ExampleUnion() {
 
 func ExampleUnionAll() {
 	first := seq2.FromMap(map[string]int{"a": 1, "b": 2})
-	first = seq2.Sort(first)
+	first = seq2.SortByKeys(first)
 	second := seq2.FromMap(map[string]int{"c": 3, "b": 2})
-	second = seq2.Sort(second)
+	second = seq2.SortByKeys(second)
 
 	// UnionAll is an alias for Concat
 	combined := seq2.UnionAll(first, second)
@@ -54,7 +54,7 @@ func ExampleUnionAll() {
 
 func ExampleUnZip() {
 	input := seq2.FromMap(map[string]int{"a": 1, "b": 2, "c": 3})
-	input = seq2.Sort(input)
+	input = seq2.SortByKeys(input)
 
 	// UnZip splits a sequence into keys and values sequences
 	keys, values := seq2.UnZip(input)
@@ -95,7 +95,7 @@ func ExampleUnZip_afterZip() {
 
 func ExampleSplit() {
 	input := seq2.FromMap(map[string]int{"a": 1, "b": 2, "c": 3})
-	input = seq2.Sort(input)
+	input = seq2.SortByKeys(input)
 
 	// Split is an alias for UnZip
 	keys, values := seq2.Split(input)
@@ -118,7 +118,7 @@ func ExampleSplit() {
 
 func ExampleAppend() {
 	input := seq2.FromMap(map[string]int{"a": 1, "b": 2})
-	input = seq2.Sort(input)
+	input = seq2.SortByKeys(input)
 
 	// Append a new key-value pair to the sequence
 	appended := seq2.Append(input, "c", 3)
@@ -131,7 +131,7 @@ func ExampleAppend() {
 
 func ExamplePrepend() {
 	input := seq2.FromMap(map[string]int{"b": 2, "c": 3})
-	input = seq2.Sort(input)
+	input = seq2.SortByKeys(input)
 
 	// Prepend a new key-value pair to the sequence
 	prepended := seq2.Prepend(input, "a", 1)

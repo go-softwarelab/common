@@ -35,17 +35,15 @@ func Values[K, V any](seq iter.Seq2[K, V]) iter.Seq[V] {
 	}
 }
 
-// Pair returns a sequence with given key value.
-func Pair[K, V any](k K, v V) iter.Seq2[K, V] {
+// Single returns a sequence with given key value.
+func Single[K, V any](k K, v V) iter.Seq2[K, V] {
 	return func(yield func(K, V) bool) {
-		if !yield(k, v) {
-			return
-		}
+		yield(k, v)
 	}
 }
 
-// Of creates a new indexed sequence from the given elements.
-func Of[E any](elems ...E) iter.Seq2[int, E] {
+// OfIndexed creates a new indexed sequence from the given elements.
+func OfIndexed[E any](elems ...E) iter.Seq2[int, E] {
 	return slices.All(elems)
 }
 
@@ -122,7 +120,7 @@ func Reverse[K, V any](seq iter.Seq2[K, V]) iter.Seq2[K, V] {
 		k K
 		v V
 	}
-	seqOfPairs := Narrow[K, V, *pair](seq, func(k K, v V) *pair {
+	seqOfPairs := MapTo[K, V, *pair](seq, func(k K, v V) *pair {
 		return &pair{k, v}
 	})
 

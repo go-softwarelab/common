@@ -346,3 +346,255 @@ func ExampleConvertToFloat64FromUnsigned() {
 	// Output:
 	// float64(42)
 }
+
+func ExampleConvertToIntFromString() {
+	// Converting valid string
+	val := must.ConvertToIntFromString("42")
+	fmt.Printf("%T(%d)\n", val, val)
+
+	// Demonstrating panic with recovery
+	func() {
+		defer func() {
+			if r := recover(); r != nil {
+				fmt.Println("Error:", r)
+			}
+		}()
+		// This will panic due to invalid syntax
+		_ = must.ConvertToIntFromString("not-a-number")
+	}()
+
+	// Output:
+	// int(42)
+	// Error: invalid syntax of not-a-number to parse into number
+}
+
+func ExampleConvertToInt8FromString() {
+	// Converting within range
+	val := must.ConvertToInt8FromString("42")
+	fmt.Printf("%T(%d)\n", val, val)
+
+	// Demonstrating panic with recovery
+	func() {
+		defer func() {
+			if r := recover(); r != nil {
+				fmt.Println("Error:", r)
+			}
+		}()
+		// This will panic due to value out of range
+		_ = must.ConvertToInt8FromString("200")
+	}()
+
+	// Output:
+	// int8(42)
+	// Error: 200 value out of range to convert to int8
+}
+
+func ExampleConvertToInt16FromString() {
+	// Converting within range
+	val := must.ConvertToInt16FromString("1000")
+	fmt.Printf("%T(%d)\n", val, val)
+
+	// Demonstrating panic with recovery
+	func() {
+		defer func() {
+			if r := recover(); r != nil {
+				fmt.Println("Error:", r)
+			}
+		}()
+		// This will panic due to value out of range
+		_ = must.ConvertToInt16FromString("40000")
+	}()
+
+	// Output:
+	// int16(1000)
+	// Error: 40000 value out of range to convert to int16
+}
+
+func ExampleConvertToInt32FromString() {
+	// Converting within range
+	val := must.ConvertToInt32FromString("1000000")
+	fmt.Printf("%T(%d)\n", val, val)
+
+	// Demonstrating panic with recovery
+	func() {
+		defer func() {
+			if r := recover(); r != nil {
+				fmt.Println("Error:", r)
+			}
+		}()
+		// This will panic due to value out of range
+		_ = must.ConvertToInt32FromString("3000000000")
+	}()
+
+	// Output:
+	// int32(1000000)
+	// Error: 3000000000 value out of range to convert to int32
+}
+
+func ExampleConvertToInt64FromString() {
+	// Converting within range
+	val := must.ConvertToInt64FromString("9223372036854775807")
+	fmt.Printf("%T(%d)\n", val, val)
+
+	// Demonstrating panic with recovery
+	func() {
+		defer func() {
+			if r := recover(); r != nil {
+				fmt.Println("Error:", r)
+			}
+		}()
+		// This will panic due to value out of range
+		_ = must.ConvertToInt64FromString("9223372036854775808")
+	}()
+
+	// Output:
+	// int64(9223372036854775807)
+	// Error: 9223372036854775808 value out of range to convert to int64
+}
+
+func ExampleConvertToUIntFromString() {
+	// Converting positive value
+	val := must.ConvertToUIntFromString("42")
+	fmt.Printf("%T(%d)\n", val, val)
+
+	// Demonstrating panic with recovery
+	func() {
+		defer func() {
+			if r := recover(); r != nil {
+				fmt.Println("Error:", r)
+			}
+		}()
+		// This will panic due to negative value
+		_ = must.ConvertToUIntFromString("-5")
+	}()
+
+	// Output:
+	// uint(42)
+	// Error: invalid syntax of -5 to parse into number
+}
+
+func ExampleConvertToUInt8FromString() {
+	// Converting within range
+	val := must.ConvertToUInt8FromString("200")
+	fmt.Printf("%T(%d)\n", val, val)
+
+	// Demonstrating panic with recovery
+	func() {
+		defer func() {
+			if r := recover(); r != nil {
+				fmt.Println("Error:", r)
+			}
+		}()
+		// This will panic due to value out of range
+		_ = must.ConvertToUInt8FromString("300")
+	}()
+
+	// Output:
+	// uint8(200)
+	// Error: 300 value out of range to convert to uint8
+}
+
+func ExampleConvertToUInt16FromString() {
+	// Converting within range
+	val := must.ConvertToUInt16FromString("65000")
+	fmt.Printf("%T(%d)\n", val, val)
+
+	// Demonstrating panic with recovery
+	func() {
+		defer func() {
+			if r := recover(); r != nil {
+				fmt.Println("Error:", r)
+			}
+		}()
+		// This will panic due to value out of range
+		_ = must.ConvertToUInt16FromString("70000")
+	}()
+
+	// Output:
+	// uint16(65000)
+	// Error: 70000 value out of range to convert to uint16
+}
+
+func ExampleConvertToUInt32FromString() {
+	// Converting within range
+	val := must.ConvertToUInt32FromString("4000000000")
+	fmt.Printf("%T(%d)\n", val, val)
+
+	// Demonstrating panic with recovery
+	func() {
+		defer func() {
+			if r := recover(); r != nil {
+				fmt.Println("Error:", r)
+			}
+		}()
+		// This will panic due to value out of range
+		_ = must.ConvertToUInt32FromString("5000000000")
+	}()
+
+	// Output:
+	// uint32(4000000000)
+	// Error: 5000000000 value out of range to convert to uint32
+}
+
+func ExampleConvertToUInt64FromString() {
+	// Converting within range
+	val := must.ConvertToUInt64FromString("18446744073709551615")
+	fmt.Printf("%T(%d)\n", val, val)
+
+	// Demonstrating panic with recovery
+	func() {
+		defer func() {
+			if r := recover(); r != nil {
+				fmt.Println("Error:", r)
+			}
+		}()
+		// This will panic due to invalid syntax
+		_ = must.ConvertToUInt64FromString("invalid")
+	}()
+
+	// Output:
+	// uint64(18446744073709551615)
+	// Error: invalid syntax of invalid to parse into number
+}
+
+func ExampleConvertToFloat32FromString() {
+	// Converting within range
+	val := must.ConvertToFloat32FromString("3.14")
+	fmt.Printf("%T(%g)\n", val, val)
+
+	// Demonstrating panic with recovery
+	func() {
+		defer func() {
+			if r := recover(); r != nil {
+				fmt.Println("Error:", r)
+			}
+		}()
+		// This will panic due to invalid syntax
+		_ = must.ConvertToFloat32FromString("not-a-float")
+	}()
+
+	// Output:
+	// float32(3.14)
+	// Error: invalid syntax of not-a-float to parse into number
+}
+
+func ExampleConvertToFloat64FromString() {
+	// Converting within range
+	val := must.ConvertToFloat64FromString("3.141592653589793")
+	fmt.Printf("%T(%g)\n", val, val)
+
+	// Demonstrating panic with recovery
+	func() {
+		defer func() {
+			if r := recover(); r != nil {
+				fmt.Println("Error:", r)
+			}
+		}()
+		// This will panic due to invalid syntax
+		_ = must.ConvertToFloat64FromString("not-a-float")
+	}()
+
+	// Output:
+	// float64(3.141592653589793)
+	// Error: invalid syntax of not-a-float to parse into number
+}

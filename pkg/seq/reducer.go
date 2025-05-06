@@ -22,7 +22,7 @@ func ReduceRight[E any, R any](seq iter.Seq[E], accumulator func(agg R, item E) 
 }
 
 // Fold applies a function against an accumulator and each element in the sequence (from left to right) to reduce it to a single value.
-func Fold[E any](seq iter.Seq[E], accumulator func(agg E, item E) E) optional.Elem[E] {
+func Fold[E any](seq iter.Seq[E], accumulator func(agg E, item E) E) optional.Value[E] {
 	next, stop := iter.Pull(seq)
 	defer stop()
 
@@ -43,52 +43,26 @@ func Fold[E any](seq iter.Seq[E], accumulator func(agg E, item E) E) optional.El
 }
 
 // FoldRight applies a function against an accumulator and each element in the sequence (from right to left) to reduce it to a single value.
-func FoldRight[E any](seq iter.Seq[E], accumulator func(agg E, item E) E) optional.Elem[E] {
+func FoldRight[E any](seq iter.Seq[E], accumulator func(agg E, item E) E) optional.Value[E] {
 	return Fold(Reverse(seq), accumulator)
 }
 
 // Max returns the maximum element in the sequence.
-func Max[E types.Ordered](seq iter.Seq[E]) optional.Elem[E] {
-	var result E
-	next, stop := iter.Pull(seq)
-	defer stop()
-
-	result, ok := next()
-	if !ok {
-		return optional.Empty[E]()
-	}
-
-	for {
-		v, ok := next()
-		if !ok {
-			break
+func Max[E types.Ordered](seq iter.Seq[E]) optional.Value[E] {
+	return Fold(seq, func(agg E, item E) E {
+		if item > agg {
+			return item
 		}
-		if v > result {
-			result = v
-		}
-	}
-	return optional.Of(result)
+		return agg
+	})
 }
 
 // Min returns the minimum element in the sequence.
-func Min[E types.Ordered](seq iter.Seq[E]) optional.Elem[E] {
-	var result E
-	next, stop := iter.Pull(seq)
-	defer stop()
-
-	result, ok := next()
-	if !ok {
-		return optional.Empty[E]()
-	}
-
-	for {
-		v, ok := next()
-		if !ok {
-			break
+func Min[E types.Ordered](seq iter.Seq[E]) optional.Value[E] {
+	return Fold(seq, func(agg E, item E) E {
+		if item < agg {
+			return item
 		}
-		if v < result {
-			result = v
-		}
-	}
-	return optional.Of(result)
+		return agg
+	})
 }

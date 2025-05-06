@@ -10,7 +10,7 @@ import (
 
 func ExampleFilter() {
 	input := seq2.FromMap(map[string]int{"a": 1, "b": 2, "c": 3, "d": 4})
-	input = seq2.Sort(input)
+	input = seq2.SortByKeys(input)
 
 	// Filter elements where the value is even
 	filtered := seq2.Filter(input, func(k string, v int) bool {
@@ -25,7 +25,7 @@ func ExampleFilter() {
 
 func ExampleWhere() {
 	input := seq2.FromMap(map[string]int{"a": 1, "b": 2, "c": 3, "d": 4})
-	input = seq2.Sort(input)
+	input = seq2.SortByKeys(input)
 
 	// Where is an alias for Filter
 	filtered := seq2.Where(input, func(k string, v int) bool {
@@ -40,7 +40,7 @@ func ExampleWhere() {
 
 func ExampleFilterByKey() {
 	input := seq2.FromMap(map[string]int{"a": 1, "b": 2, "c": 3, "d": 4})
-	input = seq2.Sort(input)
+	input = seq2.SortByKeys(input)
 
 	// Filter elements by key
 	filtered := seq2.FilterByKey(input, func(k string) bool {
@@ -55,7 +55,7 @@ func ExampleFilterByKey() {
 
 func ExampleFilterByValue() {
 	input := seq2.FromMap(map[string]int{"a": 1, "b": 2, "c": 3, "d": 4})
-	input = seq2.Sort(input)
+	input = seq2.SortByKeys(input)
 
 	// Filter elements by value
 	filtered := seq2.FilterByValue(input, func(v int) bool {
@@ -69,7 +69,7 @@ func ExampleFilterByValue() {
 }
 
 func ExampleSkip() {
-	input := seq2.Of(10, 20, 30, 40, 20)
+	input := seq2.OfIndexed(10, 20, 30, 40, 20)
 
 	// Skip the first 2 elements
 	skipped := seq2.Skip(input, 2)
@@ -81,7 +81,7 @@ func ExampleSkip() {
 }
 
 func ExampleSkipWhile() {
-	input := seq2.Of(10, 20, 30, 40, 20)
+	input := seq2.OfIndexed(10, 20, 30, 40, 20)
 
 	// Skip elements until the value is less than 30
 	skipped := seq2.SkipWhile(input, func(k int, v int) bool {
@@ -95,7 +95,7 @@ func ExampleSkipWhile() {
 }
 
 func ExampleSkipUntil() {
-	input := seq2.Of(10, 20, 30, 40, 20)
+	input := seq2.OfIndexed(10, 20, 30, 40, 20)
 
 	// Skip elements until value of 30 is reached
 	skipped := seq2.SkipUntil(input, func(k int, v int) bool {
@@ -109,7 +109,7 @@ func ExampleSkipUntil() {
 }
 
 func ExampleOffset() {
-	input := seq2.Of(10, 20, 30, 40, 20)
+	input := seq2.OfIndexed(10, 20, 30, 40, 20)
 
 	// Skip the first 2 elements
 	skipped := seq2.Offset(input, 2)
@@ -122,7 +122,7 @@ func ExampleOffset() {
 
 func ExampleTake() {
 	input := seq2.FromMap(map[string]int{"a": 1, "b": 2, "c": 3, "d": 4})
-	input = seq2.Sort(input)
+	input = seq2.SortByKeys(input)
 
 	// Take the first 2 elements
 	taken := seq2.Take(input, 2)
@@ -134,7 +134,7 @@ func ExampleTake() {
 }
 
 func ExampleTakeWhile() {
-	input := seq2.Of("a", "b", "c", "d")
+	input := seq2.OfIndexed("a", "b", "c", "d")
 
 	// Take elements while value is less than 3
 	taken := seq2.TakeWhile(input, func(k int, v string) bool {
@@ -149,7 +149,7 @@ func ExampleTakeWhile() {
 
 func ExampleTakeUntil() {
 	input := seq2.FromMap(map[string]int{"a": 1, "b": 2, "c": 3, "d": 4})
-	input = seq2.Sort(input)
+	input = seq2.SortByKeys(input)
 
 	// Take elements until value is greater than 2
 	taken := seq2.TakeUntil(input, func(k string, v int) bool {
@@ -164,7 +164,7 @@ func ExampleTakeUntil() {
 
 func ExampleLimit() {
 	input := seq2.FromMap(map[string]int{"a": 1, "b": 2, "c": 3, "d": 4})
-	input = seq2.Sort(input)
+	input = seq2.SortByKeys(input)
 
 	// Limit is an alias for Take
 	taken := seq2.Limit(input, 3)
@@ -210,7 +210,7 @@ func ExampleUniqKeys() {
 func ExampleUniqValues() {
 	// Create a sequence with duplicate values
 	input := seq2.FromMap(map[string]int{"a": 1, "b": 2, "c": 1, "d": 3})
-	input = seq2.Sort(input)
+	input = seq2.SortByKeys(input)
 
 	// Get entries with unique values (first occurrence wins)
 	unique := seq2.UniqValues(input)
@@ -223,7 +223,7 @@ func ExampleUniqValues() {
 
 func ExampleUniqBy() {
 	input := seq2.FromMap(map[string]int{"apple": 1, "banana": 2, "apricot": 3, "berry": 4, "blueberry": 5})
-	input = seq2.Sort(input)
+	input = seq2.SortByKeys(input)
 
 	// Get unique entries based on first letter and value modulo 2
 	unique := seq2.UniqBy(input, func(k string, v int) string {
@@ -238,7 +238,7 @@ func ExampleUniqBy() {
 
 func ExampleUniqByKeys() {
 	input := seq2.FromMap(map[string]int{"Apple": 1, "apricot": 2, "Banana": 3, "berry": 4})
-	input = seq2.Sort(input)
+	input = seq2.SortByKeys(input)
 
 	// Get unique entries based on lowercase first letter of key
 	unique := seq2.UniqByKeys(input, func(k string) string {
@@ -253,7 +253,7 @@ func ExampleUniqByKeys() {
 
 func ExampleUniqByValues() {
 	input := seq2.FromMap(map[string]int{"a": 10, "b": 21, "c": 30, "d": 44})
-	input = seq2.Sort(input)
+	input = seq2.SortByKeys(input)
 
 	// Get unique entries based on value modulo 10
 	unique := seq2.UniqByValues(input, func(v int) int {

@@ -14,13 +14,13 @@ import "github.com/go-softwarelab/common/pkg/optional"
 var ValueNotPresent = errors.New(valueNotPresentErrorMessage)
 ```
 
-<a name="Elem"></a>
-## type [Elem](<https://github.com/go-softwarelab/common/blob/main/pkg/optional/optional.go#L19-L21>)
+<a name="Value"></a>
+## type [Value](<https://github.com/go-softwarelab/common/blob/main/pkg/optional/optional.go#L19-L21>)
 
-Elem represents an optional value.
+Value represents an optional value.
 
 ```go
-type Elem[E any] struct {
+type Value[V any] struct {
     // contains filtered or unexported fields
 }
 ```
@@ -29,7 +29,7 @@ type Elem[E any] struct {
 ### [Empty](<https://github.com/go-softwarelab/common/blob/main/pkg/optional/optional.go#L24>)
 
 ```go
-func Empty[E any]() Elem[E]
+func Empty[V any]() Value[V]
 ```
 
 Empty returns an empty optional value.
@@ -71,7 +71,7 @@ Is present: false
 ### [Map](<https://github.com/go-softwarelab/common/blob/main/pkg/optional/optional_funcs.go#L4>)
 
 ```go
-func Map[E, R any](o Elem[E], f func(E) R) Elem[R]
+func Map[E, R any](o Value[E], f func(E) R) Value[R]
 ```
 
 Map is a function that maps the value of optional if it is present.
@@ -204,11 +204,20 @@ Is mapped present: false
 
 </details>
 
-<a name="Of"></a>
-### [Of](<https://github.com/go-softwarelab/common/blob/main/pkg/optional/optional.go#L31>)
+<a name="None"></a>
+### [None](<https://github.com/go-softwarelab/common/blob/main/pkg/optional/optional.go#L30>)
 
 ```go
-func Of[E any](v E) Elem[E]
+func None[V any]() Value[V]
+```
+
+None returns an empty optional value. alias: Empty
+
+<a name="Of"></a>
+### [Of](<https://github.com/go-softwarelab/common/blob/main/pkg/optional/optional.go#L43>)
+
+```go
+func Of[E any](v E) Value[E]
 ```
 
 Of returns an optional with the given value. If the value is a pointer, and it's nil, it returns an empty optional. Otherwise, it returns non\-empty optional with the given value.
@@ -254,10 +263,10 @@ Nil pointer optional is empty: true
 </details>
 
 <a name="OfPtr"></a>
-### [OfPtr](<https://github.com/go-softwarelab/common/blob/main/pkg/optional/optional.go#L43>)
+### [OfPtr](<https://github.com/go-softwarelab/common/blob/main/pkg/optional/optional.go#L55>)
 
 ```go
-func OfPtr[E any](v *E) Elem[E]
+func OfPtr[E any](v *E) Value[E]
 ```
 
 OfPtr returns an optional with the value from pointer. If the pointer is nil, it returns an empty optional. Otherwise, it returns non\-empty optional with the value pointed to by the pointer.
@@ -302,10 +311,10 @@ Is empty: true
 </details>
 
 <a name="OfValue"></a>
-### [OfValue](<https://github.com/go-softwarelab/common/blob/main/pkg/optional/optional.go#L56>)
+### [OfValue](<https://github.com/go-softwarelab/common/blob/main/pkg/optional/optional.go#L68>)
 
 ```go
-func OfValue[E comparable](v E) Elem[E]
+func OfValue[E comparable](v E) Value[E]
 ```
 
 OfValue returns an optional for the given value. If value is zero value, it returns an empty optional. Otherwise, it returns non\-empty optional with the given value.
@@ -351,11 +360,20 @@ Zero value present: false
 
 </details>
 
-<a name="Elem[E].IfNotPresent"></a>
-### [Elem\[E\].IfNotPresent](<https://github.com/go-softwarelab/common/blob/main/pkg/optional/optional.go#L149>)
+<a name="Some"></a>
+### [Some](<https://github.com/go-softwarelab/common/blob/main/pkg/optional/optional.go#L36>)
 
 ```go
-func (o Elem[E]) IfNotPresent(fn func())
+func Some[V any](v V) Value[V]
+```
+
+Some returns an optional with the given value. It doesn't make any checks on value \- it was caller decision to understand this value as present.
+
+<a name="Value[V].IfNotPresent"></a>
+### [Value\[V\].IfNotPresent](<https://github.com/go-softwarelab/common/blob/main/pkg/optional/optional.go#L161>)
+
+```go
+func (o Value[V]) IfNotPresent(fn func())
 ```
 
 IfNotPresent executes the function if the value is not present.
@@ -399,11 +417,11 @@ This executes when empty
 
 </details>
 
-<a name="Elem[E].IfPresent"></a>
-### [Elem\[E\].IfPresent](<https://github.com/go-softwarelab/common/blob/main/pkg/optional/optional.go#L142>)
+<a name="Value[V].IfPresent"></a>
+### [Value\[V\].IfPresent](<https://github.com/go-softwarelab/common/blob/main/pkg/optional/optional.go#L154>)
 
 ```go
-func (o Elem[E]) IfPresent(fn func(E))
+func (o Value[V]) IfPresent(fn func(V))
 ```
 
 IfPresent executes the function if the value is present.
@@ -447,20 +465,20 @@ Value is present: hello
 
 </details>
 
-<a name="Elem[E].IsEmpty"></a>
-### [Elem\[E\].IsEmpty](<https://github.com/go-softwarelab/common/blob/main/pkg/optional/optional.go#L156>)
+<a name="Value[V].IsEmpty"></a>
+### [Value\[V\].IsEmpty](<https://github.com/go-softwarelab/common/blob/main/pkg/optional/optional.go#L168>)
 
 ```go
-func (o Elem[E]) IsEmpty() bool
+func (o Value[V]) IsEmpty() bool
 ```
 
 IsEmpty returns true if the value is not present.
 
-<a name="Elem[E].IsNotEmpty"></a>
-### [Elem\[E\].IsNotEmpty](<https://github.com/go-softwarelab/common/blob/main/pkg/optional/optional.go#L166>)
+<a name="Value[V].IsNotEmpty"></a>
+### [Value\[V\].IsNotEmpty](<https://github.com/go-softwarelab/common/blob/main/pkg/optional/optional.go#L178>)
 
 ```go
-func (o Elem[E]) IsNotEmpty() bool
+func (o Value[V]) IsNotEmpty() bool
 ```
 
 IsNotEmpty returns true if the value is present.
@@ -500,20 +518,20 @@ Second is not empty: false
 
 </details>
 
-<a name="Elem[E].IsPresent"></a>
-### [Elem\[E\].IsPresent](<https://github.com/go-softwarelab/common/blob/main/pkg/optional/optional.go#L161>)
+<a name="Value[V].IsPresent"></a>
+### [Value\[V\].IsPresent](<https://github.com/go-softwarelab/common/blob/main/pkg/optional/optional.go#L173>)
 
 ```go
-func (o Elem[E]) IsPresent() bool
+func (o Value[V]) IsPresent() bool
 ```
 
 IsPresent returns true if the value is present.
 
-<a name="Elem[E].MustGet"></a>
-### [Elem\[E\].MustGet](<https://github.com/go-softwarelab/common/blob/main/pkg/optional/optional.go#L83>)
+<a name="Value[V].MustGet"></a>
+### [Value\[V\].MustGet](<https://github.com/go-softwarelab/common/blob/main/pkg/optional/optional.go#L95>)
 
 ```go
-func (o Elem[E]) MustGet() E
+func (o Value[V]) MustGet() V
 ```
 
 MustGet returns the value if present, otherwise panics.
@@ -553,11 +571,11 @@ Value: hello
 
 </details>
 
-<a name="Elem[E].MustGetf"></a>
-### [Elem\[E\].MustGetf](<https://github.com/go-softwarelab/common/blob/main/pkg/optional/optional.go#L88>)
+<a name="Value[V].MustGetf"></a>
+### [Value\[V\].MustGetf](<https://github.com/go-softwarelab/common/blob/main/pkg/optional/optional.go#L100>)
 
 ```go
-func (o Elem[E]) MustGetf(msg string, args ...any) E
+func (o Value[V]) MustGetf(msg string, args ...any) V
 ```
 
 MustGetf returns the value if present, otherwise panics with a custom message.
@@ -597,11 +615,11 @@ Value: hello
 
 </details>
 
-<a name="Elem[E].Or"></a>
-### [Elem\[E\].Or](<https://github.com/go-softwarelab/common/blob/main/pkg/optional/optional.go#L65>)
+<a name="Value[V].Or"></a>
+### [Value\[V\].Or](<https://github.com/go-softwarelab/common/blob/main/pkg/optional/optional.go#L77>)
 
 ```go
-func (o Elem[E]) Or(other Elem[E]) Elem[E]
+func (o Value[V]) Or(other Value[V]) Value[V]
 ```
 
 Or returns this optional if present, otherwise returns the other optional.
@@ -643,11 +661,11 @@ Empty or second: second
 
 </details>
 
-<a name="Elem[E].OrElse"></a>
-### [Elem\[E\].OrElse](<https://github.com/go-softwarelab/common/blob/main/pkg/optional/optional.go#L106>)
+<a name="Value[V].OrElse"></a>
+### [Value\[V\].OrElse](<https://github.com/go-softwarelab/common/blob/main/pkg/optional/optional.go#L118>)
 
 ```go
-func (o Elem[E]) OrElse(defaultValue E) E
+func (o Value[V]) OrElse(defaultValue V) V
 ```
 
 OrElse returns the value if present, otherwise returns the default value.
@@ -687,11 +705,11 @@ Empty value: default
 
 </details>
 
-<a name="Elem[E].OrElseGet"></a>
-### [Elem\[E\].OrElseGet](<https://github.com/go-softwarelab/common/blob/main/pkg/optional/optional.go#L115>)
+<a name="Value[V].OrElseGet"></a>
+### [Value\[V\].OrElseGet](<https://github.com/go-softwarelab/common/blob/main/pkg/optional/optional.go#L127>)
 
 ```go
-func (o Elem[E]) OrElseGet(defaultValue func() E) E
+func (o Value[V]) OrElseGet(defaultValue func() V) V
 ```
 
 OrElseGet returns the value if present, otherwise returns the default value from the function.
@@ -739,11 +757,11 @@ Empty value again: default-2
 
 </details>
 
-<a name="Elem[E].OrError"></a>
-### [Elem\[E\].OrError](<https://github.com/go-softwarelab/common/blob/main/pkg/optional/optional.go#L124>)
+<a name="Value[V].OrError"></a>
+### [Value\[V\].OrError](<https://github.com/go-softwarelab/common/blob/main/pkg/optional/optional.go#L136>)
 
 ```go
-func (o Elem[E]) OrError(err error) (E, error)
+func (o Value[V]) OrError(err error) (V, error)
 ```
 
 OrError returns the value if present, otherwise returns the error.
@@ -790,11 +808,11 @@ Empty error: true
 
 </details>
 
-<a name="Elem[E].OrErrorGet"></a>
-### [Elem\[E\].OrErrorGet](<https://github.com/go-softwarelab/common/blob/main/pkg/optional/optional.go#L133>)
+<a name="Value[V].OrErrorGet"></a>
+### [Value\[V\].OrErrorGet](<https://github.com/go-softwarelab/common/blob/main/pkg/optional/optional.go#L145>)
 
 ```go
-func (o Elem[E]) OrErrorGet(err func() error) (E, error)
+func (o Value[V]) OrErrorGet(err func() error) (V, error)
 ```
 
 OrErrorGet returns the value if present, otherwise returns the error from the function.
@@ -847,11 +865,11 @@ Empty error: not found-1
 
 </details>
 
-<a name="Elem[E].OrZeroValue"></a>
-### [Elem\[E\].OrZeroValue](<https://github.com/go-softwarelab/common/blob/main/pkg/optional/optional.go#L97>)
+<a name="Value[V].OrZeroValue"></a>
+### [Value\[V\].OrZeroValue](<https://github.com/go-softwarelab/common/blob/main/pkg/optional/optional.go#L109>)
 
 ```go
-func (o Elem[E]) OrZeroValue() E
+func (o Value[V]) OrZeroValue() V
 ```
 
 OrZeroValue returns the value if present, otherwise returns the zero value of the type.
@@ -891,11 +909,11 @@ Empty value: 0
 
 </details>
 
-<a name="Elem[E].Seq"></a>
-### [Elem\[E\].Seq](<https://github.com/go-softwarelab/common/blob/main/pkg/optional/optional.go#L171>)
+<a name="Value[V].Seq"></a>
+### [Value\[V\].Seq](<https://github.com/go-softwarelab/common/blob/main/pkg/optional/optional.go#L183>)
 
 ```go
-func (o Elem[E]) Seq() iter.Seq[E]
+func (o Value[V]) Seq() iter.Seq[V]
 ```
 
 Seq returns the sequence with yelded value if present, otherwise returns an empty sequence.
@@ -947,14 +965,14 @@ Empty values length: 0
 
 </details>
 
-<a name="Elem[E].Seq2"></a>
-### [Elem\[E\].Seq2](<https://github.com/go-softwarelab/common/blob/main/pkg/optional/optional.go#L181>)
+<a name="Value[V].Seq2"></a>
+### [Value\[V\].Seq2](<https://github.com/go-softwarelab/common/blob/main/pkg/optional/optional.go#L193>)
 
 ```go
-func (o Elem[E]) Seq2() iter.Seq2[E, error]
+func (o Value[V]) Seq2() iter.Seq2[V, error]
 ```
 
-Seq2 returns the iter.Seq2\[E, error\] with yelded value if present, otherwise yields an error. Useful with usage of seqerr package.
+Seq2 returns the iter.Seq2\[V, error\] with yelded value if present, otherwise yields an error. Useful with usage of seqerr package.
 
 <details>
 <summary>Example</summary>
@@ -1003,11 +1021,11 @@ Expected error: value is not present
 
 </details>
 
-<a name="Elem[E].ShouldGet"></a>
-### [Elem\[E\].ShouldGet](<https://github.com/go-softwarelab/common/blob/main/pkg/optional/optional.go#L74>)
+<a name="Value[V].ShouldGet"></a>
+### [Value\[V\].ShouldGet](<https://github.com/go-softwarelab/common/blob/main/pkg/optional/optional.go#L86>)
 
 ```go
-func (o Elem[E]) ShouldGet() (E, error)
+func (o Value[V]) ShouldGet() (V, error)
 ```
 
 ShouldGet returns the value if present, otherwise returns the error ValueNotPresent.

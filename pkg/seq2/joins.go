@@ -8,7 +8,7 @@ func Concat[K any, V any](sequences ...iter.Seq2[K, V]) iter.Seq2[K, V] {
 		for _, seq := range sequences {
 			for k, v := range seq {
 				if !yield(k, v) {
-					break
+					return
 				}
 			}
 		}
@@ -25,12 +25,12 @@ func UnionAll[K any, V any](seq1 iter.Seq2[K, V], seq2 iter.Seq2[K, V]) iter.Seq
 	return func(yield func(K, V) bool) {
 		for k, v := range seq1 {
 			if !yield(k, v) {
-				break
+				return
 			}
 		}
 		for k, v := range seq2 {
 			if !yield(k, v) {
-				break
+				return
 			}
 		}
 	}
@@ -48,10 +48,10 @@ func Split[K any, V any](seq iter.Seq2[K, V]) (iter.Seq[K], iter.Seq[V]) {
 
 // Append appends element to the end of a sequence.
 func Append[K any, V any](seq iter.Seq2[K, V], key K, value V) iter.Seq2[K, V] {
-	return Concat(seq, Pair(key, value))
+	return Concat(seq, Single(key, value))
 }
 
 // Prepend prepends element to the beginning of a sequence.
 func Prepend[K any, V any](seq iter.Seq2[K, V], key K, value V) iter.Seq2[K, V] {
-	return Concat(Pair(key, value), seq)
+	return Concat(Single(key, value), seq)
 }

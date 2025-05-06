@@ -37,11 +37,11 @@ func SortBy[E any, K types.Ordered](seq iter.Seq[E], keyFn Mapper[E, K]) iter.Se
 			return cmp.Compare(a.k, b.k)
 		})
 
-		result := Map(FromSlice(s), func(p pair) E {
-			return p.e
-		})
-
-		result(yield)
+		for _, v := range s {
+			if !yield(v.e) {
+				return
+			}
+		}
 	}
 }
 

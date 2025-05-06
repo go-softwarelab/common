@@ -10,7 +10,7 @@ import (
 func ExampleTap() {
 	input := seq2.FromMap(map[string]int{"a": 1, "b": 2, "c": 3})
 	// Ensure to have consistent output
-	input = seq2.Sort(input)
+	input = seq2.SortByKeys(input)
 
 	// Use Tap to print key-value pairs while passing them through
 	tapped := seq2.Tap(input, func(k string, v int) {
@@ -27,7 +27,7 @@ func ExampleTap() {
 
 func ExampleEach() {
 	input := seq2.FromMap(map[string]int{"a": 1, "b": 2, "c": 3})
-	input = seq2.Sort(input)
+	input = seq2.SortByKeys(input)
 
 	tapped := seq2.Each(input, func(k string, v int) {
 		fmt.Printf("Each: %s -> %d\n", k, v)
@@ -42,7 +42,7 @@ func ExampleEach() {
 }
 
 func ExampleForEach() {
-	input := seq2.Of("a", "b", "c")
+	input := seq2.OfIndexed("a", "b", "c")
 
 	// ForEach consumes the sequence and applies the function
 	seq2.ForEach(input, func(k int, v string) {
@@ -83,7 +83,7 @@ func ExampleFlush() {
 
 func ExampleToMap() {
 	input := seq2.FromMap(map[string]int{"a": 1, "b": 2, "c": 3})
-	input = seq2.Sort(input)
+	input = seq2.SortByKeys(input)
 
 	result := make(map[string]int, 3)
 	seq2.ToMap(input, result)
@@ -95,7 +95,7 @@ func ExampleToMap() {
 
 func ExampleCollectToMap() {
 	input := seq2.FromMap(map[string]int{"a": 1, "b": 2, "c": 3})
-	input = seq2.Sort(input)
+	input = seq2.SortByKeys(input)
 
 	result := seq2.CollectToMap(input)
 
@@ -106,7 +106,7 @@ func ExampleCollectToMap() {
 
 func ExampleCollect() {
 	input := seq2.FromMap(map[string]int{"a": 1, "b": 2, "c": 3})
-	input = seq2.Sort(input)
+	input = seq2.SortByKeys(input)
 
 	result := seq2.Collect(input)
 
@@ -118,7 +118,7 @@ func ExampleCollect() {
 
 func ExampleCount() {
 	input := seq2.FromMap(map[string]int{"a": 1, "b": 2, "c": 3})
-	input = seq2.Sort(input)
+	input = seq2.SortByKeys(input)
 
 	// Count returns the number of elements in the sequence
 	count := seq2.Count(input)

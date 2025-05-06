@@ -19,9 +19,9 @@ func ExampleEmpty() {
 	// Output:
 }
 
-func ExamplePair() {
+func ExampleSingle() {
 	// Create a sequence with a single key-value pair
-	single := seq2.Pair("key", 42)
+	single := seq2.Single("key", 42)
 
 	seq2.ForEach(single, func(k string, v int) {
 		fmt.Println(k, ":", v)
@@ -30,9 +30,9 @@ func ExamplePair() {
 	// key : 42
 }
 
-func ExampleOf() {
+func ExampleOfIndexed() {
 	// Create a sequence from individual elements
-	indexed := seq2.Of(1, 2, 3)
+	indexed := seq2.OfIndexed(1, 2, 3)
 
 	result := seq2.CollectToMap(indexed)
 	fmt.Println(result)
@@ -66,7 +66,7 @@ func ExampleWithIndex() {
 
 func ExampleWithoutIndex() {
 	// Create an indexed sequence
-	indexed := seq2.Of("a", "b", "c")
+	indexed := seq2.OfIndexed("a", "b", "c")
 
 	// Remove indexes
 	values := seq2.WithoutIndex(indexed)
@@ -92,7 +92,7 @@ func ExampleRepeat() {
 
 func ExampleReverse() {
 	// Create an indexed sequence
-	sequence := seq2.Of("a", "b", "c")
+	sequence := seq2.OfIndexed("a", "b", "c")
 
 	// Reverse it
 	reversed := seq2.Reverse(sequence)
