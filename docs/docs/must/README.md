@@ -66,6 +66,59 @@ Error: 3.5e+38 value out of range to convert to float32
 
 </details>
 
+<a name="ConvertToFloat32FromString"></a>
+## [ConvertToFloat32FromString](<https://github.com/go-softwarelab/common/blob/main/pkg/must/converters.go#L154>)
+
+```go
+func ConvertToFloat32FromString(value string) float32
+```
+
+ConvertToFloat32FromString converts a string to float32, panicking in case if the string is not a valid number.
+
+<details>
+<summary>Example</summary>
+
+
+
+
+```go
+package main
+
+import (
+	"fmt"
+
+	"github.com/go-softwarelab/common/pkg/must"
+)
+
+func main() {
+	// Converting within range
+	val := must.ConvertToFloat32FromString("3.14")
+	fmt.Printf("%T(%g)\n", val, val)
+
+	// Demonstrating panic with recovery
+	func() {
+		defer func() {
+			if r := recover(); r != nil {
+				fmt.Println("Error:", r)
+			}
+		}()
+		// This will panic due to invalid syntax
+		_ = must.ConvertToFloat32FromString("not-a-float")
+	}()
+
+}
+```
+
+**Output**
+
+```
+float32(3.14)
+Error: invalid syntax of not-a-float to parse into number
+```
+
+
+</details>
+
 <a name="ConvertToFloat32FromUnsigned"></a>
 ## [ConvertToFloat32FromUnsigned](<https://github.com/go-softwarelab/common/blob/main/pkg/must/converters.go#L94>)
 
@@ -143,6 +196,59 @@ func main() {
 
 ```
 float64(3)
+```
+
+
+</details>
+
+<a name="ConvertToFloat64FromString"></a>
+## [ConvertToFloat64FromString](<https://github.com/go-softwarelab/common/blob/main/pkg/must/converters.go#L159>)
+
+```go
+func ConvertToFloat64FromString(value string) float64
+```
+
+ConvertToFloat64FromString converts a string to float64, panicking in case if the string is not a valid number.
+
+<details>
+<summary>Example</summary>
+
+
+
+
+```go
+package main
+
+import (
+	"fmt"
+
+	"github.com/go-softwarelab/common/pkg/must"
+)
+
+func main() {
+	// Converting within range
+	val := must.ConvertToFloat64FromString("3.141592653589793")
+	fmt.Printf("%T(%g)\n", val, val)
+
+	// Demonstrating panic with recovery
+	func() {
+		defer func() {
+			if r := recover(); r != nil {
+				fmt.Println("Error:", r)
+			}
+		}()
+		// This will panic due to invalid syntax
+		_ = must.ConvertToFloat64FromString("not-a-float")
+	}()
+
+}
+```
+
+**Output**
+
+```
+float64(3.141592653589793)
+Error: invalid syntax of not-a-float to parse into number
 ```
 
 
@@ -283,6 +389,59 @@ Error: 40000 value out of range to convert to int16
 
 </details>
 
+<a name="ConvertToInt16FromString"></a>
+## [ConvertToInt16FromString](<https://github.com/go-softwarelab/common/blob/main/pkg/must/converters.go#L114>)
+
+```go
+func ConvertToInt16FromString(value string) int16
+```
+
+ConvertToInt16FromString converts a string to int16, panicking in case if the string is not a valid number.
+
+<details>
+<summary>Example</summary>
+
+
+
+
+```go
+package main
+
+import (
+	"fmt"
+
+	"github.com/go-softwarelab/common/pkg/must"
+)
+
+func main() {
+	// Converting within range
+	val := must.ConvertToInt16FromString("1000")
+	fmt.Printf("%T(%d)\n", val, val)
+
+	// Demonstrating panic with recovery
+	func() {
+		defer func() {
+			if r := recover(); r != nil {
+				fmt.Println("Error:", r)
+			}
+		}()
+		// This will panic due to value out of range
+		_ = must.ConvertToInt16FromString("40000")
+	}()
+
+}
+```
+
+**Output**
+
+```
+int16(1000)
+Error: 40000 value out of range to convert to int16
+```
+
+
+</details>
+
 <a name="ConvertToInt16FromUnsigned"></a>
 ## [ConvertToInt16FromUnsigned](<https://github.com/go-softwarelab/common/blob/main/pkg/must/converters.go#L34>)
 
@@ -389,6 +548,59 @@ Error: 3000000000 value out of range to convert to int32
 
 </details>
 
+<a name="ConvertToInt32FromString"></a>
+## [ConvertToInt32FromString](<https://github.com/go-softwarelab/common/blob/main/pkg/must/converters.go#L119>)
+
+```go
+func ConvertToInt32FromString(value string) int32
+```
+
+ConvertToInt32FromString converts a string to int32, panicking in case if the string is not a valid number.
+
+<details>
+<summary>Example</summary>
+
+
+
+
+```go
+package main
+
+import (
+	"fmt"
+
+	"github.com/go-softwarelab/common/pkg/must"
+)
+
+func main() {
+	// Converting within range
+	val := must.ConvertToInt32FromString("1000000")
+	fmt.Printf("%T(%d)\n", val, val)
+
+	// Demonstrating panic with recovery
+	func() {
+		defer func() {
+			if r := recover(); r != nil {
+				fmt.Println("Error:", r)
+			}
+		}()
+		// This will panic due to value out of range
+		_ = must.ConvertToInt32FromString("3000000000")
+	}()
+
+}
+```
+
+**Output**
+
+```
+int32(1000000)
+Error: 3000000000 value out of range to convert to int32
+```
+
+
+</details>
+
 <a name="ConvertToInt32FromUnsigned"></a>
 ## [ConvertToInt32FromUnsigned](<https://github.com/go-softwarelab/common/blob/main/pkg/must/converters.go#L44>)
 
@@ -478,6 +690,59 @@ func main() {
 
 ```
 int64(9223372036854775807)
+```
+
+
+</details>
+
+<a name="ConvertToInt64FromString"></a>
+## [ConvertToInt64FromString](<https://github.com/go-softwarelab/common/blob/main/pkg/must/converters.go#L124>)
+
+```go
+func ConvertToInt64FromString(value string) int64
+```
+
+ConvertToInt64FromString converts a string to int64, panicking in case if the string is not a valid number.
+
+<details>
+<summary>Example</summary>
+
+
+
+
+```go
+package main
+
+import (
+	"fmt"
+
+	"github.com/go-softwarelab/common/pkg/must"
+)
+
+func main() {
+	// Converting within range
+	val := must.ConvertToInt64FromString("9223372036854775807")
+	fmt.Printf("%T(%d)\n", val, val)
+
+	// Demonstrating panic with recovery
+	func() {
+		defer func() {
+			if r := recover(); r != nil {
+				fmt.Println("Error:", r)
+			}
+		}()
+		// This will panic due to value out of range
+		_ = must.ConvertToInt64FromString("9223372036854775808")
+	}()
+
+}
+```
+
+**Output**
+
+```
+int64(9223372036854775807)
+Error: 9223372036854775808 value out of range to convert to int64
 ```
 
 
@@ -589,6 +854,59 @@ Error: 1000 value out of range to convert to int8
 
 </details>
 
+<a name="ConvertToInt8FromString"></a>
+## [ConvertToInt8FromString](<https://github.com/go-softwarelab/common/blob/main/pkg/must/converters.go#L109>)
+
+```go
+func ConvertToInt8FromString(value string) int8
+```
+
+ConvertToInt8FromString converts a string to int8, panicking in case if the string is not a valid number.
+
+<details>
+<summary>Example</summary>
+
+
+
+
+```go
+package main
+
+import (
+	"fmt"
+
+	"github.com/go-softwarelab/common/pkg/must"
+)
+
+func main() {
+	// Converting within range
+	val := must.ConvertToInt8FromString("42")
+	fmt.Printf("%T(%d)\n", val, val)
+
+	// Demonstrating panic with recovery
+	func() {
+		defer func() {
+			if r := recover(); r != nil {
+				fmt.Println("Error:", r)
+			}
+		}()
+		// This will panic due to value out of range
+		_ = must.ConvertToInt8FromString("200")
+	}()
+
+}
+```
+
+**Output**
+
+```
+int8(42)
+Error: 200 value out of range to convert to int8
+```
+
+
+</details>
+
 <a name="ConvertToInt8FromUnsigned"></a>
 ## [ConvertToInt8FromUnsigned](<https://github.com/go-softwarelab/common/blob/main/pkg/must/converters.go#L24>)
 
@@ -637,6 +955,59 @@ func main() {
 ```
 int8(42)
 Error: 200 value out of range to convert to int8
+```
+
+
+</details>
+
+<a name="ConvertToIntFromString"></a>
+## [ConvertToIntFromString](<https://github.com/go-softwarelab/common/blob/main/pkg/must/converters.go#L104>)
+
+```go
+func ConvertToIntFromString(value string) int
+```
+
+ConvertToIntFromString converts a string to int, panicking in case if the string is not a valid number.
+
+<details>
+<summary>Example</summary>
+
+
+
+
+```go
+package main
+
+import (
+	"fmt"
+
+	"github.com/go-softwarelab/common/pkg/must"
+)
+
+func main() {
+	// Converting valid string
+	val := must.ConvertToIntFromString("42")
+	fmt.Printf("%T(%d)\n", val, val)
+
+	// Demonstrating panic with recovery
+	func() {
+		defer func() {
+			if r := recover(); r != nil {
+				fmt.Println("Error:", r)
+			}
+		}()
+		// This will panic due to invalid syntax
+		_ = must.ConvertToIntFromString("not-a-number")
+	}()
+
+}
+```
+
+**Output**
+
+```
+int(42)
+Error: invalid syntax of not-a-number to parse into number
 ```
 
 
@@ -802,6 +1173,59 @@ Error: 70000 value out of range to convert to uint16
 
 </details>
 
+<a name="ConvertToUInt16FromString"></a>
+## [ConvertToUInt16FromString](<https://github.com/go-softwarelab/common/blob/main/pkg/must/converters.go#L139>)
+
+```go
+func ConvertToUInt16FromString(value string) uint16
+```
+
+ConvertToUInt16FromString converts a string to uint16, panicking in case if the string is not a valid number.
+
+<details>
+<summary>Example</summary>
+
+
+
+
+```go
+package main
+
+import (
+	"fmt"
+
+	"github.com/go-softwarelab/common/pkg/must"
+)
+
+func main() {
+	// Converting within range
+	val := must.ConvertToUInt16FromString("65000")
+	fmt.Printf("%T(%d)\n", val, val)
+
+	// Demonstrating panic with recovery
+	func() {
+		defer func() {
+			if r := recover(); r != nil {
+				fmt.Println("Error:", r)
+			}
+		}()
+		// This will panic due to value out of range
+		_ = must.ConvertToUInt16FromString("70000")
+	}()
+
+}
+```
+
+**Output**
+
+```
+uint16(65000)
+Error: 70000 value out of range to convert to uint16
+```
+
+
+</details>
+
 <a name="ConvertToUInt32"></a>
 ## [ConvertToUInt32](<https://github.com/go-softwarelab/common/blob/main/pkg/must/converters.go#L74>)
 
@@ -850,6 +1274,59 @@ func main() {
 ```
 uint32(42)
 Error: -5 value out of range to convert to uint32
+```
+
+
+</details>
+
+<a name="ConvertToUInt32FromString"></a>
+## [ConvertToUInt32FromString](<https://github.com/go-softwarelab/common/blob/main/pkg/must/converters.go#L144>)
+
+```go
+func ConvertToUInt32FromString(value string) uint32
+```
+
+ConvertToUInt32FromString converts a string to uint32, panicking in case if the string is not a valid number.
+
+<details>
+<summary>Example</summary>
+
+
+
+
+```go
+package main
+
+import (
+	"fmt"
+
+	"github.com/go-softwarelab/common/pkg/must"
+)
+
+func main() {
+	// Converting within range
+	val := must.ConvertToUInt32FromString("4000000000")
+	fmt.Printf("%T(%d)\n", val, val)
+
+	// Demonstrating panic with recovery
+	func() {
+		defer func() {
+			if r := recover(); r != nil {
+				fmt.Println("Error:", r)
+			}
+		}()
+		// This will panic due to value out of range
+		_ = must.ConvertToUInt32FromString("5000000000")
+	}()
+
+}
+```
+
+**Output**
+
+```
+uint32(4000000000)
+Error: 5000000000 value out of range to convert to uint32
 ```
 
 
@@ -908,6 +1385,59 @@ Error: -1 value out of range to convert to uint64
 
 </details>
 
+<a name="ConvertToUInt64FromString"></a>
+## [ConvertToUInt64FromString](<https://github.com/go-softwarelab/common/blob/main/pkg/must/converters.go#L149>)
+
+```go
+func ConvertToUInt64FromString(value string) uint64
+```
+
+ConvertToUInt64FromString converts a string to uint64, panicking in case if the string is not a valid number.
+
+<details>
+<summary>Example</summary>
+
+
+
+
+```go
+package main
+
+import (
+	"fmt"
+
+	"github.com/go-softwarelab/common/pkg/must"
+)
+
+func main() {
+	// Converting within range
+	val := must.ConvertToUInt64FromString("18446744073709551615")
+	fmt.Printf("%T(%d)\n", val, val)
+
+	// Demonstrating panic with recovery
+	func() {
+		defer func() {
+			if r := recover(); r != nil {
+				fmt.Println("Error:", r)
+			}
+		}()
+		// This will panic due to invalid syntax
+		_ = must.ConvertToUInt64FromString("invalid")
+	}()
+
+}
+```
+
+**Output**
+
+```
+uint64(18446744073709551615)
+Error: invalid syntax of invalid to parse into number
+```
+
+
+</details>
+
 <a name="ConvertToUInt8"></a>
 ## [ConvertToUInt8](<https://github.com/go-softwarelab/common/blob/main/pkg/must/converters.go#L64>)
 
@@ -956,6 +1486,112 @@ func main() {
 ```
 uint8(200)
 Error: 300 value out of range to convert to uint8
+```
+
+
+</details>
+
+<a name="ConvertToUInt8FromString"></a>
+## [ConvertToUInt8FromString](<https://github.com/go-softwarelab/common/blob/main/pkg/must/converters.go#L134>)
+
+```go
+func ConvertToUInt8FromString(value string) uint8
+```
+
+ConvertToUInt8FromString converts a string to uint8, panicking in case if the string is not a valid number.
+
+<details>
+<summary>Example</summary>
+
+
+
+
+```go
+package main
+
+import (
+	"fmt"
+
+	"github.com/go-softwarelab/common/pkg/must"
+)
+
+func main() {
+	// Converting within range
+	val := must.ConvertToUInt8FromString("200")
+	fmt.Printf("%T(%d)\n", val, val)
+
+	// Demonstrating panic with recovery
+	func() {
+		defer func() {
+			if r := recover(); r != nil {
+				fmt.Println("Error:", r)
+			}
+		}()
+		// This will panic due to value out of range
+		_ = must.ConvertToUInt8FromString("300")
+	}()
+
+}
+```
+
+**Output**
+
+```
+uint8(200)
+Error: 300 value out of range to convert to uint8
+```
+
+
+</details>
+
+<a name="ConvertToUIntFromString"></a>
+## [ConvertToUIntFromString](<https://github.com/go-softwarelab/common/blob/main/pkg/must/converters.go#L129>)
+
+```go
+func ConvertToUIntFromString(value string) uint
+```
+
+ConvertToUIntFromString converts a string to uint, panicking in case if the string is not a valid number.
+
+<details>
+<summary>Example</summary>
+
+
+
+
+```go
+package main
+
+import (
+	"fmt"
+
+	"github.com/go-softwarelab/common/pkg/must"
+)
+
+func main() {
+	// Converting positive value
+	val := must.ConvertToUIntFromString("42")
+	fmt.Printf("%T(%d)\n", val, val)
+
+	// Demonstrating panic with recovery
+	func() {
+		defer func() {
+			if r := recover(); r != nil {
+				fmt.Println("Error:", r)
+			}
+		}()
+		// This will panic due to negative value
+		_ = must.ConvertToUIntFromString("-5")
+	}()
+
+}
+```
+
+**Output**
+
+```
+uint(42)
+Error: invalid syntax of -5 to parse into number
 ```
 
 

@@ -15,37 +15,49 @@ const valueNotPresentErrorMessage = "value is not present"
 // ValueNotPresent is the error returned or passed to iter.Seq2 when the value is not present.
 var ValueNotPresent = errors.New(valueNotPresentErrorMessage)
 
-// Elem represents an optional value.
-type Elem[E any] struct {
-	value *E
+// Value represents an optional value.
+type Value[V any] struct {
+	value *V
 }
 
 // Empty returns an empty optional value.
-func Empty[E any]() Elem[E] {
-	return Elem[E]{}
+func Empty[V any]() Value[V] {
+	return Value[V]{}
+}
+
+// None returns an empty optional value.
+// alias: Empty
+func None[V any]() Value[V] {
+	return Empty[V]()
+}
+
+// Some returns an optional with the given value.
+// It doesn't make any checks on value - it was caller decision to understand this value as present.
+func Some[V any](v V) Value[V] {
+	return Value[V]{value: &v}
 }
 
 // Of returns an optional with the given value.
 // If the value is a pointer, and it's nil, it returns an empty optional.
 // Otherwise, it returns non-empty optional with the given value.
-func Of[E any](v E) Elem[E] {
+func Of[E any](v E) Value[E] {
 	val := reflect.ValueOf(v)
 	if val.Kind() == reflect.Ptr && val.IsNil() {
-		return Elem[E]{}
+		return Value[E]{}
 	}
 
-	return Elem[E]{value: &v}
+	return Value[E]{value: &v}
 }
 
 // OfPtr returns an optional with the value from pointer.
 // If the pointer is nil, it returns an empty optional.
 // Otherwise, it returns non-empty optional with the value pointed to by the pointer.
-func OfPtr[E any](v *E) Elem[E] {
+func OfPtr[E any](v *E) Value[E] {
 	if v == nil {
-		return Elem[E]{}
+		return Value[E]{}
 	}
 
-	return Elem[E]{value: v}
+	return Value[E]{value: v}
 }
 
 // OfValue returns an optional for the given value.
@@ -53,16 +65,16 @@ func OfPtr[E any](v *E) Elem[E] {
 // Otherwise, it returns non-empty optional with the given value.
 //
 // If zero value is valid existing value for you, for example when the value is int, then prefer Of() instead.
-func OfValue[E comparable](v E) Elem[E] {
+func OfValue[E comparable](v E) Value[E] {
 	if is.Zero[E](v) {
-		return Elem[E]{}
+		return Value[E]{}
 	}
 
-	return Elem[E]{value: &v}
+	return Value[E]{value: &v}
 }
 
 // Or returns this optional if present, otherwise returns the other optional.
-func (o Elem[E]) Or(other Elem[E]) Elem[E] {
+func (o Value[V]) Or(other Value[V]) Value[V] {
 	if o.IsPresent() {
 		return o
 	}
@@ -71,21 +83,21 @@ func (o Elem[E]) Or(other Elem[E]) Elem[E] {
 }
 
 // ShouldGet returns the value if present, otherwise returns the error ValueNotPresent.
-func (o Elem[E]) ShouldGet() (E, error) {
+func (o Value[V]) ShouldGet() (V, error) {
 	if o.IsEmpty() {
-		return to.ZeroValue[E](), ValueNotPresent
+		return to.ZeroValue[V](), ValueNotPresent
 	}
 
 	return *o.value, nil
 }
 
 // MustGet returns the value if present, otherwise panics.
-func (o Elem[E]) MustGet() E {
+func (o Value[V]) MustGet() V {
 	return o.MustGetf(valueNotPresentErrorMessage)
 }
 
 // MustGetf returns the value if present, otherwise panics with a custom message.
-func (o Elem[E]) MustGetf(msg string, args ...any) E {
+func (o Value[V]) MustGetf(msg string, args ...any) V {
 	if o.IsEmpty() {
 		panic(fmt.Sprintf(msg, args...))
 	}
@@ -94,16 +106,16 @@ func (o Elem[E]) MustGetf(msg string, args ...any) E {
 }
 
 // OrZeroValue returns the value if present, otherwise returns the zero value of the type.
-func (o Elem[E]) OrZeroValue() E {
+func (o Value[V]) OrZeroValue() V {
 	if o.IsEmpty() {
-		return to.ZeroValue[E]()
+		return to.ZeroValue[V]()
 	}
 
 	return *o.value
 }
 
 // OrElse returns the value if present, otherwise returns the default value.
-func (o Elem[E]) OrElse(defaultValue E) E {
+func (o Value[V]) OrElse(defaultValue V) V {
 	if o.IsEmpty() {
 		return defaultValue
 	}
@@ -112,7 +124,7 @@ func (o Elem[E]) OrElse(defaultValue E) E {
 }
 
 // OrElseGet returns the value if present, otherwise returns the default value from the function.
-func (o Elem[E]) OrElseGet(defaultValue func() E) E {
+func (o Value[V]) OrElseGet(defaultValue func() V) V {
 	if o.IsEmpty() {
 		return defaultValue()
 	}
@@ -121,69 +133,69 @@ func (o Elem[E]) OrElseGet(defaultValue func() E) E {
 }
 
 // OrError returns the value if present, otherwise returns the error.
-func (o Elem[E]) OrError(err error) (E, error) {
+func (o Value[V]) OrError(err error) (V, error) {
 	if o.IsEmpty() {
-		return to.ZeroValue[E](), err
+		return to.ZeroValue[V](), err
 	}
 
 	return *o.value, nil
 }
 
 // OrErrorGet returns the value if present, otherwise returns the error from the function.
-func (o Elem[E]) OrErrorGet(err func() error) (E, error) {
+func (o Value[V]) OrErrorGet(err func() error) (V, error) {
 	if o.IsEmpty() {
-		return to.ZeroValue[E](), err()
+		return to.ZeroValue[V](), err()
 	}
 
 	return *o.value, nil
 }
 
 // IfPresent executes the function if the value is present.
-func (o Elem[E]) IfPresent(fn func(E)) {
+func (o Value[V]) IfPresent(fn func(V)) {
 	if o.IsPresent() {
 		fn(*o.value)
 	}
 }
 
 // IfNotPresent executes the function if the value is not present.
-func (o Elem[E]) IfNotPresent(fn func()) {
+func (o Value[V]) IfNotPresent(fn func()) {
 	if o.IsEmpty() {
 		fn()
 	}
 }
 
 // IsEmpty returns true if the value is not present.
-func (o Elem[E]) IsEmpty() bool {
+func (o Value[V]) IsEmpty() bool {
 	return o.value == nil
 }
 
 // IsPresent returns true if the value is present.
-func (o Elem[E]) IsPresent() bool {
+func (o Value[V]) IsPresent() bool {
 	return o.value != nil
 }
 
 // IsNotEmpty returns true if the value is present.
-func (o Elem[E]) IsNotEmpty() bool {
+func (o Value[V]) IsNotEmpty() bool {
 	return o.value != nil
 }
 
 // Seq returns the sequence with yelded value if present, otherwise returns an empty sequence.
-func (o Elem[E]) Seq() iter.Seq[E] {
-	return func(yield func(E) bool) {
+func (o Value[V]) Seq() iter.Seq[V] {
+	return func(yield func(V) bool) {
 		if o.IsPresent() {
 			yield(*o.value)
 		}
 	}
 }
 
-// Seq2 returns the iter.Seq2[E, error] with yelded value if present, otherwise yields an error.
+// Seq2 returns the iter.Seq2[V, error] with yelded value if present, otherwise yields an error.
 // Useful with usage of seqerr package.
-func (o Elem[E]) Seq2() iter.Seq2[E, error] {
-	return func(yield func(E, error) bool) {
+func (o Value[V]) Seq2() iter.Seq2[V, error] {
+	return func(yield func(V, error) bool) {
 		if o.IsPresent() {
 			yield(*o.value, nil)
 		} else {
-			yield(to.ZeroValue[E](), ValueNotPresent)
+			yield(to.ZeroValue[V](), ValueNotPresent)
 		}
 	}
 }

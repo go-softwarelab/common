@@ -2,9 +2,9 @@ package seq_test
 
 import (
 	"fmt"
-	"iter"
 
 	"github.com/go-softwarelab/common/pkg/seq"
+	"github.com/go-softwarelab/common/pkg/seq2"
 )
 
 func ExamplePartition() {
@@ -40,26 +40,20 @@ func ExampleChunk() {
 }
 
 func ExamplePartitionBy() {
-	input := seq.Of(1, 2, 3, 4, 5, 6)
+	input := seq.Of(1, 2, 3, 4, 1, 5, 6)
 
 	partitions := seq.PartitionBy(input, func(v int) int {
-		return v % 2
+		return (v - 1) / 3
 	})
 
-	// Notice that the order of the partitions is not guaranteed
-	sorted := seq.SortBy(partitions, func(p iter.Seq[int]) int {
-		next, stop := iter.Pull(p)
-		defer stop()
-		v, _ := next()
-		return v
-	})
-
-	for partition := range sorted {
+	for partition := range partitions {
 		fmt.Println(seq.Collect(partition))
 	}
 	// Output:
-	// [1 3 5]
-	// [2 4 6]
+	// [1 2 3]
+	// [4]
+	// [1]
+	// [5 6]
 }
 
 func ExampleGroupBy() {
@@ -69,11 +63,13 @@ func ExampleGroupBy() {
 		return v % 2
 	})
 
+	// GroupBy does not guarantee the order of keys, so we sort them for display
+	groups = seq2.SortByKeys(groups)
 	for k, v := range groups {
 		fmt.Printf("%d: %v\n", k, seq.Collect(v))
 	}
 
 	// Output:
-	// 1: [1 3 5]
 	// 0: [2 4 6]
+	// 1: [1 3 5]
 }

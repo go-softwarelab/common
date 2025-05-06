@@ -74,8 +74,21 @@ func FlattenSlices[Seq iter.Seq[[]E], E any](seq Seq) iter.Seq[E] {
 	}
 }
 
-// Cycle repeats the sequence count times.
-func Cycle[E any](seq iter.Seq[E], count int) iter.Seq[E] {
+// Cycle repeats the sequence indefinitely.
+func Cycle[E any](seq iter.Seq[E]) iter.Seq[E] {
+	return func(yield func(E) bool) {
+		for {
+			for v := range seq {
+				if !yield(v) {
+					return
+				}
+			}
+		}
+	}
+}
+
+// CycleTimes repeats the sequence specific number of times.
+func CycleTimes[E any](seq iter.Seq[E], count int) iter.Seq[E] {
 	return func(yield func(E) bool) {
 		for i := 0; i < count; i++ {
 			for v := range seq {

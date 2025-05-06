@@ -7,13 +7,13 @@ import (
 	"github.com/go-softwarelab/common/pkg/seq2"
 )
 
-func ExampleSort() {
-	input := seq2.Pair("a", 1)
+func ExampleSortByKeys() {
+	input := seq2.Single("a", 1)
 	input = seq2.Append(input, "c", 3)
 	input = seq2.Append(input, "b", 2)
 
-	// Sort by keys (alphabetically)
-	sorted := seq2.Sort(input)
+	// SortByKeys by keys (alphabetically)
+	sorted := seq2.SortByKeys(input)
 
 	seq2.ForEach(sorted, func(k string, v int) {
 		fmt.Println(k, ":", v)
@@ -25,7 +25,7 @@ func ExampleSort() {
 }
 
 func ExampleSortBy() {
-	input := seq2.Pair("a", 1)
+	input := seq2.Single("a", 1)
 	input = seq2.Append(input, "c", 3)
 	input = seq2.Append(input, "b", 2)
 
@@ -44,7 +44,7 @@ func ExampleSortBy() {
 }
 
 func ExampleSortComparingKeys() {
-	input := seq2.Pair("a", 1)
+	input := seq2.Single("a", 1)
 	input = seq2.Append(input, "c", 3)
 	input = seq2.Append(input, "b", 2)
 
@@ -64,7 +64,7 @@ func ExampleSortComparingKeys() {
 
 func ExampleSortComparingValues() {
 	// Unordered map with string keys
-	input := seq2.Pair("a", 1)
+	input := seq2.Single("a", 1)
 	input = seq2.Append(input, "c", 3)
 	input = seq2.Append(input, "b", 2)
 

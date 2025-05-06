@@ -111,7 +111,23 @@ func ExampleFlattenSlices() {
 func ExampleCycle() {
 	input := seq.Of(1, 2, 3)
 
-	cycled := seq.Cycle(input, 2)
+	cycled := seq.Cycle(input)
+
+	cycled = seq.Take(cycled, 9) // Limit to 9 elements for demonstration
+
+	result := seq.Collect(cycled)
+
+	fmt.Println(result)
+	// Output:
+	// [1 2 3 1 2 3 1 2 3]
+}
+
+func ExampleCycleTimes() {
+	input := seq.Of(1, 2, 3)
+
+	cycled := seq.CycleTimes(input, 2)
+
+	cycled = seq.Take(cycled, 9) // Limit to 9 elements for demonstration difference between Cycle and CycleTimes
 
 	result := seq.Collect(cycled)
 

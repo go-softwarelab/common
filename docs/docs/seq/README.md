@@ -287,10 +287,10 @@ Count returns the number of elements in the sequence.
 ## [Cycle](<https://github.com/go-softwarelab/common/blob/main/pkg/seq/mapper.go#L78>)
 
 ```go
-func Cycle[E any](seq iter.Seq[E], count int) iter.Seq[E]
+func Cycle[E any](seq iter.Seq[E]) iter.Seq[E]
 ```
 
-Cycle repeats the sequence count times.
+Cycle repeats the sequence indefinitely.
 
 <details>
 <summary>Example</summary>
@@ -310,7 +310,55 @@ import (
 func main() {
 	input := seq.Of(1, 2, 3)
 
-	cycled := seq.Cycle(input, 2)
+	cycled := seq.Cycle(input)
+
+	cycled = seq.Take(cycled, 9) // Limit to 9 elements for demonstration
+
+	result := seq.Collect(cycled)
+
+	fmt.Println(result)
+}
+```
+
+**Output**
+
+```
+[1 2 3 1 2 3 1 2 3]
+```
+
+
+</details>
+
+<a name="CycleTimes"></a>
+## [CycleTimes](<https://github.com/go-softwarelab/common/blob/main/pkg/seq/mapper.go#L91>)
+
+```go
+func CycleTimes[E any](seq iter.Seq[E], count int) iter.Seq[E]
+```
+
+CycleTimes repeats the sequence specific number of times.
+
+<details>
+<summary>Example</summary>
+
+
+
+
+```go
+package main
+
+import (
+	"fmt"
+
+	"github.com/go-softwarelab/common/pkg/seq"
+)
+
+func main() {
+	input := seq.Of(1, 2, 3)
+
+	cycled := seq.CycleTimes(input, 2)
+
+	cycled = seq.Take(cycled, 9) // Limit to 9 elements for demonstration difference between Cycle and CycleTimes
 
 	result := seq.Collect(cycled)
 
@@ -559,7 +607,7 @@ func main() {
 ## [Find](<https://github.com/go-softwarelab/common/blob/main/pkg/seq/find.go#L10>)
 
 ```go
-func Find[E any](seq iter.Seq[E], predicate Predicate[E]) optional.Elem[E]
+func Find[E any](seq iter.Seq[E], predicate Predicate[E]) optional.Value[E]
 ```
 
 Find returns the first element that satisfies the predicate.
@@ -645,7 +693,7 @@ func main() {
 ## [FindLast](<https://github.com/go-softwarelab/common/blob/main/pkg/seq/find.go#L20>)
 
 ```go
-func FindLast[E any](seq iter.Seq[E], predicate Predicate[E]) optional.Elem[E]
+func FindLast[E any](seq iter.Seq[E], predicate Predicate[E]) optional.Value[E]
 ```
 
 FindLast returns the last element that satisfies the predicate.
@@ -839,7 +887,7 @@ Flush consumes all elements of the input sequence.
 ## [Fold](<https://github.com/go-softwarelab/common/blob/main/pkg/seq/reducer.go#L25>)
 
 ```go
-func Fold[E any](seq iter.Seq[E], accumulator func(agg E, item E) E) optional.Elem[E]
+func Fold[E any](seq iter.Seq[E], accumulator func(agg E, item E) E) optional.Value[E]
 ```
 
 Fold applies a function against an accumulator and each element in the sequence \(from left to right\) to reduce it to a single value.
@@ -883,7 +931,7 @@ abc
 ## [FoldRight](<https://github.com/go-softwarelab/common/blob/main/pkg/seq/reducer.go#L46>)
 
 ```go
-func FoldRight[E any](seq iter.Seq[E], accumulator func(agg E, item E) E) optional.Elem[E]
+func FoldRight[E any](seq iter.Seq[E], accumulator func(agg E, item E) E) optional.Value[E]
 ```
 
 FoldRight applies a function against an accumulator and each element in the sequence \(from right to left\) to reduce it to a single value.
@@ -1055,7 +1103,7 @@ func main() {
 </details>
 
 <a name="GroupBy"></a>
-## [GroupBy](<https://github.com/go-softwarelab/common/blob/main/pkg/seq/group.go#L52>)
+## [GroupBy](<https://github.com/go-softwarelab/common/blob/main/pkg/seq/group.go#L59>)
 
 ```go
 func GroupBy[E any, K comparable](seq iter.Seq[E], by Mapper[E, K]) iter.Seq2[K, iter.Seq[E]]
@@ -1076,6 +1124,7 @@ import (
 	"fmt"
 
 	"github.com/go-softwarelab/common/pkg/seq"
+	"github.com/go-softwarelab/common/pkg/seq2"
 )
 
 func main() {
@@ -1085,6 +1134,8 @@ func main() {
 		return v % 2
 	})
 
+	// GroupBy does not guarantee the order of keys, so we sort them for display
+	groups = seq2.SortByKeys(groups)
 	for k, v := range groups {
 		fmt.Printf("%d: %v\n", k, seq.Collect(v))
 	}
@@ -1095,8 +1146,8 @@ func main() {
 **Output**
 
 ```
-1: [1 3 5]
 0: [2 4 6]
+1: [1 3 5]
 ```
 
 
@@ -1337,7 +1388,7 @@ Error: value 3 is too large
 ## [Max](<https://github.com/go-softwarelab/common/blob/main/pkg/seq/reducer.go#L51>)
 
 ```go
-func Max[E types.Ordered](seq iter.Seq[E]) optional.Elem[E]
+func Max[E types.Ordered](seq iter.Seq[E]) optional.Value[E]
 ```
 
 Max returns the maximum element in the sequence.
@@ -1376,10 +1427,10 @@ func main() {
 </details>
 
 <a name="Min"></a>
-## [Min](<https://github.com/go-softwarelab/common/blob/main/pkg/seq/reducer.go#L74>)
+## [Min](<https://github.com/go-softwarelab/common/blob/main/pkg/seq/reducer.go#L61>)
 
 ```go
-func Min[E types.Ordered](seq iter.Seq[E]) optional.Elem[E]
+func Min[E types.Ordered](seq iter.Seq[E]) optional.Value[E]
 ```
 
 Min returns the minimum element in the sequence.
@@ -1637,13 +1688,13 @@ func main() {
 </details>
 
 <a name="PartitionBy"></a>
-## [PartitionBy](<https://github.com/go-softwarelab/common/blob/main/pkg/seq/group.go#L36>)
+## [PartitionBy](<https://github.com/go-softwarelab/common/blob/main/pkg/seq/group.go#L37>)
 
 ```go
 func PartitionBy[E any, K comparable](seq iter.Seq[E], by Mapper[E, K]) iter.Seq[iter.Seq[E]]
 ```
 
-PartitionBy splits the sequence into chunks based on the given key.
+PartitionBy splits the sequence into chunks based on the given key. It splits the sequence when ever the key changes, the order matters here.
 
 <details>
 <summary>Example</summary>
@@ -1656,27 +1707,18 @@ package main
 
 import (
 	"fmt"
-	"iter"
 
 	"github.com/go-softwarelab/common/pkg/seq"
 )
 
 func main() {
-	input := seq.Of(1, 2, 3, 4, 5, 6)
+	input := seq.Of(1, 2, 3, 4, 1, 5, 6)
 
 	partitions := seq.PartitionBy(input, func(v int) int {
-		return v % 2
+		return (v - 1) / 3
 	})
 
-	// Notice that the order of the partitions is not guaranteed
-	sorted := seq.SortBy(partitions, func(p iter.Seq[int]) int {
-		next, stop := iter.Pull(p)
-		defer stop()
-		v, _ := next()
-		return v
-	})
-
-	for partition := range sorted {
+	for partition := range partitions {
 		fmt.Println(seq.Collect(partition))
 	}
 }
@@ -1685,8 +1727,10 @@ func main() {
 **Output**
 
 ```
-[1 3 5]
-[2 4 6]
+[1 2 3]
+[4]
+[1]
+[5 6]
 ```
 
 
@@ -2880,1542 +2924,3 @@ Predicate is a function that takes an element and returns a boolean.
 ```go
 type Predicate[E any] = Mapper[E, bool]
 ```
-
-<a name="Sequence"></a>
-## type [Sequence](<https://github.com/go-softwarelab/common/blob/main/pkg/seq/sequence.go#L10-L12>)
-
-Sequence is a monad representing a sequence of elements.
-
-```go
-type Sequence[E comparable] struct {
-    // contains filtered or unexported fields
-}
-```
-
-<a name="AsSequence"></a>
-### [AsSequence](<https://github.com/go-softwarelab/common/blob/main/pkg/seq/sequence.go#L15>)
-
-```go
-func AsSequence[E comparable](seq iter.Seq[E]) Sequence[E]
-```
-
-AsSequence wraps an iter.Seq to provide a possibility to pipe several method calls.
-
-<details>
-<summary>Example</summary>
-
-
-
-
-```go
-package main
-
-import (
-	"fmt"
-
-	"github.com/go-softwarelab/common/pkg/seq"
-)
-
-func main() {
-	sequence := seq.AsSequence(seq.Of(1, 2, 3))
-	result := sequence.Collect()
-	fmt.Println(result)
-}
-```
-
-**Output**
-
-```
-[1 2 3]
-```
-
-
-</details>
-
-<a name="ConcatSequences"></a>
-### [ConcatSequences](<https://github.com/go-softwarelab/common/blob/main/pkg/seq/sequence.go#L20>)
-
-```go
-func ConcatSequences[E comparable](sequences ...Sequence[E]) Sequence[E]
-```
-
-ConcatSequences concatenates multiple sequences into a single sequence.
-
-<details>
-<summary>Example</summary>
-
-
-
-
-```go
-package main
-
-import (
-	"fmt"
-
-	"github.com/go-softwarelab/common/pkg/seq"
-)
-
-func main() {
-	seq1 := seq.AsSequence(seq.Of(1, 2))
-	seq2 := seq.AsSequence(seq.Of(3, 4))
-	concatenated := seq.ConcatSequences(seq1, seq2)
-	result := concatenated.Collect()
-	fmt.Println(result)
-}
-```
-
-**Output**
-
-```
-[1 2 3 4]
-```
-
-
-</details>
-
-<a name="Sequence[E].Append"></a>
-### [Sequence\[E\].Append](<https://github.com/go-softwarelab/common/blob/main/pkg/seq/sequence.go#L43>)
-
-```go
-func (s Sequence[E]) Append(elems ...E) Sequence[E]
-```
-
-Append appends elements to the end of a sequence.
-
-<details>
-<summary>Example</summary>
-
-
-
-
-```go
-package main
-
-import (
-	"fmt"
-
-	"github.com/go-softwarelab/common/pkg/seq"
-)
-
-func main() {
-	sequence := seq.AsSequence(seq.Of(1, 2, 3))
-	appended := sequence.Append(4, 5)
-	result := appended.Collect()
-	fmt.Println(result)
-}
-```
-
-**Output**
-
-```
-[1 2 3 4 5]
-```
-
-
-</details>
-
-<a name="Sequence[E].Collect"></a>
-### [Sequence\[E\].Collect](<https://github.com/go-softwarelab/common/blob/main/pkg/seq/sequence.go#L106>)
-
-```go
-func (s Sequence[E]) Collect() []E
-```
-
-Collect collects the elements of the sequence into a slice.
-
-<details>
-<summary>Example</summary>
-
-
-
-
-```go
-package main
-
-import (
-	"fmt"
-
-	"github.com/go-softwarelab/common/pkg/seq"
-)
-
-func main() {
-	sequence := seq.AsSequence(seq.Of(1, 2, 3))
-	result := sequence.Collect()
-	fmt.Println(result)
-}
-```
-
-**Output**
-
-```
-[1 2 3]
-```
-
-
-</details>
-
-<a name="Sequence[E].Contains"></a>
-### [Sequence\[E\].Contains](<https://github.com/go-softwarelab/common/blob/main/pkg/seq/sequence.go#L136>)
-
-```go
-func (s Sequence[E]) Contains(elem E) bool
-```
-
-Contains returns true if the element is in the sequence.
-
-<details>
-<summary>Example</summary>
-
-
-
-
-```go
-package main
-
-import (
-	"fmt"
-
-	"github.com/go-softwarelab/common/pkg/seq"
-)
-
-func main() {
-	sequence := seq.AsSequence(seq.Of(1, 2, 3, 4, 5))
-	contains := sequence.Contains(3)
-	fmt.Println(contains)
-}
-```
-
-**Output**
-
-```
-true
-```
-
-
-</details>
-
-<a name="Sequence[E].ContainsAll"></a>
-### [Sequence\[E\].ContainsAll](<https://github.com/go-softwarelab/common/blob/main/pkg/seq/sequence.go#L146>)
-
-```go
-func (s Sequence[E]) ContainsAll(elements ...E) bool
-```
-
-ContainsAll returns true if all elements are in the sequence.
-
-<details>
-<summary>Example</summary>
-
-
-
-
-```go
-package main
-
-import (
-	"fmt"
-
-	"github.com/go-softwarelab/common/pkg/seq"
-)
-
-func main() {
-	sequence := seq.AsSequence(seq.Of(1, 2, 3, 4, 5))
-	containsAll := sequence.ContainsAll(2, 3, 4)
-	fmt.Println(containsAll)
-}
-```
-
-**Output**
-
-```
-true
-```
-
-
-</details>
-
-<a name="Sequence[E].Count"></a>
-### [Sequence\[E\].Count](<https://github.com/go-softwarelab/common/blob/main/pkg/seq/sequence.go#L111>)
-
-```go
-func (s Sequence[E]) Count() int
-```
-
-Count returns the number of elements in the sequence.
-
-<details>
-<summary>Example</summary>
-
-
-
-
-```go
-package main
-
-import (
-	"fmt"
-
-	"github.com/go-softwarelab/common/pkg/seq"
-)
-
-func main() {
-	sequence := seq.AsSequence(seq.Of(1, 2, 3))
-	count := sequence.Count()
-	fmt.Println(count)
-}
-```
-
-**Output**
-
-```
-3
-```
-
-
-</details>
-
-<a name="Sequence[E].Distinct"></a>
-### [Sequence\[E\].Distinct](<https://github.com/go-softwarelab/common/blob/main/pkg/seq/sequence.go#L187>)
-
-```go
-func (s Sequence[E]) Distinct() Sequence[E]
-```
-
-Distinct returns a new sequence with only unique elements. SQL\-like alias for Uniq
-
-<details>
-<summary>Example</summary>
-
-
-
-
-```go
-package main
-
-import (
-	"fmt"
-
-	"github.com/go-softwarelab/common/pkg/seq"
-)
-
-func main() {
-	sequence := seq.AsSequence(seq.Of(1, 2, 2, 3, 3, 3))
-	distinct := sequence.Distinct()
-	result := distinct.Collect()
-	fmt.Println(result)
-}
-```
-
-**Output**
-
-```
-[1 2 3]
-```
-
-
-</details>
-
-<a name="Sequence[E].Each"></a>
-### [Sequence\[E\].Each](<https://github.com/go-softwarelab/common/blob/main/pkg/seq/sequence.go#L91>)
-
-```go
-func (s Sequence[E]) Each(consumer Consumer[E]) Sequence[E]
-```
-
-Each returns a new sequence that calls the consumer for each element of the sequence.
-
-<details>
-<summary>Example</summary>
-
-
-
-
-```go
-package main
-
-import (
-	"fmt"
-
-	"github.com/go-softwarelab/common/pkg/seq"
-)
-
-func main() {
-	sequence := seq.AsSequence(seq.Of(1, 2, 3)).Each(func(v int) {
-		fmt.Println(v)
-	})
-	sequence.Flush()
-}
-```
-
-**Output**
-
-```
-1
-2
-3
-```
-
-
-</details>
-
-<a name="Sequence[E].Every"></a>
-### [Sequence\[E\].Every](<https://github.com/go-softwarelab/common/blob/main/pkg/seq/sequence.go#L156>)
-
-```go
-func (s Sequence[E]) Every(predicate Predicate[E]) bool
-```
-
-Every returns true if all elements satisfy the predicate.
-
-<details>
-<summary>Example</summary>
-
-
-
-
-```go
-package main
-
-import (
-	"fmt"
-
-	"github.com/go-softwarelab/common/pkg/seq"
-)
-
-func main() {
-	sequence := seq.AsSequence(seq.Of(1, 2, 3, 4, 5))
-	every := sequence.Every(func(v int) bool {
-		return v > 0
-	})
-	fmt.Println(every)
-}
-```
-
-**Output**
-
-```
-true
-```
-
-
-</details>
-
-<a name="Sequence[E].Exists"></a>
-### [Sequence\[E\].Exists](<https://github.com/go-softwarelab/common/blob/main/pkg/seq/sequence.go#L151>)
-
-```go
-func (s Sequence[E]) Exists(predicate Predicate[E]) bool
-```
-
-Exists returns true if there is at least one element that satisfies the predicate.
-
-<details>
-<summary>Example</summary>
-
-
-
-
-```go
-package main
-
-import (
-	"fmt"
-
-	"github.com/go-softwarelab/common/pkg/seq"
-)
-
-func main() {
-	sequence := seq.AsSequence(seq.Of(1, 2, 3, 4, 5))
-	exists := sequence.Exists(func(v int) bool {
-		return v > 3
-	})
-	fmt.Println(exists)
-}
-```
-
-**Output**
-
-```
-true
-```
-
-
-</details>
-
-<a name="Sequence[E].Filter"></a>
-### [Sequence\[E\].Filter](<https://github.com/go-softwarelab/common/blob/main/pkg/seq/sequence.go#L53>)
-
-```go
-func (s Sequence[E]) Filter(predicate Predicate[E]) Sequence[E]
-```
-
-Filter returns a new sequence with elements that satisfy the predicate.
-
-<details>
-<summary>Example</summary>
-
-
-
-
-```go
-package main
-
-import (
-	"fmt"
-
-	"github.com/go-softwarelab/common/pkg/seq"
-)
-
-func main() {
-	sequence := seq.AsSequence(seq.Of(1, 2, 3, 4, 5))
-	filtered := sequence.Filter(func(v int) bool {
-		return v%2 == 0
-	})
-	result := filtered.Collect()
-	fmt.Println(result)
-}
-```
-
-**Output**
-
-```
-[2 4]
-```
-
-
-</details>
-
-<a name="Sequence[E].Find"></a>
-### [Sequence\[E\].Find](<https://github.com/go-softwarelab/common/blob/main/pkg/seq/sequence.go#L121>)
-
-```go
-func (s Sequence[E]) Find(predicate Predicate[E]) optional.Elem[E]
-```
-
-Find returns the first element that satisfies the predicate.
-
-<details>
-<summary>Example</summary>
-
-
-
-
-```go
-package main
-
-import (
-	"fmt"
-
-	"github.com/go-softwarelab/common/pkg/seq"
-)
-
-func main() {
-	sequence := seq.AsSequence(seq.Of(1, 2, 3, 4, 5))
-	found := sequence.Find(func(v int) bool {
-		return v > 3
-	})
-
-	fmt.Println(found.MustGet())
-}
-```
-
-**Output**
-
-```
-4
-```
-
-
-</details>
-
-<a name="Sequence[E].FindAll"></a>
-### [Sequence\[E\].FindAll](<https://github.com/go-softwarelab/common/blob/main/pkg/seq/sequence.go#L131>)
-
-```go
-func (s Sequence[E]) FindAll(predicate Predicate[E]) Sequence[E]
-```
-
-FindAll returns all elements that satisfy the predicate.
-
-<details>
-<summary>Example</summary>
-
-
-
-
-```go
-package main
-
-import (
-	"fmt"
-
-	"github.com/go-softwarelab/common/pkg/seq"
-)
-
-func main() {
-	sequence := seq.AsSequence(seq.Of(1, 2, 3, 4, 5))
-	foundAll := sequence.FindAll(func(v int) bool {
-		return v > 3
-	})
-	result := foundAll.Collect()
-	fmt.Println(result)
-}
-```
-
-**Output**
-
-```
-[4 5]
-```
-
-
-</details>
-
-<a name="Sequence[E].FindLast"></a>
-### [Sequence\[E\].FindLast](<https://github.com/go-softwarelab/common/blob/main/pkg/seq/sequence.go#L126>)
-
-```go
-func (s Sequence[E]) FindLast(predicate Predicate[E]) optional.Elem[E]
-```
-
-FindLast returns the last element that satisfies the predicate.
-
-<details>
-<summary>Example</summary>
-
-
-
-
-```go
-package main
-
-import (
-	"fmt"
-
-	"github.com/go-softwarelab/common/pkg/seq"
-)
-
-func main() {
-	sequence := seq.AsSequence(seq.Of(1, 2, 3, 4, 5))
-	found := sequence.FindLast(func(v int) bool {
-		return v > 3
-	})
-
-	fmt.Println(found.MustGet())
-}
-```
-
-**Output**
-
-```
-5
-```
-
-
-</details>
-
-<a name="Sequence[E].Flush"></a>
-### [Sequence\[E\].Flush](<https://github.com/go-softwarelab/common/blob/main/pkg/seq/sequence.go#L101>)
-
-```go
-func (s Sequence[E]) Flush()
-```
-
-Flush consumes all elements of the input sequence.
-
-<details>
-<summary>Example</summary>
-
-
-
-
-```go
-package main
-
-import (
-	"github.com/go-softwarelab/common/pkg/seq"
-)
-
-func main() {
-	sequence := seq.AsSequence(seq.Of(1, 2, 3))
-	sequence.Flush()
-	// No output expected
-}
-```
-
-
-</details>
-
-<a name="Sequence[E].Fold"></a>
-### [Sequence\[E\].Fold](<https://github.com/go-softwarelab/common/blob/main/pkg/seq/sequence.go#L202>)
-
-```go
-func (s Sequence[E]) Fold(accumulator func(agg E, item E) E) optional.Elem[E]
-```
-
-Fold applies a function against an accumulator and each element in the sequence \(from left to right\) to reduce it to a single value.
-
-<details>
-<summary>Example</summary>
-
-
-
-
-```go
-package main
-
-import (
-	"fmt"
-
-	"github.com/go-softwarelab/common/pkg/seq"
-)
-
-func main() {
-	sequence := seq.AsSequence(seq.Of(1, 2, 3, 4, 5))
-	sum := sequence.Fold(func(agg, item int) int {
-		return agg + item
-	})
-
-	fmt.Println(sum.MustGet())
-}
-```
-
-**Output**
-
-```
-15
-```
-
-
-</details>
-
-<a name="Sequence[E].FoldRight"></a>
-### [Sequence\[E\].FoldRight](<https://github.com/go-softwarelab/common/blob/main/pkg/seq/sequence.go#L207>)
-
-```go
-func (s Sequence[E]) FoldRight(accumulator func(agg E, item E) E) optional.Elem[E]
-```
-
-FoldRight applies a function against an accumulator and each element in the sequence \(from right to left\) to reduce it to a single value.
-
-<details>
-<summary>Example</summary>
-
-
-
-
-```go
-package main
-
-import (
-	"fmt"
-
-	"github.com/go-softwarelab/common/pkg/seq"
-)
-
-func main() {
-	sequence := seq.AsSequence(seq.Of("a", "b", "c"))
-	concat := sequence.FoldRight(func(agg, item string) string {
-		return agg + item
-	})
-
-	fmt.Println(concat.MustGet())
-}
-```
-
-**Output**
-
-```
-cba
-```
-
-
-</details>
-
-<a name="Sequence[E].ForEach"></a>
-### [Sequence\[E\].ForEach](<https://github.com/go-softwarelab/common/blob/main/pkg/seq/sequence.go#L96>)
-
-```go
-func (s Sequence[E]) ForEach(consumer Consumer[E])
-```
-
-ForEach calls the consumer for each element of the sequence.
-
-<details>
-<summary>Example</summary>
-
-
-
-
-```go
-package main
-
-import (
-	"fmt"
-
-	"github.com/go-softwarelab/common/pkg/seq"
-)
-
-func main() {
-	seq.AsSequence(seq.Of(1, 2, 3)).ForEach(func(v int) {
-		fmt.Println(v)
-	})
-}
-```
-
-**Output**
-
-```
-1
-2
-3
-```
-
-
-</details>
-
-<a name="Sequence[E].IsEmpty"></a>
-### [Sequence\[E\].IsEmpty](<https://github.com/go-softwarelab/common/blob/main/pkg/seq/sequence.go#L171>)
-
-```go
-func (s Sequence[E]) IsEmpty() bool
-```
-
-IsEmpty returns true if the sequence is empty.
-
-<details>
-<summary>Example</summary>
-
-
-
-
-```go
-package main
-
-import (
-	"fmt"
-
-	"github.com/go-softwarelab/common/pkg/seq"
-)
-
-func main() {
-	sequence := seq.AsSequence(seq.Of[int]())
-	isEmpty := sequence.IsEmpty()
-	fmt.Println(isEmpty)
-}
-```
-
-**Output**
-
-```
-true
-```
-
-
-</details>
-
-<a name="Sequence[E].IsNotEmpty"></a>
-### [Sequence\[E\].IsNotEmpty](<https://github.com/go-softwarelab/common/blob/main/pkg/seq/sequence.go#L166>)
-
-```go
-func (s Sequence[E]) IsNotEmpty() bool
-```
-
-IsNotEmpty returns true if the sequence is not empty.
-
-<details>
-<summary>Example</summary>
-
-
-
-
-```go
-package main
-
-import (
-	"fmt"
-
-	"github.com/go-softwarelab/common/pkg/seq"
-)
-
-func main() {
-	sequence := seq.AsSequence(seq.Of(1, 2, 3))
-	isNotEmpty := sequence.IsNotEmpty()
-	fmt.Println(isNotEmpty)
-}
-```
-
-**Output**
-
-```
-true
-```
-
-
-</details>
-
-<a name="Sequence[E].Limit"></a>
-### [Sequence\[E\].Limit](<https://github.com/go-softwarelab/common/blob/main/pkg/seq/sequence.go#L81>)
-
-```go
-func (s Sequence[E]) Limit(n int) Sequence[E]
-```
-
-Limit returns a new sequence that contains only the first n elements of the given sequence. SQL\-like alias for Take
-
-<details>
-<summary>Example</summary>
-
-
-
-
-```go
-package main
-
-import (
-	"fmt"
-
-	"github.com/go-softwarelab/common/pkg/seq"
-)
-
-func main() {
-	sequence := seq.AsSequence(seq.Of(1, 2, 3, 4, 5))
-	limited := sequence.Limit(2)
-	result := limited.Collect()
-	fmt.Println(result)
-}
-```
-
-**Output**
-
-```
-[1 2]
-```
-
-
-</details>
-
-<a name="Sequence[E].None"></a>
-### [Sequence\[E\].None](<https://github.com/go-softwarelab/common/blob/main/pkg/seq/sequence.go#L161>)
-
-```go
-func (s Sequence[E]) None(predicate Predicate[E]) bool
-```
-
-None returns true if no element satisfies the predicate.
-
-<details>
-<summary>Example</summary>
-
-
-
-
-```go
-package main
-
-import (
-	"fmt"
-
-	"github.com/go-softwarelab/common/pkg/seq"
-)
-
-func main() {
-	sequence := seq.AsSequence(seq.Of(1, 2, 3, 4, 5))
-	none := sequence.None(func(v int) bool {
-		return v > 5
-	})
-	fmt.Println(none)
-}
-```
-
-**Output**
-
-```
-true
-```
-
-
-</details>
-
-<a name="Sequence[E].NotContains"></a>
-### [Sequence\[E\].NotContains](<https://github.com/go-softwarelab/common/blob/main/pkg/seq/sequence.go#L141>)
-
-```go
-func (s Sequence[E]) NotContains(elem E) bool
-```
-
-NotContains returns true if the element is not in the sequence.
-
-<details>
-<summary>Example</summary>
-
-
-
-
-```go
-package main
-
-import (
-	"fmt"
-
-	"github.com/go-softwarelab/common/pkg/seq"
-)
-
-func main() {
-	sequence := seq.AsSequence(seq.Of(1, 2, 3, 4, 5))
-	notContains := sequence.NotContains(6)
-	fmt.Println(notContains)
-}
-```
-
-**Output**
-
-```
-true
-```
-
-
-</details>
-
-<a name="Sequence[E].Offset"></a>
-### [Sequence\[E\].Offset](<https://github.com/go-softwarelab/common/blob/main/pkg/seq/sequence.go#L70>)
-
-```go
-func (s Sequence[E]) Offset(n int) Sequence[E]
-```
-
-Offset returns a new sequence that skips the first n elements of the given sequence. SQL\-like alias for Skip
-
-<details>
-<summary>Example</summary>
-
-
-
-
-```go
-package main
-
-import (
-	"fmt"
-
-	"github.com/go-softwarelab/common/pkg/seq"
-)
-
-func main() {
-	sequence := seq.AsSequence(seq.Of(1, 2, 3, 4, 5))
-	offset := sequence.Offset(2)
-	result := offset.Collect()
-	fmt.Println(result)
-}
-```
-
-**Output**
-
-```
-[3 4 5]
-```
-
-
-</details>
-
-<a name="Sequence[E].Partition"></a>
-### [Sequence\[E\].Partition](<https://github.com/go-softwarelab/common/blob/main/pkg/seq/sequence.go#L176>)
-
-```go
-func (s Sequence[E]) Partition(size int) iter.Seq[iter.Seq[E]]
-```
-
-Partition splits the sequence into chunks of the given size.
-
-<details>
-<summary>Example</summary>
-
-
-
-
-```go
-package main
-
-import (
-	"fmt"
-
-	"github.com/go-softwarelab/common/pkg/seq"
-)
-
-func main() {
-	sequence := seq.AsSequence(seq.Of(1, 2, 3, 4, 5))
-	partitions := sequence.Partition(2)
-	for partition := range partitions {
-		fmt.Println(seq.Collect(partition))
-	}
-}
-```
-
-**Output**
-
-```
-[1 2]
-[3 4]
-[5]
-```
-
-
-</details>
-
-<a name="Sequence[E].Prepend"></a>
-### [Sequence\[E\].Prepend](<https://github.com/go-softwarelab/common/blob/main/pkg/seq/sequence.go#L48>)
-
-```go
-func (s Sequence[E]) Prepend(elems ...E) Sequence[E]
-```
-
-Prepend prepends elements to the beginning of a sequence.
-
-<details>
-<summary>Example</summary>
-
-
-
-
-```go
-package main
-
-import (
-	"fmt"
-
-	"github.com/go-softwarelab/common/pkg/seq"
-)
-
-func main() {
-	sequence := seq.AsSequence(seq.Of(3, 4, 5))
-	prepended := sequence.Prepend(1, 2)
-	result := prepended.Collect()
-	fmt.Println(result)
-}
-```
-
-**Output**
-
-```
-[1 2 3 4 5]
-```
-
-
-</details>
-
-<a name="Sequence[E].Repeat"></a>
-### [Sequence\[E\].Repeat](<https://github.com/go-softwarelab/common/blob/main/pkg/seq/sequence.go#L197>)
-
-```go
-func (s Sequence[E]) Repeat(count int) Sequence[E]
-```
-
-Repeat repeats the sequence count times.
-
-<details>
-<summary>Example</summary>
-
-
-
-
-```go
-package main
-
-import (
-	"fmt"
-
-	"github.com/go-softwarelab/common/pkg/seq"
-)
-
-func main() {
-	sequence := seq.AsSequence(seq.Of(1, 2, 3))
-	repeated := sequence.Repeat(2)
-	result := repeated.Collect()
-	fmt.Println(result)
-}
-```
-
-**Output**
-
-```
-[1 2 3 1 2 3]
-```
-
-
-</details>
-
-<a name="Sequence[E].Reverse"></a>
-### [Sequence\[E\].Reverse](<https://github.com/go-softwarelab/common/blob/main/pkg/seq/sequence.go#L192>)
-
-```go
-func (s Sequence[E]) Reverse() Sequence[E]
-```
-
-Reverse returns a new sequence with elements in reverse order.
-
-<details>
-<summary>Example</summary>
-
-
-
-
-```go
-package main
-
-import (
-	"fmt"
-
-	"github.com/go-softwarelab/common/pkg/seq"
-)
-
-func main() {
-	sequence := seq.AsSequence(seq.Of(1, 2, 3))
-	reversed := sequence.Reverse()
-	result := reversed.Collect()
-	fmt.Println(result)
-}
-```
-
-**Output**
-
-```
-[3 2 1]
-```
-
-
-</details>
-
-<a name="Sequence[E].Skip"></a>
-### [Sequence\[E\].Skip](<https://github.com/go-softwarelab/common/blob/main/pkg/seq/sequence.go#L64>)
-
-```go
-func (s Sequence[E]) Skip(n int) Sequence[E]
-```
-
-Skip returns a new sequence that skips the first n elements of the given sequence.
-
-<details>
-<summary>Example</summary>
-
-
-
-
-```go
-package main
-
-import (
-	"fmt"
-
-	"github.com/go-softwarelab/common/pkg/seq"
-)
-
-func main() {
-	sequence := seq.AsSequence(seq.Of(1, 2, 3, 4, 5))
-	skipped := sequence.Skip(2)
-	result := skipped.Collect()
-	fmt.Println(result)
-}
-```
-
-**Output**
-
-```
-[3 4 5]
-```
-
-
-</details>
-
-<a name="Sequence[E].Take"></a>
-### [Sequence\[E\].Take](<https://github.com/go-softwarelab/common/blob/main/pkg/seq/sequence.go#L75>)
-
-```go
-func (s Sequence[E]) Take(n int) Sequence[E]
-```
-
-Take returns a new sequence that contains only the first n elements of the given sequence.
-
-<details>
-<summary>Example</summary>
-
-
-
-
-```go
-package main
-
-import (
-	"fmt"
-
-	"github.com/go-softwarelab/common/pkg/seq"
-)
-
-func main() {
-	sequence := seq.AsSequence(seq.Of(1, 2, 3, 4, 5))
-	taken := sequence.Take(3)
-	result := taken.Collect()
-	fmt.Println(result)
-}
-```
-
-**Output**
-
-```
-[1 2 3]
-```
-
-
-</details>
-
-<a name="Sequence[E].Tap"></a>
-### [Sequence\[E\].Tap](<https://github.com/go-softwarelab/common/blob/main/pkg/seq/sequence.go#L86>)
-
-```go
-func (s Sequence[E]) Tap(consumer func(E)) Sequence[E]
-```
-
-Tap returns a new sequence that calls the consumer for each element of the sequence.
-
-<details>
-<summary>Example</summary>
-
-
-
-
-```go
-package main
-
-import (
-	"fmt"
-
-	"github.com/go-softwarelab/common/pkg/seq"
-)
-
-func main() {
-	sequence := seq.AsSequence(seq.Of(1, 2, 3)).Tap(func(v int) {
-		fmt.Println(v)
-	})
-	sequence.Flush()
-}
-```
-
-**Output**
-
-```
-1
-2
-3
-```
-
-
-</details>
-
-<a name="Sequence[E].ToSlice"></a>
-### [Sequence\[E\].ToSlice](<https://github.com/go-softwarelab/common/blob/main/pkg/seq/sequence.go#L116>)
-
-```go
-func (s Sequence[E]) ToSlice(slice []E) []E
-```
-
-ToSlice collects the elements of the sequence into a given slice.
-
-<details>
-<summary>Example</summary>
-
-
-
-
-```go
-package main
-
-import (
-	"fmt"
-
-	"github.com/go-softwarelab/common/pkg/seq"
-)
-
-func main() {
-	sequence := seq.AsSequence(seq.Of(1, 2, 3))
-	var slice []int
-	result := sequence.ToSlice(slice)
-	fmt.Println(result)
-}
-```
-
-**Output**
-
-```
-[1 2 3]
-```
-
-
-</details>
-
-<a name="Sequence[E].Union"></a>
-### [Sequence\[E\].Union](<https://github.com/go-softwarelab/common/blob/main/pkg/seq/sequence.go#L33>)
-
-```go
-func (s Sequence[E]) Union(other Sequence[E]) Sequence[E]
-```
-
-Union returns a new sequence that contains all distinct elements from both input sequences.
-
-<details>
-<summary>Example</summary>
-
-
-
-
-```go
-package main
-
-import (
-	"fmt"
-
-	"github.com/go-softwarelab/common/pkg/seq"
-)
-
-func main() {
-	seq1 := seq.AsSequence(seq.Of(1, 2, 3))
-	seq2 := seq.AsSequence(seq.Of(3, 4, 5))
-	union := seq1.Union(seq2)
-	result := union.Collect()
-	fmt.Println(result)
-}
-```
-
-**Output**
-
-```
-[1 2 3 4 5]
-```
-
-
-</details>
-
-<a name="Sequence[E].UnionAll"></a>
-### [Sequence\[E\].UnionAll](<https://github.com/go-softwarelab/common/blob/main/pkg/seq/sequence.go#L38>)
-
-```go
-func (s Sequence[E]) UnionAll(other Sequence[E]) Sequence[E]
-```
-
-UnionAll returns a new sequence that contains all elements from both input sequences.
-
-<details>
-<summary>Example</summary>
-
-
-
-
-```go
-package main
-
-import (
-	"fmt"
-
-	"github.com/go-softwarelab/common/pkg/seq"
-)
-
-func main() {
-	seq1 := seq.AsSequence(seq.Of(1, 2, 3))
-	seq2 := seq.AsSequence(seq.Of(3, 4, 5))
-	unionAll := seq1.UnionAll(seq2)
-	result := unionAll.Collect()
-	fmt.Println(result)
-}
-```
-
-**Output**
-
-```
-[1 2 3 3 4 5]
-```
-
-
-</details>
-
-<a name="Sequence[E].Uniq"></a>
-### [Sequence\[E\].Uniq](<https://github.com/go-softwarelab/common/blob/main/pkg/seq/sequence.go#L181>)
-
-```go
-func (s Sequence[E]) Uniq() Sequence[E]
-```
-
-Uniq returns a new sequence with only unique elements.
-
-<details>
-<summary>Example</summary>
-
-
-
-
-```go
-package main
-
-import (
-	"fmt"
-
-	"github.com/go-softwarelab/common/pkg/seq"
-)
-
-func main() {
-	sequence := seq.AsSequence(seq.Of(1, 2, 2, 3, 3, 3))
-	unique := sequence.Uniq()
-	result := unique.Collect()
-	fmt.Println(result)
-}
-```
-
-**Output**
-
-```
-[1 2 3]
-```
-
-
-</details>
-
-<a name="Sequence[E].Where"></a>
-### [Sequence\[E\].Where](<https://github.com/go-softwarelab/common/blob/main/pkg/seq/sequence.go#L59>)
-
-```go
-func (s Sequence[E]) Where(predicate Predicate[E]) Sequence[E]
-```
-
-Where returns a new sequence with elements that satisfy the predicate. SQL\-like alias for Filter
-
-<details>
-<summary>Example</summary>
-
-
-
-
-```go
-package main
-
-import (
-	"fmt"
-
-	"github.com/go-softwarelab/common/pkg/seq"
-)
-
-func main() {
-	sequence := seq.AsSequence(seq.Of(1, 2, 3, 4, 5))
-	filtered := sequence.Where(func(v int) bool {
-		return v%2 == 0
-	})
-	result := filtered.Collect()
-	fmt.Println(result)
-}
-```
-
-**Output**
-
-```
-[2 4]
-```
-
-
-</details>

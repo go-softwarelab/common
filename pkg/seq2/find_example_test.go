@@ -2,40 +2,13 @@ package seq2_test
 
 import (
 	"fmt"
-	"strings"
 
 	"github.com/go-softwarelab/common/pkg/seq2"
 )
 
-func ExampleFind() {
-	input := seq2.FromMap(map[string]int{"a": 1, "b": 2, "c": 3, "d": 4})
-	input = seq2.Sort(input)
-
-	k, v := seq2.Find(input, func(k string, v int) bool {
-		return v > 2
-	})
-
-	fmt.Printf("Key: %s, Value: %d\n", k.MustGet(), v.MustGet())
-	// Output:
-	// Key: c, Value: 3
-}
-
-func ExampleFindLast() {
-	input := seq2.FromMap(map[string]int{"a": 1, "b": 2, "c": 3, "d": 4})
-	input = seq2.Sort(input)
-
-	k, v := seq2.FindLast(input, func(k string, v int) bool {
-		return v > 2
-	})
-
-	fmt.Printf("Key: %s, Value: %d\n", k.MustGet(), v.MustGet())
-	// Output:
-	// Key: d, Value: 4
-}
-
 func ExampleFindAll() {
 	input := seq2.FromMap(map[string]int{"a": 1, "b": 2, "c": 3, "d": 4})
-	input = seq2.Sort(input)
+	input = seq2.SortByKeys(input)
 
 	found := seq2.FindAll(input, func(k string, v int) bool {
 		return v > 2
@@ -47,35 +20,9 @@ func ExampleFindAll() {
 	// map[c:3 d:4]
 }
 
-func ExampleFindByKey() {
-	input := seq2.FromMap(map[string]int{"a": 1, "b": 2, "c": 3, "d": 4})
-	input = seq2.Sort(input)
-
-	k, v := seq2.FindByKey(input, func(k string) bool {
-		return strings.ToUpper(k) == "B"
-	})
-
-	fmt.Printf("Key: %s, Value: %d\n", k.MustGet(), v.MustGet())
-	// Output:
-	// Key: b, Value: 2
-}
-
-func ExampleFindByValue() {
-	input := seq2.FromMap(map[string]int{"a": 1, "b": 2, "c": 3, "d": 4})
-	input = seq2.Sort(input)
-
-	k, v := seq2.FindByValue(input, func(v int) bool {
-		return v%4 == 0
-	})
-
-	fmt.Printf("Key: %s, Value: %d\n", k.MustGet(), v.MustGet())
-	// Output:
-	// Key: d, Value: 4
-}
-
 func ExampleGet() {
 	input := seq2.FromMap(map[string]int{"a": 1, "b": 2, "c": 3, "d": 4})
-	input = seq2.Sort(input)
+	input = seq2.SortByKeys(input)
 
 	value := seq2.Get(input, "c")
 
@@ -86,7 +33,7 @@ func ExampleGet() {
 
 func ExampleContains() {
 	input := seq2.FromMap(map[string]int{"a": 1, "b": 2, "c": 3, "d": 4})
-	input = seq2.Sort(input)
+	input = seq2.SortByKeys(input)
 
 	contains := seq2.Contains(input, "b")
 
@@ -97,7 +44,7 @@ func ExampleContains() {
 
 func ExampleNotContains() {
 	input := seq2.FromMap(map[string]int{"a": 1, "b": 2, "c": 3, "d": 4})
-	input = seq2.Sort(input)
+	input = seq2.SortByKeys(input)
 
 	notContains := seq2.NotContains(input, "x")
 
@@ -108,7 +55,7 @@ func ExampleNotContains() {
 
 func ExampleContainsValue() {
 	input := seq2.FromMap(map[string]int{"a": 1, "b": 2, "c": 3, "d": 4})
-	input = seq2.Sort(input)
+	input = seq2.SortByKeys(input)
 
 	containsValue := seq2.ContainsValue(input, 3)
 
@@ -119,7 +66,7 @@ func ExampleContainsValue() {
 
 func ExampleContainsAll() {
 	input := seq2.FromMap(map[string]int{"a": 1, "b": 2, "c": 3, "d": 4})
-	input = seq2.Sort(input)
+	input = seq2.SortByKeys(input)
 
 	containsAll := seq2.ContainsAll(input, "a", "c", "d")
 
@@ -130,7 +77,7 @@ func ExampleContainsAll() {
 
 func ExampleNotContainsValue() {
 	input := seq2.FromMap(map[string]int{"a": 1, "b": 2, "c": 3, "d": 4})
-	input = seq2.Sort(input)
+	input = seq2.SortByKeys(input)
 
 	notContainsValue := seq2.NotContainsValue(input, 5)
 
@@ -141,7 +88,7 @@ func ExampleNotContainsValue() {
 
 func ExampleContainsAllValues() {
 	input := seq2.FromMap(map[string]int{"a": 1, "b": 2, "c": 3, "d": 4})
-	input = seq2.Sort(input)
+	input = seq2.SortByKeys(input)
 
 	containsAllValues := seq2.ContainsAllValues(input, 1, 3)
 
@@ -152,7 +99,7 @@ func ExampleContainsAllValues() {
 
 func ExampleContainsPair() {
 	input := seq2.FromMap(map[string]int{"a": 1, "b": 2, "c": 3, "d": 4})
-	input = seq2.Sort(input)
+	input = seq2.SortByKeys(input)
 
 	containsPair := seq2.ContainsPair(input, "b", 2)
 
@@ -163,7 +110,7 @@ func ExampleContainsPair() {
 
 func ExampleNotContainsPair() {
 	input := seq2.FromMap(map[string]int{"a": 1, "b": 2, "c": 3, "d": 4})
-	input = seq2.Sort(input)
+	input = seq2.SortByKeys(input)
 
 	notContainsPair := seq2.NotContainsPair(input, "b", 3)
 
@@ -174,7 +121,7 @@ func ExampleNotContainsPair() {
 
 func ExampleExists() {
 	input := seq2.FromMap(map[string]int{"a": 1, "b": 2, "c": 3, "d": 4})
-	input = seq2.Sort(input)
+	input = seq2.SortByKeys(input)
 
 	exists := seq2.Exists(input, func(k string, v int) bool {
 		return k > "c" && v > 3
@@ -187,7 +134,7 @@ func ExampleExists() {
 
 func ExampleEvery() {
 	input := seq2.FromMap(map[string]int{"a": 2, "b": 4, "c": 6, "d": 8})
-	input = seq2.Sort(input)
+	input = seq2.SortByKeys(input)
 
 	every := seq2.Every(input, func(k string, v int) bool {
 		return v%2 == 0
@@ -200,7 +147,7 @@ func ExampleEvery() {
 
 func ExampleNone() {
 	input := seq2.FromMap(map[string]int{"a": 1, "b": 2, "c": 3, "d": 4})
-	input = seq2.Sort(input)
+	input = seq2.SortByKeys(input)
 
 	none := seq2.None(input, func(k string, v int) bool {
 		return v > 10

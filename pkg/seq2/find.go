@@ -6,34 +6,13 @@ import (
 	"github.com/go-softwarelab/common/pkg/optional"
 )
 
-// Find returns the first element that satisfies the predicate.
-func Find[K, V any](seq iter.Seq2[K, V], predicate Predicate[K, V]) (optional.Elem[K], optional.Elem[V]) {
-	for k, v := range seq {
-		if predicate(k, v) {
-			return optional.Of(k), optional.Of(v)
-		}
-	}
-	return optional.Empty[K](), optional.Empty[V]()
-}
-
-// FindLast returns the last element that satisfies the predicate.
-func FindLast[K, V any](seq iter.Seq2[K, V], predicate Predicate[K, V]) (optional.Elem[K], optional.Elem[V]) {
-	resultK, resultV := optional.Empty[K](), optional.Empty[V]()
-	for k, v := range seq {
-		if predicate(k, v) {
-			resultK, resultV = optional.Of(k), optional.Of(v)
-		}
-	}
-	return resultK, resultV
-}
-
 // FindAll returns all elements that satisfy the predicate.
 func FindAll[K, V any](seq iter.Seq2[K, V], predicate Predicate[K, V]) iter.Seq2[K, V] {
 	return Filter(seq, predicate)
 }
 
-// FindByKey returns the first element that satisfies the predicate.
-func FindByKey[K, V any](seq iter.Seq2[K, V], predicate KeyPredicate[K]) (optional.Elem[K], optional.Elem[V]) {
+// findByKey returns the first element that satisfies the predicate.
+func findByKey[K, V any](seq iter.Seq2[K, V], predicate KeyPredicate[K]) (optional.Value[K], optional.Value[V]) {
 	for k, v := range seq {
 		if predicate(k) {
 			return optional.Of(k), optional.Of(v)
@@ -42,19 +21,9 @@ func FindByKey[K, V any](seq iter.Seq2[K, V], predicate KeyPredicate[K]) (option
 	return optional.Empty[K](), optional.Empty[V]()
 }
 
-// FindByValue returns the first element that satisfies the predicate.
-func FindByValue[K, V any](seq iter.Seq2[K, V], predicate ValuePredicate[V]) (optional.Elem[K], optional.Elem[V]) {
-	for k, v := range seq {
-		if predicate(v) {
-			return optional.Of(k), optional.Of(v)
-		}
-	}
-	return optional.Empty[K](), optional.Empty[V]()
-}
-
 // Get returns the element at the specified key.
-func Get[K comparable, V any](seq iter.Seq2[K, V], key K) optional.Elem[V] {
-	_, v := FindByKey(seq, func(k K) bool {
+func Get[K comparable, V any](seq iter.Seq2[K, V], key K) optional.Value[V] {
+	_, v := findByKey(seq, func(k K) bool {
 		return k == key
 	})
 	return v

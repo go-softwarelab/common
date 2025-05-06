@@ -855,7 +855,7 @@ Error: slice error
 ## [Fold](<https://github.com/go-softwarelab/common/blob/main/pkg/seqerr/reducer.go#L29>)
 
 ```go
-func Fold[E any](seq iter.Seq2[E, error], accumulator func(agg E, item E) E) (optional.Elem[E], error)
+func Fold[E any](seq iter.Seq2[E, error], accumulator func(agg E, item E) E) (optional.Value[E], error)
 ```
 
 Fold applies a function against an accumulator and each element in the sequence \(from left to right\) to reduce it to a single value.
@@ -966,7 +966,7 @@ Empty sequence
 ## [FoldRight](<https://github.com/go-softwarelab/common/blob/main/pkg/seqerr/reducer.go#L57>)
 
 ```go
-func FoldRight[E any](seq iter.Seq2[E, error], accumulator func(agg E, item E) E) (optional.Elem[E], error)
+func FoldRight[E any](seq iter.Seq2[E, error], accumulator func(agg E, item E) E) (optional.Value[E], error)
 ```
 
 FoldRight applies a function against an accumulator and each element in the sequence \(from right to left\) to reduce it to a single value.

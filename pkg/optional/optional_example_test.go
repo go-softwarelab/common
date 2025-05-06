@@ -67,7 +67,7 @@ func ExampleOfValue() {
 	// Zero value present: false
 }
 
-func ExampleElem_Or() {
+func ExampleValue_Or() {
 	opt1 := optional.Of("first")
 	opt2 := optional.Of("second")
 	empty := optional.Empty[string]()
@@ -81,7 +81,7 @@ func ExampleElem_Or() {
 	// Empty or second: second
 }
 
-func ExampleElem_ShouldGet() {
+func ExampleValue_ShouldGet() {
 	opt := optional.Of(42)
 	empty := optional.Empty[int]()
 
@@ -100,7 +100,7 @@ func ExampleElem_ShouldGet() {
 	// Empty error: value is not present
 }
 
-func ExampleElem_MustGet() {
+func ExampleValue_MustGet() {
 	opt := optional.Of("hello")
 	fmt.Println("Value:", opt.MustGet())
 
@@ -112,7 +112,7 @@ func ExampleElem_MustGet() {
 	// Value: hello
 }
 
-func ExampleElem_MustGetf() {
+func ExampleValue_MustGetf() {
 	opt := optional.Of("hello")
 	fmt.Println("Value:", opt.MustGetf("Custom error: %s", "not found"))
 
@@ -124,7 +124,7 @@ func ExampleElem_MustGetf() {
 	// Value: hello
 }
 
-func ExampleElem_OrElseGet() {
+func ExampleValue_OrElseGet() {
 	opt := optional.Of("hello")
 	empty := optional.Empty[string]()
 
@@ -144,7 +144,7 @@ func ExampleElem_OrElseGet() {
 	// Empty value again: default-2
 }
 
-func ExampleElem_OrErrorGet() {
+func ExampleValue_OrErrorGet() {
 	opt := optional.Of(42)
 	empty := optional.Empty[int]()
 
@@ -169,7 +169,7 @@ func ExampleElem_OrErrorGet() {
 	// Empty error: not found-1
 }
 
-func ExampleElem_OrElse() {
+func ExampleValue_OrElse() {
 	opt := optional.Of("hello")
 	empty := optional.Empty[string]()
 
@@ -181,7 +181,7 @@ func ExampleElem_OrElse() {
 	// Empty value: default
 }
 
-func ExampleElem_OrError() {
+func ExampleValue_OrError() {
 	opt := optional.Of(42)
 	empty := optional.Empty[int]()
 
@@ -200,7 +200,7 @@ func ExampleElem_OrError() {
 	// Empty error: true
 }
 
-func ExampleElem_IfPresent() {
+func ExampleValue_IfPresent() {
 	opt := optional.Of("hello")
 	empty := optional.Empty[string]()
 
@@ -216,7 +216,7 @@ func ExampleElem_IfPresent() {
 	// Value is present: hello
 }
 
-func ExampleElem_IfNotPresent() {
+func ExampleValue_IfNotPresent() {
 	opt := optional.Of("hello")
 	empty := optional.Empty[string]()
 
@@ -232,7 +232,7 @@ func ExampleElem_IfNotPresent() {
 	// This executes when empty
 }
 
-func ExampleElem_Seq() {
+func ExampleValue_Seq() {
 	opt := optional.Of("hello")
 
 	var values []string
@@ -255,7 +255,7 @@ func ExampleElem_Seq() {
 	// Empty values length: 0
 }
 
-func ExampleElem_Seq2() {
+func ExampleValue_Seq2() {
 	opt := optional.Of("hello")
 	empty := optional.Empty[string]()
 
@@ -278,7 +278,7 @@ func ExampleElem_Seq2() {
 	// Expected error: value is not present
 }
 
-func ExampleElem_IsNotEmpty() {
+func ExampleValue_IsNotEmpty() {
 	opt := optional.Of("hello")
 	empty := optional.Empty[string]()
 
@@ -290,7 +290,7 @@ func ExampleElem_IsNotEmpty() {
 	// Second is not empty: false
 }
 
-func ExampleElem_OrZeroValue() {
+func ExampleValue_OrZeroValue() {
 	opt := optional.Of(42)
 	empty := optional.Empty[int]()
 
