@@ -33,8 +33,8 @@ func Greater[T types.Ordered](a, b T) bool {
 	return cmp.Compare(a, b) > 0
 }
 
-// GreaterThen returns the function that checks if a value is greater than another.
-func GreaterThen[T types.Ordered](expected T) func(T) bool {
+// GreaterThan returns the function that checks if a value is greater than another.
+func GreaterThan[T types.Ordered](expected T) func(T) bool {
 	return func(v T) bool {
 		return cmp.Compare(v, expected) > 0
 	}
@@ -57,8 +57,8 @@ func Less[T types.Ordered](a, b T) bool {
 	return cmp.Compare(a, b) < 0
 }
 
-// LessThen returns the function that checks if a value is less than another.
-func LessThen[T types.Ordered](expected T) func(T) bool {
+// LessThan returns the function that checks if a value is less than another.
+func LessThan[T types.Ordered](expected T) func(T) bool {
 	return func(v T) bool {
 		return cmp.Compare(v, expected) < 0
 	}

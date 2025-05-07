@@ -96,18 +96,18 @@ func ExampleGreater() {
 	// is.Greater("apple", "zebra"): false (alphabetical order)
 }
 
-func ExampleGreaterThen() {
-	// GreaterThen creates a function that checks if values exceed a threshold
+func ExampleGreaterThan() {
+	// GreaterThan creates a function that checks if values exceed a threshold
 	fmt.Println("Using threshold checker functions:")
 
 	// Check if age is considered adult (over 18)
-	isAdult := is.GreaterThen(18)
+	isAdult := is.GreaterThan(18)
 	fmt.Printf("isAdult(21): %v (21 exceeds adult threshold)\n", isAdult(21))
 	fmt.Printf("isAdult(18): %v (18 equals adult threshold)\n", isAdult(18))
 	fmt.Printf("isAdult(16): %v (16 below adult threshold)\n", isAdult(16))
 
 	// Check if temperature is hot (over 30°C)
-	isHot := is.GreaterThen(30.0)
+	isHot := is.GreaterThan(30.0)
 	fmt.Printf("isHot(35.5): %v (35.5°C exceeds hot threshold)\n", isHot(35.5))
 	fmt.Printf("isHot(25.0): %v (25.0°C below hot threshold)\n", isHot(25.0))
 
@@ -178,18 +178,18 @@ func ExampleLess() {
 	// is.Less("apple", "zebra"): true (alphabetical order)
 }
 
-func ExampleLessThen() {
-	// LessThen creates a function that checks if values are below a threshold
+func ExampleLessThan() {
+	// LessThan creates a function that checks if values are below a threshold
 	fmt.Println("Using maximum threshold functions:")
 
 	// Check if someone is a minor (under 18)
-	isMinor := is.LessThen(18)
+	isMinor := is.LessThan(18)
 	fmt.Printf("isMinor(16): %v (16 is below adult threshold)\n", isMinor(16))
 	fmt.Printf("isMinor(18): %v (18 equals adult threshold)\n", isMinor(18))
 	fmt.Printf("isMinor(21): %v (21 exceeds adult threshold)\n", isMinor(21))
 
 	// Check if temperature is freezing (below 0°C)
-	isFreezing := is.LessThen(0.0)
+	isFreezing := is.LessThan(0.0)
 	fmt.Printf("isFreezing(-5.0): %v (-5.0°C is freezing)\n", isFreezing(-5.0))
 	fmt.Printf("isFreezing(0.0): %v (0.0°C at freezing point)\n", isFreezing(0.0))
 
