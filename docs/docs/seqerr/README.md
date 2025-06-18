@@ -14,6 +14,62 @@ By integrating seamlessly with the iter.Seq ecosystem, this package provides a c
 
 
 
+<a name="Append"></a>
+## [Append](<https://github.com/go-softwarelab/common/blob/main/pkg/seqerr/joins.go#L15>)
+
+```go
+func Append[E any](seq iter.Seq2[E, error], elem E) iter.Seq2[E, error]
+```
+
+Append appends element to the end of a sequence.
+
+<details>
+<summary>Example</summary>
+
+
+
+
+```go
+package main
+
+import (
+	"fmt"
+
+	"github.com/go-softwarelab/common/pkg/seq"
+	"github.com/go-softwarelab/common/pkg/seqerr"
+)
+
+func main() {
+	// Create a sequence with numbers 1-3
+	sequence := seq.Range(1, 4)
+
+	// Append number 4 to the sequence
+	appended := seqerr.Append(seqerr.FromSeq(sequence), 4)
+
+	// Collect results
+	for n, err := range appended {
+		if err != nil {
+			fmt.Printf("Error: %v\n", err)
+			break
+		}
+		fmt.Println(n)
+	}
+
+}
+```
+
+**Output**
+
+```
+1
+2
+3
+4
+```
+
+
+</details>
+
 <a name="Collect"></a>
 ## [Collect](<https://github.com/go-softwarelab/common/blob/main/pkg/seqerr/consumer.go#L19>)
 
@@ -116,6 +172,131 @@ func main() {
 ```
 Error: source error
 [1]
+```
+
+
+</details>
+
+<a name="Concat"></a>
+## [Concat](<https://github.com/go-softwarelab/common/blob/main/pkg/seqerr/joins.go#L10>)
+
+```go
+func Concat[E any](sequences ...iter.Seq2[E, error]) iter.Seq2[E, error]
+```
+
+Concat concatenates multiple sequences into a single sequence.
+
+<details>
+<summary>Example</summary>
+
+
+
+
+```go
+package main
+
+import (
+	"fmt"
+
+	"github.com/go-softwarelab/common/pkg/seq"
+	"github.com/go-softwarelab/common/pkg/seqerr"
+)
+
+func main() {
+	// Create first sequence with numbers 1-2
+	first := seqerr.FromSeq(seq.Range(1, 3))
+
+	// Create second sequence with numbers 3-4
+	second := seqerr.FromSeq(seq.Range(3, 5))
+
+	// Concatenate the two sequences
+	combined := seqerr.Concat(first, second)
+
+	// Collect results
+	for n, err := range combined {
+		if err != nil {
+			fmt.Printf("Error: %v\n", err)
+			break
+		}
+		fmt.Println(n)
+	}
+
+}
+```
+
+**Output**
+
+```
+1
+2
+3
+4
+```
+
+
+</details>
+
+<details>
+<summary>Example (With Error)</summary>
+
+
+
+
+```go
+package main
+
+import (
+	"errors"
+	"fmt"
+	"iter"
+
+	"github.com/go-softwarelab/common/pkg/seqerr"
+)
+
+func main() {
+	// Create first sequence with an error
+	first := iter.Seq2[int, error](func(yield func(int, error) bool) {
+		if !yield(1, nil) {
+			return
+		}
+		if !yield(2, errors.New("first sequence error")) {
+			return
+		}
+		// This won't be processed due to the error
+		if !yield(3, nil) {
+			return
+		}
+	})
+
+	// Create second sequence
+	second := iter.Seq2[int, error](func(yield func(int, error) bool) {
+		for i := 4; i <= 5; i++ {
+			if !yield(i, nil) {
+				break
+			}
+		}
+	})
+
+	// Concatenate the two sequences
+	combined := seqerr.Concat(first, second)
+
+	// Collect results
+	for n, err := range combined {
+		if err != nil {
+			fmt.Printf("Error: %v\n", err)
+			break
+		}
+		fmt.Println(n)
+	}
+
+}
+```
+
+**Output**
+
+```
+1
+Error: first sequence error
 ```
 
 
@@ -1555,6 +1736,62 @@ func main() {
 1
 2
 3
+```
+
+
+</details>
+
+<a name="Prepend"></a>
+## [Prepend](<https://github.com/go-softwarelab/common/blob/main/pkg/seqerr/joins.go#L20>)
+
+```go
+func Prepend[E any](seq iter.Seq2[E, error], elem E) iter.Seq2[E, error]
+```
+
+Prepend prepends element to the beginning of a sequence.
+
+<details>
+<summary>Example</summary>
+
+
+
+
+```go
+package main
+
+import (
+	"fmt"
+
+	"github.com/go-softwarelab/common/pkg/seq"
+	"github.com/go-softwarelab/common/pkg/seqerr"
+)
+
+func main() {
+	// Create a sequence with numbers 2-4
+	sequence := seq.Range(2, 5)
+
+	// Prepend number 1 to the sequence
+	prepended := seqerr.Prepend(seqerr.FromSeq(sequence), 1)
+
+	// Collect results
+	for n, err := range prepended {
+		if err != nil {
+			fmt.Printf("Error: %v\n", err)
+			break
+		}
+		fmt.Println(n)
+	}
+
+}
+```
+
+**Output**
+
+```
+1
+2
+3
+4
 ```
 
 

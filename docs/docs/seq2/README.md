@@ -459,6 +459,51 @@ func Cycle[K, V any](seq iter.Seq2[K, V]) iter.Seq2[K, V]
 
 Cycle repeats the sequence indefinitely.
 
+<details>
+<summary>Example</summary>
+
+
+
+
+```go
+package main
+
+import (
+	"fmt"
+
+	"github.com/go-softwarelab/common/pkg/seq2"
+)
+
+func main() {
+	input := seq2.FromMap(map[string]int{"a": 1, "b": 2})
+	input = seq2.SortByKeys(input)
+
+	// Create an infinite cycle of the sequence
+	cycled := seq2.Cycle(input)
+
+	// Take only the first 5 elements from the infinite cycle
+	limited := seq2.Take(cycled, 5)
+
+	seq2.ForEach(limited, func(k string, v int) {
+		fmt.Println(k, v)
+	})
+
+}
+```
+
+**Output**
+
+```
+a 1
+b 2
+a 1
+b 2
+a 1
+```
+
+
+</details>
+
 <a name="CycleTimes"></a>
 ## [CycleTimes](<https://github.com/go-softwarelab/common/blob/main/pkg/seq2/mapper.go#L69>)
 
