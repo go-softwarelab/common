@@ -88,3 +88,25 @@ func ExampleCycleTimes() {
 	// a 1
 	// b 2
 }
+
+func ExampleCycle() {
+	input := seq2.FromMap(map[string]int{"a": 1, "b": 2})
+	input = seq2.SortByKeys(input)
+
+	// Create an infinite cycle of the sequence
+	cycled := seq2.Cycle(input)
+
+	// Take only the first 5 elements from the infinite cycle
+	limited := seq2.Take(cycled, 5)
+
+	seq2.ForEach(limited, func(k string, v int) {
+		fmt.Println(k, v)
+	})
+
+	// Output:
+	// a 1
+	// b 2
+	// a 1
+	// b 2
+	// a 1
+}
