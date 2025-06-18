@@ -1835,7 +1835,7 @@ func main() {
 func Range[E types.Integer](start, end E) iter.Seq[E]
 ```
 
-Range returns a sequence that yields integers from \`start\` to \`end\`.
+Range returns a sequence that yields integers from \`start\` inclusive to \`end\` exclusive.
 
 <details>
 <summary>Example</summary>

@@ -73,7 +73,7 @@ func RangeWithStep[E types.Integer](start, end, step E) iter.Seq[E] {
 	}
 }
 
-// Range returns a sequence that yields integers from `start` to `end`.
+// Range returns a sequence that yields integers from `start` inclusive to `end` exclusive.
 func Range[E types.Integer](start, end E) iter.Seq[E] {
 	return RangeWithStep(start, end, 1)
 }
