@@ -58,18 +58,219 @@ func ExampleIntFromUnsigned() {
 	// int(42), Error: <nil>
 }
 
+func ExampleIntFromBool() {
+	// Converting true value
+	trueVal := to.IntFromBool(true)
+	fmt.Printf("true: %T(%d)\n", trueVal, trueVal)
+
+	// Converting false value
+	falseVal := to.IntFromBool(false)
+	fmt.Printf("false: %T(%d)\n", falseVal, falseVal)
+
+	// Output:
+	// true: int(1)
+	// false: int(0)
+}
+
+func ExampleInt8FromBool() {
+	// Converting true value
+	trueVal := to.Int8FromBool(true)
+	fmt.Printf("true: %T(%d)\n", trueVal, trueVal)
+
+	// Converting false value
+	falseVal := to.Int8FromBool(false)
+	fmt.Printf("false: %T(%d)\n", falseVal, falseVal)
+
+	// Output:
+	// true: int8(1)
+	// false: int8(0)
+}
+
+func ExampleInt16FromBool() {
+	// Converting true value
+	trueVal := to.Int16FromBool(true)
+	fmt.Printf("true: %T(%d)\n", trueVal, trueVal)
+
+	// Converting false value
+	falseVal := to.Int16FromBool(false)
+	fmt.Printf("false: %T(%d)\n", falseVal, falseVal)
+
+	// Output:
+	// true: int16(1)
+	// false: int16(0)
+}
+
+func ExampleInt32FromBool() {
+	// Converting true value
+	trueVal := to.Int32FromBool(true)
+	fmt.Printf("true: %T(%d)\n", trueVal, trueVal)
+
+	// Converting false value
+	falseVal := to.Int32FromBool(false)
+	fmt.Printf("false: %T(%d)\n", falseVal, falseVal)
+
+	// Output:
+	// true: int32(1)
+	// false: int32(0)
+}
+
+func ExampleInt64FromBool() {
+	// Converting true value
+	trueVal := to.Int64FromBool(true)
+	fmt.Printf("true: %T(%d)\n", trueVal, trueVal)
+
+	// Converting false value
+	falseVal := to.Int64FromBool(false)
+	fmt.Printf("false: %T(%d)\n", falseVal, falseVal)
+
+	// Output:
+	// true: int64(1)
+	// false: int64(0)
+}
+
+func ExampleUIntFromBool() {
+	// Converting true value
+	trueVal := to.UIntFromBool(true)
+	fmt.Printf("true: %T(%d)\n", trueVal, trueVal)
+
+	// Converting false value
+	falseVal := to.UIntFromBool(false)
+	fmt.Printf("false: %T(%d)\n", falseVal, falseVal)
+
+	// Output:
+	// true: uint(1)
+	// false: uint(0)
+}
+
+func ExampleUInt8FromBool() {
+	// Converting true value
+	trueVal := to.UInt8FromBool(true)
+	fmt.Printf("true: %T(%d)\n", trueVal, trueVal)
+
+	// Converting false value
+	falseVal := to.UInt8FromBool(false)
+	fmt.Printf("false: %T(%d)\n", falseVal, falseVal)
+
+	// Output:
+	// true: uint8(1)
+	// false: uint8(0)
+}
+
+func ExampleUInt16FromBool() {
+	// Converting true value
+	trueVal := to.UInt16FromBool(true)
+	fmt.Printf("true: %T(%d)\n", trueVal, trueVal)
+
+	// Converting false value
+	falseVal := to.UInt16FromBool(false)
+	fmt.Printf("false: %T(%d)\n", falseVal, falseVal)
+
+	// Output:
+	// true: uint16(1)
+	// false: uint16(0)
+}
+
+func ExampleUInt32FromBool() {
+	// Converting true value
+	trueVal := to.UInt32FromBool(true)
+	fmt.Printf("true: %T(%d)\n", trueVal, trueVal)
+
+	// Converting false value
+	falseVal := to.UInt32FromBool(false)
+	fmt.Printf("false: %T(%d)\n", falseVal, falseVal)
+
+	// Output:
+	// true: uint32(1)
+	// false: uint32(0)
+}
+
+func ExampleUInt64FromBool() {
+	// Converting true value
+	trueVal := to.UInt64FromBool(true)
+	fmt.Printf("true: %T(%d)\n", trueVal, trueVal)
+
+	// Converting false value
+	falseVal := to.UInt64FromBool(false)
+	fmt.Printf("false: %T(%d)\n", falseVal, falseVal)
+
+	// Output:
+	// true: uint64(1)
+	// false: uint64(0)
+}
+
+func ExampleFloat32FromBool() {
+	// Converting true value
+	trueVal := to.Float32FromBool(true)
+	fmt.Printf("true: %T(%g)\n", trueVal, trueVal)
+
+	// Converting false value
+	falseVal := to.Float32FromBool(false)
+	fmt.Printf("false: %T(%g)\n", falseVal, falseVal)
+
+	// Output:
+	// true: float32(1)
+	// false: float32(0)
+}
+
+func ExampleFloat64FromBool() {
+	// Converting true value
+	trueVal := to.Float64FromBool(true)
+	fmt.Printf("true: %T(%g)\n", trueVal, trueVal)
+
+	// Converting false value
+	falseVal := to.Float64FromBool(false)
+	fmt.Printf("false: %T(%g)\n", falseVal, falseVal)
+
+	// Output:
+	// true: float64(1)
+	// false: float64(0)
+}
+
 func ExampleInt8() {
-	// Converting within range
-	val, err := to.Int8(42)
-	fmt.Printf("%T(%d), Error: %v\n", val, val, err)
+	// Example for bool value
+	boolVal, boolErr := to.Int8(true)
+	fmt.Printf("Bool: %T(%d), Error: %v\n", boolVal, boolVal, boolErr)
+
+	// Example for string value
+	strVal, strErr := to.Int8("42")
+	fmt.Printf("String: %T(%d), Error: %v\n", strVal, strVal, strErr)
+
+	// Example for uint8 value
+	uint8Val, uint8Err := to.Int8(uint8(42))
+	fmt.Printf("Uint8: %T(%d), Error: %v\n", uint8Val, uint8Val, uint8Err)
+
+	// Example for int value
+	intVal, intErr := to.Int8(42)
+	fmt.Printf("Int: %T(%d), Error: %v\n", intVal, intVal, intErr)
+
+	// Example for custom type based on string
+	type CustomString string
+	customStrVal, customStrErr := to.Int8(CustomString("42"))
+	fmt.Printf("CustomString: %T(%d), Error: %v\n", customStrVal, customStrVal, customStrErr)
+
+	// Example for custom type based on int
+	type CustomInt int
+	customIntVal, customIntErr := to.Int8(CustomInt(42))
+	fmt.Printf("CustomInt: %T(%d), Error: %v\n", customIntVal, customIntVal, customIntErr)
+
+	// Example for custom type based on bool
+	type CustomBool bool
+	customBoolVal, customBoolErr := to.Int8(CustomBool(true))
+	fmt.Printf("CustomBool: %T(%d), Error: %v\n", customBoolVal, customBoolVal, customBoolErr)
 
 	// Converting out of range
 	valOOR, errOOR := to.Int8(1000)
-	fmt.Printf("%T(%d), Error: %v\n", valOOR, valOOR, errors.Is(errOOR, to.ErrValueOutOfRange))
+	fmt.Printf("Out of range: %T(%d), Error: %v\n", valOOR, valOOR, errors.Is(errOOR, to.ErrValueOutOfRange))
 
 	// Output:
-	// int8(42), Error: <nil>
-	// int8(0), Error: true
+	// Bool: int8(1), Error: <nil>
+	// String: int8(42), Error: <nil>
+	// Uint8: int8(42), Error: <nil>
+	// Int: int8(42), Error: <nil>
+	// CustomString: int8(42), Error: <nil>
+	// CustomInt: int8(42), Error: <nil>
+	// CustomBool: int8(1), Error: <nil>
+	// Out of range: int8(0), Error: true
 }
 
 func ExampleInt8FromUnsigned() {
@@ -87,17 +288,50 @@ func ExampleInt8FromUnsigned() {
 }
 
 func ExampleInt16() {
-	// Converting within range
-	val, err := to.Int16(1000)
-	fmt.Printf("%T(%d), Error: %v\n", val, val, err)
+	// Example for bool value
+	boolVal, boolErr := to.Int16(true)
+	fmt.Printf("Bool: %T(%d), Error: %v\n", boolVal, boolVal, boolErr)
+
+	// Example for string value
+	strVal, strErr := to.Int16("1000")
+	fmt.Printf("String: %T(%d), Error: %v\n", strVal, strVal, strErr)
+
+	// Example for uint16 value
+	uint16Val, uint16Err := to.Int16(uint16(1000))
+	fmt.Printf("Uint16: %T(%d), Error: %v\n", uint16Val, uint16Val, uint16Err)
+
+	// Example for int value
+	intVal, intErr := to.Int16(1000)
+	fmt.Printf("Int: %T(%d), Error: %v\n", intVal, intVal, intErr)
+
+	// Example for custom type based on string
+	type CustomString string
+	customStrVal, customStrErr := to.Int16(CustomString("1000"))
+	fmt.Printf("CustomString: %T(%d), Error: %v\n", customStrVal, customStrVal, customStrErr)
+
+	// Example for custom type based on int
+	type CustomInt int
+	customIntVal, customIntErr := to.Int16(CustomInt(1000))
+	fmt.Printf("CustomInt: %T(%d), Error: %v\n", customIntVal, customIntVal, customIntErr)
+
+	// Example for custom type based on bool
+	type CustomBool bool
+	customBoolVal, customBoolErr := to.Int16(CustomBool(true))
+	fmt.Printf("CustomBool: %T(%d), Error: %v\n", customBoolVal, customBoolVal, customBoolErr)
 
 	// Converting out of range
 	valOOR, errOOR := to.Int16(40000)
-	fmt.Printf("%T(%d), Error: %v\n", valOOR, valOOR, errors.Is(errOOR, to.ErrValueOutOfRange))
+	fmt.Printf("Out of range: %T(%d), Error: %v\n", valOOR, valOOR, errors.Is(errOOR, to.ErrValueOutOfRange))
 
 	// Output:
-	// int16(1000), Error: <nil>
-	// int16(0), Error: true
+	// Bool: int16(1), Error: <nil>
+	// String: int16(1000), Error: <nil>
+	// Uint16: int16(1000), Error: <nil>
+	// Int: int16(1000), Error: <nil>
+	// CustomString: int16(1000), Error: <nil>
+	// CustomInt: int16(1000), Error: <nil>
+	// CustomBool: int16(1), Error: <nil>
+	// Out of range: int16(0), Error: true
 }
 
 func ExampleInt16FromUnsigned() {
@@ -115,12 +349,45 @@ func ExampleInt16FromUnsigned() {
 }
 
 func ExampleInt32() {
-	// Converting within range
-	val, err := to.Int32(1000000)
-	fmt.Printf("%T(%d), Error: %v\n", val, val, err)
+	// Example for bool value
+	boolVal, boolErr := to.Int32(true)
+	fmt.Printf("Bool: %T(%d), Error: %v\n", boolVal, boolVal, boolErr)
+
+	// Example for string value
+	strVal, strErr := to.Int32("1000000")
+	fmt.Printf("String: %T(%d), Error: %v\n", strVal, strVal, strErr)
+
+	// Example for uint32 value
+	uint32Val, uint32Err := to.Int32(uint32(1000000))
+	fmt.Printf("Uint32: %T(%d), Error: %v\n", uint32Val, uint32Val, uint32Err)
+
+	// Example for int value
+	intVal, intErr := to.Int32(1000000)
+	fmt.Printf("Int: %T(%d), Error: %v\n", intVal, intVal, intErr)
+
+	// Example for custom type based on string
+	type CustomString string
+	customStrVal, customStrErr := to.Int32(CustomString("1000000"))
+	fmt.Printf("CustomString: %T(%d), Error: %v\n", customStrVal, customStrVal, customStrErr)
+
+	// Example for custom type based on int
+	type CustomInt int
+	customIntVal, customIntErr := to.Int32(CustomInt(1000000))
+	fmt.Printf("CustomInt: %T(%d), Error: %v\n", customIntVal, customIntVal, customIntErr)
+
+	// Example for custom type based on bool
+	type CustomBool bool
+	customBoolVal, customBoolErr := to.Int32(CustomBool(true))
+	fmt.Printf("CustomBool: %T(%d), Error: %v\n", customBoolVal, customBoolVal, customBoolErr)
 
 	// Output:
-	// int32(1000000), Error: <nil>
+	// Bool: int32(1), Error: <nil>
+	// String: int32(1000000), Error: <nil>
+	// Uint32: int32(1000000), Error: <nil>
+	// Int: int32(1000000), Error: <nil>
+	// CustomString: int32(1000000), Error: <nil>
+	// CustomInt: int32(1000000), Error: <nil>
+	// CustomBool: int32(1), Error: <nil>
 }
 
 func ExampleInt32FromUnsigned() {
@@ -133,12 +400,45 @@ func ExampleInt32FromUnsigned() {
 }
 
 func ExampleInt64() {
-	// Converting within range
-	val, err := to.Int64(9223372036854775807)
-	fmt.Printf("%T(%d), Error: %v\n", val, val, err)
+	// Example for bool value
+	boolVal, boolErr := to.Int64(true)
+	fmt.Printf("Bool: %T(%d), Error: %v\n", boolVal, boolVal, boolErr)
+
+	// Example for string value
+	strVal, strErr := to.Int64("9223372036854775807")
+	fmt.Printf("String: %T(%d), Error: %v\n", strVal, strVal, strErr)
+
+	// Example for uint64 value
+	uint64Val, uint64Err := to.Int64(uint64(9223372036854775807))
+	fmt.Printf("Uint64: %T(%d), Error: %v\n", uint64Val, uint64Val, uint64Err)
+
+	// Example for int value
+	intVal, intErr := to.Int64(9223372036854775807)
+	fmt.Printf("Int: %T(%d), Error: %v\n", intVal, intVal, intErr)
+
+	// Example for custom type based on string
+	type CustomString string
+	customStrVal, customStrErr := to.Int64(CustomString("9223372036854775807"))
+	fmt.Printf("CustomString: %T(%d), Error: %v\n", customStrVal, customStrVal, customStrErr)
+
+	// Example for custom type based on int
+	type CustomInt int
+	customIntVal, customIntErr := to.Int64(CustomInt(9223372036854775807))
+	fmt.Printf("CustomInt: %T(%d), Error: %v\n", customIntVal, customIntVal, customIntErr)
+
+	// Example for custom type based on bool
+	type CustomBool bool
+	customBoolVal, customBoolErr := to.Int64(CustomBool(true))
+	fmt.Printf("CustomBool: %T(%d), Error: %v\n", customBoolVal, customBoolVal, customBoolErr)
 
 	// Output:
-	// int64(9223372036854775807), Error: <nil>
+	// Bool: int64(1), Error: <nil>
+	// String: int64(9223372036854775807), Error: <nil>
+	// Uint64: int64(9223372036854775807), Error: <nil>
+	// Int: int64(9223372036854775807), Error: <nil>
+	// CustomString: int64(9223372036854775807), Error: <nil>
+	// CustomInt: int64(9223372036854775807), Error: <nil>
+	// CustomBool: int64(1), Error: <nil>
 }
 
 func ExampleInt64FromUnsigned() {
@@ -151,17 +451,50 @@ func ExampleInt64FromUnsigned() {
 }
 
 func ExampleUInt() {
-	// Converting positive value
-	val, err := to.UInt(42)
-	fmt.Printf("%T(%d), Error: %v\n", val, val, err)
+	// Example for bool value
+	boolVal, boolErr := to.UInt(true)
+	fmt.Printf("Bool: %T(%d), Error: %v\n", boolVal, boolVal, boolErr)
+
+	// Example for string value
+	strVal, strErr := to.UInt("42")
+	fmt.Printf("String: %T(%d), Error: %v\n", strVal, strVal, strErr)
+
+	// Example for uint value
+	uintVal, uintErr := to.UInt(uint(42))
+	fmt.Printf("Uint: %T(%d), Error: %v\n", uintVal, uintVal, uintErr)
+
+	// Example for int value
+	intVal, intErr := to.UInt(42)
+	fmt.Printf("Int: %T(%d), Error: %v\n", intVal, intVal, intErr)
+
+	// Example for custom type based on string
+	type CustomString string
+	customStrVal, customStrErr := to.UInt(CustomString("42"))
+	fmt.Printf("CustomString: %T(%d), Error: %v\n", customStrVal, customStrVal, customStrErr)
+
+	// Example for custom type based on int
+	type CustomInt int
+	customIntVal, customIntErr := to.UInt(CustomInt(42))
+	fmt.Printf("CustomInt: %T(%d), Error: %v\n", customIntVal, customIntVal, customIntErr)
+
+	// Example for custom type based on bool
+	type CustomBool bool
+	customBoolVal, customBoolErr := to.UInt(CustomBool(true))
+	fmt.Printf("CustomBool: %T(%d), Error: %v\n", customBoolVal, customBoolVal, customBoolErr)
 
 	// Converting negative value
 	valNeg, errNeg := to.UInt(-5)
-	fmt.Printf("%T(%d), Error: %v\n", valNeg, valNeg, errors.Is(errNeg, to.ErrValueOutOfRange))
+	fmt.Printf("Negative: %T(%d), Error: %v\n", valNeg, valNeg, errors.Is(errNeg, to.ErrValueOutOfRange))
 
 	// Output:
-	// uint(42), Error: <nil>
-	// uint(0), Error: true
+	// Bool: uint(1), Error: <nil>
+	// String: uint(42), Error: <nil>
+	// Uint: uint(42), Error: <nil>
+	// Int: uint(42), Error: <nil>
+	// CustomString: uint(42), Error: <nil>
+	// CustomInt: uint(42), Error: <nil>
+	// CustomBool: uint(1), Error: <nil>
+	// Negative: uint(0), Error: true
 }
 
 func ExampleUIntFromNumber() {
@@ -179,17 +512,50 @@ func ExampleUIntFromNumber() {
 }
 
 func ExampleUInt8() {
-	// Converting within range
-	val, err := to.UInt8(200)
-	fmt.Printf("%T(%d), Error: %v\n", val, val, err)
+	// Example for bool value
+	boolVal, boolErr := to.UInt8(true)
+	fmt.Printf("Bool: %T(%d), Error: %v\n", boolVal, boolVal, boolErr)
+
+	// Example for string value
+	strVal, strErr := to.UInt8("200")
+	fmt.Printf("String: %T(%d), Error: %v\n", strVal, strVal, strErr)
+
+	// Example for uint8 value
+	uint8Val, uint8Err := to.UInt8(uint8(200))
+	fmt.Printf("Uint8: %T(%d), Error: %v\n", uint8Val, uint8Val, uint8Err)
+
+	// Example for int value
+	intVal, intErr := to.UInt8(200)
+	fmt.Printf("Int: %T(%d), Error: %v\n", intVal, intVal, intErr)
+
+	// Example for custom type based on string
+	type CustomString string
+	customStrVal, customStrErr := to.UInt8(CustomString("200"))
+	fmt.Printf("CustomString: %T(%d), Error: %v\n", customStrVal, customStrVal, customStrErr)
+
+	// Example for custom type based on int
+	type CustomInt int
+	customIntVal, customIntErr := to.UInt8(CustomInt(200))
+	fmt.Printf("CustomInt: %T(%d), Error: %v\n", customIntVal, customIntVal, customIntErr)
+
+	// Example for custom type based on bool
+	type CustomBool bool
+	customBoolVal, customBoolErr := to.UInt8(CustomBool(true))
+	fmt.Printf("CustomBool: %T(%d), Error: %v\n", customBoolVal, customBoolVal, customBoolErr)
 
 	// Converting out of range
 	valOOR, errOOR := to.UInt8(300)
-	fmt.Printf("%T(%d), Error: %v\n", valOOR, valOOR, errors.Is(errOOR, to.ErrValueOutOfRange))
+	fmt.Printf("Out of range: %T(%d), Error: %v\n", valOOR, valOOR, errors.Is(errOOR, to.ErrValueOutOfRange))
 
 	// Output:
-	// uint8(200), Error: <nil>
-	// uint8(0), Error: true
+	// Bool: uint8(1), Error: <nil>
+	// String: uint8(200), Error: <nil>
+	// Uint8: uint8(200), Error: <nil>
+	// Int: uint8(200), Error: <nil>
+	// CustomString: uint8(200), Error: <nil>
+	// CustomInt: uint8(200), Error: <nil>
+	// CustomBool: uint8(1), Error: <nil>
+	// Out of range: uint8(0), Error: true
 }
 
 func ExampleUInt8FromNumber() {
@@ -207,12 +573,45 @@ func ExampleUInt8FromNumber() {
 }
 
 func ExampleUInt16() {
-	// Converting within range
-	val, err := to.UInt16(65000)
-	fmt.Printf("%T(%d), Error: %v\n", val, val, err)
+	// Example for bool value
+	boolVal, boolErr := to.UInt16(true)
+	fmt.Printf("Bool: %T(%d), Error: %v\n", boolVal, boolVal, boolErr)
+
+	// Example for string value
+	strVal, strErr := to.UInt16("65000")
+	fmt.Printf("String: %T(%d), Error: %v\n", strVal, strVal, strErr)
+
+	// Example for uint16 value
+	uint16Val, uint16Err := to.UInt16(uint16(65000))
+	fmt.Printf("Uint16: %T(%d), Error: %v\n", uint16Val, uint16Val, uint16Err)
+
+	// Example for int value
+	intVal, intErr := to.UInt16(65000)
+	fmt.Printf("Int: %T(%d), Error: %v\n", intVal, intVal, intErr)
+
+	// Example for custom type based on string
+	type CustomString string
+	customStrVal, customStrErr := to.UInt16(CustomString("65000"))
+	fmt.Printf("CustomString: %T(%d), Error: %v\n", customStrVal, customStrVal, customStrErr)
+
+	// Example for custom type based on int
+	type CustomInt int
+	customIntVal, customIntErr := to.UInt16(CustomInt(65000))
+	fmt.Printf("CustomInt: %T(%d), Error: %v\n", customIntVal, customIntVal, customIntErr)
+
+	// Example for custom type based on bool
+	type CustomBool bool
+	customBoolVal, customBoolErr := to.UInt16(CustomBool(true))
+	fmt.Printf("CustomBool: %T(%d), Error: %v\n", customBoolVal, customBoolVal, customBoolErr)
 
 	// Output:
-	// uint16(65000), Error: <nil>
+	// Bool: uint16(1), Error: <nil>
+	// String: uint16(65000), Error: <nil>
+	// Uint16: uint16(65000), Error: <nil>
+	// Int: uint16(65000), Error: <nil>
+	// CustomString: uint16(65000), Error: <nil>
+	// CustomInt: uint16(65000), Error: <nil>
+	// CustomBool: uint16(1), Error: <nil>
 }
 
 func ExampleUInt16FromNumber() {
@@ -225,17 +624,50 @@ func ExampleUInt16FromNumber() {
 }
 
 func ExampleUInt32() {
-	// Valid conversion
-	val, err := to.UInt32(42)
-	fmt.Printf("%T(%d), Error: %v\n", val, val, err)
+	// Example for bool value
+	boolVal, boolErr := to.UInt32(true)
+	fmt.Printf("Bool: %T(%d), Error: %v\n", boolVal, boolVal, boolErr)
+
+	// Example for string value
+	strVal, strErr := to.UInt32("4294967295")
+	fmt.Printf("String: %T(%d), Error: %v\n", strVal, strVal, strErr)
+
+	// Example for uint32 value
+	uint32Val, uint32Err := to.UInt32(uint32(4294967295))
+	fmt.Printf("Uint32: %T(%d), Error: %v\n", uint32Val, uint32Val, uint32Err)
+
+	// Example for int value
+	intVal, intErr := to.UInt32(42)
+	fmt.Printf("Int: %T(%d), Error: %v\n", intVal, intVal, intErr)
+
+	// Example for custom type based on string
+	type CustomString string
+	customStrVal, customStrErr := to.UInt32(CustomString("42"))
+	fmt.Printf("CustomString: %T(%d), Error: %v\n", customStrVal, customStrVal, customStrErr)
+
+	// Example for custom type based on int
+	type CustomInt int
+	customIntVal, customIntErr := to.UInt32(CustomInt(42))
+	fmt.Printf("CustomInt: %T(%d), Error: %v\n", customIntVal, customIntVal, customIntErr)
+
+	// Example for custom type based on bool
+	type CustomBool bool
+	customBoolVal, customBoolErr := to.UInt32(CustomBool(true))
+	fmt.Printf("CustomBool: %T(%d), Error: %v\n", customBoolVal, customBoolVal, customBoolErr)
 
 	// Negative number
 	valNeg, errNeg := to.UInt32(-5)
-	fmt.Printf("%T(%d), Error: %v\n", valNeg, valNeg, errors.Is(errNeg, to.ErrValueOutOfRange))
+	fmt.Printf("Negative: %T(%d), Error: %v\n", valNeg, valNeg, errors.Is(errNeg, to.ErrValueOutOfRange))
 
 	// Output:
-	// uint32(42), Error: <nil>
-	// uint32(0), Error: true
+	// Bool: uint32(1), Error: <nil>
+	// String: uint32(4294967295), Error: <nil>
+	// Uint32: uint32(4294967295), Error: <nil>
+	// Int: uint32(42), Error: <nil>
+	// CustomString: uint32(42), Error: <nil>
+	// CustomInt: uint32(42), Error: <nil>
+	// CustomBool: uint32(1), Error: <nil>
+	// Negative: uint32(0), Error: true
 }
 
 func ExampleUInt32FromNumber() {
@@ -253,12 +685,45 @@ func ExampleUInt32FromNumber() {
 }
 
 func ExampleUInt64() {
-	// Converting within range
-	val, err := to.UInt64(uint(18446744073709551000))
-	fmt.Printf("%T(%d), Error: %v\n", val, val, err)
+	// Example for bool value
+	boolVal, boolErr := to.UInt64(true)
+	fmt.Printf("Bool: %T(%d), Error: %v\n", boolVal, boolVal, boolErr)
+
+	// Example for string value
+	strVal, strErr := to.UInt64("18446744073709551615")
+	fmt.Printf("String: %T(%d), Error: %v\n", strVal, strVal, strErr)
+
+	// Example for uint64 value
+	uint64Val, uint64Err := to.UInt64(uint64(18446744073709551615))
+	fmt.Printf("Uint64: %T(%d), Error: %v\n", uint64Val, uint64Val, uint64Err)
+
+	// Example for int value
+	intVal, intErr := to.UInt64(42)
+	fmt.Printf("Int: %T(%d), Error: %v\n", intVal, intVal, intErr)
+
+	// Example for custom type based on string
+	type CustomString string
+	customStrVal, customStrErr := to.UInt64(CustomString("42"))
+	fmt.Printf("CustomString: %T(%d), Error: %v\n", customStrVal, customStrVal, customStrErr)
+
+	// Example for custom type based on int
+	type CustomInt int
+	customIntVal, customIntErr := to.UInt64(CustomInt(42))
+	fmt.Printf("CustomInt: %T(%d), Error: %v\n", customIntVal, customIntVal, customIntErr)
+
+	// Example for custom type based on bool
+	type CustomBool bool
+	customBoolVal, customBoolErr := to.UInt64(CustomBool(true))
+	fmt.Printf("CustomBool: %T(%d), Error: %v\n", customBoolVal, customBoolVal, customBoolErr)
 
 	// Output:
-	// uint64(18446744073709551000), Error: <nil>
+	// Bool: uint64(1), Error: <nil>
+	// String: uint64(18446744073709551615), Error: <nil>
+	// Uint64: uint64(18446744073709551615), Error: <nil>
+	// Int: uint64(42), Error: <nil>
+	// CustomString: uint64(42), Error: <nil>
+	// CustomInt: uint64(42), Error: <nil>
+	// CustomBool: uint64(1), Error: <nil>
 }
 
 func ExampleUInt64FromNumber() {
@@ -271,21 +736,87 @@ func ExampleUInt64FromNumber() {
 }
 
 func ExampleFloat32() {
-	// Converting within range
-	val, err := to.Float32(3)
-	fmt.Printf("%T(%g), Error: %v\n", val, val, err)
+	// Example for bool value
+	boolVal, boolErr := to.Float32(true)
+	fmt.Printf("Bool: %T(%g), Error: %v\n", boolVal, boolVal, boolErr)
+
+	// Example for string value
+	strVal, strErr := to.Float32("3.14159")
+	fmt.Printf("String: %T(%g), Error: %v\n", strVal, strVal, strErr)
+
+	// Example for float32 value
+	float32Val, float32Err := to.Float32(float32(3.14159))
+	fmt.Printf("Float32: %T(%g), Error: %v\n", float32Val, float32Val, float32Err)
+
+	// Example for int value
+	intVal, intErr := to.Float32(3)
+	fmt.Printf("Int: %T(%g), Error: %v\n", intVal, intVal, intErr)
+
+	// Example for custom type based on string
+	type CustomString string
+	customStrVal, customStrErr := to.Float32(CustomString("3.14159"))
+	fmt.Printf("CustomString: %T(%g), Error: %v\n", customStrVal, customStrVal, customStrErr)
+
+	// Example for custom type based on int
+	type CustomInt int
+	customIntVal, customIntErr := to.Float32(CustomInt(3))
+	fmt.Printf("CustomInt: %T(%g), Error: %v\n", customIntVal, customIntVal, customIntErr)
+
+	// Example for custom type based on bool
+	type CustomBool bool
+	customBoolVal, customBoolErr := to.Float32(CustomBool(true))
+	fmt.Printf("CustomBool: %T(%g), Error: %v\n", customBoolVal, customBoolVal, customBoolErr)
 
 	// Output:
-	// float32(3), Error: <nil>
+	// Bool: float32(1), Error: <nil>
+	// String: float32(3.14159), Error: <nil>
+	// Float32: float32(3.14159), Error: <nil>
+	// Int: float32(3), Error: <nil>
+	// CustomString: float32(3.14159), Error: <nil>
+	// CustomInt: float32(3), Error: <nil>
+	// CustomBool: float32(1), Error: <nil>
 }
 
 func ExampleFloat64() {
-	// Converting within range
-	val, err := to.Float64(3)
-	fmt.Printf("%T(%g), Error: %v\n", val, val, err)
+	// Example for bool value
+	boolVal, boolErr := to.Float64(true)
+	fmt.Printf("Bool: %T(%g), Error: %v\n", boolVal, boolVal, boolErr)
+
+	// Example for string value
+	strVal, strErr := to.Float64("3.14159265359")
+	fmt.Printf("String: %T(%g), Error: %v\n", strVal, strVal, strErr)
+
+	// Example for float64 value
+	float64Val, float64Err := to.Float64(float64(3.14159265359))
+	fmt.Printf("Float64: %T(%g), Error: %v\n", float64Val, float64Val, float64Err)
+
+	// Example for int value
+	intVal, intErr := to.Float64(3)
+	fmt.Printf("Int: %T(%g), Error: %v\n", intVal, intVal, intErr)
+
+	// Example for custom type based on string
+	type CustomString string
+	customStrVal, customStrErr := to.Float64(CustomString("3.14159265359"))
+	fmt.Printf("CustomString: %T(%g), Error: %v\n", customStrVal, customStrVal, customStrErr)
+
+	// Example for custom type based on int
+	type CustomInt int
+	customIntVal, customIntErr := to.Float64(CustomInt(3))
+	fmt.Printf("CustomInt: %T(%g), Error: %v\n", customIntVal, customIntVal, customIntErr)
+
+	// Example for custom type based on bool
+	type CustomBool bool
+	customBoolVal, customBoolErr := to.Float64(CustomBool(true))
+	fmt.Printf("CustomBool: %T(%g), Error: %v\n", customBoolVal, customBoolVal, customBoolErr)
 
 	// Output:
-	// float64(3), Error: <nil>
+	// Bool: float64(1), Error: <nil>
+	// String: float64(3.14159265359), Error: <nil>
+	// Float64: float64(3.14159265359), Error: <nil>
+	// Int: float64(3), Error: <nil>
+	// CustomString: float64(3.14159265359), Error: <nil>
+	// CustomInt: float64(3), Error: <nil>
+	// CustomBool: float64(1), Error: <nil>
 }
 
 func ExampleFloat32FromUnsigned() {

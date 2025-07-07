@@ -73,7 +73,7 @@ Type: string
 </details>
 
 <a name="AtLeast"></a>
-## [AtLeast](<https://github.com/go-softwarelab/common/blob/main/pkg/to/numbers.go#L519>)
+## [AtLeast](<https://github.com/go-softwarelab/common/blob/main/pkg/to/numbers.go#L1313>)
 
 ```go
 func AtLeast[T types.Ordered](min T) func(value T) T
@@ -84,7 +84,7 @@ AtLeast will return a function that will clamp the value to be at least the min 
 See Also: NoLessThan @Deprecated: In the future will replace ValueAtLeast, use AtLeastThe instead.
 
 <a name="AtLeastThe"></a>
-## [AtLeastThe](<https://github.com/go-softwarelab/common/blob/main/pkg/to/numbers.go#L529>)
+## [AtLeastThe](<https://github.com/go-softwarelab/common/blob/main/pkg/to/numbers.go#L1323>)
 
 ```go
 func AtLeastThe[T types.Ordered](min T) func(value T) T
@@ -130,7 +130,7 @@ ensureAdult(21) = 21
 </details>
 
 <a name="AtMost"></a>
-## [AtMost](<https://github.com/go-softwarelab/common/blob/main/pkg/to/numbers.go#L553>)
+## [AtMost](<https://github.com/go-softwarelab/common/blob/main/pkg/to/numbers.go#L1347>)
 
 ```go
 func AtMost[T types.Ordered](max T) func(value T) T
@@ -141,7 +141,7 @@ AtMost will return a function that will clamp the value to be at most the max va
 See Also: ValueAtMost @Deprecated: In the future will replace ValueAtMost, use AtMostThe instead.
 
 <a name="AtMostThe"></a>
-## [AtMostThe](<https://github.com/go-softwarelab/common/blob/main/pkg/to/numbers.go#L563>)
+## [AtMostThe](<https://github.com/go-softwarelab/common/blob/main/pkg/to/numbers.go#L1357>)
 
 ```go
 func AtMostThe[T types.Ordered](max T) func(value T) T
@@ -539,13 +539,19 @@ bool(false)
 </details>
 
 <a name="Float32"></a>
-## [Float32](<https://github.com/go-softwarelab/common/blob/main/pkg/to/numbers.go#L437>)
+## [Float32](<https://github.com/go-softwarelab/common/blob/main/pkg/to/numbers.go#L1088>)
 
 ```go
-func Float32[V types.SignedNumber](value V) (float32, error)
+func Float32[V ConvertableToNumber](value V) (float32, error)
 ```
 
-Float32 will convert any number to float
+Float32 will convert bool, any number or string, and their subtypes to float32
+
+NOTE: This is using reflection, if it is an issue, use dedicated functions for a given type, with suffix like
+
+```
+FromBool or FromSigned.
+```
 
 <details>
 <summary>Example</summary>
@@ -563,9 +569,36 @@ import (
 )
 
 func main() {
-	// Converting within range
-	val, err := to.Float32(3)
-	fmt.Printf("%T(%g), Error: %v\n", val, val, err)
+	// Example for bool value
+	boolVal, boolErr := to.Float32(true)
+	fmt.Printf("Bool: %T(%g), Error: %v\n", boolVal, boolVal, boolErr)
+
+	// Example for string value
+	strVal, strErr := to.Float32("3.14159")
+	fmt.Printf("String: %T(%g), Error: %v\n", strVal, strVal, strErr)
+
+	// Example for float32 value
+	float32Val, float32Err := to.Float32(float32(3.14159))
+	fmt.Printf("Float32: %T(%g), Error: %v\n", float32Val, float32Val, float32Err)
+
+	// Example for int value
+	intVal, intErr := to.Float32(3)
+	fmt.Printf("Int: %T(%g), Error: %v\n", intVal, intVal, intErr)
+
+	// Example for custom type based on string
+	type CustomString string
+	customStrVal, customStrErr := to.Float32(CustomString("3.14159"))
+	fmt.Printf("CustomString: %T(%g), Error: %v\n", customStrVal, customStrVal, customStrErr)
+
+	// Example for custom type based on int
+	type CustomInt int
+	customIntVal, customIntErr := to.Float32(CustomInt(3))
+	fmt.Printf("CustomInt: %T(%g), Error: %v\n", customIntVal, customIntVal, customIntErr)
+
+	// Example for custom type based on bool
+	type CustomBool bool
+	customBoolVal, customBoolErr := to.Float32(CustomBool(true))
+	fmt.Printf("CustomBool: %T(%g), Error: %v\n", customBoolVal, customBoolVal, customBoolErr)
 
 }
 ```
@@ -573,14 +606,66 @@ func main() {
 **Output**
 
 ```
-float32(3), Error: <nil>
+Bool: float32(1), Error: <nil>
+String: float32(3.14159), Error: <nil>
+Float32: float32(3.14159), Error: <nil>
+Int: float32(3), Error: <nil>
+CustomString: float32(3.14159), Error: <nil>
+CustomInt: float32(3), Error: <nil>
+CustomBool: float32(1), Error: <nil>
+```
+
+
+</details>
+
+<a name="Float32FromBool"></a>
+## [Float32FromBool](<https://github.com/go-softwarelab/common/blob/main/pkg/to/numbers.go#L1156>)
+
+```go
+func Float32FromBool(value bool) float32
+```
+
+Float32FromBool converts a boolean value to its float32 representation \(true = 1.0, false = 0.0\).
+
+<details>
+<summary>Example</summary>
+
+
+
+
+```go
+package main
+
+import (
+	"fmt"
+
+	"github.com/go-softwarelab/common/pkg/to"
+)
+
+func main() {
+	// Converting true value
+	trueVal := to.Float32FromBool(true)
+	fmt.Printf("true: %T(%g)\n", trueVal, trueVal)
+
+	// Converting false value
+	falseVal := to.Float32FromBool(false)
+	fmt.Printf("false: %T(%g)\n", falseVal, falseVal)
+
+}
+```
+
+**Output**
+
+```
+true: float32(1)
+false: float32(0)
 ```
 
 
 </details>
 
 <a name="Float32FromSigned"></a>
-## [Float32FromSigned](<https://github.com/go-softwarelab/common/blob/main/pkg/to/numbers.go#L445>)
+## [Float32FromSigned](<https://github.com/go-softwarelab/common/blob/main/pkg/to/numbers.go#L1164>)
 
 ```go
 func Float32FromSigned[V types.SignedNumber](value V) (float32, error)
@@ -621,7 +706,7 @@ float32(3), Error: <nil>
 </details>
 
 <a name="Float32FromString"></a>
-## [Float32FromString](<https://github.com/go-softwarelab/common/blob/main/pkg/to/numbers.go#L461>)
+## [Float32FromString](<https://github.com/go-softwarelab/common/blob/main/pkg/to/numbers.go#L1180>)
 
 ```go
 func Float32FromString(value string) (float32, error)
@@ -662,7 +747,7 @@ float32(3.14159), Error: <nil>
 </details>
 
 <a name="Float32FromUnsigned"></a>
-## [Float32FromUnsigned](<https://github.com/go-softwarelab/common/blob/main/pkg/to/numbers.go#L453>)
+## [Float32FromUnsigned](<https://github.com/go-softwarelab/common/blob/main/pkg/to/numbers.go#L1172>)
 
 ```go
 func Float32FromUnsigned[V types.Unsigned](value V) (float32, error)
@@ -703,13 +788,19 @@ float32(42), Error: <nil>
 </details>
 
 <a name="Float64"></a>
-## [Float64](<https://github.com/go-softwarelab/common/blob/main/pkg/to/numbers.go#L474>)
+## [Float64](<https://github.com/go-softwarelab/common/blob/main/pkg/to/numbers.go#L1197>)
 
 ```go
-func Float64[V types.SignedNumber](value V) (float64, error)
+func Float64[V ConvertableToNumber](value V) (float64, error)
 ```
 
-Float64 will convert any number to float
+Float64 will convert bool, any number or string, and their subtypes to float64
+
+NOTE: This is using reflection, if it is an issue, use dedicated functions for a given type, with suffix like
+
+```
+FromBool or FromSigned.
+```
 
 <details>
 <summary>Example</summary>
@@ -727,9 +818,36 @@ import (
 )
 
 func main() {
-	// Converting within range
-	val, err := to.Float64(3)
-	fmt.Printf("%T(%g), Error: %v\n", val, val, err)
+	// Example for bool value
+	boolVal, boolErr := to.Float64(true)
+	fmt.Printf("Bool: %T(%g), Error: %v\n", boolVal, boolVal, boolErr)
+
+	// Example for string value
+	strVal, strErr := to.Float64("3.14159265359")
+	fmt.Printf("String: %T(%g), Error: %v\n", strVal, strVal, strErr)
+
+	// Example for float64 value
+	float64Val, float64Err := to.Float64(float64(3.14159265359))
+	fmt.Printf("Float64: %T(%g), Error: %v\n", float64Val, float64Val, float64Err)
+
+	// Example for int value
+	intVal, intErr := to.Float64(3)
+	fmt.Printf("Int: %T(%g), Error: %v\n", intVal, intVal, intErr)
+
+	// Example for custom type based on string
+	type CustomString string
+	customStrVal, customStrErr := to.Float64(CustomString("3.14159265359"))
+	fmt.Printf("CustomString: %T(%g), Error: %v\n", customStrVal, customStrVal, customStrErr)
+
+	// Example for custom type based on int
+	type CustomInt int
+	customIntVal, customIntErr := to.Float64(CustomInt(3))
+	fmt.Printf("CustomInt: %T(%g), Error: %v\n", customIntVal, customIntVal, customIntErr)
+
+	// Example for custom type based on bool
+	type CustomBool bool
+	customBoolVal, customBoolErr := to.Float64(CustomBool(true))
+	fmt.Printf("CustomBool: %T(%g), Error: %v\n", customBoolVal, customBoolVal, customBoolErr)
 
 }
 ```
@@ -737,14 +855,66 @@ func main() {
 **Output**
 
 ```
-float64(3), Error: <nil>
+Bool: float64(1), Error: <nil>
+String: float64(3.14159265359), Error: <nil>
+Float64: float64(3.14159265359), Error: <nil>
+Int: float64(3), Error: <nil>
+CustomString: float64(3.14159265359), Error: <nil>
+CustomInt: float64(3), Error: <nil>
+CustomBool: float64(1), Error: <nil>
+```
+
+
+</details>
+
+<a name="Float64FromBool"></a>
+## [Float64FromBool](<https://github.com/go-softwarelab/common/blob/main/pkg/to/numbers.go#L1265>)
+
+```go
+func Float64FromBool(value bool) float64
+```
+
+Float64FromBool converts a boolean value to its float64 representation \(true = 1.0, false = 0.0\).
+
+<details>
+<summary>Example</summary>
+
+
+
+
+```go
+package main
+
+import (
+	"fmt"
+
+	"github.com/go-softwarelab/common/pkg/to"
+)
+
+func main() {
+	// Converting true value
+	trueVal := to.Float64FromBool(true)
+	fmt.Printf("true: %T(%g)\n", trueVal, trueVal)
+
+	// Converting false value
+	falseVal := to.Float64FromBool(false)
+	fmt.Printf("false: %T(%g)\n", falseVal, falseVal)
+
+}
+```
+
+**Output**
+
+```
+true: float64(1)
+false: float64(0)
 ```
 
 
 </details>
 
 <a name="Float64FromSigned"></a>
-## [Float64FromSigned](<https://github.com/go-softwarelab/common/blob/main/pkg/to/numbers.go#L479>)
+## [Float64FromSigned](<https://github.com/go-softwarelab/common/blob/main/pkg/to/numbers.go#L1273>)
 
 ```go
 func Float64FromSigned[V types.SignedNumber](value V) (float64, error)
@@ -785,7 +955,7 @@ float64(3), Error: <nil>
 </details>
 
 <a name="Float64FromString"></a>
-## [Float64FromString](<https://github.com/go-softwarelab/common/blob/main/pkg/to/numbers.go#L489>)
+## [Float64FromString](<https://github.com/go-softwarelab/common/blob/main/pkg/to/numbers.go#L1283>)
 
 ```go
 func Float64FromString(value string) (float64, error)
@@ -826,7 +996,7 @@ float64(3.14159), Error: <nil>
 </details>
 
 <a name="Float64FromUnsigned"></a>
-## [Float64FromUnsigned](<https://github.com/go-softwarelab/common/blob/main/pkg/to/numbers.go#L484>)
+## [Float64FromUnsigned](<https://github.com/go-softwarelab/common/blob/main/pkg/to/numbers.go#L1278>)
 
 ```go
 func Float64FromUnsigned[V types.Unsigned](value V) (float64, error)
@@ -875,10 +1045,10 @@ func Int[V ConvertableToNumber](value V) (int, error)
 
 Int will convert bool, any number or string, and their subtypes to int
 
-NOTE: This is using reflection,
+NOTE: This is using reflection, if it is an issue, use dedicated functions for a given type, with suffix like
 
 ```
-if it is an issue, use dedicated functions for given type, with suffix like FromBool or FromSigned
+FromBool or FromSigned.
 ```
 
 <details>
@@ -947,13 +1117,19 @@ CustomBool: int(1), Error: <nil>
 </details>
 
 <a name="Int16"></a>
-## [Int16](<https://github.com/go-softwarelab/common/blob/main/pkg/to/numbers.go#L183>)
+## [Int16](<https://github.com/go-softwarelab/common/blob/main/pkg/to/numbers.go#L257>)
 
 ```go
-func Int16[V types.SignedNumber](value V) (int16, error)
+func Int16[V ConvertableToNumber](value V) (int16, error)
 ```
 
-Int16 will convert any integer to int16, with range checks
+Int16 will convert bool, any number or string, and their subtypes to int16
+
+NOTE: This is using reflection, if it is an issue, use dedicated functions for a given type, with suffix like
+
+```
+FromBool or FromSigned.
+```
 
 <details>
 <summary>Example</summary>
@@ -972,13 +1148,40 @@ import (
 )
 
 func main() {
-	// Converting within range
-	val, err := to.Int16(1000)
-	fmt.Printf("%T(%d), Error: %v\n", val, val, err)
+	// Example for bool value
+	boolVal, boolErr := to.Int16(true)
+	fmt.Printf("Bool: %T(%d), Error: %v\n", boolVal, boolVal, boolErr)
+
+	// Example for string value
+	strVal, strErr := to.Int16("1000")
+	fmt.Printf("String: %T(%d), Error: %v\n", strVal, strVal, strErr)
+
+	// Example for uint16 value
+	uint16Val, uint16Err := to.Int16(uint16(1000))
+	fmt.Printf("Uint16: %T(%d), Error: %v\n", uint16Val, uint16Val, uint16Err)
+
+	// Example for int value
+	intVal, intErr := to.Int16(1000)
+	fmt.Printf("Int: %T(%d), Error: %v\n", intVal, intVal, intErr)
+
+	// Example for custom type based on string
+	type CustomString string
+	customStrVal, customStrErr := to.Int16(CustomString("1000"))
+	fmt.Printf("CustomString: %T(%d), Error: %v\n", customStrVal, customStrVal, customStrErr)
+
+	// Example for custom type based on int
+	type CustomInt int
+	customIntVal, customIntErr := to.Int16(CustomInt(1000))
+	fmt.Printf("CustomInt: %T(%d), Error: %v\n", customIntVal, customIntVal, customIntErr)
+
+	// Example for custom type based on bool
+	type CustomBool bool
+	customBoolVal, customBoolErr := to.Int16(CustomBool(true))
+	fmt.Printf("CustomBool: %T(%d), Error: %v\n", customBoolVal, customBoolVal, customBoolErr)
 
 	// Converting out of range
 	valOOR, errOOR := to.Int16(40000)
-	fmt.Printf("%T(%d), Error: %v\n", valOOR, valOOR, errors.Is(errOOR, to.ErrValueOutOfRange))
+	fmt.Printf("Out of range: %T(%d), Error: %v\n", valOOR, valOOR, errors.Is(errOOR, to.ErrValueOutOfRange))
 
 }
 ```
@@ -986,15 +1189,67 @@ func main() {
 **Output**
 
 ```
-int16(1000), Error: <nil>
-int16(0), Error: true
+Bool: int16(1), Error: <nil>
+String: int16(1000), Error: <nil>
+Uint16: int16(1000), Error: <nil>
+Int: int16(1000), Error: <nil>
+CustomString: int16(1000), Error: <nil>
+CustomInt: int16(1000), Error: <nil>
+CustomBool: int16(1), Error: <nil>
+Out of range: int16(0), Error: true
+```
+
+
+</details>
+
+<a name="Int16FromBool"></a>
+## [Int16FromBool](<https://github.com/go-softwarelab/common/blob/main/pkg/to/numbers.go#L325>)
+
+```go
+func Int16FromBool(value bool) int16
+```
+
+Int16FromBool converts a boolean value to its int16 representation \(true = 1, false = 0\).
+
+<details>
+<summary>Example</summary>
+
+
+
+
+```go
+package main
+
+import (
+	"fmt"
+
+	"github.com/go-softwarelab/common/pkg/to"
+)
+
+func main() {
+	// Converting true value
+	trueVal := to.Int16FromBool(true)
+	fmt.Printf("true: %T(%d)\n", trueVal, trueVal)
+
+	// Converting false value
+	falseVal := to.Int16FromBool(false)
+	fmt.Printf("false: %T(%d)\n", falseVal, falseVal)
+
+}
+```
+
+**Output**
+
+```
+true: int16(1)
+false: int16(0)
 ```
 
 
 </details>
 
 <a name="Int16FromSigned"></a>
-## [Int16FromSigned](<https://github.com/go-softwarelab/common/blob/main/pkg/to/numbers.go#L192>)
+## [Int16FromSigned](<https://github.com/go-softwarelab/common/blob/main/pkg/to/numbers.go#L333>)
 
 ```go
 func Int16FromSigned[V types.SignedNumber](value V) (int16, error)
@@ -1041,7 +1296,7 @@ int16(0), Error: true
 </details>
 
 <a name="Int16FromString"></a>
-## [Int16FromString](<https://github.com/go-softwarelab/common/blob/main/pkg/to/numbers.go#L209>)
+## [Int16FromString](<https://github.com/go-softwarelab/common/blob/main/pkg/to/numbers.go#L350>)
 
 ```go
 func Int16FromString(value string) (int16, error)
@@ -1088,7 +1343,7 @@ int16(0), Error: true
 </details>
 
 <a name="Int16FromUnsigned"></a>
-## [Int16FromUnsigned](<https://github.com/go-softwarelab/common/blob/main/pkg/to/numbers.go#L201>)
+## [Int16FromUnsigned](<https://github.com/go-softwarelab/common/blob/main/pkg/to/numbers.go#L342>)
 
 ```go
 func Int16FromUnsigned[V types.Unsigned](value V) (int16, error)
@@ -1135,13 +1390,19 @@ int16(0), Error: true
 </details>
 
 <a name="Int32"></a>
-## [Int32](<https://github.com/go-softwarelab/common/blob/main/pkg/to/numbers.go#L222>)
+## [Int32](<https://github.com/go-softwarelab/common/blob/main/pkg/to/numbers.go#L367>)
 
 ```go
-func Int32[V types.SignedNumber](value V) (int32, error)
+func Int32[V ConvertableToNumber](value V) (int32, error)
 ```
 
-Int32 will convert any integer to int32, with range checks
+Int32 will convert bool, any number or string, and their subtypes to int32
+
+NOTE: This is using reflection, if it is an issue, use dedicated functions for a given type, with suffix like
+
+```
+FromBool or FromSigned.
+```
 
 <details>
 <summary>Example</summary>
@@ -1159,9 +1420,36 @@ import (
 )
 
 func main() {
-	// Converting within range
-	val, err := to.Int32(1000000)
-	fmt.Printf("%T(%d), Error: %v\n", val, val, err)
+	// Example for bool value
+	boolVal, boolErr := to.Int32(true)
+	fmt.Printf("Bool: %T(%d), Error: %v\n", boolVal, boolVal, boolErr)
+
+	// Example for string value
+	strVal, strErr := to.Int32("1000000")
+	fmt.Printf("String: %T(%d), Error: %v\n", strVal, strVal, strErr)
+
+	// Example for uint32 value
+	uint32Val, uint32Err := to.Int32(uint32(1000000))
+	fmt.Printf("Uint32: %T(%d), Error: %v\n", uint32Val, uint32Val, uint32Err)
+
+	// Example for int value
+	intVal, intErr := to.Int32(1000000)
+	fmt.Printf("Int: %T(%d), Error: %v\n", intVal, intVal, intErr)
+
+	// Example for custom type based on string
+	type CustomString string
+	customStrVal, customStrErr := to.Int32(CustomString("1000000"))
+	fmt.Printf("CustomString: %T(%d), Error: %v\n", customStrVal, customStrVal, customStrErr)
+
+	// Example for custom type based on int
+	type CustomInt int
+	customIntVal, customIntErr := to.Int32(CustomInt(1000000))
+	fmt.Printf("CustomInt: %T(%d), Error: %v\n", customIntVal, customIntVal, customIntErr)
+
+	// Example for custom type based on bool
+	type CustomBool bool
+	customBoolVal, customBoolErr := to.Int32(CustomBool(true))
+	fmt.Printf("CustomBool: %T(%d), Error: %v\n", customBoolVal, customBoolVal, customBoolErr)
 
 }
 ```
@@ -1169,14 +1457,66 @@ func main() {
 **Output**
 
 ```
-int32(1000000), Error: <nil>
+Bool: int32(1), Error: <nil>
+String: int32(1000000), Error: <nil>
+Uint32: int32(1000000), Error: <nil>
+Int: int32(1000000), Error: <nil>
+CustomString: int32(1000000), Error: <nil>
+CustomInt: int32(1000000), Error: <nil>
+CustomBool: int32(1), Error: <nil>
+```
+
+
+</details>
+
+<a name="Int32FromBool"></a>
+## [Int32FromBool](<https://github.com/go-softwarelab/common/blob/main/pkg/to/numbers.go#L435>)
+
+```go
+func Int32FromBool(value bool) int32
+```
+
+Int32FromBool converts a boolean value to its int32 representation \(true = 1, false = 0\).
+
+<details>
+<summary>Example</summary>
+
+
+
+
+```go
+package main
+
+import (
+	"fmt"
+
+	"github.com/go-softwarelab/common/pkg/to"
+)
+
+func main() {
+	// Converting true value
+	trueVal := to.Int32FromBool(true)
+	fmt.Printf("true: %T(%d)\n", trueVal, trueVal)
+
+	// Converting false value
+	falseVal := to.Int32FromBool(false)
+	fmt.Printf("false: %T(%d)\n", falseVal, falseVal)
+
+}
+```
+
+**Output**
+
+```
+true: int32(1)
+false: int32(0)
 ```
 
 
 </details>
 
 <a name="Int32FromSigned"></a>
-## [Int32FromSigned](<https://github.com/go-softwarelab/common/blob/main/pkg/to/numbers.go#L231>)
+## [Int32FromSigned](<https://github.com/go-softwarelab/common/blob/main/pkg/to/numbers.go#L443>)
 
 ```go
 func Int32FromSigned[V types.SignedNumber](value V) (int32, error)
@@ -1217,7 +1557,7 @@ int32(1000000), Error: <nil>
 </details>
 
 <a name="Int32FromString"></a>
-## [Int32FromString](<https://github.com/go-softwarelab/common/blob/main/pkg/to/numbers.go#L248>)
+## [Int32FromString](<https://github.com/go-softwarelab/common/blob/main/pkg/to/numbers.go#L460>)
 
 ```go
 func Int32FromString(value string) (int32, error)
@@ -1258,7 +1598,7 @@ int32(1234567), Error: <nil>
 </details>
 
 <a name="Int32FromUnsigned"></a>
-## [Int32FromUnsigned](<https://github.com/go-softwarelab/common/blob/main/pkg/to/numbers.go#L240>)
+## [Int32FromUnsigned](<https://github.com/go-softwarelab/common/blob/main/pkg/to/numbers.go#L452>)
 
 ```go
 func Int32FromUnsigned[V types.Unsigned](value V) (int32, error)
@@ -1299,13 +1639,19 @@ int32(1000000), Error: <nil>
 </details>
 
 <a name="Int64"></a>
-## [Int64](<https://github.com/go-softwarelab/common/blob/main/pkg/to/numbers.go#L261>)
+## [Int64](<https://github.com/go-softwarelab/common/blob/main/pkg/to/numbers.go#L477>)
 
 ```go
-func Int64[V types.SignedNumber](value V) (int64, error)
+func Int64[V ConvertableToNumber](value V) (int64, error)
 ```
 
-Int64 will convert any integer to int64, with range checks
+Int64 will convert bool, any number or string, and their subtypes to int64
+
+NOTE: This is using reflection,
+
+```
+if it is an issue, use dedicated functions for a given type, with suffix like FromBool or FromSigned.
+```
 
 <details>
 <summary>Example</summary>
@@ -1323,9 +1669,36 @@ import (
 )
 
 func main() {
-	// Converting within range
-	val, err := to.Int64(9223372036854775807)
-	fmt.Printf("%T(%d), Error: %v\n", val, val, err)
+	// Example for bool value
+	boolVal, boolErr := to.Int64(true)
+	fmt.Printf("Bool: %T(%d), Error: %v\n", boolVal, boolVal, boolErr)
+
+	// Example for string value
+	strVal, strErr := to.Int64("9223372036854775807")
+	fmt.Printf("String: %T(%d), Error: %v\n", strVal, strVal, strErr)
+
+	// Example for uint64 value
+	uint64Val, uint64Err := to.Int64(uint64(9223372036854775807))
+	fmt.Printf("Uint64: %T(%d), Error: %v\n", uint64Val, uint64Val, uint64Err)
+
+	// Example for int value
+	intVal, intErr := to.Int64(9223372036854775807)
+	fmt.Printf("Int: %T(%d), Error: %v\n", intVal, intVal, intErr)
+
+	// Example for custom type based on string
+	type CustomString string
+	customStrVal, customStrErr := to.Int64(CustomString("9223372036854775807"))
+	fmt.Printf("CustomString: %T(%d), Error: %v\n", customStrVal, customStrVal, customStrErr)
+
+	// Example for custom type based on int
+	type CustomInt int
+	customIntVal, customIntErr := to.Int64(CustomInt(9223372036854775807))
+	fmt.Printf("CustomInt: %T(%d), Error: %v\n", customIntVal, customIntVal, customIntErr)
+
+	// Example for custom type based on bool
+	type CustomBool bool
+	customBoolVal, customBoolErr := to.Int64(CustomBool(true))
+	fmt.Printf("CustomBool: %T(%d), Error: %v\n", customBoolVal, customBoolVal, customBoolErr)
 
 }
 ```
@@ -1333,14 +1706,66 @@ func main() {
 **Output**
 
 ```
-int64(9223372036854775807), Error: <nil>
+Bool: int64(1), Error: <nil>
+String: int64(9223372036854775807), Error: <nil>
+Uint64: int64(9223372036854775807), Error: <nil>
+Int: int64(9223372036854775807), Error: <nil>
+CustomString: int64(9223372036854775807), Error: <nil>
+CustomInt: int64(9223372036854775807), Error: <nil>
+CustomBool: int64(1), Error: <nil>
+```
+
+
+</details>
+
+<a name="Int64FromBool"></a>
+## [Int64FromBool](<https://github.com/go-softwarelab/common/blob/main/pkg/to/numbers.go#L545>)
+
+```go
+func Int64FromBool(value bool) int64
+```
+
+Int64FromBool converts a boolean value to its int64 representation \(true = 1, false = 0\).
+
+<details>
+<summary>Example</summary>
+
+
+
+
+```go
+package main
+
+import (
+	"fmt"
+
+	"github.com/go-softwarelab/common/pkg/to"
+)
+
+func main() {
+	// Converting true value
+	trueVal := to.Int64FromBool(true)
+	fmt.Printf("true: %T(%d)\n", trueVal, trueVal)
+
+	// Converting false value
+	falseVal := to.Int64FromBool(false)
+	fmt.Printf("false: %T(%d)\n", falseVal, falseVal)
+
+}
+```
+
+**Output**
+
+```
+true: int64(1)
+false: int64(0)
 ```
 
 
 </details>
 
 <a name="Int64FromSigned"></a>
-## [Int64FromSigned](<https://github.com/go-softwarelab/common/blob/main/pkg/to/numbers.go#L266>)
+## [Int64FromSigned](<https://github.com/go-softwarelab/common/blob/main/pkg/to/numbers.go#L553>)
 
 ```go
 func Int64FromSigned[V types.SignedNumber](value V) (int64, error)
@@ -1381,7 +1806,7 @@ int64(9223372036854775807), Error: <nil>
 </details>
 
 <a name="Int64FromString"></a>
-## [Int64FromString](<https://github.com/go-softwarelab/common/blob/main/pkg/to/numbers.go#L279>)
+## [Int64FromString](<https://github.com/go-softwarelab/common/blob/main/pkg/to/numbers.go#L566>)
 
 ```go
 func Int64FromString(value string) (int64, error)
@@ -1422,7 +1847,7 @@ int64(9223372036854775807), Error: <nil>
 </details>
 
 <a name="Int64FromUnsigned"></a>
-## [Int64FromUnsigned](<https://github.com/go-softwarelab/common/blob/main/pkg/to/numbers.go#L271>)
+## [Int64FromUnsigned](<https://github.com/go-softwarelab/common/blob/main/pkg/to/numbers.go#L558>)
 
 ```go
 func Int64FromUnsigned[V types.Unsigned](value V) (int64, error)
@@ -1463,13 +1888,19 @@ int64(9223372036854775807), Error: <nil>
 </details>
 
 <a name="Int8"></a>
-## [Int8](<https://github.com/go-softwarelab/common/blob/main/pkg/to/numbers.go#L144>)
+## [Int8](<https://github.com/go-softwarelab/common/blob/main/pkg/to/numbers.go#L147>)
 
 ```go
-func Int8[V types.SignedNumber](value V) (int8, error)
+func Int8[V ConvertableToNumber](value V) (int8, error)
 ```
 
-Int8 will convert any integer to int8, with range checks
+Int8 will convert bool, any number or string, and their subtypes to int8
+
+NOTE: This is using reflection,
+
+```
+if it is an issue, use dedicated functions for a given type, with suffix like FromBool or FromSigned.
+```
 
 <details>
 <summary>Example</summary>
@@ -1488,13 +1919,40 @@ import (
 )
 
 func main() {
-	// Converting within range
-	val, err := to.Int8(42)
-	fmt.Printf("%T(%d), Error: %v\n", val, val, err)
+	// Example for bool value
+	boolVal, boolErr := to.Int8(true)
+	fmt.Printf("Bool: %T(%d), Error: %v\n", boolVal, boolVal, boolErr)
+
+	// Example for string value
+	strVal, strErr := to.Int8("42")
+	fmt.Printf("String: %T(%d), Error: %v\n", strVal, strVal, strErr)
+
+	// Example for uint8 value
+	uint8Val, uint8Err := to.Int8(uint8(42))
+	fmt.Printf("Uint8: %T(%d), Error: %v\n", uint8Val, uint8Val, uint8Err)
+
+	// Example for int value
+	intVal, intErr := to.Int8(42)
+	fmt.Printf("Int: %T(%d), Error: %v\n", intVal, intVal, intErr)
+
+	// Example for custom type based on string
+	type CustomString string
+	customStrVal, customStrErr := to.Int8(CustomString("42"))
+	fmt.Printf("CustomString: %T(%d), Error: %v\n", customStrVal, customStrVal, customStrErr)
+
+	// Example for custom type based on int
+	type CustomInt int
+	customIntVal, customIntErr := to.Int8(CustomInt(42))
+	fmt.Printf("CustomInt: %T(%d), Error: %v\n", customIntVal, customIntVal, customIntErr)
+
+	// Example for custom type based on bool
+	type CustomBool bool
+	customBoolVal, customBoolErr := to.Int8(CustomBool(true))
+	fmt.Printf("CustomBool: %T(%d), Error: %v\n", customBoolVal, customBoolVal, customBoolErr)
 
 	// Converting out of range
 	valOOR, errOOR := to.Int8(1000)
-	fmt.Printf("%T(%d), Error: %v\n", valOOR, valOOR, errors.Is(errOOR, to.ErrValueOutOfRange))
+	fmt.Printf("Out of range: %T(%d), Error: %v\n", valOOR, valOOR, errors.Is(errOOR, to.ErrValueOutOfRange))
 
 }
 ```
@@ -1502,15 +1960,67 @@ func main() {
 **Output**
 
 ```
-int8(42), Error: <nil>
-int8(0), Error: true
+Bool: int8(1), Error: <nil>
+String: int8(42), Error: <nil>
+Uint8: int8(42), Error: <nil>
+Int: int8(42), Error: <nil>
+CustomString: int8(42), Error: <nil>
+CustomInt: int8(42), Error: <nil>
+CustomBool: int8(1), Error: <nil>
+Out of range: int8(0), Error: true
+```
+
+
+</details>
+
+<a name="Int8FromBool"></a>
+## [Int8FromBool](<https://github.com/go-softwarelab/common/blob/main/pkg/to/numbers.go#L215>)
+
+```go
+func Int8FromBool(value bool) int8
+```
+
+Int8FromBool converts a boolean value to its int8 representation \(true = 1, false = 0\).
+
+<details>
+<summary>Example</summary>
+
+
+
+
+```go
+package main
+
+import (
+	"fmt"
+
+	"github.com/go-softwarelab/common/pkg/to"
+)
+
+func main() {
+	// Converting true value
+	trueVal := to.Int8FromBool(true)
+	fmt.Printf("true: %T(%d)\n", trueVal, trueVal)
+
+	// Converting false value
+	falseVal := to.Int8FromBool(false)
+	fmt.Printf("false: %T(%d)\n", falseVal, falseVal)
+
+}
+```
+
+**Output**
+
+```
+true: int8(1)
+false: int8(0)
 ```
 
 
 </details>
 
 <a name="Int8FromSigned"></a>
-## [Int8FromSigned](<https://github.com/go-softwarelab/common/blob/main/pkg/to/numbers.go#L153>)
+## [Int8FromSigned](<https://github.com/go-softwarelab/common/blob/main/pkg/to/numbers.go#L223>)
 
 ```go
 func Int8FromSigned[V types.SignedNumber](value V) (int8, error)
@@ -1557,7 +2067,7 @@ int8(0), Error: true
 </details>
 
 <a name="Int8FromString"></a>
-## [Int8FromString](<https://github.com/go-softwarelab/common/blob/main/pkg/to/numbers.go#L170>)
+## [Int8FromString](<https://github.com/go-softwarelab/common/blob/main/pkg/to/numbers.go#L240>)
 
 ```go
 func Int8FromString(value string) (int8, error)
@@ -1604,7 +2114,7 @@ int8(0), Error: true
 </details>
 
 <a name="Int8FromUnsigned"></a>
-## [Int8FromUnsigned](<https://github.com/go-softwarelab/common/blob/main/pkg/to/numbers.go#L162>)
+## [Int8FromUnsigned](<https://github.com/go-softwarelab/common/blob/main/pkg/to/numbers.go#L232>)
 
 ```go
 func Int8FromUnsigned[V types.Unsigned](value V) (int8, error)
@@ -1651,7 +2161,7 @@ int8(0), Error: true
 </details>
 
 <a name="IntFromBool"></a>
-## [IntFromBool](<https://github.com/go-softwarelab/common/blob/main/pkg/to/numbers.go#L106>)
+## [IntFromBool](<https://github.com/go-softwarelab/common/blob/main/pkg/to/numbers.go#L105>)
 
 ```go
 func IntFromBool(value bool) int
@@ -1659,8 +2169,45 @@ func IntFromBool(value bool) int
 
 IntFromBool converts a boolean value to its integer representation \(true = 1, false = 0\).
 
+<details>
+<summary>Example</summary>
+
+
+
+
+```go
+package main
+
+import (
+	"fmt"
+
+	"github.com/go-softwarelab/common/pkg/to"
+)
+
+func main() {
+	// Converting true value
+	trueVal := to.IntFromBool(true)
+	fmt.Printf("true: %T(%d)\n", trueVal, trueVal)
+
+	// Converting false value
+	falseVal := to.IntFromBool(false)
+	fmt.Printf("false: %T(%d)\n", falseVal, falseVal)
+
+}
+```
+
+**Output**
+
+```
+true: int(1)
+false: int(0)
+```
+
+
+</details>
+
 <a name="IntFromSigned"></a>
-## [IntFromSigned](<https://github.com/go-softwarelab/common/blob/main/pkg/to/numbers.go#L114>)
+## [IntFromSigned](<https://github.com/go-softwarelab/common/blob/main/pkg/to/numbers.go#L113>)
 
 ```go
 func IntFromSigned[V types.SignedNumber](value V) (int, error)
@@ -1701,7 +2248,7 @@ int(42), Error: <nil>
 </details>
 
 <a name="IntFromString"></a>
-## [IntFromString](<https://github.com/go-softwarelab/common/blob/main/pkg/to/numbers.go#L131>)
+## [IntFromString](<https://github.com/go-softwarelab/common/blob/main/pkg/to/numbers.go#L130>)
 
 ```go
 func IntFromString(value string) (int, error)
@@ -1748,7 +2295,7 @@ int(0), Error: true
 </details>
 
 <a name="IntFromUnsigned"></a>
-## [IntFromUnsigned](<https://github.com/go-softwarelab/common/blob/main/pkg/to/numbers.go#L123>)
+## [IntFromUnsigned](<https://github.com/go-softwarelab/common/blob/main/pkg/to/numbers.go#L122>)
 
 ```go
 func IntFromUnsigned[V types.Unsigned](value V) (int, error)
@@ -1930,7 +2477,7 @@ func main() {
 </details>
 
 <a name="NoLessThan"></a>
-## [NoLessThan](<https://github.com/go-softwarelab/common/blob/main/pkg/to/numbers.go#L502>)
+## [NoLessThan](<https://github.com/go-softwarelab/common/blob/main/pkg/to/numbers.go#L1296>)
 
 ```go
 func NoLessThan[T types.Ordered](value, min T) T
@@ -1939,7 +2486,7 @@ func NoLessThan[T types.Ordered](value, min T) T
 NoLessThan will return the value if it's not less than the min value or the min value.
 
 <a name="NoMoreThan"></a>
-## [NoMoreThan](<https://github.com/go-softwarelab/common/blob/main/pkg/to/numbers.go#L536>)
+## [NoMoreThan](<https://github.com/go-softwarelab/common/blob/main/pkg/to/numbers.go#L1330>)
 
 ```go
 func NoMoreThan[T types.Ordered](value, max T) T
@@ -2624,13 +3171,19 @@ string("世")
 </details>
 
 <a name="UInt"></a>
-## [UInt](<https://github.com/go-softwarelab/common/blob/main/pkg/to/numbers.go#L292>)
+## [UInt](<https://github.com/go-softwarelab/common/blob/main/pkg/to/numbers.go#L583>)
 
 ```go
-func UInt[V types.Number](value V) (uint, error)
+func UInt[V ConvertableToNumber](value V) (uint, error)
 ```
 
-UInt will convert any integer to uint, with range checks
+UInt will convert bool, any number or string, and their subtypes to uint
+
+NOTE: This is using reflection, if it is an issue, use dedicated functions for a given type, with suffix like
+
+```
+FromBool or FromNumber.
+```
 
 <details>
 <summary>Example</summary>
@@ -2649,13 +3202,40 @@ import (
 )
 
 func main() {
-	// Converting positive value
-	val, err := to.UInt(42)
-	fmt.Printf("%T(%d), Error: %v\n", val, val, err)
+	// Example for bool value
+	boolVal, boolErr := to.UInt(true)
+	fmt.Printf("Bool: %T(%d), Error: %v\n", boolVal, boolVal, boolErr)
+
+	// Example for string value
+	strVal, strErr := to.UInt("42")
+	fmt.Printf("String: %T(%d), Error: %v\n", strVal, strVal, strErr)
+
+	// Example for uint value
+	uintVal, uintErr := to.UInt(uint(42))
+	fmt.Printf("Uint: %T(%d), Error: %v\n", uintVal, uintVal, uintErr)
+
+	// Example for int value
+	intVal, intErr := to.UInt(42)
+	fmt.Printf("Int: %T(%d), Error: %v\n", intVal, intVal, intErr)
+
+	// Example for custom type based on string
+	type CustomString string
+	customStrVal, customStrErr := to.UInt(CustomString("42"))
+	fmt.Printf("CustomString: %T(%d), Error: %v\n", customStrVal, customStrVal, customStrErr)
+
+	// Example for custom type based on int
+	type CustomInt int
+	customIntVal, customIntErr := to.UInt(CustomInt(42))
+	fmt.Printf("CustomInt: %T(%d), Error: %v\n", customIntVal, customIntVal, customIntErr)
+
+	// Example for custom type based on bool
+	type CustomBool bool
+	customBoolVal, customBoolErr := to.UInt(CustomBool(true))
+	fmt.Printf("CustomBool: %T(%d), Error: %v\n", customBoolVal, customBoolVal, customBoolErr)
 
 	// Converting negative value
 	valNeg, errNeg := to.UInt(-5)
-	fmt.Printf("%T(%d), Error: %v\n", valNeg, valNeg, errors.Is(errNeg, to.ErrValueOutOfRange))
+	fmt.Printf("Negative: %T(%d), Error: %v\n", valNeg, valNeg, errors.Is(errNeg, to.ErrValueOutOfRange))
 
 }
 ```
@@ -2663,21 +3243,33 @@ func main() {
 **Output**
 
 ```
-uint(42), Error: <nil>
-uint(0), Error: true
+Bool: uint(1), Error: <nil>
+String: uint(42), Error: <nil>
+Uint: uint(42), Error: <nil>
+Int: uint(42), Error: <nil>
+CustomString: uint(42), Error: <nil>
+CustomInt: uint(42), Error: <nil>
+CustomBool: uint(1), Error: <nil>
+Negative: uint(0), Error: true
 ```
 
 
 </details>
 
 <a name="UInt16"></a>
-## [UInt16](<https://github.com/go-softwarelab/common/blob/main/pkg/to/numbers.go#L350>)
+## [UInt16](<https://github.com/go-softwarelab/common/blob/main/pkg/to/numbers.go#L785>)
 
 ```go
-func UInt16[V types.Number](value V) (uint16, error)
+func UInt16[V ConvertableToNumber](value V) (uint16, error)
 ```
 
-UInt16 will convert any integer to uint16, with range checks
+UInt16 will convert bool, any number or string, and their subtypes to uint16
+
+NOTE: This is using reflection, if it is an issue, use dedicated functions for a given type, with suffix like
+
+```
+FromBool or FromNumber.
+```
 
 <details>
 <summary>Example</summary>
@@ -2695,9 +3287,36 @@ import (
 )
 
 func main() {
-	// Converting within range
-	val, err := to.UInt16(65000)
-	fmt.Printf("%T(%d), Error: %v\n", val, val, err)
+	// Example for bool value
+	boolVal, boolErr := to.UInt16(true)
+	fmt.Printf("Bool: %T(%d), Error: %v\n", boolVal, boolVal, boolErr)
+
+	// Example for string value
+	strVal, strErr := to.UInt16("65000")
+	fmt.Printf("String: %T(%d), Error: %v\n", strVal, strVal, strErr)
+
+	// Example for uint16 value
+	uint16Val, uint16Err := to.UInt16(uint16(65000))
+	fmt.Printf("Uint16: %T(%d), Error: %v\n", uint16Val, uint16Val, uint16Err)
+
+	// Example for int value
+	intVal, intErr := to.UInt16(65000)
+	fmt.Printf("Int: %T(%d), Error: %v\n", intVal, intVal, intErr)
+
+	// Example for custom type based on string
+	type CustomString string
+	customStrVal, customStrErr := to.UInt16(CustomString("65000"))
+	fmt.Printf("CustomString: %T(%d), Error: %v\n", customStrVal, customStrVal, customStrErr)
+
+	// Example for custom type based on int
+	type CustomInt int
+	customIntVal, customIntErr := to.UInt16(CustomInt(65000))
+	fmt.Printf("CustomInt: %T(%d), Error: %v\n", customIntVal, customIntVal, customIntErr)
+
+	// Example for custom type based on bool
+	type CustomBool bool
+	customBoolVal, customBoolErr := to.UInt16(CustomBool(true))
+	fmt.Printf("CustomBool: %T(%d), Error: %v\n", customBoolVal, customBoolVal, customBoolErr)
 
 }
 ```
@@ -2705,14 +3324,66 @@ func main() {
 **Output**
 
 ```
-uint16(65000), Error: <nil>
+Bool: uint16(1), Error: <nil>
+String: uint16(65000), Error: <nil>
+Uint16: uint16(65000), Error: <nil>
+Int: uint16(65000), Error: <nil>
+CustomString: uint16(65000), Error: <nil>
+CustomInt: uint16(65000), Error: <nil>
+CustomBool: uint16(1), Error: <nil>
+```
+
+
+</details>
+
+<a name="UInt16FromBool"></a>
+## [UInt16FromBool](<https://github.com/go-softwarelab/common/blob/main/pkg/to/numbers.go#L853>)
+
+```go
+func UInt16FromBool(value bool) uint16
+```
+
+UInt16FromBool converts a boolean value to its uint16 representation \(true = 1, false = 0\).
+
+<details>
+<summary>Example</summary>
+
+
+
+
+```go
+package main
+
+import (
+	"fmt"
+
+	"github.com/go-softwarelab/common/pkg/to"
+)
+
+func main() {
+	// Converting true value
+	trueVal := to.UInt16FromBool(true)
+	fmt.Printf("true: %T(%d)\n", trueVal, trueVal)
+
+	// Converting false value
+	falseVal := to.UInt16FromBool(false)
+	fmt.Printf("false: %T(%d)\n", falseVal, falseVal)
+
+}
+```
+
+**Output**
+
+```
+true: uint16(1)
+false: uint16(0)
 ```
 
 
 </details>
 
 <a name="UInt16FromNumber"></a>
-## [UInt16FromNumber](<https://github.com/go-softwarelab/common/blob/main/pkg/to/numbers.go#L358>)
+## [UInt16FromNumber](<https://github.com/go-softwarelab/common/blob/main/pkg/to/numbers.go#L861>)
 
 ```go
 func UInt16FromNumber[V types.Number](value V) (uint16, error)
@@ -2753,7 +3424,7 @@ uint16(65000), Error: <nil>
 </details>
 
 <a name="UInt16FromString"></a>
-## [UInt16FromString](<https://github.com/go-softwarelab/common/blob/main/pkg/to/numbers.go#L366>)
+## [UInt16FromString](<https://github.com/go-softwarelab/common/blob/main/pkg/to/numbers.go#L869>)
 
 ```go
 func UInt16FromString(value string) (uint16, error)
@@ -2794,13 +3465,19 @@ uint16(65000), Error: <nil>
 </details>
 
 <a name="UInt32"></a>
-## [UInt32](<https://github.com/go-softwarelab/common/blob/main/pkg/to/numbers.go#L379>)
+## [UInt32](<https://github.com/go-softwarelab/common/blob/main/pkg/to/numbers.go#L886>)
 
 ```go
-func UInt32[V types.Number](value V) (uint32, error)
+func UInt32[V ConvertableToNumber](value V) (uint32, error)
 ```
 
-UInt32 will convert any integer to uint32, with range checks
+UInt32 will convert bool, any number or string, and their subtypes to uint32
+
+NOTE: This is using reflection, if it is an issue, use dedicated functions for a given type, with suffix like
+
+```
+FromBool or FromNumber.
+```
 
 <details>
 <summary>Example</summary>
@@ -2819,13 +3496,40 @@ import (
 )
 
 func main() {
-	// Valid conversion
-	val, err := to.UInt32(42)
-	fmt.Printf("%T(%d), Error: %v\n", val, val, err)
+	// Example for bool value
+	boolVal, boolErr := to.UInt32(true)
+	fmt.Printf("Bool: %T(%d), Error: %v\n", boolVal, boolVal, boolErr)
+
+	// Example for string value
+	strVal, strErr := to.UInt32("4294967295")
+	fmt.Printf("String: %T(%d), Error: %v\n", strVal, strVal, strErr)
+
+	// Example for uint32 value
+	uint32Val, uint32Err := to.UInt32(uint32(4294967295))
+	fmt.Printf("Uint32: %T(%d), Error: %v\n", uint32Val, uint32Val, uint32Err)
+
+	// Example for int value
+	intVal, intErr := to.UInt32(42)
+	fmt.Printf("Int: %T(%d), Error: %v\n", intVal, intVal, intErr)
+
+	// Example for custom type based on string
+	type CustomString string
+	customStrVal, customStrErr := to.UInt32(CustomString("42"))
+	fmt.Printf("CustomString: %T(%d), Error: %v\n", customStrVal, customStrVal, customStrErr)
+
+	// Example for custom type based on int
+	type CustomInt int
+	customIntVal, customIntErr := to.UInt32(CustomInt(42))
+	fmt.Printf("CustomInt: %T(%d), Error: %v\n", customIntVal, customIntVal, customIntErr)
+
+	// Example for custom type based on bool
+	type CustomBool bool
+	customBoolVal, customBoolErr := to.UInt32(CustomBool(true))
+	fmt.Printf("CustomBool: %T(%d), Error: %v\n", customBoolVal, customBoolVal, customBoolErr)
 
 	// Negative number
 	valNeg, errNeg := to.UInt32(-5)
-	fmt.Printf("%T(%d), Error: %v\n", valNeg, valNeg, errors.Is(errNeg, to.ErrValueOutOfRange))
+	fmt.Printf("Negative: %T(%d), Error: %v\n", valNeg, valNeg, errors.Is(errNeg, to.ErrValueOutOfRange))
 
 }
 ```
@@ -2833,15 +3537,67 @@ func main() {
 **Output**
 
 ```
-uint32(42), Error: <nil>
-uint32(0), Error: true
+Bool: uint32(1), Error: <nil>
+String: uint32(4294967295), Error: <nil>
+Uint32: uint32(4294967295), Error: <nil>
+Int: uint32(42), Error: <nil>
+CustomString: uint32(42), Error: <nil>
+CustomInt: uint32(42), Error: <nil>
+CustomBool: uint32(1), Error: <nil>
+Negative: uint32(0), Error: true
+```
+
+
+</details>
+
+<a name="UInt32FromBool"></a>
+## [UInt32FromBool](<https://github.com/go-softwarelab/common/blob/main/pkg/to/numbers.go#L954>)
+
+```go
+func UInt32FromBool(value bool) uint32
+```
+
+UInt32FromBool converts a boolean value to its uint32 representation \(true = 1, false = 0\).
+
+<details>
+<summary>Example</summary>
+
+
+
+
+```go
+package main
+
+import (
+	"fmt"
+
+	"github.com/go-softwarelab/common/pkg/to"
+)
+
+func main() {
+	// Converting true value
+	trueVal := to.UInt32FromBool(true)
+	fmt.Printf("true: %T(%d)\n", trueVal, trueVal)
+
+	// Converting false value
+	falseVal := to.UInt32FromBool(false)
+	fmt.Printf("false: %T(%d)\n", falseVal, falseVal)
+
+}
+```
+
+**Output**
+
+```
+true: uint32(1)
+false: uint32(0)
 ```
 
 
 </details>
 
 <a name="UInt32FromNumber"></a>
-## [UInt32FromNumber](<https://github.com/go-softwarelab/common/blob/main/pkg/to/numbers.go#L387>)
+## [UInt32FromNumber](<https://github.com/go-softwarelab/common/blob/main/pkg/to/numbers.go#L962>)
 
 ```go
 func UInt32FromNumber[V types.Number](value V) (uint32, error)
@@ -2888,7 +3644,7 @@ uint32(0), Error: true
 </details>
 
 <a name="UInt32FromString"></a>
-## [UInt32FromString](<https://github.com/go-softwarelab/common/blob/main/pkg/to/numbers.go#L395>)
+## [UInt32FromString](<https://github.com/go-softwarelab/common/blob/main/pkg/to/numbers.go#L970>)
 
 ```go
 func UInt32FromString(value string) (uint32, error)
@@ -2929,13 +3685,19 @@ uint32(4294967295), Error: <nil>
 </details>
 
 <a name="UInt64"></a>
-## [UInt64](<https://github.com/go-softwarelab/common/blob/main/pkg/to/numbers.go#L408>)
+## [UInt64](<https://github.com/go-softwarelab/common/blob/main/pkg/to/numbers.go#L987>)
 
 ```go
-func UInt64[V types.Number](value V) (uint64, error)
+func UInt64[V ConvertableToNumber](value V) (uint64, error)
 ```
 
-UInt64 will convert any integer to uint64, with range checks
+UInt64 will convert bool, any number or string, and their subtypes to uint64
+
+NOTE: This is using reflection, if it is an issue, use dedicated functions for a given type, with suffix like
+
+```
+FromBool or FromNumber.
+```
 
 <details>
 <summary>Example</summary>
@@ -2953,9 +3715,36 @@ import (
 )
 
 func main() {
-	// Converting within range
-	val, err := to.UInt64(uint(18446744073709551000))
-	fmt.Printf("%T(%d), Error: %v\n", val, val, err)
+	// Example for bool value
+	boolVal, boolErr := to.UInt64(true)
+	fmt.Printf("Bool: %T(%d), Error: %v\n", boolVal, boolVal, boolErr)
+
+	// Example for string value
+	strVal, strErr := to.UInt64("18446744073709551615")
+	fmt.Printf("String: %T(%d), Error: %v\n", strVal, strVal, strErr)
+
+	// Example for uint64 value
+	uint64Val, uint64Err := to.UInt64(uint64(18446744073709551615))
+	fmt.Printf("Uint64: %T(%d), Error: %v\n", uint64Val, uint64Val, uint64Err)
+
+	// Example for int value
+	intVal, intErr := to.UInt64(42)
+	fmt.Printf("Int: %T(%d), Error: %v\n", intVal, intVal, intErr)
+
+	// Example for custom type based on string
+	type CustomString string
+	customStrVal, customStrErr := to.UInt64(CustomString("42"))
+	fmt.Printf("CustomString: %T(%d), Error: %v\n", customStrVal, customStrVal, customStrErr)
+
+	// Example for custom type based on int
+	type CustomInt int
+	customIntVal, customIntErr := to.UInt64(CustomInt(42))
+	fmt.Printf("CustomInt: %T(%d), Error: %v\n", customIntVal, customIntVal, customIntErr)
+
+	// Example for custom type based on bool
+	type CustomBool bool
+	customBoolVal, customBoolErr := to.UInt64(CustomBool(true))
+	fmt.Printf("CustomBool: %T(%d), Error: %v\n", customBoolVal, customBoolVal, customBoolErr)
 
 }
 ```
@@ -2963,14 +3752,66 @@ func main() {
 **Output**
 
 ```
-uint64(18446744073709551000), Error: <nil>
+Bool: uint64(1), Error: <nil>
+String: uint64(18446744073709551615), Error: <nil>
+Uint64: uint64(18446744073709551615), Error: <nil>
+Int: uint64(42), Error: <nil>
+CustomString: uint64(42), Error: <nil>
+CustomInt: uint64(42), Error: <nil>
+CustomBool: uint64(1), Error: <nil>
+```
+
+
+</details>
+
+<a name="UInt64FromBool"></a>
+## [UInt64FromBool](<https://github.com/go-softwarelab/common/blob/main/pkg/to/numbers.go#L1055>)
+
+```go
+func UInt64FromBool(value bool) uint64
+```
+
+UInt64FromBool converts a boolean value to its uint64 representation \(true = 1, false = 0\).
+
+<details>
+<summary>Example</summary>
+
+
+
+
+```go
+package main
+
+import (
+	"fmt"
+
+	"github.com/go-softwarelab/common/pkg/to"
+)
+
+func main() {
+	// Converting true value
+	trueVal := to.UInt64FromBool(true)
+	fmt.Printf("true: %T(%d)\n", trueVal, trueVal)
+
+	// Converting false value
+	falseVal := to.UInt64FromBool(false)
+	fmt.Printf("false: %T(%d)\n", falseVal, falseVal)
+
+}
+```
+
+**Output**
+
+```
+true: uint64(1)
+false: uint64(0)
 ```
 
 
 </details>
 
 <a name="UInt64FromNumber"></a>
-## [UInt64FromNumber](<https://github.com/go-softwarelab/common/blob/main/pkg/to/numbers.go#L416>)
+## [UInt64FromNumber](<https://github.com/go-softwarelab/common/blob/main/pkg/to/numbers.go#L1063>)
 
 ```go
 func UInt64FromNumber[V types.Number](value V) (uint64, error)
@@ -3011,7 +3852,7 @@ uint64(18446744073709551000), Error: <nil>
 </details>
 
 <a name="UInt64FromString"></a>
-## [UInt64FromString](<https://github.com/go-softwarelab/common/blob/main/pkg/to/numbers.go#L424>)
+## [UInt64FromString](<https://github.com/go-softwarelab/common/blob/main/pkg/to/numbers.go#L1071>)
 
 ```go
 func UInt64FromString(value string) (uint64, error)
@@ -3052,13 +3893,19 @@ uint64(18446744073709551615), Error: <nil>
 </details>
 
 <a name="UInt8"></a>
-## [UInt8](<https://github.com/go-softwarelab/common/blob/main/pkg/to/numbers.go#L321>)
+## [UInt8](<https://github.com/go-softwarelab/common/blob/main/pkg/to/numbers.go#L684>)
 
 ```go
-func UInt8[V types.Number](value V) (uint8, error)
+func UInt8[V ConvertableToNumber](value V) (uint8, error)
 ```
 
-UInt8 will convert any integer to uint8, with range checks
+UInt8 will convert bool, any number or string, and their subtypes to uint8
+
+NOTE: This is using reflection, if it is an issue, use dedicated functions for a given type, with suffix like
+
+```
+FromBool or FromNumber.
+```
 
 <details>
 <summary>Example</summary>
@@ -3077,13 +3924,40 @@ import (
 )
 
 func main() {
-	// Converting within range
-	val, err := to.UInt8(200)
-	fmt.Printf("%T(%d), Error: %v\n", val, val, err)
+	// Example for bool value
+	boolVal, boolErr := to.UInt8(true)
+	fmt.Printf("Bool: %T(%d), Error: %v\n", boolVal, boolVal, boolErr)
+
+	// Example for string value
+	strVal, strErr := to.UInt8("200")
+	fmt.Printf("String: %T(%d), Error: %v\n", strVal, strVal, strErr)
+
+	// Example for uint8 value
+	uint8Val, uint8Err := to.UInt8(uint8(200))
+	fmt.Printf("Uint8: %T(%d), Error: %v\n", uint8Val, uint8Val, uint8Err)
+
+	// Example for int value
+	intVal, intErr := to.UInt8(200)
+	fmt.Printf("Int: %T(%d), Error: %v\n", intVal, intVal, intErr)
+
+	// Example for custom type based on string
+	type CustomString string
+	customStrVal, customStrErr := to.UInt8(CustomString("200"))
+	fmt.Printf("CustomString: %T(%d), Error: %v\n", customStrVal, customStrVal, customStrErr)
+
+	// Example for custom type based on int
+	type CustomInt int
+	customIntVal, customIntErr := to.UInt8(CustomInt(200))
+	fmt.Printf("CustomInt: %T(%d), Error: %v\n", customIntVal, customIntVal, customIntErr)
+
+	// Example for custom type based on bool
+	type CustomBool bool
+	customBoolVal, customBoolErr := to.UInt8(CustomBool(true))
+	fmt.Printf("CustomBool: %T(%d), Error: %v\n", customBoolVal, customBoolVal, customBoolErr)
 
 	// Converting out of range
 	valOOR, errOOR := to.UInt8(300)
-	fmt.Printf("%T(%d), Error: %v\n", valOOR, valOOR, errors.Is(errOOR, to.ErrValueOutOfRange))
+	fmt.Printf("Out of range: %T(%d), Error: %v\n", valOOR, valOOR, errors.Is(errOOR, to.ErrValueOutOfRange))
 
 }
 ```
@@ -3091,15 +3965,67 @@ func main() {
 **Output**
 
 ```
-uint8(200), Error: <nil>
-uint8(0), Error: true
+Bool: uint8(1), Error: <nil>
+String: uint8(200), Error: <nil>
+Uint8: uint8(200), Error: <nil>
+Int: uint8(200), Error: <nil>
+CustomString: uint8(200), Error: <nil>
+CustomInt: uint8(200), Error: <nil>
+CustomBool: uint8(1), Error: <nil>
+Out of range: uint8(0), Error: true
+```
+
+
+</details>
+
+<a name="UInt8FromBool"></a>
+## [UInt8FromBool](<https://github.com/go-softwarelab/common/blob/main/pkg/to/numbers.go#L752>)
+
+```go
+func UInt8FromBool(value bool) uint8
+```
+
+UInt8FromBool converts a boolean value to its uint8 representation \(true = 1, false = 0\).
+
+<details>
+<summary>Example</summary>
+
+
+
+
+```go
+package main
+
+import (
+	"fmt"
+
+	"github.com/go-softwarelab/common/pkg/to"
+)
+
+func main() {
+	// Converting true value
+	trueVal := to.UInt8FromBool(true)
+	fmt.Printf("true: %T(%d)\n", trueVal, trueVal)
+
+	// Converting false value
+	falseVal := to.UInt8FromBool(false)
+	fmt.Printf("false: %T(%d)\n", falseVal, falseVal)
+
+}
+```
+
+**Output**
+
+```
+true: uint8(1)
+false: uint8(0)
 ```
 
 
 </details>
 
 <a name="UInt8FromNumber"></a>
-## [UInt8FromNumber](<https://github.com/go-softwarelab/common/blob/main/pkg/to/numbers.go#L329>)
+## [UInt8FromNumber](<https://github.com/go-softwarelab/common/blob/main/pkg/to/numbers.go#L760>)
 
 ```go
 func UInt8FromNumber[V types.Number](value V) (uint8, error)
@@ -3146,7 +4072,7 @@ uint8(0), Error: true
 </details>
 
 <a name="UInt8FromString"></a>
-## [UInt8FromString](<https://github.com/go-softwarelab/common/blob/main/pkg/to/numbers.go#L337>)
+## [UInt8FromString](<https://github.com/go-softwarelab/common/blob/main/pkg/to/numbers.go#L768>)
 
 ```go
 func UInt8FromString(value string) (uint8, error)
@@ -3186,8 +4112,54 @@ uint8(200), Error: <nil>
 
 </details>
 
+<a name="UIntFromBool"></a>
+## [UIntFromBool](<https://github.com/go-softwarelab/common/blob/main/pkg/to/numbers.go#L651>)
+
+```go
+func UIntFromBool(value bool) uint
+```
+
+UIntFromBool converts a boolean value to its uint representation \(true = 1, false = 0\).
+
+<details>
+<summary>Example</summary>
+
+
+
+
+```go
+package main
+
+import (
+	"fmt"
+
+	"github.com/go-softwarelab/common/pkg/to"
+)
+
+func main() {
+	// Converting true value
+	trueVal := to.UIntFromBool(true)
+	fmt.Printf("true: %T(%d)\n", trueVal, trueVal)
+
+	// Converting false value
+	falseVal := to.UIntFromBool(false)
+	fmt.Printf("false: %T(%d)\n", falseVal, falseVal)
+
+}
+```
+
+**Output**
+
+```
+true: uint(1)
+false: uint(0)
+```
+
+
+</details>
+
 <a name="UIntFromNumber"></a>
-## [UIntFromNumber](<https://github.com/go-softwarelab/common/blob/main/pkg/to/numbers.go#L300>)
+## [UIntFromNumber](<https://github.com/go-softwarelab/common/blob/main/pkg/to/numbers.go#L659>)
 
 ```go
 func UIntFromNumber[V types.Number](value V) (uint, error)
@@ -3234,7 +4206,7 @@ uint(0), Error: true
 </details>
 
 <a name="UIntFromString"></a>
-## [UIntFromString](<https://github.com/go-softwarelab/common/blob/main/pkg/to/numbers.go#L308>)
+## [UIntFromString](<https://github.com/go-softwarelab/common/blob/main/pkg/to/numbers.go#L667>)
 
 ```go
 func UIntFromString(value string) (uint, error)
@@ -3323,7 +4295,7 @@ string("")
 </details>
 
 <a name="ValueAtLeast"></a>
-## [ValueAtLeast](<https://github.com/go-softwarelab/common/blob/main/pkg/to/numbers.go#L507>)
+## [ValueAtLeast](<https://github.com/go-softwarelab/common/blob/main/pkg/to/numbers.go#L1301>)
 
 ```go
 func ValueAtLeast[T types.Ordered](value, min T) T
@@ -3374,7 +4346,7 @@ ValueAtLeast(3.14, 4.0) = 4.00
 </details>
 
 <a name="ValueAtMost"></a>
-## [ValueAtMost](<https://github.com/go-softwarelab/common/blob/main/pkg/to/numbers.go#L541>)
+## [ValueAtMost](<https://github.com/go-softwarelab/common/blob/main/pkg/to/numbers.go#L1335>)
 
 ```go
 func ValueAtMost[T types.Ordered](value, max T) T
@@ -3420,7 +4392,7 @@ ValueAtMost(15, 10) = 10
 </details>
 
 <a name="ValueBetween"></a>
-## [ValueBetween](<https://github.com/go-softwarelab/common/blob/main/pkg/to/numbers.go#L575>)
+## [ValueBetween](<https://github.com/go-softwarelab/common/blob/main/pkg/to/numbers.go#L1369>)
 
 ```go
 func ValueBetween[T types.Ordered](value, min, max T) T
@@ -3473,7 +4445,7 @@ ValueBetween(15, 0, 10) = 10
 </details>
 
 <a name="ValueBetweenThe"></a>
-## [ValueBetweenThe](<https://github.com/go-softwarelab/common/blob/main/pkg/to/numbers.go#L591>)
+## [ValueBetweenThe](<https://github.com/go-softwarelab/common/blob/main/pkg/to/numbers.go#L1385>)
 
 ```go
 func ValueBetweenThe[T types.Ordered](min, max T) func(value T) T
