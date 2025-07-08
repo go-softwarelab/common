@@ -13,7 +13,7 @@ The package is designed to reduce boilerplate code and improve readability by pr
 
 
 <a name="Append"></a>
-## [Append](<https://github.com/go-softwarelab/common/blob/main/pkg/seq/joins.go#L33>)
+## [Append](<https://github.com/go-softwarelab/common/blob/main/pkg/seq/joins.go#L37>)
 
 ```go
 func Append[E any](seq iter.Seq[E], elems ...E) iter.Seq[E]
@@ -146,13 +146,13 @@ func main() {
 </details>
 
 <a name="Concat"></a>
-## [Concat](<https://github.com/go-softwarelab/common/blob/main/pkg/seq/joins.go#L10>)
+## [Concat](<https://github.com/go-softwarelab/common/blob/main/pkg/seq/joins.go#L11>)
 
 ```go
 func Concat[E any](sequences ...iter.Seq[E]) iter.Seq[E]
 ```
 
-Concat concatenates multiple sequences into a single sequence.
+Concat concatenates multiple sequences into a single sequence. It also safely handles nil iterators treating them as an empty iterator.
 
 <details>
 <summary>Example</summary>
@@ -173,7 +173,7 @@ func main() {
 	seq1 := seq.Of(1, 2, 3)
 	seq2 := seq.Of(4, 5, 6)
 
-	concatenated := seq.Concat(seq1, seq2)
+	concatenated := seq.Concat(seq1, seq2, nil)
 
 	result := seq.Collect(concatenated)
 
@@ -1785,7 +1785,7 @@ func main() {
 </details>
 
 <a name="Prepend"></a>
-## [Prepend](<https://github.com/go-softwarelab/common/blob/main/pkg/seq/joins.go#L38>)
+## [Prepend](<https://github.com/go-softwarelab/common/blob/main/pkg/seq/joins.go#L42>)
 
 ```go
 func Prepend[E any](seq iter.Seq[E], elems ...E) iter.Seq[E]
@@ -2626,7 +2626,7 @@ func main() {
 </details>
 
 <a name="Union"></a>
-## [Union](<https://github.com/go-softwarelab/common/blob/main/pkg/seq/joins.go#L23>)
+## [Union](<https://github.com/go-softwarelab/common/blob/main/pkg/seq/joins.go#L27>)
 
 ```go
 func Union[E types.Comparable](seq1 iter.Seq[E], seq2 iter.Seq[E]) iter.Seq[E]
@@ -2671,7 +2671,7 @@ func main() {
 </details>
 
 <a name="UnionAll"></a>
-## [UnionAll](<https://github.com/go-softwarelab/common/blob/main/pkg/seq/joins.go#L28>)
+## [UnionAll](<https://github.com/go-softwarelab/common/blob/main/pkg/seq/joins.go#L32>)
 
 ```go
 func UnionAll[E any](seq1 iter.Seq[E], seq2 iter.Seq[E]) iter.Seq[E]
@@ -2852,7 +2852,7 @@ func main() {
 </details>
 
 <a name="Zip"></a>
-## [Zip](<https://github.com/go-softwarelab/common/blob/main/pkg/seq/joins.go#L43>)
+## [Zip](<https://github.com/go-softwarelab/common/blob/main/pkg/seq/joins.go#L47>)
 
 ```go
 func Zip[E any, R any](seq1 iter.Seq[E], seq2 iter.Seq[R]) iter.Seq2[E, R]

@@ -13,7 +13,7 @@ The package is designed to reduce boilerplate code and improve readability by pr
 
 
 <a name="Append"></a>
-## [Append](<https://github.com/go-softwarelab/common/blob/main/pkg/seq2/joins.go#L50>)
+## [Append](<https://github.com/go-softwarelab/common/blob/main/pkg/seq2/joins.go#L51>)
 
 ```go
 func Append[K any, V any](seq iter.Seq2[K, V], key K, value V) iter.Seq2[K, V]
@@ -145,13 +145,13 @@ map[a:1 b:2 c:3]
 </details>
 
 <a name="Concat"></a>
-## [Concat](<https://github.com/go-softwarelab/common/blob/main/pkg/seq2/joins.go#L6>)
+## [Concat](<https://github.com/go-softwarelab/common/blob/main/pkg/seq2/joins.go#L11>)
 
 ```go
 func Concat[K any, V any](sequences ...iter.Seq2[K, V]) iter.Seq2[K, V]
 ```
 
-Concat concatenates multiple sequences into a single sequence.
+Concat concatenates multiple sequences into a single sequence. It also safely handles nil iterators treating them as an empty iterator.
 
 <details>
 <summary>Example</summary>
@@ -175,7 +175,7 @@ func main() {
 	second = seq2.SortByKeys(second)
 
 	// Concatenate two sequences
-	combined := seq2.Concat(first, second)
+	combined := seq2.Concat(first, second, nil)
 
 	result := seq2.CollectToMap(combined)
 	fmt.Println(result)
@@ -1851,7 +1851,7 @@ map[2:30 3:40 4:20]
 </details>
 
 <a name="Prepend"></a>
-## [Prepend](<https://github.com/go-softwarelab/common/blob/main/pkg/seq2/joins.go#L55>)
+## [Prepend](<https://github.com/go-softwarelab/common/blob/main/pkg/seq2/joins.go#L56>)
 
 ```go
 func Prepend[K any, V any](seq iter.Seq2[K, V], key K, value V) iter.Seq2[K, V]
@@ -2486,10 +2486,10 @@ a : 1
 </details>
 
 <a name="Split"></a>
-## [Split](<https://github.com/go-softwarelab/common/blob/main/pkg/seq2/joins.go#L45>)
+## [Split](<https://github.com/go-softwarelab/common/blob/main/pkg/seq2/joins.go#L42>)
 
 ```go
-func Split[K any, V any](seq iter.Seq2[K, V]) (iter.Seq[K], iter.Seq[V])
+func Split[K any, V any](sequence iter.Seq2[K, V]) (iter.Seq[K], iter.Seq[V])
 ```
 
 Split splits a sequence of pairs into two sequences.
@@ -2819,7 +2819,7 @@ map[a:1 b:2 c:3]
 </details>
 
 <a name="UnZip"></a>
-## [UnZip](<https://github.com/go-softwarelab/common/blob/main/pkg/seq2/joins.go#L40>)
+## [UnZip](<https://github.com/go-softwarelab/common/blob/main/pkg/seq2/joins.go#L37>)
 
 ```go
 func UnZip[K any, V any](seq iter.Seq2[K, V]) (iter.Seq[K], iter.Seq[V])
@@ -2916,7 +2916,7 @@ func main() {
 </details>
 
 <a name="Union"></a>
-## [Union](<https://github.com/go-softwarelab/common/blob/main/pkg/seq2/joins.go#L19>)
+## [Union](<https://github.com/go-softwarelab/common/blob/main/pkg/seq2/joins.go#L27>)
 
 ```go
 func Union[K comparable, V comparable](seq1 iter.Seq2[K, V], seq2 iter.Seq2[K, V]) iter.Seq2[K, V]
@@ -2963,7 +2963,7 @@ map[a:1 b:2 c:3 d:4 e:5]
 </details>
 
 <a name="UnionAll"></a>
-## [UnionAll](<https://github.com/go-softwarelab/common/blob/main/pkg/seq2/joins.go#L24>)
+## [UnionAll](<https://github.com/go-softwarelab/common/blob/main/pkg/seq2/joins.go#L32>)
 
 ```go
 func UnionAll[K any, V any](seq1 iter.Seq2[K, V], seq2 iter.Seq2[K, V]) iter.Seq2[K, V]

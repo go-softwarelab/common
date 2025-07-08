@@ -7,9 +7,13 @@ import (
 )
 
 // Concat concatenates multiple sequences into a single sequence.
+// It also safely handles nil iterators treating them as an empty iterator.
 func Concat[E any](sequences ...iter.Seq[E]) iter.Seq[E] {
 	return func(yield func(E) bool) {
 		for _, seq := range sequences {
+			if seq == nil {
+				continue
+			}
 			for v := range seq {
 				if !yield(v) {
 					return

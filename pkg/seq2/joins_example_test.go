@@ -14,7 +14,7 @@ func ExampleConcat() {
 	second = seq2.SortByKeys(second)
 
 	// Concatenate two sequences
-	combined := seq2.Concat(first, second)
+	combined := seq2.Concat(first, second, nil)
 
 	result := seq2.CollectToMap(combined)
 	fmt.Println(result)
