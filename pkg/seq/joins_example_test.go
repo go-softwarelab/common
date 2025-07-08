@@ -10,7 +10,7 @@ func ExampleConcat() {
 	seq1 := seq.Of(1, 2, 3)
 	seq2 := seq.Of(4, 5, 6)
 
-	concatenated := seq.Concat(seq1, seq2)
+	concatenated := seq.Concat(seq1, seq2, nil)
 
 	result := seq.Collect(concatenated)
 
