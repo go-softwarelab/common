@@ -1277,6 +1277,332 @@ is.Type[bool](value3): bool(true) - bool value
 
 </details>
 
+<a name="Unique"></a>
+## [Unique](<https://github.com/go-softwarelab/common/blob/main/pkg/is/uniqueness.go#L8>)
+
+```go
+func Unique[E comparable, Collection ~[]E | iter.Seq[E]](collection Collection) bool
+```
+
+Unique returns true if all elements in the sequence are unique, and false if there are any duplicates. See: UniqueBy if it doesn't have comparable elements.
+
+<details>
+<summary>Example (Seq)</summary>
+
+
+Example for is.Unique with iter.Seq
+
+```go
+package main
+
+import (
+	"fmt"
+
+	"github.com/go-softwarelab/common/pkg/is"
+	"github.com/go-softwarelab/common/pkg/seq"
+)
+
+func main() {
+	seq1 := seq.Of(1, 2, 3)
+	seq2 := seq.Of(1, 1, 2)
+	fmt.Println(is.Unique[int](seq1), is.Unique[int](seq2))
+}
+```
+
+**Output**
+
+```
+true false
+```
+
+
+</details>
+
+<details>
+<summary>Example (Slice)</summary>
+
+
+Example for is.Unique with a slice
+
+```go
+package main
+
+import (
+	"fmt"
+
+	"github.com/go-softwarelab/common/pkg/is"
+)
+
+func main() {
+	slice1 := []int{1, 2, 3}
+	slice2 := []int{1, 1, 2}
+
+	fmt.Println(
+		is.Unique[int](slice1),
+		is.Unique[int](slice2),
+	)
+}
+```
+
+**Output**
+
+```
+true false
+```
+
+
+</details>
+
+<a name="UniqueBy"></a>
+## [UniqueBy](<https://github.com/go-softwarelab/common/blob/main/pkg/is/uniqueness.go#L48>)
+
+```go
+func UniqueBy[E any, Collection ~[]E | iter.Seq[E], K comparable](collection Collection, key func(E) K) bool
+```
+
+UniqueBy returns true if all elements in the sequence are unique according to the given key function, false if any duplicate key exists.
+
+<details>
+<summary>Example (Seq)</summary>
+
+
+Example for is.UniqueBy with iter.Seq
+
+```go
+package main
+
+import (
+	"fmt"
+
+	"github.com/go-softwarelab/common/pkg/is"
+	"github.com/go-softwarelab/common/pkg/seq"
+)
+
+func main() {
+	type item struct {
+		ID   int
+		Name string
+	}
+	seq1 := seq.Of(item{1, "a"}, item{2, "b"}, item{3, "c"})
+	seq2 := seq.Of(item{1, "a"}, item{2, "b"}, item{1, "c"})
+
+	key := func(i item) int { return i.ID }
+
+	fmt.Println(is.UniqueBy(seq1, key), is.UniqueBy(seq2, key))
+}
+```
+
+**Output**
+
+```
+true false
+```
+
+
+</details>
+
+<details>
+<summary>Example (Slice)</summary>
+
+
+Example for is.UniqueBy with a slice
+
+```go
+package main
+
+import (
+	"fmt"
+
+	"github.com/go-softwarelab/common/pkg/is"
+)
+
+func main() {
+	type item struct {
+		ID   int
+		Name string
+	}
+	s1 := []item{{1, "a"}, {2, "b"}, {3, "c"}}
+	s2 := []item{{1, "a"}, {2, "b"}, {1, "d"}}
+
+	key := func(i item) int { return i.ID }
+
+	fmt.Println(is.UniqueBy(s1, key), is.UniqueBy(s2, key))
+}
+```
+
+**Output**
+
+```
+true false
+```
+
+
+</details>
+
+<a name="UniqueSeq"></a>
+## [UniqueSeq](<https://github.com/go-softwarelab/common/blob/main/pkg/is/uniqueness.go#L22>)
+
+```go
+func UniqueSeq[E comparable](seq iter.Seq[E]) bool
+```
+
+UniqueSeq checks if all elements in the given sequence are unique. It returns true if all elements are distinct, otherwise false. The sequence must provide elements of a comparable type. See: UniqueSeqBy if it doesn't have comparable elements.§
+
+<details>
+<summary>Example</summary>
+
+
+Example for is.UniqueSeq
+
+```go
+package main
+
+import (
+	"fmt"
+
+	"github.com/go-softwarelab/common/pkg/is"
+	"github.com/go-softwarelab/common/pkg/seq"
+)
+
+func main() {
+	seq1 := seq.Of("foo", "bar")
+	seq2 := seq.Of("foo", "foo")
+	fmt.Println(is.UniqueSeq(seq1), is.UniqueSeq(seq2))
+}
+```
+
+**Output**
+
+```
+true false
+```
+
+
+</details>
+
+<a name="UniqueSeqBy"></a>
+## [UniqueSeqBy](<https://github.com/go-softwarelab/common/blob/main/pkg/is/uniqueness.go#L74>)
+
+```go
+func UniqueSeqBy[E any, K comparable](seq iter.Seq[E], key func(E) K) bool
+```
+
+UniqueSeqBy checks if all elements in the given iter.Seq are unique. It returns true if all elements are distinct, otherwise false.
+
+<details>
+<summary>Example</summary>
+
+
+Example for is.UniqueSeqBy
+
+```go
+package main
+
+import (
+	"fmt"
+
+	"github.com/go-softwarelab/common/pkg/is"
+	"github.com/go-softwarelab/common/pkg/seq"
+)
+
+func main() {
+	type T struct{ X int }
+	seq1 := seq.Of(T{1}, T{2}, T{3})
+	seq2 := seq.Of(T{1}, T{2}, T{1})
+	key := func(t T) int { return t.X }
+	fmt.Println(is.UniqueSeqBy(seq1, key), is.UniqueSeqBy(seq2, key))
+}
+```
+
+**Output**
+
+```
+true false
+```
+
+
+</details>
+
+<a name="UniqueSlice"></a>
+## [UniqueSlice](<https://github.com/go-softwarelab/common/blob/main/pkg/is/uniqueness.go#L35>)
+
+```go
+func UniqueSlice[E comparable](slice []E) bool
+```
+
+UniqueSlice checks if all elements in the provided slice are unique. Returns true if unique, otherwise false. See: UniqueSliceBy if it doesn't have comparable elements.
+
+<details>
+<summary>Example</summary>
+
+
+Example for is.UniqueSlice
+
+```go
+package main
+
+import (
+	"fmt"
+
+	"github.com/go-softwarelab/common/pkg/is"
+)
+
+func main() {
+	fmt.Println(is.UniqueSlice([]string{"x", "y"}), is.UniqueSlice([]string{"x", "x"}))
+}
+```
+
+**Output**
+
+```
+true false
+```
+
+
+</details>
+
+<a name="UniqueSliceBy"></a>
+## [UniqueSliceBy](<https://github.com/go-softwarelab/common/blob/main/pkg/is/uniqueness.go#L60>)
+
+```go
+func UniqueSliceBy[E any, K comparable](slice []E, key func(E) K) bool
+```
+
+UniqueSliceBy checks if all elements in the given slice are unique. It returns true if all elements are distinct, otherwise false.
+
+<details>
+<summary>Example</summary>
+
+
+Example for is.UniqueSliceBy
+
+```go
+package main
+
+import (
+	"fmt"
+
+	"github.com/go-softwarelab/common/pkg/is"
+)
+
+func main() {
+	type T struct{ X int }
+	s1 := []T{{1}, {2}, {3}}
+	s2 := []T{{1}, {2}, {1}}
+	key := func(t T) int { return t.X }
+	fmt.Println(is.UniqueSliceBy(s1, key), is.UniqueSliceBy(s2, key))
+}
+```
+
+**Output**
+
+```
+true false
+```
+
+
+</details>
+
 <a name="Zero"></a>
 ## [Zero](<https://github.com/go-softwarelab/common/blob/main/pkg/is/comparisons.go#L10>)
 
