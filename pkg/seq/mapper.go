@@ -1,6 +1,10 @@
 package seq
 
-import "iter"
+import (
+	"iter"
+
+	"github.com/go-softwarelab/common/pkg/to"
+)
 
 // Mapper is a function that maps a value of type T to a value of type R.
 type Mapper[T any, R any] = func(T) R
@@ -29,6 +33,17 @@ func MapOrErr[E any, R any](seq iter.Seq[E], mapper func(E) (R, error)) iter.Seq
 	}
 }
 
+// MapTo transforms an iter.Seq into iter.Seq2 using provided mapper function
+func MapTo[E any, R1 any, R2 any](seq iter.Seq[E], mapper func(E) (R1, R2)) iter.Seq2[R1, R2] {
+	return func(yield func(R1, R2) bool) {
+		for v := range seq {
+			if !yield(mapper(v)) {
+				break
+			}
+		}
+	}
+}
+
 // Select applies a mapper function to each element of the sequence.
 // SQL-like alias for Map
 func Select[E any, R any](seq iter.Seq[E], mapper Mapper[E, R]) iter.Seq[R] {
@@ -41,6 +56,59 @@ func FlatMap[E any, R any](seq iter.Seq[E], mapper Mapper[E, iter.Seq[R]]) iter.
 		for v := range seq {
 			for r := range mapper(v) {
 				if !yield(r) {
+					return
+				}
+			}
+		}
+	}
+}
+
+// FlatMapOrErr transforms each element of a sequence with a mapper, handling errors and flattening nested sequences.
+func FlatMapOrErr[E any, R any](seq iter.Seq[E], mapper func(E) (iter.Seq[R], error)) iter.Seq2[R, error] {
+	return func(yield func(R, error) bool) {
+		for v := range seq {
+			r, err := mapper(v)
+			if err != nil {
+				if !yield(to.ZeroValue[R](), err) {
+					return
+				}
+				continue
+			}
+			for rElem := range r {
+				if !yield(rElem, nil) {
+					return
+				}
+			}
+		}
+	}
+}
+
+// FlatMapSlices transforms each element of the sequence into a slice and flattens the results into a single sequence.
+func FlatMapSlices[E any, R any](seq iter.Seq[E], mapper func(E) []R) iter.Seq[R] {
+	return func(yield func(R) bool) {
+		for v := range seq {
+			for _, r := range mapper(v) {
+				if !yield(r) {
+					return
+				}
+			}
+		}
+	}
+}
+
+// FlatMapSlicesOrErr transforms elements of a sequence to slices and flattens them, propagating errors from the mapping function.
+func FlatMapSlicesOrErr[E any, R any](seq iter.Seq[E], mapper func(E) ([]R, error)) iter.Seq2[R, error] {
+	return func(yield func(R, error) bool) {
+		for v := range seq {
+			r, err := mapper(v)
+			if err != nil {
+				if !yield(to.ZeroValue[R](), err) {
+					return
+				}
+				continue
+			}
+			for _, rElem := range r {
+				if !yield(rElem, nil) {
 					return
 				}
 			}

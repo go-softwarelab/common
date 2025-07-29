@@ -284,7 +284,7 @@ func Count[E any](seq iter.Seq[E]) int
 Count returns the number of elements in the sequence.
 
 <a name="Cycle"></a>
-## [Cycle](<https://github.com/go-softwarelab/common/blob/main/pkg/seq/mapper.go#L78>)
+## [Cycle](<https://github.com/go-softwarelab/common/blob/main/pkg/seq/mapper.go#L146>)
 
 ```go
 func Cycle[E any](seq iter.Seq[E]) iter.Seq[E]
@@ -330,7 +330,7 @@ func main() {
 </details>
 
 <a name="CycleTimes"></a>
-## [CycleTimes](<https://github.com/go-softwarelab/common/blob/main/pkg/seq/mapper.go#L91>)
+## [CycleTimes](<https://github.com/go-softwarelab/common/blob/main/pkg/seq/mapper.go#L159>)
 
 ```go
 func CycleTimes[E any](seq iter.Seq[E], count int) iter.Seq[E]
@@ -732,7 +732,7 @@ func main() {
 </details>
 
 <a name="FlatMap"></a>
-## [FlatMap](<https://github.com/go-softwarelab/common/blob/main/pkg/seq/mapper.go#L39>)
+## [FlatMap](<https://github.com/go-softwarelab/common/blob/main/pkg/seq/mapper.go#L54>)
 
 ```go
 func FlatMap[E any, R any](seq iter.Seq[E], mapper Mapper[E, iter.Seq[R]]) iter.Seq[R]
@@ -778,8 +778,181 @@ func main() {
 
 </details>
 
+<a name="FlatMapOrErr"></a>
+## [FlatMapOrErr](<https://github.com/go-softwarelab/common/blob/main/pkg/seq/mapper.go#L67>)
+
+```go
+func FlatMapOrErr[E any, R any](seq iter.Seq[E], mapper func(E) (iter.Seq[R], error)) iter.Seq2[R, error]
+```
+
+FlatMapOrErr transforms each element of a sequence with a mapper, handling errors and flattening nested sequences.
+
+<details>
+<summary>Example</summary>
+
+
+
+
+```go
+package main
+
+import (
+	"fmt"
+	"iter"
+
+	"github.com/go-softwarelab/common/pkg/seq"
+)
+
+func main() {
+	input := seq.Of(1, 2, 3)
+
+	mapper := func(v int) (iter.Seq[string], error) {
+		if v > 2 {
+			return nil, fmt.Errorf("value %d is too large", v)
+		}
+		return seq.Of(fmt.Sprintf("Number_%d_1", v), fmt.Sprintf("Number_%d_2", v)), nil
+	}
+
+	results := seq.FlatMapOrErr(input, mapper)
+
+	for val, err := range results {
+		if err != nil {
+			fmt.Printf("Error: %v\n", err)
+		} else {
+			fmt.Printf("Mapped value: %s\n", val)
+		}
+	}
+
+}
+```
+
+**Output**
+
+```
+Mapped value: Number_1_1
+Mapped value: Number_1_2
+Mapped value: Number_2_1
+Mapped value: Number_2_2
+Error: value 3 is too large
+```
+
+
+</details>
+
+<a name="FlatMapSlices"></a>
+## [FlatMapSlices](<https://github.com/go-softwarelab/common/blob/main/pkg/seq/mapper.go#L87>)
+
+```go
+func FlatMapSlices[E any, R any](seq iter.Seq[E], mapper func(E) []R) iter.Seq[R]
+```
+
+FlatMapSlices transforms each element of the sequence into a slice and flattens the results into a single sequence.
+
+<details>
+<summary>Example</summary>
+
+
+
+
+```go
+package main
+
+import (
+	"fmt"
+
+	"github.com/go-softwarelab/common/pkg/seq"
+)
+
+func main() {
+	input := seq.Of(1, 2)
+
+	mapped := seq.FlatMapSlices(input, func(v int) []string {
+		return []string{
+			fmt.Sprintf("Number_%d_1", v),
+			fmt.Sprintf("Number_%d_2", v),
+		}
+	})
+
+	result := seq.Collect(mapped)
+
+	fmt.Println(result)
+}
+```
+
+**Output**
+
+```
+[Number_1_1 Number_1_2 Number_2_1 Number_2_2]
+```
+
+
+</details>
+
+<a name="FlatMapSlicesOrErr"></a>
+## [FlatMapSlicesOrErr](<https://github.com/go-softwarelab/common/blob/main/pkg/seq/mapper.go#L100>)
+
+```go
+func FlatMapSlicesOrErr[E any, R any](seq iter.Seq[E], mapper func(E) ([]R, error)) iter.Seq2[R, error]
+```
+
+FlatMapSlicesOrErr transforms elements of a sequence to slices and flattens them, propagating errors from the mapping function.
+
+<details>
+<summary>Example</summary>
+
+
+
+
+```go
+package main
+
+import (
+	"fmt"
+
+	"github.com/go-softwarelab/common/pkg/seq"
+)
+
+func main() {
+	input := seq.Of(1, 2, 3)
+
+	mapper := func(v int) ([]string, error) {
+		if v > 2 {
+			return nil, fmt.Errorf("value %d is too large", v)
+		}
+		return []string{
+			fmt.Sprintf("Number_%d_1", v),
+			fmt.Sprintf("Number_%d_2", v),
+		}, nil
+	}
+
+	results := seq.FlatMapSlicesOrErr(input, mapper)
+
+	for val, err := range results {
+		if err != nil {
+			fmt.Printf("Error: %v\n", err)
+		} else {
+			fmt.Printf("Mapped value: %s\n", val)
+		}
+	}
+
+}
+```
+
+**Output**
+
+```
+Mapped value: Number_1_1
+Mapped value: Number_1_2
+Mapped value: Number_2_1
+Mapped value: Number_2_2
+Error: value 3 is too large
+```
+
+
+</details>
+
 <a name="Flatten"></a>
-## [Flatten](<https://github.com/go-softwarelab/common/blob/main/pkg/seq/mapper.go#L52>)
+## [Flatten](<https://github.com/go-softwarelab/common/blob/main/pkg/seq/mapper.go#L120>)
 
 ```go
 func Flatten[Seq iter.Seq[iter.Seq[E]], E any](seq Seq) iter.Seq[E]
@@ -823,7 +996,7 @@ func main() {
 </details>
 
 <a name="FlattenSlices"></a>
-## [FlattenSlices](<https://github.com/go-softwarelab/common/blob/main/pkg/seq/mapper.go#L65>)
+## [FlattenSlices](<https://github.com/go-softwarelab/common/blob/main/pkg/seq/mapper.go#L133>)
 
 ```go
 func FlattenSlices[Seq iter.Seq[[]E], E any](seq Seq) iter.Seq[E]
@@ -1280,7 +1453,7 @@ func main() {
 </details>
 
 <a name="Map"></a>
-## [Map](<https://github.com/go-softwarelab/common/blob/main/pkg/seq/mapper.go#L9>)
+## [Map](<https://github.com/go-softwarelab/common/blob/main/pkg/seq/mapper.go#L13>)
 
 ```go
 func Map[E any, R any](seq iter.Seq[E], mapper Mapper[E, R]) iter.Seq[R]
@@ -1326,7 +1499,7 @@ func main() {
 </details>
 
 <a name="MapOrErr"></a>
-## [MapOrErr](<https://github.com/go-softwarelab/common/blob/main/pkg/seq/mapper.go#L21>)
+## [MapOrErr](<https://github.com/go-softwarelab/common/blob/main/pkg/seq/mapper.go#L25>)
 
 ```go
 func MapOrErr[E any, R any](seq iter.Seq[E], mapper func(E) (R, error)) iter.Seq2[R, error]
@@ -1379,6 +1552,54 @@ func main() {
 Mapped value: Number_1
 Mapped value: Number_2
 Error: value 3 is too large
+```
+
+
+</details>
+
+<a name="MapTo"></a>
+## [MapTo](<https://github.com/go-softwarelab/common/blob/main/pkg/seq/mapper.go#L37>)
+
+```go
+func MapTo[E any, R1 any, R2 any](seq iter.Seq[E], mapper func(E) (R1, R2)) iter.Seq2[R1, R2]
+```
+
+MapTo transforms an iter.Seq into iter.Seq2 using provided mapper function
+
+<details>
+<summary>Example</summary>
+
+
+
+
+```go
+package main
+
+import (
+	"fmt"
+
+	"github.com/go-softwarelab/common/pkg/seq"
+	"github.com/go-softwarelab/common/pkg/seq2"
+)
+
+func main() {
+	input := seq.Of(1, 2, 3)
+
+	mapped := seq.MapTo(input, func(v int) (int, string) {
+		return v, fmt.Sprintf("Number_%d", v)
+	})
+
+	result := seq2.CollectToMap(mapped)
+
+	fmt.Println(result)
+
+}
+```
+
+**Output**
+
+```
+map[1:Number_1 2:Number_2 3:Number_3]
 ```
 
 
@@ -2128,7 +2349,7 @@ func main() {
 </details>
 
 <a name="Select"></a>
-## [Select](<https://github.com/go-softwarelab/common/blob/main/pkg/seq/mapper.go#L34>)
+## [Select](<https://github.com/go-softwarelab/common/blob/main/pkg/seq/mapper.go#L49>)
 
 ```go
 func Select[E any, R any](seq iter.Seq[E], mapper Mapper[E, R]) iter.Seq[R]
@@ -2908,7 +3129,7 @@ type Consumer[E any] = func(E)
 ```
 
 <a name="Mapper"></a>
-## type [Mapper](<https://github.com/go-softwarelab/common/blob/main/pkg/seq/mapper.go#L6>)
+## type [Mapper](<https://github.com/go-softwarelab/common/blob/main/pkg/seq/mapper.go#L10>)
 
 Mapper is a function that maps a value of type T to a value of type R.
 
