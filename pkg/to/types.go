@@ -46,6 +46,15 @@ func ValueOr[T any](x *T, fallback T) T {
 	return *x
 }
 
+// ValueOrGet returns the pointer value or the fallback value from result of fallback function call.
+func ValueOrGet[T any](x *T, fallback func() T) T {
+	if x == nil {
+		return fallback()
+	}
+
+	return *x
+}
+
 // SliceOfPtr returns a slice of pointer copy of value.
 func SliceOfPtr[T any](collection []T) []*T {
 	ptrs := make([]*T, len(collection))

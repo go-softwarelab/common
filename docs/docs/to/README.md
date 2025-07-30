@@ -27,7 +27,7 @@ var ErrValueOutOfRange = fmt.Errorf("%w to convert", strconv.ErrRange)
 ```
 
 <a name="Any"></a>
-## [Any](<https://github.com/go-softwarelab/common/blob/main/pkg/to/types.go#L68>)
+## [Any](<https://github.com/go-softwarelab/common/blob/main/pkg/to/types.go#L77>)
 
 ```go
 func Any[T any](value T) any
@@ -2772,7 +2772,7 @@ func main() {
 </details>
 
 <a name="SliceOfAny"></a>
-## [SliceOfAny](<https://github.com/go-softwarelab/common/blob/main/pkg/to/types.go#L73>)
+## [SliceOfAny](<https://github.com/go-softwarelab/common/blob/main/pkg/to/types.go#L82>)
 
 ```go
 func SliceOfAny[T any](collection []T) []any
@@ -2817,7 +2817,7 @@ First element type: int
 </details>
 
 <a name="SliceOfPtr"></a>
-## [SliceOfPtr](<https://github.com/go-softwarelab/common/blob/main/pkg/to/types.go#L50>)
+## [SliceOfPtr](<https://github.com/go-softwarelab/common/blob/main/pkg/to/types.go#L59>)
 
 ```go
 func SliceOfPtr[T any](collection []T) []*T
@@ -2865,7 +2865,7 @@ Length: 3
 </details>
 
 <a name="SliceOfValue"></a>
-## [SliceOfValue](<https://github.com/go-softwarelab/common/blob/main/pkg/to/types.go#L59>)
+## [SliceOfValue](<https://github.com/go-softwarelab/common/blob/main/pkg/to/types.go#L68>)
 
 ```go
 func SliceOfValue[T any](collection []*T) []T
@@ -4535,6 +4535,54 @@ func main() {
 ```
 int(42)
 string("fallback")
+```
+
+
+</details>
+
+<a name="ValueOrGet"></a>
+## [ValueOrGet](<https://github.com/go-softwarelab/common/blob/main/pkg/to/types.go#L50>)
+
+```go
+func ValueOrGet[T any](x *T, fallback func() T) T
+```
+
+ValueOrGet returns the pointer value or the fallback value from result of fallback function call.
+
+<details>
+<summary>Example</summary>
+
+
+
+
+```go
+package main
+
+import (
+	"fmt"
+
+	"github.com/go-softwarelab/common/pkg/to"
+)
+
+func main() {
+	// Get value from a pointer
+	ptr := to.Ptr(42)
+	val := to.ValueOrGet(ptr, func() int { return 0 })
+	fmt.Printf("%T(%d)\n", val, val)
+
+	// Get fallback value from a nil pointer using fallback function
+	var nilPtr *string
+	strVal := to.ValueOrGet(nilPtr, func() string { return "computed fallback" })
+	fmt.Printf("%T(%q)\n", strVal, strVal)
+
+}
+```
+
+**Output**
+
+```
+int(42)
+string("computed fallback")
 ```
 
 
