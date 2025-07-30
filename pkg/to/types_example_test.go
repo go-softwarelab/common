@@ -113,6 +113,22 @@ func ExampleValueOr() {
 	// string("fallback")
 }
 
+func ExampleValueOrGet() {
+	// Get value from a pointer
+	ptr := to.Ptr(42)
+	val := to.ValueOrGet(ptr, func() int { return 0 })
+	fmt.Printf("%T(%d)\n", val, val)
+
+	// Get fallback value from a nil pointer using fallback function
+	var nilPtr *string
+	strVal := to.ValueOrGet(nilPtr, func() string { return "computed fallback" })
+	fmt.Printf("%T(%q)\n", strVal, strVal)
+
+	// Output:
+	// int(42)
+	// string("computed fallback")
+}
+
 func ExampleSliceOfPtr() {
 	// Convert a slice of values to a slice of pointers
 	values := []int{1, 2, 3}
