@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"strconv"
 
+	"github.com/go-softwarelab/common/pkg/is"
 	"github.com/go-softwarelab/common/pkg/types"
 )
 
@@ -20,4 +21,12 @@ func BoolFromString(value string) (bool, error) {
 // 0 is false, any other number is true.
 func BoolFromNumber[V types.Number](value V) bool {
 	return value != 0
+}
+
+// YesNo returns "yes" if the input value is non-zero and "no" if the input value is zero.
+func YesNo[T comparable](value T) string {
+	if is.Empty(value) {
+		return "no"
+	}
+	return "yes"
 }
