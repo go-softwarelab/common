@@ -187,7 +187,7 @@ ensurePercentage(150) = 100
 </details>
 
 <a name="BoolFromNumber"></a>
-## [BoolFromNumber](<https://github.com/go-softwarelab/common/blob/main/pkg/to/booleans.go#L21>)
+## [BoolFromNumber](<https://github.com/go-softwarelab/common/blob/main/pkg/to/booleans.go#L22>)
 
 ```go
 func BoolFromNumber[V types.Number](value V) bool
@@ -237,7 +237,7 @@ func main() {
 </details>
 
 <a name="BoolFromString"></a>
-## [BoolFromString](<https://github.com/go-softwarelab/common/blob/main/pkg/to/booleans.go#L11>)
+## [BoolFromString](<https://github.com/go-softwarelab/common/blob/main/pkg/to/booleans.go#L12>)
 
 ```go
 func BoolFromString(value string) (bool, error)
@@ -294,7 +294,7 @@ not-a-bool -> false true
 </details>
 
 <a name="CamelCase"></a>
-## [CamelCase](<https://github.com/go-softwarelab/common/blob/main/pkg/to/strings.go#L90>)
+## [CamelCase](<https://github.com/go-softwarelab/common/blob/main/pkg/to/strings.go#L119>)
 
 ```go
 func CamelCase(str string) string
@@ -343,7 +343,7 @@ string("pascalCaseString")
 </details>
 
 <a name="Capitalized"></a>
-## [Capitalized](<https://github.com/go-softwarelab/common/blob/main/pkg/to/strings.go#L121>)
+## [Capitalized](<https://github.com/go-softwarelab/common/blob/main/pkg/to/strings.go#L150>)
 
 ```go
 func Capitalized(str string) string
@@ -392,7 +392,7 @@ string("Multiple. Sentences. Here.")
 </details>
 
 <a name="Ellipsis"></a>
-## [Ellipsis](<https://github.com/go-softwarelab/common/blob/main/pkg/to/strings.go#L139>)
+## [Ellipsis](<https://github.com/go-softwarelab/common/blob/main/pkg/to/strings.go#L168>)
 
 ```go
 func Ellipsis(str string, length int) string
@@ -441,7 +441,7 @@ string("...")
 </details>
 
 <a name="EllipsisWith"></a>
-## [EllipsisWith](<https://github.com/go-softwarelab/common/blob/main/pkg/to/strings.go#L155>)
+## [EllipsisWith](<https://github.com/go-softwarelab/common/blob/main/pkg/to/strings.go#L184>)
 
 ```go
 func EllipsisWith(length int) func(str string) string
@@ -533,6 +533,110 @@ func main() {
 int(0)
 string("")
 bool(false)
+```
+
+
+</details>
+
+<a name="Enum"></a>
+## [Enum](<https://github.com/go-softwarelab/common/blob/main/pkg/to/enum.go#L11>)
+
+```go
+func Enum[V ~string, T ~string](value V, enumValues ...T) (T, error)
+```
+
+Enum converts the provided value to the available enum value in a case\-insensitive manner. In case when the provided value doesn't match any of the enums, it will return an empty string as the enum and error. This is a case\-insensitive version if you prefer to be more strict \(value matches exactly one of the enums\), use to.EnumStrict.
+
+<details>
+<summary>Example</summary>
+
+
+
+
+```go
+package main
+
+import (
+	"fmt"
+
+	"github.com/go-softwarelab/common/pkg/to"
+)
+
+func main() {
+	type FooBarEnum string
+	const (
+		Foo FooBarEnum = "foo"
+		Bar FooBarEnum = "bar"
+	)
+
+	// Case-insensitive match succeeds
+	v, err := to.Enum("FoO", Foo, Bar)
+	fmt.Printf("%q, Error: %v\n", v, err)
+
+	// No match found -> returns empty string and an error
+	v, err = to.Enum("baz", Foo, Bar)
+	fmt.Printf("%q, Error: %v\n", v, err)
+
+}
+```
+
+**Output**
+
+```
+"foo", Error: <nil>
+"", Error: invalid value: baz doesn't match enum values [foo bar]
+```
+
+
+</details>
+
+<a name="EnumStrict"></a>
+## [EnumStrict](<https://github.com/go-softwarelab/common/blob/main/pkg/to/enum.go#L23>)
+
+```go
+func EnumStrict[V ~string, T ~string](value V, enumValues ...T) (T, error)
+```
+
+EnumStrict converts the provided value to the available enum value in a strict manner \(value matches exactly one of the enums\). In case when the provided value doesn't match any of the enums, it will return an empty string as the enum and error. This is a strict version if you prefer to be more flexible about value \(value matches one of the enums in case\-insensitive manner\), use to.Enum.
+
+<details>
+<summary>Example</summary>
+
+
+
+
+```go
+package main
+
+import (
+	"fmt"
+
+	"github.com/go-softwarelab/common/pkg/to"
+)
+
+func main() {
+	type FooBarEnum string
+	const (
+		Foo FooBarEnum = "foo"
+		Bar FooBarEnum = "bar"
+	)
+
+	// Case-sensitive match succeeds
+	v, err := to.EnumStrict("foo", Foo, Bar)
+	fmt.Printf("%q, Error: %v\n", v, err)
+
+	// Case-sensitive mismatch -> returns empty string and an error
+	v, err = to.EnumStrict("FOO", Foo, Bar)
+	fmt.Printf("%q, Error: %v\n", v, err)
+
+}
+```
+
+**Output**
+
+```
+"foo", Error: <nil>
+"", Error: invalid value: FOO doesn't match enum values [foo bar]
 ```
 
 
@@ -2336,7 +2440,7 @@ int(42), Error: <nil>
 </details>
 
 <a name="KebabCase"></a>
-## [KebabCase](<https://github.com/go-softwarelab/common/blob/main/pkg/to/strings.go#L103>)
+## [KebabCase](<https://github.com/go-softwarelab/common/blob/main/pkg/to/strings.go#L132>)
 
 ```go
 func KebabCase(str string) string
@@ -2635,7 +2739,7 @@ Debug: true
 </details>
 
 <a name="PascalCase"></a>
-## [PascalCase](<https://github.com/go-softwarelab/common/blob/main/pkg/to/strings.go#L81>)
+## [PascalCase](<https://github.com/go-softwarelab/common/blob/main/pkg/to/strings.go#L110>)
 
 ```go
 func PascalCase(str string) string
@@ -2730,7 +2834,7 @@ func main() {
 </details>
 
 <a name="Sentences"></a>
-## [Sentences](<https://github.com/go-softwarelab/common/blob/main/pkg/to/strings.go#L62>)
+## [Sentences](<https://github.com/go-softwarelab/common/blob/main/pkg/to/strings.go#L91>)
 
 ```go
 func Sentences(str string) []string
@@ -2913,7 +3017,7 @@ int(0) (zero value from nil)
 </details>
 
 <a name="SnakeCase"></a>
-## [SnakeCase](<https://github.com/go-softwarelab/common/blob/main/pkg/to/strings.go#L112>)
+## [SnakeCase](<https://github.com/go-softwarelab/common/blob/main/pkg/to/strings.go#L141>)
 
 ```go
 func SnakeCase(str string) string
@@ -2961,8 +3065,120 @@ string("pascal_case_string")
 
 </details>
 
+<a name="String"></a>
+## [String](<https://github.com/go-softwarelab/common/blob/main/pkg/to/strings.go#L28>)
+
+```go
+func String[T any](value T) string
+```
+
+String converts any value to string. It takes into account some interfaces like: encoding.TextMarshaler
+
+```
+if it can produce text without returning an error it will be the preferred result.
+if it returns the error, it will fallback to other methods to convert to string.
+The support for encoding.TextMarshaler is experimental and may change in the future
+```
+
+fmt.Stringer \- is preferred over default string conversion
+
+<details>
+<summary>Example</summary>
+
+
+
+
+```go
+package main
+
+import (
+	"fmt"
+
+	"github.com/go-softwarelab/common/pkg/to"
+)
+
+type exampleStringer string
+
+func (s exampleStringer) String() string {
+	return "stringer-" + string(s)
+}
+
+type exampleTextMarshaler string
+
+func (m exampleTextMarshaler) MarshalText() ([]byte, error) {
+	if string(m) != "hello" {
+		return nil, fmt.Errorf("example should allows only hello")
+	}
+	return []byte("text-marshaler-" + string(m)), nil
+}
+
+func (m exampleTextMarshaler) String() string {
+	return "fallback-on-fail-marshal-text"
+}
+
+func main() {
+	var str string
+
+	// String type
+	str = to.String("hello")
+	fmt.Printf("%q\n", str)
+
+	// Custom string type
+	type CustomString string
+	str = to.String(CustomString("hello-custom"))
+	fmt.Printf("%q\n", str)
+
+	// fmt.Stringer
+	str = to.String(exampleStringer("hello"))
+	fmt.Printf("%q\n", str)
+
+	// TextMarshaler
+	str = to.String(exampleTextMarshaler("hello"))
+	fmt.Printf("%q\n", str)
+
+	// TextMarshaler with error when marshaling will fallback to other methods of stringinfying
+	// This is experimental behavior and may change in the future
+	str = to.String(exampleTextMarshaler("failing-marshal-text"))
+	fmt.Printf("%q\n", str)
+
+	// Integer type
+	str = to.String(42)
+	fmt.Printf("%q\n", str)
+
+	// Unsigned integer type
+	str = to.String(uint(123))
+	fmt.Printf("%q\n", str)
+
+	// Float type
+	str = to.String(3.14159)
+	fmt.Printf("%q\n", str)
+
+	// Boolean type
+	str = to.String(true)
+	fmt.Printf("%q\n", str)
+
+}
+```
+
+**Output**
+
+```
+"hello"
+"hello-custom"
+"stringer-hello"
+"text-marshaler-hello"
+"fallback-on-fail-marshal-text"
+"42"
+"123"
+"3.14159"
+"true"
+```
+
+
+</details>
+
 <a name="StringFromBool"></a>
-## [StringFromBool](<https://github.com/go-softwarelab/common/blob/main/pkg/to/strings.go#L30>)
+## [StringFromBool](<https://github.com/go-softwarelab/common/blob/main/pkg/to/strings.go#L59>)
 
 ```go
 func StringFromBool(value bool) string
@@ -3007,7 +3223,7 @@ string("false")
 </details>
 
 <a name="StringFromBytes"></a>
-## [StringFromBytes](<https://github.com/go-softwarelab/common/blob/main/pkg/to/strings.go#L35>)
+## [StringFromBytes](<https://github.com/go-softwarelab/common/blob/main/pkg/to/strings.go#L64>)
 
 ```go
 func StringFromBytes(value []byte) string
@@ -3048,7 +3264,7 @@ string("hello")
 </details>
 
 <a name="StringFromFloat"></a>
-## [StringFromFloat](<https://github.com/go-softwarelab/common/blob/main/pkg/to/strings.go#L25>)
+## [StringFromFloat](<https://github.com/go-softwarelab/common/blob/main/pkg/to/strings.go#L54>)
 
 ```go
 func StringFromFloat[V types.Float](value V) string
@@ -3089,7 +3305,7 @@ string("3.141590")
 </details>
 
 <a name="StringFromInteger"></a>
-## [StringFromInteger](<https://github.com/go-softwarelab/common/blob/main/pkg/to/strings.go#L20>)
+## [StringFromInteger](<https://github.com/go-softwarelab/common/blob/main/pkg/to/strings.go#L49>)
 
 ```go
 func StringFromInteger[V types.Integer](value V) string
@@ -3130,7 +3346,7 @@ string("42")
 </details>
 
 <a name="StringFromRune"></a>
-## [StringFromRune](<https://github.com/go-softwarelab/common/blob/main/pkg/to/strings.go#L40>)
+## [StringFromRune](<https://github.com/go-softwarelab/common/blob/main/pkg/to/strings.go#L69>)
 
 ```go
 func StringFromRune(value rune) string
@@ -4589,7 +4805,7 @@ string("computed fallback")
 </details>
 
 <a name="Words"></a>
-## [Words](<https://github.com/go-softwarelab/common/blob/main/pkg/to/strings.go#L45>)
+## [Words](<https://github.com/go-softwarelab/common/blob/main/pkg/to/strings.go#L74>)
 
 ```go
 func Words(str string) []string
@@ -4636,6 +4852,64 @@ func main() {
 []string{"Pascal", "Case", "String"}
 []string{"Int", "8", "Value"}
 []string{"hello", "world"}
+```
+
+
+</details>
+
+<a name="YesNo"></a>
+## [YesNo](<https://github.com/go-softwarelab/common/blob/main/pkg/to/booleans.go#L27>)
+
+```go
+func YesNo[T comparable](value T) string
+```
+
+YesNo returns "yes" if the input value is non\-zero and "no" if the input value is zero.
+
+<details>
+<summary>Example</summary>
+
+
+
+
+```go
+package main
+
+import (
+	"fmt"
+
+	"github.com/go-softwarelab/common/pkg/to"
+)
+
+func main() {
+	type SomeStruct struct {
+		Field string
+	}
+
+	// Converting various values to "yes"/"no" string
+	fmt.Println("empty string ->", to.YesNo(""))
+	fmt.Println("non-empty string ->", to.YesNo("hello"))
+	fmt.Println("zero ->", to.YesNo(0))
+	fmt.Println("positive number ->", to.YesNo(42))
+	fmt.Println("negative number ->", to.YesNo(-42))
+	fmt.Println("nil struct ->", to.YesNo((*SomeStruct)(nil)))
+	fmt.Println("empty struct ->", to.YesNo(SomeStruct{}))
+	fmt.Println("filled struct ->", to.YesNo(SomeStruct{Field: "hello"}))
+
+}
+```
+
+**Output**
+
+```
+empty string -> no
+non-empty string -> yes
+zero -> no
+positive number -> yes
+negative number -> yes
+nil struct -> no
+empty struct -> no
+filled struct -> yes
 ```
 
 
