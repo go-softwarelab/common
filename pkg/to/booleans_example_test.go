@@ -48,3 +48,29 @@ func ExampleBoolFromNumber() {
 	// 0.0 -> false
 	// 0.1 -> true
 }
+
+func ExampleYesNo() {
+	type SomeStruct struct {
+		Field string
+	}
+
+	// Converting various values to "yes"/"no" string
+	fmt.Println("empty string ->", to.YesNo(""))
+	fmt.Println("non-empty string ->", to.YesNo("hello"))
+	fmt.Println("zero ->", to.YesNo(0))
+	fmt.Println("positive number ->", to.YesNo(42))
+	fmt.Println("negative number ->", to.YesNo(-42))
+	fmt.Println("nil struct ->", to.YesNo((*SomeStruct)(nil)))
+	fmt.Println("empty struct ->", to.YesNo(SomeStruct{}))
+	fmt.Println("filled struct ->", to.YesNo(SomeStruct{Field: "hello"}))
+
+	// Output:
+	// empty string -> no
+	// non-empty string -> yes
+	// zero -> no
+	// positive number -> yes
+	// negative number -> yes
+	// nil struct -> no
+	// empty struct -> no
+	// filled struct -> yes
+}

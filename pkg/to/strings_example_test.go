@@ -6,6 +6,78 @@ import (
 	"github.com/go-softwarelab/common/pkg/to"
 )
 
+type exampleStringer string
+
+func (s exampleStringer) String() string {
+	return "stringer-" + string(s)
+}
+
+type exampleTextMarshaler string
+
+func (m exampleTextMarshaler) MarshalText() ([]byte, error) {
+	if string(m) != "hello" {
+		return nil, fmt.Errorf("example should allows only hello")
+	}
+	return []byte("text-marshaler-" + string(m)), nil
+}
+
+func (m exampleTextMarshaler) String() string {
+	return "fallback-on-fail-marshal-text"
+}
+
+func ExampleString() {
+	var str string
+
+	// String type
+	str = to.String("hello")
+	fmt.Printf("%q\n", str)
+
+	// Custom string type
+	type CustomString string
+	str = to.String(CustomString("hello-custom"))
+	fmt.Printf("%q\n", str)
+
+	// fmt.Stringer
+	str = to.String(exampleStringer("hello"))
+	fmt.Printf("%q\n", str)
+
+	// TextMarshaler
+	str = to.String(exampleTextMarshaler("hello"))
+	fmt.Printf("%q\n", str)
+
+	// TextMarshaler with error when marshaling will fallback to other methods of stringinfying
+	// This is experimental behavior and may change in the future
+	str = to.String(exampleTextMarshaler("failing-marshal-text"))
+	fmt.Printf("%q\n", str)
+
+	// Integer type
+	str = to.String(42)
+	fmt.Printf("%q\n", str)
+
+	// Unsigned integer type
+	str = to.String(uint(123))
+	fmt.Printf("%q\n", str)
+
+	// Float type
+	str = to.String(3.14159)
+	fmt.Printf("%q\n", str)
+
+	// Boolean type
+	str = to.String(true)
+	fmt.Printf("%q\n", str)
+
+	// Output:
+	// "hello"
+	// "hello-custom"
+	// "stringer-hello"
+	// "text-marshaler-hello"
+	// "fallback-on-fail-marshal-text"
+	// "42"
+	// "123"
+	// "3.14159"
+	// "true"
+}
+
 func ExampleStringFromInteger() {
 	// Integer to string conversion
 	val := to.StringFromInteger(42)

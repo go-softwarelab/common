@@ -16,6 +16,35 @@ var (
 	splitNumberLetterReg = regexp.MustCompile(`([0-9])([a-zA-Z])`)
 )
 
+// String converts any value to string.
+// It takes into account some interfaces like:
+// encoding.TextMarshaler
+//
+//	if it can produce text without returning an error it will be the preferred result.
+//	if it returns the error, it will fallback to other methods to convert to string.
+//	The support for encoding.TextMarshaler is experimental and may change in the future
+//
+// fmt.Stringer - is preferred over default string conversion
+func String[T any](value T) string {
+	var anyValue = any(value)
+	if marshaler, ok := anyValue.(interface {
+		MarshalText() (text []byte, err error)
+	}); ok {
+		text, err := marshaler.MarshalText()
+		if err == nil {
+			return string(text)
+		}
+		// if error, try other methods to convert to string
+	}
+	switch v := any(value).(type) {
+	case string:
+		return v
+	case interface{ String() string }:
+		return v.String()
+	}
+	return fmt.Sprintf("%v", value)
+}
+
 // StringFromInteger will convert any integer to string
 func StringFromInteger[V types.Integer](value V) string {
 	return fmt.Sprintf("%d", value)
