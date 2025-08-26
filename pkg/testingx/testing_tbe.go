@@ -146,7 +146,7 @@ func (e *E) Skipped() bool {
 // TempDir is a testing.TB TempDir method implementation for runnable examples.
 func (e *E) TempDir() string {
 	// TODO implement me
-	panic("Setenv not implemented yet")
+	panic("TempDir not implemented yet")
 }
 
 // Context is a testing.TB Context method implementation for runnable examples.

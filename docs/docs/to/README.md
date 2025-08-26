@@ -3107,7 +3107,7 @@ type exampleTextMarshaler string
 
 func (m exampleTextMarshaler) MarshalText() ([]byte, error) {
 	if string(m) != "hello" {
-		return nil, fmt.Errorf("example should allows only hello")
+		return nil, fmt.Errorf("this example allows only hello value")
 	}
 	return []byte("text-marshaler-" + string(m)), nil
 }
@@ -3136,7 +3136,7 @@ func main() {
 	str = to.String(exampleTextMarshaler("hello"))
 	fmt.Printf("%q\n", str)
 
-	// TextMarshaler with error when marshaling will fallback to other methods of stringinfying
+	// TextMarshaler with error when marshaling will fallback to other methods of stringifying
 	// This is experimental behavior and may change in the future
 	str = to.String(exampleTextMarshaler("failing-marshal-text"))
 	fmt.Printf("%q\n", str)
