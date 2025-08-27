@@ -3,14 +3,18 @@ package is
 import "reflect"
 
 // Nil checks if a value is nil.
-func Nil(value any) bool {
+func Nil[T any](value T) bool {
+	return isNil(value)
+}
+
+func isNil(value any) bool {
 	defer func() { recover() }() //nolint:errcheck
 	return value == nil || reflect.ValueOf(value).IsNil()
 }
 
 // NotNil checks if a value is not nil.
-func NotNil(value any) bool {
-	return !Nil(value)
+func NotNil[T any](value T) bool {
+	return !isNil(value)
 }
 
 // Empty checks if a value is zero value.

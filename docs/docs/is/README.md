@@ -186,7 +186,7 @@ is.BlankString("hello"): bool(false) - non-blank string
 </details>
 
 <a name="Empty"></a>
-## [Empty](<https://github.com/go-softwarelab/common/blob/main/pkg/is/types.go#L17>)
+## [Empty](<https://github.com/go-softwarelab/common/blob/main/pkg/is/types.go#L21>)
 
 ```go
 func Empty[T comparable](value T) bool
@@ -812,7 +812,7 @@ isFreezing(0.0): false (0.0°C at freezing point)
 ## [Nil](<https://github.com/go-softwarelab/common/blob/main/pkg/is/types.go#L6>)
 
 ```go
-func Nil(value any) bool
+func Nil[T any](value T) bool
 ```
 
 Nil checks if a value is nil.
@@ -828,6 +828,7 @@ package main
 
 import (
 	"fmt"
+	"io"
 
 	"github.com/go-softwarelab/common/pkg/is"
 )
@@ -837,7 +838,7 @@ func main() {
 	fmt.Println("Checking for nil values:")
 
 	var nilSlice []int
-	fmt.Printf("is.Nil(nil): %T(%v) - literal nil\n", is.Nil(nil), is.Nil(nil))
+	fmt.Printf("is.Nil[io.Reader](nil): %T(%v) - literal nil with generic interface\n", is.Nil[io.Reader](nil), is.Nil[io.Reader](nil))
 	fmt.Printf("is.Nil(nilSlice): %T(%v) - nil slice\n", is.Nil(nilSlice), is.Nil(nilSlice))
 
 	nonNilSlice := make([]int, 0)
@@ -853,7 +854,7 @@ func main() {
 
 ```
 Checking for nil values:
-is.Nil(nil): bool(true) - literal nil
+is.Nil[io.Reader](nil): bool(true) - literal nil with generic interface
 is.Nil(nilSlice): bool(true) - nil slice
 is.Nil(nonNilSlice): bool(false) - empty but initialized slice
 is.Nil(nilMap): bool(true) - nil map
@@ -963,7 +964,7 @@ is.NotBlankString(""): bool(false) - empty string
 </details>
 
 <a name="NotEmpty"></a>
-## [NotEmpty](<https://github.com/go-softwarelab/common/blob/main/pkg/is/types.go#L23>)
+## [NotEmpty](<https://github.com/go-softwarelab/common/blob/main/pkg/is/types.go#L27>)
 
 ```go
 func NotEmpty[T comparable](value T) bool
@@ -1112,10 +1113,10 @@ is.NotEqual("hello", "hello"): false (same strings)
 </details>
 
 <a name="NotNil"></a>
-## [NotNil](<https://github.com/go-softwarelab/common/blob/main/pkg/is/types.go#L12>)
+## [NotNil](<https://github.com/go-softwarelab/common/blob/main/pkg/is/types.go#L16>)
 
 ```go
-func NotNil(value any) bool
+func NotNil[T any](value T) bool
 ```
 
 NotNil checks if a value is not nil.
@@ -1131,6 +1132,7 @@ package main
 
 import (
 	"fmt"
+	"io"
 
 	"github.com/go-softwarelab/common/pkg/is"
 )
@@ -1145,7 +1147,7 @@ func main() {
 	fmt.Printf("is.NotNil(nonNilSlice): %T(%v) - empty but initialized slice\n", is.NotNil(nonNilSlice), is.NotNil(nonNilSlice))
 	fmt.Printf("is.NotNil(nilSlice): %T(%v) - nil slice\n", is.NotNil(nilSlice), is.NotNil(nilSlice))
 	fmt.Printf("is.NotNil(\"hello\"): %T(%v) - string value\n", is.NotNil("hello"), is.NotNil("hello"))
-	fmt.Printf("is.NotNil(nil): %T(%v) - literal nil\n", is.NotNil(nil), is.NotNil(nil))
+	fmt.Printf("is.NotNil[io.Reader](nil): %T(%v) - literal nil with generic interface\n", is.NotNil[io.Reader](nil), is.NotNil[io.Reader](nil))
 
 }
 ```
@@ -1157,7 +1159,7 @@ Checking for non-nil values:
 is.NotNil(nonNilSlice): bool(true) - empty but initialized slice
 is.NotNil(nilSlice): bool(false) - nil slice
 is.NotNil("hello"): bool(true) - string value
-is.NotNil(nil): bool(false) - literal nil
+is.NotNil[io.Reader](nil): bool(false) - literal nil with generic interface
 ```
 
 
@@ -1221,7 +1223,7 @@ isNotPositiveWithError(-3): bool(true), err: <nil> - negative number
 </details>
 
 <a name="Type"></a>
-## [Type](<https://github.com/go-softwarelab/common/blob/main/pkg/is/types.go#L28>)
+## [Type](<https://github.com/go-softwarelab/common/blob/main/pkg/is/types.go#L32>)
 
 ```go
 func Type[T any](value any) bool
