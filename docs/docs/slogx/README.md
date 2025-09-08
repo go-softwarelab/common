@@ -37,7 +37,7 @@ const LevelNone slog.Level = math.MaxInt
 ```
 
 <a name="Child"></a>
-## [Child](<https://github.com/go-softwarelab/common/blob/main/pkg/slogx/loggers.go#L126>)
+## [Child](<https://github.com/go-softwarelab/common/blob/main/pkg/slogx/loggers.go#L127>)
 
 ```go
 func Child(logger *slog.Logger, serviceName string) *slog.Logger
@@ -46,7 +46,7 @@ func Child(logger *slog.Logger, serviceName string) *slog.Logger
 Child returns a new logger with the specified service name added to its attributes. If the provided logger is nil, it uses the default slog logger as the base.
 
 <a name="ChildForComponent"></a>
-## [ChildForComponent](<https://github.com/go-softwarelab/common/blob/main/pkg/slogx/loggers.go#L135>)
+## [ChildForComponent](<https://github.com/go-softwarelab/common/blob/main/pkg/slogx/loggers.go#L136>)
 
 ```go
 func ChildForComponent(logger *slog.Logger, componentName string) *slog.Logger
@@ -64,7 +64,7 @@ func Component(componentName string) slog.Attr
 Component creates a slog.Attr with the predefined ComponentKey and the given componentName. This is a conventional attribute for marking loggers for components in an application. It is strongly recommended to use slogx.Service instead of this function. However, if you need to distinguish components \(such as library tools\) from services, this function can be useful.
 
 <a name="DefaultIfNil"></a>
-## [DefaultIfNil](<https://github.com/go-softwarelab/common/blob/main/pkg/slogx/loggers.go#L117>)
+## [DefaultIfNil](<https://github.com/go-softwarelab/common/blob/main/pkg/slogx/loggers.go#L118>)
 
 ```go
 func DefaultIfNil(logger *slog.Logger) *slog.Logger
@@ -493,6 +493,48 @@ func main() {
 
 	logger := slogx.NewTestLogger(t, skipTimeInLogOutputForExamplePurposes)
 	logger.Info("test")
+	logger.Debug("test logger is by default at DEBUG level")
+
+}
+```
+
+**Output**
+
+```
+level=INFO msg=test
+
+level=DEBUG msg="test logger is by default at DEBUG level"
+```
+
+
+</details>
+
+<details>
+<summary>Example (With Level)</summary>
+
+
+
+
+```go
+package main
+
+import (
+	"log/slog"
+
+	"github.com/go-softwarelab/common/pkg/slogx"
+	"github.com/go-softwarelab/common/pkg/testingx"
+)
+
+var skipTimeInLogOutputForExamplePurposes = slogx.WithFormat(slogx.TextWithoutTimeFormat)
+
+func main() {
+	// We're simulating a test here in example.
+	t := &testingx.E{Verbose: true}
+
+	logger := slogx.NewTestLogger(t, skipTimeInLogOutputForExamplePurposes, slogx.WithLevel(slog.LevelInfo))
+	logger.Info("test")
+	// This debug message will be filtered out at INFO level.
+	logger.Debug("test logger is by default at DEBUG level")
 
 }
 ```

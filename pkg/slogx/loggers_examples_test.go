@@ -23,6 +23,22 @@ func ExampleNewTestLogger() {
 
 	logger := slogx.NewTestLogger(t, skipTimeInLogOutputForExamplePurposes)
 	logger.Info("test")
+	logger.Debug("test logger is by default at DEBUG level")
+
+	// Output:
+	// level=INFO msg=test
+	//
+	// level=DEBUG msg="test logger is by default at DEBUG level"
+}
+
+func ExampleNewTestLogger_withLevel() {
+	// We're simulating a test here in example.
+	t := &testingx.E{Verbose: true}
+
+	logger := slogx.NewTestLogger(t, skipTimeInLogOutputForExamplePurposes, slogx.WithLevel(slog.LevelInfo))
+	logger.Info("test")
+	// This debug message will be filtered out at INFO level.
+	logger.Debug("test logger is by default at DEBUG level")
 
 	// Output:
 	// level=INFO msg=test

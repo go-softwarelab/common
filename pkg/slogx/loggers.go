@@ -98,8 +98,9 @@ func NewLoggerWithManagedLevel(level LogLevel) (*slog.Logger, *LogLevelManager) 
 // NewTestLogger creates a new logger instance configured for usage in tests.
 // It writes log output through the provided testing.TB interface with debug level enabled.
 func NewTestLogger(t TestingTBOutput, opts ...func(options *NewLoggerOptions)) *slog.Logger {
-	opts = append(opts, withTBWritter(t))
-	return NewLogger(opts...)
+	loggerOpts := append([]func(options *NewLoggerOptions){WithLevel(slog.LevelDebug)}, opts...)
+	loggerOpts = append(loggerOpts, withTBWritter(t))
+	return NewLogger(loggerOpts...)
 }
 
 func withTBWritter(t TestingTBOutput) func(*NewLoggerOptions) {
