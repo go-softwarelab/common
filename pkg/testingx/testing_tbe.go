@@ -3,6 +3,7 @@ package testingx
 import (
 	"context"
 	"fmt"
+	"testing"
 )
 
 // AssertTB is a subinterface of testing.TB that fulfills the needs of assert package from testify library, but also includes the Helper method.
@@ -60,6 +61,7 @@ type TB interface {
 }
 
 var _ TB = (*E)(nil)
+var _ testing.TB = (*E)(nil)
 
 // E is emulating a testing.TB for runnable examples.
 // It is useful to show usage of the library elements dedicated to tests, how they can be used.
@@ -69,6 +71,9 @@ var _ TB = (*E)(nil)
 // WARNING: This struct is still under development, and still some parts are not implemented completely.
 type E struct {
 	Verbose bool
+	// This is a hack to make it compatible with testing.TB,
+	// it shouldn't be ever instantiated, as we're overriding all the methods needed.
+	*testing.T
 }
 
 // Cleanup is a testing.TB Cleanup method implementation for runnable examples.
